@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">tomkins-pos</string>
+    <string name="setting_key_latest_download_date">latest_download_date</string>
+    <string name="session_key_username">username</string>
+    <string name="session_key_password">password</string>
+    <string name="setting_key_server_config">server_config</string>
 </resources>
