@@ -18,7 +18,9 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        maven {
+            url "https://jitpack.io"
+        }
     }
 }
 
@@ -64,4 +66,6 @@ ext {
     slidingUpPanelVersion = '3.4.0'
     multiDexVersion = '1.0.3'
     lottieVersion = '3.1.0'
+    passwordEditVersion = '0.8'
+    spinKitVersion = '1.2.0'
 }

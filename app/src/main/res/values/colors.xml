@@ -3,4 +3,8 @@
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#42a316</color>
     <color name="colorAccent">#e2fcd3</color>
+
+    <color name="grey_lines">#C6C7C6</color>
+    <color name="hint_color">#595959</color>
+    <color name="greyish_brown">#595959</color>
 </resources>
