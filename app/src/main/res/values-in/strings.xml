@@ -23,4 +23,8 @@
     <string name="scan_flash_on">On</string>
     <string name="sale_confirm">Confirm</string>
     <string name="sale_total">Total</string>
+    <string name="report_recents_sale">Recents Sale</string>
+    <string name="report_view_all">View All</string>
+    <string name="sale_success">Transaction success</string>
+    <string name="sale_scan_again">Scan Again</string>
 </resources>

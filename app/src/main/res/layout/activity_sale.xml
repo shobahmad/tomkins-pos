@@ -17,26 +17,57 @@
             app:title="@{sale.productId}"
             />
 
-
-       <Button
-           android:id="@+id/buttonConfirm"
-           android:layout_width="0dp"
-           android:layout_height="48dp"
-           android:layout_marginTop="40dp"
-           android:fontFamily="sans-serif"
-           android:gravity="center"
-           android:text="@string/sale_confirm"
-           android:textStyle="bold"
-           style="@style/ButtonGreen"
+        <!--FOOTER BUTTON-->
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:id="@+id/layoutFooter"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintBottom_toBottomOf="parent"
-           />
+           >
 
+           <Button
+               android:id="@+id/buttonScan"
+               android:layout_width="match_parent"
+               android:layout_height="48dp"
+               android:layout_marginTop="40dp"
+               android:fontFamily="sans-serif"
+               android:gravity="center"
+               android:text="@string/sale_scan_again"
+               android:textStyle="bold"
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:drawableLeft="@drawable/ic_dashbaord_qrcode"
+               android:drawableStart="@drawable/ic_dashbaord_qrcode"
+               android:drawableEnd="@drawable/ic_empty"
+               android:drawableRight="@drawable/ic_empty"
+               style="@style/ButtonGreen"
+               android:visibility="@{confirmed ? View.VISIBLE : View.GONE}"
+               />
+
+           <Button
+               android:id="@+id/buttonConfirm"
+               android:layout_width="0dp"
+               android:layout_height="48dp"
+               android:layout_marginTop="40dp"
+               android:fontFamily="sans-serif"
+               android:gravity="center"
+               android:text="@string/sale_confirm"
+               android:textStyle="bold"
+               style="@style/ButtonGreen"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:visibility="@{confirmed ? View.GONE : View.VISIBLE}"
+               />
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--PRODUCT INFO-->
        <androidx.constraintlayout.widget.ConstraintLayout
+           android:id="@+id/layoutProductInfo"
            android:layout_width="0dp"
-           android:layout_height="0dp"
-           app:layout_constraintBottom_toTopOf="@id/buttonConfirm"
+           android:layout_height="wrap_content"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintTop_toBottomOf="@+id/toolbar"
@@ -106,8 +137,8 @@
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintTop_toTopOf="@id/textPrice"
                app:text="@{String.valueOf(sale.qty)}"
-               app:positiveButton="@{true}"
-               app:negativeButton="@{sale.qty > 1}"
+               app:positiveButton="@{!confirmed}"
+               app:negativeButton="@{confirmed ? false : sale.qty > 1}"
                app:handler="@{handler}"
                />
 
@@ -134,7 +165,6 @@
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintTop_toBottomOf="@+id/viewDivider2" />
 
-
            <TextView
                android:id="@+id/textTotal"
                android:layout_width="0dp"
@@ -148,16 +178,131 @@
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintTop_toBottomOf="@id/textLabelTotal" />
 
+           <TextView
+               android:id="@+id/textConfirmStatus"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:fontFamily="sans-serif-medium"
+               android:gravity="center"
+               android:lineSpacingExtra="4sp"
+               android:text="@string/sale_success"
+               android:textColor="@color/colorPrimary"
+               android:textSize="16sp"
+               android:textStyle="normal"
+               android:visibility="@{confirmed ? View.VISIBLE : View.GONE}"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               />
+
+           <com.airbnb.lottie.LottieAnimationView
+               android:id="@+id/lottieAnimationView"
+               android:layout_width="80dp"
+               android:layout_height="80dp"
+               android:scaleType="fitEnd"
+               android:visibility="@{confirmed ? View.VISIBLE : View.GONE}"
+               app:layout_constraintBottom_toTopOf="@id/textConfirmStatus"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="@id/textLabelTotal"
+               app:lottie_autoPlay="true"
+               app:lottie_fileName="success-bg.json"
+               app:lottie_loop="true" />
+
+           <com.airbnb.lottie.LottieAnimationView
+               android:id="@+id/animSuccess"
+               android:layout_width="80dp"
+               android:layout_height="80dp"
+               android:scaleType="fitEnd"
+               app:layout_constraintBottom_toTopOf="@id/textConfirmStatus"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="@id/textLabelTotal"
+               app:lottie_autoPlay="true"
+               app:lottie_fileName="success-tick.json"
+               app:lottie_loop="false"
+               android:visibility="@{confirmed ? View.VISIBLE : View.GONE}"
+               />
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+       <!--SCAN HISTORY-->
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:id="@+id/layoutHitory"
+           android:layout_width="0dp"
+           android:layout_height="0dp"
+           android:paddingTop="8dp"
+           android:paddingBottom="8dp"
+           android:visibility="@{confirmed ? View.VISIBLE : View.GONE}"
+           app:layout_constraintBottom_toTopOf="@id/layoutFooter"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/layoutProductInfo">
+
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:id="@+id/layoutHeader"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:background="#f4f4f4"
+               android:paddingTop="8dp"
+               android:paddingBottom="8dp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent">
+
+               <TextView
+                   style="@style/TextButtonInfo"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="16dp"
+                   android:layout_marginLeft="16dp"
+                   android:gravity="start"
+                   android:text="@string/report_recents_sale"
+                   android:textAlignment="gravity"
+                   android:textColor="@color/greyishBrown"
+                   android:textSize="16sp"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginEnd="16dp"
+                   android:layout_marginRight="16dp"
+                   android:fontFamily="sans-serif-medium"
+                   android:gravity="end"
+                   android:lineSpacingExtra="4sp"
+                   android:text="@string/report_view_all"
+                   android:textColor="@color/colorPrimary"
+                   android:textSize="16sp"
+                   android:textStyle="normal"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+           <androidx.recyclerview.widget.RecyclerView
+               android:layout_width="match_parent"
+               android:layout_height="0dp"
+               android:paddingLeft="16dp"
+               android:paddingRight="16dp"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+
        </androidx.constraintlayout.widget.ConstraintLayout>
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="sale"
             type="com.erebor.tomkins.pos.data.ui.SaleUiModel" />
         <variable
             name="handler"
             type="com.erebor.tomkins.pos.view.callback.ItemQtyHandler" />
+        <variable
+            name="confirmed"
+            type="boolean" />
     </data>
 </layout>

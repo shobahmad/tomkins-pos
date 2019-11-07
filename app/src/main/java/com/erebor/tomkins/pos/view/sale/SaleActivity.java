@@ -27,16 +27,8 @@ public class SaleActivity extends BaseActivity<ActivitySaleBinding> {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SaleUiModel saleUiModel = new SaleUiModel();
-        saleUiModel.setProductId(getIntent().getStringExtra("data"));
-        saleUiModel.setName("Pizza Orins");
-        saleUiModel.setPrice(10000d);
-        saleUiModel.setQty(1);
-        saleUiModel.setSize("42");
-
         setToolbar(binding.toolbar.toolbar);
-
-        binding.setSale(saleUiModel);
+        fetchProductInfo(getIntent().getStringExtra("data"));
         binding.setHandler(new ItemQtyHandler() {
             @Override
             public void onPositiveButtonClick(View item) {
@@ -52,5 +44,18 @@ public class SaleActivity extends BaseActivity<ActivitySaleBinding> {
                 binding.setSale(saleUiModel);
             }
         });
+
+        binding.buttonConfirm.setOnClickListener(v -> binding.setConfirmed(true));
+    }
+
+    private void fetchProductInfo(String productId) {
+        SaleUiModel saleUiModel = new SaleUiModel();
+        saleUiModel.setProductId(productId);
+        saleUiModel.setName("Pizza Orins");
+        saleUiModel.setPrice(10000d);
+        saleUiModel.setQty(1);
+        saleUiModel.setSize("42");
+
+        binding.setSale(saleUiModel);
     }
 }
