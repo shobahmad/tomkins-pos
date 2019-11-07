@@ -6,6 +6,7 @@ import android.view.View;
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
 import com.erebor.tomkins.pos.data.ui.DownloadUiModel;
+import com.erebor.tomkins.pos.data.ui.ReportSummaryUiModel;
 import com.erebor.tomkins.pos.data.ui.UserUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityDashboardBinding;
 import com.erebor.tomkins.pos.databinding.ActivityMainBinding;
@@ -18,6 +19,11 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        fetchDummyData();
+    }
+
+    private void fetchDummyData() {
 
         UserUiModel userUiModel = new UserUiModel();
         userUiModel.setName("Frodo Bagins");
@@ -58,6 +64,12 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
             binding.setDownload(downloadUiModel);
 
         });
+
+        ReportSummaryUiModel reportSummaryUiModel = new ReportSummaryUiModel();
+        reportSummaryUiModel.setStockTotal(120);
+        reportSummaryUiModel.setStockIncoming(100);
+        reportSummaryUiModel.setStockOutgoing(82);
+        binding.setSummary(reportSummaryUiModel);
     }
 
     @Override

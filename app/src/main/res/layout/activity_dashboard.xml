@@ -185,6 +185,19 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!--REPORT SUMMARY-->
+        <include
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            layout="@layout/snippet_report_summary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_sync"
+            app:layout_constraintBottom_toTopOf="@id/layout_download_info"
+            android:layout_marginTop="16dp"
+            app:summary="@{summary}"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -196,5 +209,8 @@
         <variable
             name="download"
             type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
+        <variable
+            name="summary"
+            type="com.erebor.tomkins.pos.data.ui.ReportSummaryUiModel" />
     </data>
 </layout>

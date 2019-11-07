@@ -13,4 +13,10 @@
     <string name="dashboard_sync_now">Sync Now</string>
     <string name="dashboard_start_scan">Start Scan</string>
     <string name="dashboard_last_download">Last Download</string>
+    <string name="report_today_stock">Today Stock</string>
+    <string name="report_view_detail">View Detail</string>
+    <string name="report_total">Total</string>
+    <string name="report_available_stock">Available</string>
+    <string name="report_incoming">Incoming</string>
+    <string name="report_sold">Sold</string>
 </resources>
