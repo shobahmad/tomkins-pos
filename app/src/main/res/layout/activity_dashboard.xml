@@ -189,8 +189,15 @@
 
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="user"
             type="com.erebor.tomkins.pos.data.ui.UserUiModel" />
+        <variable
+            name="downloadProgress"
+            type="int" />
+        <variable
+            name="downloading"
+            type="Boolean" />
     </data>
 </layout>
