@@ -15,6 +15,7 @@ import com.erebor.tomkins.pos.data.ui.UserUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityDashboardBinding;
 import com.erebor.tomkins.pos.databinding.ActivityMainBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
+import com.erebor.tomkins.pos.view.sale.SaleActivity;
 import com.erebor.tomkins.pos.view.scan.ScannerActivity;
 
 public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
@@ -27,8 +28,15 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
         fetchDummyData();
         binding.buttonScan.setOnClickListener(v -> {
-            startActivityForResult(new Intent(DashboardActivity.this, ScannerActivity.class), 1);
+//            startActivityForResult(new Intent(DashboardActivity.this, ScannerActivity.class), 1);
+            startSaleActivity("JS123817CAWE");
         });
+    }
+
+    private void startSaleActivity(String productId) {
+        Intent intent = new Intent(DashboardActivity.this, SaleActivity.class);
+        intent.putExtra("data", productId);
+        startActivity(intent);
     }
 
     @Override

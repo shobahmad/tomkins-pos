@@ -14,7 +14,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            layout="@layout/snippet_toolbar"
+            layout="@layout/snippet_dashboard_toolbar"
             app:user="@{user}"
             />
 
@@ -84,18 +84,16 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="40dp"
-            android:background="@color/colorPrimaryDark"
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="@string/dashboard_start_scan"
-            android:textColor="@android:color/white"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             android:drawableLeft="@drawable/ic_dashbaord_qrcode"
             android:drawableStart="@drawable/ic_dashbaord_qrcode"
             android:drawableEnd="@drawable/ic_empty"
             android:drawableRight="@drawable/ic_empty"
-            android:padding="16dp"
+            style="@style/ButtonGreen"
             />
 
         <!--DOWNLOAD INFO-->

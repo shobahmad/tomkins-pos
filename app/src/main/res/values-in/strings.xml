@@ -21,4 +21,6 @@
     <string name="report_sold">Sold</string>
     <string name="scan_flash_off">Off</string>
     <string name="scan_flash_on">On</string>
+    <string name="sale_confirm">Confirm</string>
+    <string name="sale_total">Total</string>
 </resources>

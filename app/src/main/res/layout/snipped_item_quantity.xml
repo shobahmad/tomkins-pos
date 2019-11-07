@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textValue"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_36"
+            android:minWidth="@dimen/dp_36"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:textColor="@color/greyishBrown"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="normal"
+            android:text="@{text, default=`0`}"
+            app:layout_constraintEnd_toStartOf="@+id/btnAdd"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingRight="4dp"
+            android:paddingLeft="4dp"
+            />
+
+        <Button
+            android:id="@+id/btnAdd"
+            style="@style/ButtonSmallPositive"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
+            android:text="+"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:enabled="@{positiveButton}"
+            android:onClick="@{handler::onPositiveButtonClick}"/>
+
+        <Button
+            android:id="@+id/btnRemove"
+            style="@style/ButtonSmallNegative"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
+            android:text="-"
+            app:layout_constraintEnd_toStartOf="@id/textValue"
+            app:layout_constraintTop_toTopOf="parent"
+            android:enabled="@{negativeButton}"
+            android:onClick="@{handler::onNegativeButtonClick}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+        <variable
+            name="text"
+            type="String" />
+        <variable
+            name="positiveButton"
+            type="Boolean"
+            />
+        <variable
+            name="negativeButton"
+            type="Boolean"
+            />
+        <variable
+            name="handler"
+            type="com.erebor.tomkins.pos.view.callback.ItemQtyHandler" />
+        <import type="android.view.View"/>
+    </data>
+</layout>

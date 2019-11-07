@@ -37,13 +37,47 @@
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Button</item>
         <item name="backgroundTint">@color/white</item>
     </style>
+    <style name="ButtonGreen">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:padding">16dp</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
     <style name="ButtonTransparent">
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:gravity">center</item>
         <item name="android:minHeight">48dp</item>
         <item name="android:padding">16dp</item>
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Button</item>
         <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+    <style name="ButtonSmallPositive" parent="android:style/Widget.Button">
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small.Inverse</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:padding">1dp</item>
+        <item name="android:minWidth">32dp</item>
+        <item name="android:minHeight">32dp</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+    <style name="ButtonSmallNegative" parent="android:style/Widget.Button">
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small.Inverse</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:padding">1dp</item>
+        <item name="android:minWidth">32dp</item>
+        <item name="android:minHeight">32dp</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:background">@color/white</item>
     </style>
     <style name="TextButton">
         <item name="android:textSize">14sp</item>
