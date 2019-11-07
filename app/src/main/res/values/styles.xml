@@ -81,7 +81,7 @@
     </style>
     <style name="TextButton">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textStyle">normal</item>
         <item name="android:minHeight">48dp</item>
         <item name="android:background">@android:color/transparent</item>

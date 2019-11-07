@@ -28,8 +28,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
         fetchDummyData();
         binding.buttonScan.setOnClickListener(v -> {
-//            startActivityForResult(new Intent(DashboardActivity.this, ScannerActivity.class), 1);
-            startSaleActivity("JS123817CAWE");
+            startActivityForResult(new Intent(DashboardActivity.this, ScannerActivity.class), 1);
         });
     }
 
@@ -49,7 +48,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     }
 
     private void fetchBarcode(String qrcode) {
-        Toast.makeText(this, "QRCOde: " + qrcode, Toast.LENGTH_LONG).show();
+        startSaleActivity(qrcode);
     }
 
     private void fetchDummyData() {
@@ -93,6 +92,12 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
             binding.setDownload(downloadUiModel);
 
         });
+
+        downloadState = 0;
+        DownloadUiModel downloadUiModel = new DownloadUiModel();
+        downloadUiModel.setDownloading(false);
+        downloadUiModel.setLastDownloadTime("3 minutes ago");
+        binding.setDownload(downloadUiModel);
 
         ReportSummaryUiModel reportSummaryUiModel = new ReportSummaryUiModel();
         reportSummaryUiModel.setStockTotal(120);
