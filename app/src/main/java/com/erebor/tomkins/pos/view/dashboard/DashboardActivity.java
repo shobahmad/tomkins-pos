@@ -1,15 +1,19 @@
 package com.erebor.tomkins.pos.view.dashboard;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
+import com.erebor.tomkins.pos.data.ui.DownloadUiModel;
 import com.erebor.tomkins.pos.data.ui.UserUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityDashboardBinding;
 import com.erebor.tomkins.pos.databinding.ActivityMainBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 
 public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
+
+    int downloadState = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +23,41 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         userUiModel.setName("Frodo Bagins");
         userUiModel.setPosition("Hobbits");
         binding.setUser(userUiModel);
+
+
+        binding.layoutDownloadInfo.setOnClickListener(v -> {
+            if (downloadState == 0) {
+                downloadState = 1;
+                DownloadUiModel downloadUiModel = new DownloadUiModel();
+                downloadUiModel.setDownloading(true);
+                downloadUiModel.setMesssage("Downloading products...");
+                downloadUiModel.setProgress(40);
+                binding.setDownload(downloadUiModel);
+
+                binding.layoutDownloadInfo.postDelayed(() -> {
+                    downloadUiModel.setDownloading(true);
+                    downloadUiModel.setMesssage("Downloading price...");
+                    downloadUiModel.setProgress(99);
+                    binding.setDownload(downloadUiModel);
+                }, 1000);
+
+                binding.layoutDownloadInfo.postDelayed(() -> {
+                    downloadState = 0;
+                    downloadUiModel.setDownloading(false);
+                    downloadUiModel.setLastDownloadTime("3 minutes ago");
+                    binding.setDownload(downloadUiModel);
+                }, 2000);
+
+                return;
+            }
+
+            downloadState = 0;
+            DownloadUiModel downloadUiModel = new DownloadUiModel();
+            downloadUiModel.setDownloading(false);
+            downloadUiModel.setLastDownloadTime("3 minutes ago");
+            binding.setDownload(downloadUiModel);
+
+        });
     }
 
     @Override

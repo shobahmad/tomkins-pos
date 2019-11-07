@@ -148,7 +148,7 @@
                     style="@style/TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="52dp"
-                    android:text="@string/dashboard_last_download"
+                    android:text="@{download.downloading ? download.messsage : @string/dashboard_last_download}"
                     android:textColor="@color/greyishBrown"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -161,7 +161,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:minHeight="52dp"
-                    android:text="@string/dashboard_last_download"
+                    android:text="@{download.downloading ? (String.valueOf(download.progress) + `%`) : download.lastDownloadTime, default=`Download info`}"
                     android:gravity="right|center_vertical"
                     app:layout_constraintStart_toEndOf="@id/text_label_last_download"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -174,11 +174,11 @@
                     android:layout_height="2dp"
                     android:layout_marginTop="3dp"
                     android:max="100"
-                    android:progress="@{downloadProgress}"
+                    android:progress="@{download.progress}"
                     app:layout_constraintBottom_toBottomOf="@id/text_download_info"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:visibility="@{downloading ? View.VISIBLE : View.GONE}"/>
+                    android:visibility="@{download.downloading ? View.VISIBLE : View.GONE}"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -194,10 +194,7 @@
             name="user"
             type="com.erebor.tomkins.pos.data.ui.UserUiModel" />
         <variable
-            name="downloadProgress"
-            type="int" />
-        <variable
-            name="downloading"
-            type="Boolean" />
+            name="download"
+            type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
     </data>
 </layout>
