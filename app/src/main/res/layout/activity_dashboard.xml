@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/paleGrey"
+        >
+
+        <!--SYNC MENU-->
+        <include
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            layout="@layout/snippet_toolbar"
+            app:user="@{user}"
+            />
+
+        <!--APP BAR-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_sync"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/app_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/background_rounded_white"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/image_pending"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_dashboard_upload" />
+
+            <TextView
+                android:id="@+id/text_pending"
+                style="@style/TextButtonInfo"
+                app:layout_constraintStart_toEndOf="@id/image_pending"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:gravity="right|center_vertical"
+                android:text="0"
+                android:textAlignment="gravity" />
+
+            <TextView
+                android:id="@+id/text_label_pending"
+                style="@style/TextButtonInfo"
+                app:layout_constraintStart_toEndOf="@id/text_pending"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:gravity="right|center_vertical"
+                android:text="@string/dashboard_pending"
+                android:textAlignment="gravity" />
+
+            <TextView
+                android:id="@+id/text_sync"
+                style="@style/TextButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                android:text="@string/dashboard_sync_now"
+                android:textAlignment="gravity" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <data>
+        <variable
+            name="user"
+            type="com.erebor.tomkins.pos.data.ui.UserUiModel" />
+    </data>
+</layout>

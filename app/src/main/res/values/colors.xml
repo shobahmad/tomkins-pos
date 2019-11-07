@@ -4,7 +4,11 @@
     <color name="colorPrimaryDark">#42a316</color>
     <color name="colorAccent">#e2fcd3</color>
 
-    <color name="grey_lines">#C6C7C6</color>
-    <color name="hint_color">#595959</color>
-    <color name="greyish_brown">#595959</color>
+    <color name="greyLines">#C6C7C6</color>
+    <color name="hintColor">#595959</color>
+    <color name="greyishBrown">#595959</color>
+    <color name="white">#FFFFFF</color>
+    <color name="shadowWarmGrey">#CC9b9b9b</color>
+    <color name="warmGrey">#9b9b9b</color>
+    <color name="paleGrey">#f9f9fc</color>
 </resources>
