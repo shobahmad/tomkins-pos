@@ -152,7 +152,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/file/ic_cloud_upload_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/toggle/ic_check_box_outline_blank_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -162,8 +162,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_dashboard_upload" />
-                            <entry key="sourceFile" value="$USER_HOME$" />
+                            <entry key="color" value="42a316" />
+                            <entry key="outputName" value="ic_empty" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../../images/iconmonstr-qr-code-7.svg" />
                           </map>
                         </option>
                       </PersistentState>
