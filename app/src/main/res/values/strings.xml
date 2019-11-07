@@ -19,4 +19,6 @@
     <string name="report_available_stock">Available</string>
     <string name="report_incoming">Incoming</string>
     <string name="report_sold">Sold</string>
+    <string name="scan_flash_off">Off</string>
+    <string name="scan_flash_on">On</string>
 </resources>

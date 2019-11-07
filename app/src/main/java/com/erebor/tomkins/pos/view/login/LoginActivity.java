@@ -21,7 +21,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                 binding.setLoading(false);
                 startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                 finish();
-            }, 3000);
+            }, 2000);
         });
     }
 

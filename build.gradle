@@ -68,4 +68,5 @@ ext {
     lottieVersion = '3.1.0'
     passwordEditVersion = '0.8'
     spinKitVersion = '1.2.0'
+    zxingVersion = '1.9.8'
 }

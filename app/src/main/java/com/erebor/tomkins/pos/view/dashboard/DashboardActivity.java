@@ -1,7 +1,11 @@
 package com.erebor.tomkins.pos.view.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
@@ -11,6 +15,7 @@ import com.erebor.tomkins.pos.data.ui.UserUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityDashboardBinding;
 import com.erebor.tomkins.pos.databinding.ActivityMainBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
+import com.erebor.tomkins.pos.view.scan.ScannerActivity;
 
 public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
@@ -21,6 +26,22 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         super.onCreate(savedInstanceState);
 
         fetchDummyData();
+        binding.buttonScan.setOnClickListener(v -> {
+            startActivityForResult(new Intent(DashboardActivity.this, ScannerActivity.class), 1);
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            String qrcode = data.getStringExtra("data");
+            fetchBarcode(qrcode);
+        }
+    }
+
+    private void fetchBarcode(String qrcode) {
+        Toast.makeText(this, "QRCOde: " + qrcode, Toast.LENGTH_LONG).show();
     }
 
     private void fetchDummyData() {

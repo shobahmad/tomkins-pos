@@ -90,6 +90,9 @@ dependencies {
     // Password input
     implementation "com.github.scottyab:showhidepasswordedittext:$passwordEditVersion"
 
+    // Scanner
+    implementation "me.dm7.barcodescanner:zxing:$zxingVersion"
+
 
     // Testing library
     testImplementation "junit:junit:$jUnitVersion"
