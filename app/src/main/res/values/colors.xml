@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#e86b32</color>
-<!--    <color name="colorPrimary">#42a316</color>-->
+<!--    <color name="colorPrimary">#e86b32</color>-->
+    <color name="colorPrimary">#42a316</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#e2fcd3</color>
 
@@ -14,5 +14,7 @@
     <color name="paleGrey">#f9f9fc</color>
     <color name="orangeSoft">#f5a623</color>
     <color name="darkSkyBlue">#4a90e2</color>
+    <color name="greenblue">#20ca89</color>
+    <color name="watermelon">#ff435a</color>
 
 </resources>
