@@ -15,8 +15,10 @@ import com.erebor.tomkins.pos.data.ui.UserUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityDashboardBinding;
 import com.erebor.tomkins.pos.databinding.ActivityMainBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
+import com.erebor.tomkins.pos.view.callback.IItemClick;
 import com.erebor.tomkins.pos.view.sale.SaleActivity;
 import com.erebor.tomkins.pos.view.scan.ScannerActivity;
+import com.erebor.tomkins.pos.view.setting.SettingActivity;
 
 public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
@@ -30,6 +32,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         binding.buttonScan.setOnClickListener(v -> {
             startActivityForResult(new Intent(DashboardActivity.this, ScannerActivity.class), 1);
         });
+        binding.setSettingClick(item -> startActivity(new Intent(DashboardActivity.this, SettingActivity.class)));
     }
 
     private void startSaleActivity(String productId) {

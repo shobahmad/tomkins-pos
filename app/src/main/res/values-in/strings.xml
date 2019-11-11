@@ -28,4 +28,10 @@
     <string name="sale_success">Transaction success</string>
     <string name="sale_scan_again">Scan Again</string>
     <string name="sale_pcs">Pcs</string>
+    <string name="setting_connection">Connection</string>
+    <string name="setting_account">Accounts</string>
+    <string name="setting_hostname">Hostname</string>
+    <string name="setting_email">Email</string>
+    <string name="setting_password">Password</string>
+    <string name="setting">Setting</string>
 </resources>

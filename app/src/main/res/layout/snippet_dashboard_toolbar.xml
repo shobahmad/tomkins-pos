@@ -69,7 +69,9 @@
                     android:src="@drawable/ic_dashboard_settings"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:onClick="@{settingClick::onItemClick}"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -80,6 +82,9 @@
         <variable
             name="user"
             type="com.erebor.tomkins.pos.data.ui.UserUiModel" />
+        <variable
+            name="settingClick"
+            type="com.erebor.tomkins.pos.view.callback.IItemClick" />
     </data>
 
 </layout>

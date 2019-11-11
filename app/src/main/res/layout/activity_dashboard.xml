@@ -11,11 +11,13 @@
 
         <!--APP BAR-->
         <include
+            android:id="@+id/appBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             layout="@layout/snippet_dashboard_toolbar"
             app:user="@{user}"
+            app:settingClick="@{settingClick}"
             />
 
         <!--SYNC MENU-->
@@ -210,5 +212,8 @@
         <variable
             name="summary"
             type="com.erebor.tomkins.pos.data.ui.ReportSummaryUiModel" />
+        <variable
+            name="settingClick"
+            type="com.erebor.tomkins.pos.view.callback.IItemClick" />
     </data>
 </layout>

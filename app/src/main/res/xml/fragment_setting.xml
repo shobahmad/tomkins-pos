@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:key="@string/key_setting_connection"
+        app:title="@string/setting_connection"
+        >
+
+        <EditTextPreference
+            app:key="@string/key_setting_host"
+            app:summary="@string/setting_hostname"
+            app:title="@string/setting_hostname"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="@string/key_setting_account"
+        app:title="@string/setting_account"
+        >
+
+        <EditTextPreference
+            app:key="@string/key_setting_email"
+            app:summary="@string/setting_email"
+            app:title="@string/setting_email"
+            />
+
+        <EditTextPreference
+            app:key="@string/key_setting_password"
+            app:summary="@string/setting_password"
+            app:title="@string/setting_password"
+            />
+
+    </PreferenceCategory>
+</PreferenceScreen>
