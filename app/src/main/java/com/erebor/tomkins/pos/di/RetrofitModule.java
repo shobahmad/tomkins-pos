@@ -1,5 +1,6 @@
 package com.erebor.tomkins.pos.di;
 
+import com.erebor.tomkins.pos.service.TomkinsService;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.google.gson.Gson;
 
@@ -26,10 +27,10 @@ public class RetrofitModule {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
-//
-//    @Provides
-//    @Singleton
-//    UserAuthService providesUserAuthService(Retrofit retrofit) {
-//        return retrofit.create(UserAuthService.class);
-//    }
+
+    @Provides
+    @Singleton
+    TomkinsService provideService(Retrofit retrofit) {
+        return retrofit.create(TomkinsService.class);
+    }
 }

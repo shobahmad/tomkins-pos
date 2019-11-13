@@ -45,7 +45,7 @@ public class HttpClientModule {
     @Singleton
     OkHttpClient getRequestHeader(Context context, HostSelectionInterceptor hostSelectionInterceptor, SharedPrefs sharedPrefs) {
         HttpLoggingInterceptor logger = new HttpLoggingInterceptor(message -> Log.d("HttpLog", message));
-        logger.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logger.setLevel(HttpLoggingInterceptor.Level.BASIC);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
         httpClient

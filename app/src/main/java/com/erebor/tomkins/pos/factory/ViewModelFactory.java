@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.erebor.tomkins.pos.di.ViewModelSubComponent;
+import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
 import com.erebor.tomkins.pos.viewmodel.splash.SplashViewModel;
 
 import java.util.Map;
@@ -23,6 +24,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         creators = new ArrayMap<>();
 
         creators.put(SplashViewModel.class, () -> viewModelSubComponent.splashViewModel());
+        creators.put(LoginViewModel.class, () -> viewModelSubComponent.loginViewModel());
 
     }
 

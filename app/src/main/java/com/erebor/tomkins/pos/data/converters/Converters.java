@@ -3,8 +3,8 @@ package com.erebor.tomkins.pos.data.converters;
 import androidx.annotation.NonNull;
 import androidx.room.TypeConverter;
 
-import com.erebor.tomkins.pos.data.model.EncryptedAesField;
-import com.erebor.tomkins.pos.data.model.EncryptedSha1Field;
+import com.erebor.tomkins.pos.data.remote.EncryptedAesField;
+import com.erebor.tomkins.pos.data.remote.EncryptedSha1Field;
 
 import java.text.DateFormat;
 import java.text.ParseException;

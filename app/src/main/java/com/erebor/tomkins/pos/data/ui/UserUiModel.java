@@ -6,6 +6,16 @@ public class UserUiModel {
     private String name;
     private String position;
 
+    public UserUiModel() {
+    }
+
+    public UserUiModel(int id, String username, String name, String position) {
+        this.id = id;
+        this.username = username;
+        this.name = name;
+        this.position = position;
+    }
+
     public int getId() {
         return id;
     }

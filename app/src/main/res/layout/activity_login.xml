@@ -26,13 +26,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-<!--                    app:srcCompat="@mipmap/app_logo"-->
                 <ImageView
                     android:id="@+id/image_logo"
                     android:layout_width="200dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="80dp"
-                    app:srcCompat="@mipmap/app_logo"
+                    app:srcCompat="@drawable/ic_app_logo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -147,11 +146,21 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
+        <TextView
+            android:id="@+id/textError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{error == null ? View.GONE : View.VISIBLE}"
+            android:text="@{error}"
+            android:background="@color/watermelon"
+            android:textColor="@color/white"
+            android:padding="4dp"
+            />
+
         <Button
             android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="40dp"
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="@string/login_login"
@@ -164,6 +173,9 @@
         <variable
             name="loading"
             type="Boolean" />
+        <variable
+            name="error"
+            type="String" />
     </data>
 
 </layout>
