@@ -19,6 +19,7 @@ import com.erebor.tomkins.pos.view.callback.IItemClick;
 import com.erebor.tomkins.pos.view.sale.SaleActivity;
 import com.erebor.tomkins.pos.view.scan.ScannerActivity;
 import com.erebor.tomkins.pos.view.setting.SettingActivity;
+import com.erebor.tomkins.pos.view.sync.SyncActivity;
 
 public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
@@ -62,7 +63,10 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         binding.setUser(userUiModel);
 
 
-        binding.layoutDownloadInfo.setOnClickListener(v -> {
+        binding.layoutDownloadInfo.setArrowClick(v -> {
+            startActivity(new Intent(DashboardActivity.this, SyncActivity.class));
+        });
+        binding.layoutDownloadInfo.setContainerClick(v -> {
             if (downloadState == 0) {
                 downloadState = 1;
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
@@ -72,14 +76,14 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 downloadUiModel.setProgress(40);
                 binding.setDownload(downloadUiModel);
 
-                binding.layoutDownloadInfo.postDelayed(() -> {
+                binding.layoutDownloadInfo.getRoot().postDelayed(() -> {
                     downloadUiModel.setDownloading(true);
                     downloadUiModel.setMesssage("Downloading price...");
                     downloadUiModel.setProgress(99);
                     binding.setDownload(downloadUiModel);
                 }, 1000);
 
-                binding.layoutDownloadInfo.postDelayed(() -> {
+                binding.layoutDownloadInfo.getRoot().postDelayed(() -> {
                     downloadState = 0;
                     downloadUiModel.setDownloading(false);
                     downloadUiModel.setLastDownloadTime("3 minutes ago");

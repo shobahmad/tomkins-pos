@@ -7,6 +7,13 @@ public class DownloadUiModel {
     private String messsage;
     private String lastDownloadTime;
 
+    public DownloadUiModel() {
+    }
+
+    public DownloadUiModel(String title) {
+        this.title = title;
+    }
+
     public boolean isDownloading() {
         return downloading;
     }
