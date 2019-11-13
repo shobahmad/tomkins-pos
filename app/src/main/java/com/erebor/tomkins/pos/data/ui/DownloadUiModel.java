@@ -3,6 +3,7 @@ package com.erebor.tomkins.pos.data.ui;
 public class DownloadUiModel {
     private boolean downloading;
     private int progress;
+    private String title;
     private String messsage;
     private String lastDownloadTime;
 
@@ -20,6 +21,14 @@ public class DownloadUiModel {
 
     public void setProgress(int progress) {
         this.progress = progress;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getMesssage() {

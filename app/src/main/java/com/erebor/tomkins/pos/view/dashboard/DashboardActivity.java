@@ -66,6 +66,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
             if (downloadState == 0) {
                 downloadState = 1;
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
+                downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
                 downloadUiModel.setDownloading(true);
                 downloadUiModel.setMesssage("Downloading products...");
                 downloadUiModel.setProgress(40);
@@ -90,6 +91,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
             downloadState = 0;
             DownloadUiModel downloadUiModel = new DownloadUiModel();
+            downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
             downloadUiModel.setDownloading(false);
             downloadUiModel.setLastDownloadTime("3 minutes ago");
             binding.setDownload(downloadUiModel);
@@ -98,6 +100,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
         downloadState = 0;
         DownloadUiModel downloadUiModel = new DownloadUiModel();
+        downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
         downloadUiModel.setDownloading(false);
         downloadUiModel.setLastDownloadTime("3 minutes ago");
         binding.setDownload(downloadUiModel);

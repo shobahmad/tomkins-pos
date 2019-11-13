@@ -12,6 +12,8 @@
         <!--APP BAR-->
         <include
             android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -25,7 +27,7 @@
             android:id="@+id/layout_sync"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_bar"
+            app:layout_constraintTop_toBottomOf="@id/appBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -132,56 +134,67 @@
                 android:layout_marginTop="16dp"
                 />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <include
+                layout="@layout/snippet_sync_info"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:download="@{download}"
                 app:layout_constraintEnd_toStartOf="@id/image_arrow_right"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_devider_1"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
                 android:layout_marginTop="16dp"
-                >
+                />
 
-                <TextView
-                    android:id="@+id/text_label_last_download"
-                    style="@style/TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="52dp"
-                    android:text="@{download.downloading ? download.messsage : @string/dashboard_last_download}"
-                    android:textColor="@color/greyishBrown"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintEnd_toStartOf="@id/image_arrow_right"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/view_devider_1"-->
+<!--                android:paddingLeft="16dp"-->
+<!--                android:paddingRight="16dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                >-->
 
-
-                <TextView
-                    android:id="@+id/text_download_info"
-                    style="@style/TextButton"
-                    android:textColor="@color/warmGrey"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:minHeight="52dp"
-                    android:text="@{download.downloading ? (String.valueOf(download.progress) + `%`) : download.lastDownloadTime, default=`Download info`}"
-                    android:gravity="right|center_vertical"
-                    app:layout_constraintStart_toEndOf="@id/text_label_last_download"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ProgressBar
-                    android:id="@+id/progress_download"
-                    style="@style/DownloadBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="3dp"
-                    android:max="100"
-                    android:progress="@{download.progress}"
-                    app:layout_constraintBottom_toBottomOf="@id/text_download_info"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:visibility="@{download.downloading ? View.VISIBLE : View.GONE}"/>
+<!--                <TextView-->
+<!--                    android:id="@+id/text_label_last_download"-->
+<!--                    style="@style/TextButton"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="52dp"-->
+<!--                    android:text="@{download.downloading ? download.messsage : @string/dashboard_data_sync}"-->
+<!--                    android:textColor="@color/greyishBrown"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"/>-->
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/text_download_info"-->
+<!--                    style="@style/TextButton"-->
+<!--                    android:textColor="@color/warmGrey"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:minHeight="52dp"-->
+<!--                    android:text="@{download.downloading ? (String.valueOf(download.progress) + `%`) : download.lastDownloadTime, default=`Download info`}"-->
+<!--                    android:gravity="right|center_vertical"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/text_label_last_download"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                <ProgressBar-->
+<!--                    android:id="@+id/progress_download"-->
+<!--                    style="@style/DownloadBar"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="2dp"-->
+<!--                    android:layout_marginTop="3dp"-->
+<!--                    android:max="100"-->
+<!--                    android:progress="@{download.progress}"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/text_download_info"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    android:visibility="@{download.downloading ? View.VISIBLE : View.GONE}"/>-->
+
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

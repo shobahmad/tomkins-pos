@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        >
+
+        <TextView
+            android:id="@+id/text_label_last_download"
+            style="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:text="@{download.downloading ? download.messsage : download.title}"
+            android:textColor="@color/greyishBrown"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/text_download_info"
+            style="@style/TextButton"
+            android:textColor="@color/warmGrey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minHeight="52dp"
+            android:text="@{download.downloading ? (String.valueOf(download.progress) + `%`) : download.lastDownloadTime, default=`Download info`}"
+            android:gravity="right|center_vertical"
+            app:layout_constraintStart_toEndOf="@id/text_label_last_download"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_download"
+            style="@style/DownloadBar"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="3dp"
+            android:max="100"
+            android:progress="@{download.progress}"
+            app:layout_constraintBottom_toBottomOf="@id/text_download_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="@{download.downloading ? View.VISIBLE : View.GONE}"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="download"
+            type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
+    </data>
+</layout>
