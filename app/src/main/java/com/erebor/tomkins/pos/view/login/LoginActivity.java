@@ -2,6 +2,9 @@ package com.erebor.tomkins.pos.view.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -29,10 +32,39 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
         viewModel = ViewModelProviders.of(this, factory).get(LoginViewModel.class);
         observerChange();
+        binding.editPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
-        binding.buttonLogin.setOnClickListener(v -> {
-            viewModel.getLogin(binding.editName.getText().toString(), binding.editPassword.getText().toString());
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!binding.layoutEditPassword.isPasswordVisibilityToggleEnabled()) {
+                    binding.layoutEditPassword.setPasswordVisibilityToggleEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
+    }
+
+    public void onLoginClick(View view) {
+        if (binding.editName.getText().toString().isEmpty()) {
+            binding.editName.setError(getResources().getString(R.string.login_empty_username));
+            return;
+        }
+        if (binding.editPassword.getText().toString().isEmpty()) {
+            binding.layoutEditPassword.setPasswordVisibilityToggleEnabled(false);
+            binding.editPassword.setError(getResources().getString(R.string.login_password_empty));
+            return;
+        }
+
+        binding.editName.setError(null);
+        binding.editPassword.setError(null);
+        viewModel.getLogin(binding.editName.getText().toString(), binding.editPassword.getText().toString());
     }
 
     private void observerChange() {

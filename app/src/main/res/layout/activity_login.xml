@@ -165,7 +165,8 @@
             android:gravity="center"
             android:text="@string/login_login"
             android:textStyle="bold"
-            style="@style/ButtonGreen"/>
+            style="@style/ButtonGreen"
+            android:onClick="onLoginClick"/>
     </LinearLayout>
 
     <data>
