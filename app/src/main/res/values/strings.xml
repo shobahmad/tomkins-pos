@@ -22,7 +22,8 @@
     <string name="scan_flash_off">Off</string>
     <string name="scan_flash_on">On</string>
 
-    <string name="price_format" translatable="false">IDR %,.2f</string>
+    <string name="price_format" translatable="false">IDR %,.0f</string>
+    <string name="stock_format" translatable="false">%,.2f</string>
     <string name="sale_confirm">Confirm</string>
     <string name="sale_total">Total</string>
     <string name="report_recents_sale">Recents Sale</string>
@@ -43,5 +44,7 @@
     <string name="setting">Setting</string>
     <string name="login_empty_username">Username can\'t be empty</string>
     <string name="login_password_empty">Password can\'t be empty</string>
+    <string name="stock_available">Stock Available</string>
+    <string name="stock_report">Stock Report</string>
 
 </resources>

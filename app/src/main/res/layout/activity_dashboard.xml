@@ -124,6 +124,8 @@
             app:layout_constraintBottom_toTopOf="@id/layout_download_info"
             android:layout_marginTop="16dp"
             app:summary="@{summary}"
+            app:detailClick="@{reportDetailClick}"
+            app:headerEnabled="@{true}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -143,5 +145,8 @@
         <variable
             name="settingClick"
             type="com.erebor.tomkins.pos.view.callback.IItemClick" />
+        <variable
+            name="reportDetailClick"
+            type="android.view.View.OnClickListener" />
     </data>
 </layout>

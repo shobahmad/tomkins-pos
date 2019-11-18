@@ -16,6 +16,7 @@ import com.erebor.tomkins.pos.databinding.ActivityDashboardBinding;
 import com.erebor.tomkins.pos.databinding.ActivityMainBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.view.callback.IItemClick;
+import com.erebor.tomkins.pos.view.report.StockActivity;
 import com.erebor.tomkins.pos.view.sale.SaleActivity;
 import com.erebor.tomkins.pos.view.scan.ScannerActivity;
 import com.erebor.tomkins.pos.view.setting.SettingActivity;
@@ -100,6 +101,11 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
             downloadUiModel.setLastDownloadTime("3 minutes ago");
             binding.setDownload(downloadUiModel);
 
+        });
+
+        binding.setReportDetailClick(v -> {
+            Intent intent = new Intent(DashboardActivity.this, StockActivity.class);
+            startActivity(intent);
         });
 
         downloadState = 0;

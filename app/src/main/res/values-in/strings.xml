@@ -36,4 +36,6 @@
     <string name="setting">Setting</string>
     <string name="login_empty_username">Username can\'t be empty</string>
     <string name="login_password_empty">Password can\'t be empty</string>
+    <string name="stock_available">Stock Available</string>
+    <string name="stock_report">Stock Report</string>
 </resources>
