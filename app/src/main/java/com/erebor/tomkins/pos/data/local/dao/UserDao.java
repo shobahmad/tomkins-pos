@@ -4,20 +4,20 @@ import androidx.room.Dao;
 import androidx.room.Query;
 
 import com.erebor.tomkins.pos.base.BaseDao;
-import com.erebor.tomkins.pos.data.local.model.UserModel;
+import com.erebor.tomkins.pos.data.local.model.UserDBModel;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
 
 @Dao
-public interface UserDao extends BaseDao<UserModel> {
+public interface UserDao extends BaseDao<UserDBModel> {
 
     @Override
     @Query("SELECT * FROM user ORDER BY LOWER(email)")
-    Flowable<List<UserModel>> getAllData();
+    Flowable<List<UserDBModel>> getAllData();
 
     @Override
     @Query("SELECT * FROM user WHERE id=:value")
-    Flowable<UserModel> getByPrimaryKey(String value);
+    Flowable<UserDBModel> getByPrimaryKey(String value);
 }

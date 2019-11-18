@@ -7,11 +7,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.erebor.tomkins.pos.data.local.dao.UserDao;
-import com.erebor.tomkins.pos.data.local.model.UserModel;
+import com.erebor.tomkins.pos.data.local.model.UserDBModel;
 
 
 @Database(entities = {
-        UserModel.class
+        UserDBModel.class
 }, version = 1)
 public abstract class TomkinsDatabase extends RoomDatabase {
     public static final String DB_NAME = "TOMKINS.db";

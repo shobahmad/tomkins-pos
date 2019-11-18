@@ -1,11 +1,11 @@
 package com.erebor.tomkins.pos.data.local.dao;
 
 import com.erebor.tomkins.pos.base.BaseDaoTest;
-import com.erebor.tomkins.pos.data.local.model.UserModel;
+import com.erebor.tomkins.pos.data.local.model.UserDBModel;
 
 public class UserDaoTest extends BaseDaoTest<UserDao> {
 
-    private final static UserModel RECORD = new UserModel(1, "email");
+    private final static UserDBModel RECORD = new UserDBModel(1, "email");
 
     @Override
     public UserDao getDao() {
@@ -18,7 +18,7 @@ public class UserDaoTest extends BaseDaoTest<UserDao> {
 
         dao.getByPrimaryKey(String.valueOf(RECORD.getId()))
                 .test()
-                .assertValue(userModel -> userModel != null
-                        && userModel.getEmail().equals(RECORD.getEmail()));
+                .assertValue(userDBModel -> userDBModel != null
+                        && userDBModel.getEmail().equals(RECORD.getEmail()));
     }
 }
