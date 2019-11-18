@@ -7,6 +7,10 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
 import com.erebor.tomkins.pos.data.ui.SaleHistoryUiModel;
@@ -72,9 +76,19 @@ public class SaleActivity extends BaseActivity<ActivitySaleBinding> {
         SaleUiModel saleUiModel = new SaleUiModel();
         saleUiModel.setProductId(productId);
         saleUiModel.setName("Falcon All Black");
+        saleUiModel.setDescription("Example description dummy");
         saleUiModel.setPrice(316000d);
         saleUiModel.setQty(1);
         saleUiModel.setSize("42");
+        saleUiModel.setImage("https://www.tomkins.id/wp-content/uploads/2019/10/Jojo-BP-1.jpg");
+
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(16));
+
+        Glide.with(this)
+                .load(saleUiModel.getImage())
+                .apply(requestOptions)
+                .into(binding.imageProduct);
 
         binding.setSale(saleUiModel);
         binding.setConfirmed(false);

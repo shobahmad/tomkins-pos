@@ -93,6 +93,8 @@ dependencies {
     // Scanner
     implementation "me.dm7.barcodescanner:zxing:$zxingVersion"
 
+    // Glide Image
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
 
     // Testing library
     testImplementation "junit:junit:$jUnitVersion"
