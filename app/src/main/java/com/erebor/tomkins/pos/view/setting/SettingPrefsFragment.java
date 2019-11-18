@@ -1,6 +1,7 @@
 package com.erebor.tomkins.pos.view.setting;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 
 import androidx.preference.EditTextPreference;
@@ -31,6 +32,7 @@ public class SettingPrefsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.fragment_setting, rootKey);
 
         EditTextPreference editHostPrefs = findPreference(getResources().getString(R.string.key_setting_host));
+        editHostPrefs.setOnBindEditTextListener(editText -> editText.setText(sharedPrefs.getHostname()));
         editHostPrefs.setSummaryProvider((Preference.SummaryProvider<EditTextPreference>) preference -> {
             String text = preference.getText();
             if (TextUtils.isEmpty(text)){
@@ -40,6 +42,13 @@ public class SettingPrefsFragment extends PreferenceFragmentCompat {
         });
 
         EncryptedEditTextPreference editUsername = findPreference(getResources().getString(R.string.key_setting_email));
+        editUsername.setOnBindEditTextListener(editText -> {
+            editText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+            try {
+                editText.setText(securityEncryption.aesDecrypt(sharedPrefs.getUsername()));
+            } catch (Exception e) {
+            }
+        });
         editUsername.setEncryptedSummaryProvider(securityEncryption, getResources().getString(R.string.setting_email));
 
         EncryptedEditTextPreference editPassword = findPreference(getResources().getString(R.string.key_setting_password));
