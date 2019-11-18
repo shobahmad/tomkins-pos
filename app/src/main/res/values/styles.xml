@@ -9,7 +9,13 @@
         <item name="android:homeAsUpIndicator">@drawable/ic_back_button</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="autoCompleteTextViewStyle">@style/SearchAutoCompleteTextView</item>
     </style>
+    <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/greyLines</item>
+    </style>
+
     <style name="ToolbarTransparent" parent="AppTheme">
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:background">@android:color/transparent</item>

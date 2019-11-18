@@ -46,5 +46,7 @@
     <string name="login_password_empty">Password can\'t be empty</string>
     <string name="stock_available">Stock Available</string>
     <string name="stock_report">Stock Report</string>
+    <string name="search">Search</string>
+    <string name="search_hint">search</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.erebor.tomkins.pos.view.report;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +27,17 @@ public class StockActivity extends BaseActivity<ActivityStockBinding> {
     @Override
     public int getLayout() {
         return R.layout.activity_stock;
+    }
+
+    @Override
+    protected boolean isMenuSearchEnabled() {
+        return true;
+    }
+
+    @Override
+    protected boolean onQueryTextSubmit(String query) {
+        Toast.makeText(this, query, Toast.LENGTH_SHORT).show();
+        return super.onQueryTextSubmit(query);
     }
 
     @Override
