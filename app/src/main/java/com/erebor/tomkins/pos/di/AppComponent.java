@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.erebor.tomkins.pos.MainActivity;
 import com.erebor.tomkins.pos.view.login.LoginActivity;
+import com.erebor.tomkins.pos.view.setting.SettingPrefsFragment;
 import com.erebor.tomkins.pos.view.splash.SplashScreenActivity;
 
 import javax.inject.Singleton;
@@ -26,6 +27,8 @@ public interface AppComponent {
     void doInjection(MainActivity mainActivity);
     void doInjection(SplashScreenActivity activity);
     void doInjection(LoginActivity activity);
+
+    void doInjection(SettingPrefsFragment fragment);
 
 
 }

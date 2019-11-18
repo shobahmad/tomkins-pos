@@ -19,13 +19,13 @@
         app:title="@string/setting_account"
         >
 
-        <EditTextPreference
+        <com.erebor.tomkins.pos.view.custom.EncryptedEditTextPreference
             app:key="@string/key_setting_email"
             app:summary="@string/setting_email"
             app:title="@string/setting_email"
             />
 
-        <EditTextPreference
+        <com.erebor.tomkins.pos.view.custom.EncryptedEditTextPreference
             app:key="@string/key_setting_password"
             app:summary="@string/setting_password"
             app:title="@string/setting_password"
