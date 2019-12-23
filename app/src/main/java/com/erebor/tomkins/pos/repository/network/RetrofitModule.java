@@ -1,6 +1,6 @@
-package com.erebor.tomkins.pos.di;
+package com.erebor.tomkins.pos.repository.network;
 
-import com.erebor.tomkins.pos.service.TomkinsService;
+import com.erebor.tomkins.pos.repository.network.TomkinsService;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.google.gson.Gson;
 
@@ -30,7 +30,7 @@ public class RetrofitModule {
 
     @Provides
     @Singleton
-    TomkinsService provideService(Retrofit retrofit) {
-        return retrofit.create(TomkinsService.class);
+    LoginRepository provideLoginRepository(Retrofit retrofit) {
+        return new LoginRepository(retrofit.create(TomkinsService.class));
     }
 }
