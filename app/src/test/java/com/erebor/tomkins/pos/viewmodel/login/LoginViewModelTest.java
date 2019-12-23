@@ -2,7 +2,8 @@ package com.erebor.tomkins.pos.viewmodel.login;
 
 import com.erebor.tomkins.pos.data.remote.LoginRequest;
 import com.erebor.tomkins.pos.data.remote.LoginResponse;
-import com.erebor.tomkins.pos.service.TomkinsService;
+import com.erebor.tomkins.pos.repository.network.TomkinsService;
+import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.erebor.tomkins.pos.viewmodel.base.BaseViewModelTest;
 
 import org.junit.Test;
@@ -19,10 +20,12 @@ public class LoginViewModelTest extends BaseViewModelTest<LoginViewModel> {
 
     @Mock
     TomkinsService service;
+    @Mock
+    SharedPrefs sharedPrefs;
 
     @Override
     public LoginViewModel generateViewModel() {
-        return new LoginViewModel(service, logger);
+        return new LoginViewModel(service, logger, sharedPrefs);
     }
 
     @Test

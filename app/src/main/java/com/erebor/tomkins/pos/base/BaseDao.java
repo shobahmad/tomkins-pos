@@ -7,13 +7,9 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 public interface BaseDao<D extends BaseDatabaseModel> {
-
-    Flowable<List<D>> getAllData();
-    Flowable<D> getByPrimaryKey(String value);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Single<Long> insertReplace(D data);

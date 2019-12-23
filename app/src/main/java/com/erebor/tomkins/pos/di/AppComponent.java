@@ -3,6 +3,7 @@ package com.erebor.tomkins.pos.di;
 import android.app.Application;
 
 import com.erebor.tomkins.pos.MainActivity;
+import com.erebor.tomkins.pos.repository.network.RetrofitModule;
 import com.erebor.tomkins.pos.view.login.LoginActivity;
 import com.erebor.tomkins.pos.view.setting.SettingPrefsFragment;
 import com.erebor.tomkins.pos.view.splash.SplashScreenActivity;
