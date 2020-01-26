@@ -19,7 +19,8 @@ import dagger.Component;
         LogModule.class,
         HttpClientModule.class,
         RetrofitModule.class,
-        SharedPrefsModule.class
+        SharedPrefsModule.class,
+        DatabaseModule.class
 })
 @Singleton
 public interface AppComponent {

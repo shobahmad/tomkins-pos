@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import com.erebor.tomkins.pos.base.BaseDatabaseModel;
 
 @Entity(tableName = "user")
-public class UserDBModel extends BaseDatabaseModel {
+public class UserDBModel implements BaseDatabaseModel {
 
     @NonNull
     @PrimaryKey
@@ -64,7 +64,6 @@ public class UserDBModel extends BaseDatabaseModel {
         this.position = position;
     }
 
-    @Override
     public String getPrimaryKeyValue() {
         return String.valueOf(id);
     }
