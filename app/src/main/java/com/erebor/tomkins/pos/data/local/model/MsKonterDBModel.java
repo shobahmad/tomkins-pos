@@ -62,7 +62,7 @@ public class MsKonterDBModel {
     private Integer sysAktif;
 
     @ColumnInfo(name = "IDCounter")
-    private String iDCounter;
+    private String idCounter;
 
     @NonNull
     public String getKodeCounter() {
@@ -138,11 +138,11 @@ public class MsKonterDBModel {
         this.sysAktif = sysAktif;
     }
 
-    public String getiDCounter() {
-        return iDCounter;
+    public String getIdCounter() {
+        return idCounter;
     }
 
-    public void setiDCounter(String iDCounter) {
-        this.iDCounter = iDCounter;
+    public void setIdCounter(String idCounter) {
+        this.idCounter = idCounter;
     }
 }

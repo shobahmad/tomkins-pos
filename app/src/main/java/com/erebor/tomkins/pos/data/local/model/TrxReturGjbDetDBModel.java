@@ -41,6 +41,7 @@ public class TrxReturGjbDetDBModel {
     @ColumnInfo(name = "KodeArt")
     private String kodeArt;
 
+    @NonNull
     @ColumnInfo(name = "Ukuran")
     private String ukuran;
 

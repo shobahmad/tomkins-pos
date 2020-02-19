@@ -6,8 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.erebor.tomkins.pos.data.converters.Converters;
 import com.erebor.tomkins.pos.data.local.dao.AccessDao;
 import com.erebor.tomkins.pos.data.local.dao.UserDao;
 import com.erebor.tomkins.pos.data.local.model.*;
@@ -39,7 +41,10 @@ import com.erebor.tomkins.pos.data.local.model.*;
         TrxTerimaDBModel.class,
         TrxTerimaDetDBModel.class,
 
-}, version = 1)
+}, version = 1, exportSchema = false)
+@TypeConverters({
+        Converters.class
+})
 public abstract class TomkinsDatabase extends RoomDatabase {
     public static final String DB_NAME = "TOMKINS.db";
 

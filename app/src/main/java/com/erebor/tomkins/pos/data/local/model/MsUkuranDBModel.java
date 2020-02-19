@@ -36,4 +36,29 @@ public class MsUkuranDBModel {
     @ColumnInfo(name = "PanjangCM")
     private String panjangCM;
 
+    @NonNull
+    public String getKodeGender() {
+        return kodeGender;
+    }
+
+    public void setKodeGender(@NonNull String kodeGender) {
+        this.kodeGender = kodeGender;
+    }
+
+    @NonNull
+    public String getUkuran() {
+        return ukuran;
+    }
+
+    public void setUkuran(@NonNull String ukuran) {
+        this.ukuran = ukuran;
+    }
+
+    public String getPanjangCM() {
+        return panjangCM;
+    }
+
+    public void setPanjangCM(String panjangCM) {
+        this.panjangCM = panjangCM;
+    }
 }

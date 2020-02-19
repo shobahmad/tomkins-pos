@@ -75,5 +75,88 @@ public class TrxJualDetDBModel {
     @ColumnInfo(name = "Catatan")
     private String catatan;
 
+    @NonNull
+    public String getNoBon() {
+        return noBon;
+    }
 
+    public void setNoBon(@NonNull String noBon) {
+        this.noBon = noBon;
+    }
+
+    @NonNull
+    public Integer getIndTrx() {
+        return indTrx;
+    }
+
+    public void setIndTrx(@NonNull Integer indTrx) {
+        this.indTrx = indTrx;
+    }
+
+    @NonNull
+    public String getKodeArt() {
+        return kodeArt;
+    }
+
+    public void setKodeArt(@NonNull String kodeArt) {
+        this.kodeArt = kodeArt;
+    }
+
+    @NonNull
+    public String getUkuran() {
+        return ukuran;
+    }
+
+    public void setUkuran(@NonNull String ukuran) {
+        this.ukuran = ukuran;
+    }
+
+    public double getHargaNormal() {
+        return hargaNormal;
+    }
+
+    public void setHargaNormal(double hargaNormal) {
+        this.hargaNormal = hargaNormal;
+    }
+
+    public String getKodeEvent() {
+        return kodeEvent;
+    }
+
+    public void setKodeEvent(String kodeEvent) {
+        this.kodeEvent = kodeEvent;
+    }
+
+    @NonNull
+    public Integer getQtyJual() {
+        return qtyJual;
+    }
+
+    public void setQtyJual(@NonNull Integer qtyJual) {
+        this.qtyJual = qtyJual;
+    }
+
+    public double getDiskon() {
+        return diskon;
+    }
+
+    public void setDiskon(double diskon) {
+        this.diskon = diskon;
+    }
+
+    public double getHrgaJual() {
+        return hrgaJual;
+    }
+
+    public void setHrgaJual(double hrgaJual) {
+        this.hrgaJual = hrgaJual;
+    }
+
+    public String getCatatan() {
+        return catatan;
+    }
+
+    public void setCatatan(String catatan) {
+        this.catatan = catatan;
+    }
 }

@@ -43,6 +43,7 @@ public class TrxOpnameDetDBModel {
     )
     private String kodeArt;
 
+    @NonNull
     @ColumnInfo(name = "Ukuran")
     private String ukuran;
 

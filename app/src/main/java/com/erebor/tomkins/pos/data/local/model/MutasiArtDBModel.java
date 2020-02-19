@@ -40,6 +40,10 @@ public class MutasiArtDBModel {
     )
     private String KodeArt;
 
+    @NonNull
+    @ColumnInfo(name = "Ukuran")
+    private String Ukuran;
+
     @ColumnInfo(name = "QtyOpn", defaultValue = "0")
     private Integer qtyOpn;
 
@@ -71,6 +75,15 @@ public class MutasiArtDBModel {
 
     public void setKodeArt(@NonNull String kodeArt) {
         KodeArt = kodeArt;
+    }
+
+    @NonNull
+    public String getUkuran() {
+        return Ukuran;
+    }
+
+    public void setUkuran(@NonNull String ukuran) {
+        Ukuran = ukuran;
     }
 
     public Integer getQtyOpn() {
