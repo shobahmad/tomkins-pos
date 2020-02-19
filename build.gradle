@@ -70,4 +70,5 @@ ext {
     spinKitVersion = '1.2.0'
     zxingVersion = '1.9.8'
     glideVersion = '4.10.0'
+    visionVersion = '9.4.0+'
 }
