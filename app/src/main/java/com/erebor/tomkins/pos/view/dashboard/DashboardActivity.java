@@ -2,8 +2,6 @@ package com.erebor.tomkins.pos.view.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -13,18 +11,23 @@ import com.erebor.tomkins.pos.data.ui.DownloadUiModel;
 import com.erebor.tomkins.pos.data.ui.ReportSummaryUiModel;
 import com.erebor.tomkins.pos.data.ui.UserUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityDashboardBinding;
-import com.erebor.tomkins.pos.databinding.ActivityMainBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
-import com.erebor.tomkins.pos.view.callback.IItemClick;
+import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.erebor.tomkins.pos.view.report.StockActivity;
 import com.erebor.tomkins.pos.view.sale.SaleActivity;
-import com.erebor.tomkins.pos.view.scan.ScannerActivity;
+import com.erebor.tomkins.pos.view.scan.VisionScannerActivity;
+import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
 import com.erebor.tomkins.pos.view.setting.SettingActivity;
 import com.erebor.tomkins.pos.view.sync.SyncActivity;
+
+import javax.inject.Inject;
 
 public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
     int downloadState = 0;
+
+    @Inject
+    SharedPrefs sharedPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,19 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
         fetchDummyData();
         binding.buttonScan.setOnClickListener(v -> {
-            startActivityForResult(new Intent(DashboardActivity.this, ScannerActivity.class), 1);
+
+            String scanner = sharedPrefs.getString(getResources().getString(R.string.setting_key_camera), "");
+            if (scanner.equals("")) {
+                startActivityForResult(new Intent(DashboardActivity.this, ZynxScannerActivity.class), 1);
+                return;
+            }
+
+            if (scanner.equals("zxing")) {
+                startActivityForResult(new Intent(DashboardActivity.this, ZynxScannerActivity.class), 1);
+                return;
+            }
+
+            startActivityForResult(new Intent(DashboardActivity.this, VisionScannerActivity.class), 1);
         });
         binding.setSettingClick(item -> startActivity(new Intent(DashboardActivity.this, SettingActivity.class)));
     }
@@ -124,7 +139,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
     @Override
     public void inject(AppComponent appComponent) {
-
+        appComponent.doInjection(this);
     }
 
     @Override

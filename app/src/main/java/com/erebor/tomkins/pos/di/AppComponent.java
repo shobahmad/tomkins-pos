@@ -4,7 +4,9 @@ import android.app.Application;
 
 import com.erebor.tomkins.pos.MainActivity;
 import com.erebor.tomkins.pos.repository.network.RetrofitModule;
+import com.erebor.tomkins.pos.view.dashboard.DashboardActivity;
 import com.erebor.tomkins.pos.view.login.LoginActivity;
+import com.erebor.tomkins.pos.view.sale.SaleActivity;
 import com.erebor.tomkins.pos.view.setting.SettingPrefsFragment;
 import com.erebor.tomkins.pos.view.splash.SplashScreenActivity;
 
@@ -29,6 +31,8 @@ public interface AppComponent {
     void doInjection(MainActivity mainActivity);
     void doInjection(SplashScreenActivity activity);
     void doInjection(LoginActivity activity);
+    void doInjection(DashboardActivity activity);
+    void doInjection(SaleActivity activity);
 
     void doInjection(SettingPrefsFragment fragment);
 

@@ -18,8 +18,7 @@ import com.erebor.tomkins.pos.data.ui.SaleUiModel;
 import com.erebor.tomkins.pos.databinding.ActivitySaleBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.view.callback.ItemQtyHandler;
-import com.erebor.tomkins.pos.view.dashboard.DashboardActivity;
-import com.erebor.tomkins.pos.view.scan.ScannerActivity;
+import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +68,7 @@ public class SaleActivity extends BaseActivity<ActivitySaleBinding> {
             binding.setConfirmed(true);
             fetchHistory();
         });
-        binding.buttonScan.setOnClickListener(v -> startActivityForResult(new Intent(SaleActivity.this, ScannerActivity.class), 1));
+        binding.buttonScan.setOnClickListener(v -> startActivityForResult(new Intent(SaleActivity.this, ZynxScannerActivity.class), 1));
     }
 
     private void fetchProductInfo(String productId) {

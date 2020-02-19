@@ -5,6 +5,7 @@ import android.text.InputType;
 import android.text.TextUtils;
 
 import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -54,6 +55,14 @@ public class SettingPrefsFragment extends PreferenceFragmentCompat {
         EncryptedEditTextPreference editPassword = findPreference(getResources().getString(R.string.key_setting_password));
         editPassword.setEncryptedSummaryProvider(securityEncryption, "******");
         editPassword.setSummaryProvider((Preference.SummaryProvider<EditTextPreference>) preference -> "********");
+
+        ListPreference listScanner = findPreference(getResources().getString(R.string.setting_key_camera));
+        listScanner.setSummaryProvider((Preference.SummaryProvider<ListPreference>) preference -> {
+            if (preference.getEntry() == null) {
+                return getResources().getString(R.string.scanner_camera);
+            }
+            return preference.getEntry();
+        });
 
 
 

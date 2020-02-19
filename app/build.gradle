@@ -92,6 +92,7 @@ dependencies {
 
     // Scanner
     implementation "me.dm7.barcodescanner:zxing:$zxingVersion"
+    implementation "com.google.android.gms:play-services-vision:$visionVersion"
 
     // Glide Image
     implementation "com.github.bumptech.glide:glide:$glideVersion"

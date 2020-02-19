@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="scanner_entries">
+        <item>Zxing</item>
+        <item>Google Vision</item>
+    </array>
+    <array name="scanner_entries_values">
+        <item>zxing</item>
+        <item>google</item>
+    </array>
+</resources>

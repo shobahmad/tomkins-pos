@@ -39,7 +39,7 @@
     <string name="setting_hostname">Hostname</string>
     <string name="setting_email">Email</string>
     <string name="key_setting_email" translatable="false">setting_email</string>
-    <string name="key_setting_password">setting_password</string>
+    <string name="key_setting_password" translatable="false">setting_password</string>
     <string name="setting_password">Password</string>
     <string name="setting">Setting</string>
     <string name="login_empty_username">Username can\'t be empty</string>
@@ -48,5 +48,11 @@
     <string name="stock_report">Stock Report</string>
     <string name="search">Search</string>
     <string name="search_hint">search</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+    <string name="scan_barcode">Scan Barcode</string>
+    <string name="key_setting_camera" translatable="false">setting_camera</string>
+    <string name="scanner_camera">Scanner Camera</string>
+    <string name="scanner">Scanner</string>
+    <string name="setting_key_camera" translatable="false">scanner_camera</string>
 
 </resources>

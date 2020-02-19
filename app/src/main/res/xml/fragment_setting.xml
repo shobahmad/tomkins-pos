@@ -32,4 +32,19 @@
             />
 
     </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="@string/key_setting_camera"
+        app:title="@string/scanner"
+        >
+
+        <ListPreference
+            app:key="@string/setting_key_camera"
+            app:title="@string/scanner_camera"
+            app:entries="@array/scanner_entries"
+            app:entryValues="@array/scanner_entries_values"
+            />
+
+
+    </PreferenceCategory>
 </PreferenceScreen>
