@@ -68,12 +68,12 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
         downloadViewModel.observeChanged();
         downloadViewModel.getDownloadViewState().observe(this, downloadViewState -> {
             if (downloadViewState.getCurrentState() == DownloadViewState.WAITING_STATE.getCurrentState()) {
-
-                DownloadUiModel downloadUiModel = new DownloadUiModel();
-                downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
-                downloadUiModel.setDownloading(false);
-                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(downloadViewState.getLastDownloadTime()));
-                binding.setDownloadSummary(downloadUiModel);
+//
+//                DownloadUiModel downloadUiModel = new DownloadUiModel();
+//                downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
+//                downloadUiModel.setDownloading(false);
+//                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(downloadViewState.getLastDownloadTime()));
+//                binding.setDownloadSummary(downloadUiModel);
                 return;
             }
 
@@ -81,8 +81,8 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
 
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(downloadViewState.getMessage());
+                downloadUiModel.setMesssage(downloadViewState.getMessage());
                 downloadUiModel.setDownloading(true);
-                downloadUiModel.setLastDownloadTime(resourceHelper.getResourceString(R.string.percent, String.valueOf(downloadViewState.getProgress())));
                 downloadUiModel.setProgress(downloadViewState.getProgress());
                 binding.setDownloadSummary(downloadUiModel);
                 return;
@@ -99,10 +99,11 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
 
             if (downloadViewState.getCurrentState() == DownloadViewState.ERROR_STATE.getCurrentState()) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
-                downloadUiModel.setTitle(getResources().getString(R.string.last_download));
+                downloadUiModel.setTitle(getResources().getString(R.string.download_failed));
                 downloadUiModel.setDownloading(false);
                 downloadUiModel.setProgress(downloadViewState.getProgress());
                 downloadUiModel.setLastDownloadTime(downloadViewState.getMessage());
+                downloadUiModel.setMesssage(downloadViewState.getMessage());
                 binding.setDownloadSummary(downloadUiModel);
 
             }

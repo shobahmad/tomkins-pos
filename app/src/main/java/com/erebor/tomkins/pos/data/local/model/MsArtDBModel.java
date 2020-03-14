@@ -17,41 +17,14 @@ import java.util.Date;
 import static androidx.room.ForeignKey.RESTRICT;
 
 @Entity(tableName = "MSART",
-        foreignKeys = {
-            @ForeignKey(
-                    entity = MsBrandDBModel.class,
-                    parentColumns = "KodeBrand",
-                    childColumns = "KodeBrand"
-            ),
-            @ForeignKey(
-                    entity = MsGenderDBModel.class,
-                    parentColumns = "KodeGender",
-                    childColumns = "KodeGender",
-                    onDelete = RESTRICT,
-                    onUpdate = RESTRICT
-            )
-        },
         indices = {
                 @Index(name = "ind_NamaArt", value = {"NamaArt"}),
                 @Index(name = "KodeBrand", value = {"KodeBrand"}),
                 @Index(name = "KodeGender", value = {"KodeGender"}),
+                @Index(name = "last_update", value = {"last_update"}),
         }
 )
 public class MsArtDBModel implements BaseDatabaseModel {
-    /*
-    CREATE TABLE [MSART](
-  [KodeArt] VARCHAR(20) PRIMARY KEY ASC NOT NULL ON CONFLICT ABORT UNIQUE ON CONFLICT ABORT,
-  [NamaArt] VARCHAR(40) NOT NULL,
-  [Warna] VARCHAR(40) NOT NULL,
-  [KodeBrand] VARCHAR(2) NOT NULL REFERENCES [MSBRAND]([KodeBrand]),
-  [KodeGender] VARCHAR(3) NOT NULL REFERENCES [MSGENDER]([KodeGender]) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  [Harga] MONEY)
-     */
-
-    /*
-    CREATE INDEX [ind_NamaArt] ON [MSART]([NamaArt] ASC)
-     */
-
     @NonNull
     @PrimaryKey
     @SerializedName("KodeArt")

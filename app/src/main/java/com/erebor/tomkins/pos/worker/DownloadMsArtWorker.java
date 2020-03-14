@@ -8,12 +8,15 @@ import androidx.work.WorkerParameters;
 
 import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
 import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
+import com.erebor.tomkins.pos.data.remote.DownloadResponse;
 import com.erebor.tomkins.pos.data.remote.response.NetworkBoundResult;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.di.AppComponent;
+import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.repository.network.TomkinsService;
 import com.erebor.tomkins.pos.tools.Logger;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +31,8 @@ public class DownloadMsArtWorker extends BaseDownloadWorker<MsArtDBModel> {
     MsArtDao msArtDao;
     @Inject
     TomkinsService tomkinsService;
+    @Inject
+    DateConverterHelper dateConverterHelper;
 
     public DownloadMsArtWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -41,6 +46,17 @@ public class DownloadMsArtWorker extends BaseDownloadWorker<MsArtDBModel> {
     @Override
     Logger getLogger() {
         return logger;
+    }
+
+    @Override
+    List<MsArtDBModel> getDataWithLastUpdate(List<MsArtDBModel> data, Date lastUpdate) {
+        List<MsArtDBModel> msArtDBModels = new ArrayList<>();
+        msArtDBModels.addAll(data);
+
+        for (MsArtDBModel art : msArtDBModels) {
+            art.setLastUpdate(lastUpdate);
+        }
+        return msArtDBModels;
     }
 
     @Override
@@ -58,11 +74,11 @@ public class DownloadMsArtWorker extends BaseDownloadWorker<MsArtDBModel> {
     }
 
     @Override
-    List<MsArtDBModel> callApi(Date lastUpdate) throws Exception {
-        return new NetworkBoundResult<List<MsArtDBModel>>() {
+    DownloadResponse<List<MsArtDBModel>> callApi(Date lastUpdate) throws Exception {
+        return new NetworkBoundResult<DownloadResponse<List<MsArtDBModel>>>() {
             @Override
-            protected Call<RestResponse<List<MsArtDBModel>>> callApiAction() {
-                return tomkinsService.getMsArt(lastUpdate);
+            protected Call<RestResponse<DownloadResponse<List<MsArtDBModel>>>> callApiAction() {
+                return tomkinsService.getMsArt(dateConverterHelper.toDateTimeString(lastUpdate));
             }
         }.fetchData();
     }

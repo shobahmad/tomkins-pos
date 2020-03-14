@@ -9,6 +9,7 @@ import androidx.work.ListenableWorker;
 import androidx.work.WorkerParameters;
 
 import com.erebor.tomkins.pos.base.BaseWorker;
+import com.erebor.tomkins.pos.data.remote.DownloadResponse;
 import com.erebor.tomkins.pos.tools.Logger;
 
 import java.util.Date;
@@ -24,13 +25,13 @@ public abstract class BaseDownloadWorker<T> extends BaseWorker {
     }
 
     abstract Logger getLogger();
-
+    abstract List<T> getDataWithLastUpdate(List<T> data, Date lastUpdate);
     abstract List<Long> doInsert(List<T> data);
 
     @Nullable
     abstract Date getLastItemUpdate();
 
-    abstract List<T> callApi(Date lastUpdate) throws Exception;
+    abstract DownloadResponse<List<T>>callApi(Date lastUpdate) throws Exception;
 
     public String getLogTag() {
         return getClass().getSimpleName();
@@ -39,6 +40,9 @@ public abstract class BaseDownloadWorker<T> extends BaseWorker {
     private void saveToLocalStorage(List<T> data) throws Exception {
         long startTime = System.currentTimeMillis();
         AtomicInteger insertResult = new AtomicInteger();
+        if (data == null) {
+            throw new Exception("Empty data");
+        }
         List<Long> insertResults = doInsert(data);
         for (Long insert : insertResults) {
             if (insert < 1)
@@ -52,7 +56,8 @@ public abstract class BaseDownloadWorker<T> extends BaseWorker {
     }
 
     private List<T> download() throws Exception {
-        return callApi(getLastItemUpdate());
+        DownloadResponse<List<T>> downloadResponse = callApi(getLastItemUpdate());
+        return getDataWithLastUpdate(downloadResponse.getData(), downloadResponse.getLastUpdate());
     }
 
     private Data getSuccessOutputData() {

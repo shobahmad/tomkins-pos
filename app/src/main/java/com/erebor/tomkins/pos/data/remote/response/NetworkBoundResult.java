@@ -43,7 +43,7 @@ public abstract class NetworkBoundResult<ResultType> {
                     .getJSONObject("error")
                     .getString("message"));
         } catch (JSONException | IOException e) {
-            return new InvalidResponseException("Invalid Response");
+            return new InvalidResponseException("Invalid Response: " + e.getMessage());
         }
     }
 }

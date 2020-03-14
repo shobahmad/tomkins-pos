@@ -51,7 +51,7 @@
                 style="@style/TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="52dp"
-                android:text="@{download.downloading ? download.messsage : download.title}"
+                android:text="@{download.downloading ? download.messsage : download.title, default=`Title or message here`}"
                 android:textColor="@color/greyishBrown"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -64,7 +64,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:minHeight="52dp"
-                android:text="@{download.downloading ? (String.valueOf(download.progress) + `%`) : download.lastDownloadTime, default=`Download info`}"
+                android:text="@{download.downloading ? (String.valueOf(download.progress) + `%`) : download.lastDownloadTime, default=`Downloading info here`}"
                 android:gravity="right|center_vertical"
                 app:layout_constraintStart_toEndOf="@id/text_label_last_download"
                 app:layout_constraintEnd_toEndOf="parent"

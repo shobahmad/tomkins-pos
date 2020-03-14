@@ -213,7 +213,7 @@ public class DownloadViewModel extends ViewModel {
         String message = data.getString(BaseDownloadWorker.KEY_EXCEPTION_MESSAGE);
         if (state.equals(WorkInfo.State.FAILED) && message != null) {
             int updateProgress = progress + ((workerProgress - progress) / 2);
-            String workerTitle = getProgressMessage(updateProgress) + "... ";
+            String workerTitle = getProgressMessage(updateProgress);
 
             logger.debug(TAG, "[" + requestId + "]FAILED " + info.getTags().toArray()[0] + " | Updating progress : " + message);
             DownloadViewState.ERROR_STATE.setMessage(workerTitle + "\r\n" + message);
