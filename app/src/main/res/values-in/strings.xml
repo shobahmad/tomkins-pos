@@ -51,4 +51,10 @@
     <string name="time_elapsed_hours_ago">hours ago</string>
     <string name="percent">%</string>
     <string name="download_failed">Download Failed</string>
+    <string name="download_not_yet">Not downloaded yet</string>
+    <string name="download_worker_barcode">Barcodes</string>
+    <string name="download_worker_brand">Brands</string>
+    <string name="download_worker_gender">Gender</string>
+    <string name="download_worker_ukuran">Size</string>
+    <string name="download_worker_stock">Stock</string>
 </resources>

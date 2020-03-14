@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,131 +16,29 @@
         app:title="@{title}"
         />
 
-        <ScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recylerDOwnloadInfo"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintBottom_toTopOf="@id/layout_download_info"
-            android:padding="6dp"
-            >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_download_info"
+            />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardArt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="8dp"
-                    
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <include
-                        layout="@layout/snippet_sync_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:download="@{downloadArt}" />
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardBarcode"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:cardCornerRadius="8dp"
-                    
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardArt">
-
-                    <include
-                        layout="@layout/snippet_sync_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:download="@{downloadBarcode}" />
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardBrand"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:cardCornerRadius="8dp"
-                    
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardBarcode">
-
-                    <include
-                        layout="@layout/snippet_sync_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:download="@{downloadBrand}" />
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardGender"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:cardCornerRadius="8dp"
-                    
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardBrand">
-
-                    <include
-                        layout="@layout/snippet_sync_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:download="@{downloadGender}" />
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardUkuran"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:cardCornerRadius="8dp"
-                    
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardGender">
-
-                    <include
-                        layout="@layout/snippet_sync_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:download="@{downloadUkuran}" />
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardStock"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:cardCornerRadius="8dp"
-                    
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardUkuran">
-
-                    <include
-                        layout="@layout/snippet_sync_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:download="@{downloadStock}" />
-                </androidx.cardview.widget.CardView>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+        <com.github.ybq.android.spinkit.SpinKitView
+            style="@style/SpinKitView.ThreeBounce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{loading ? View.VISIBLE :View.GONE}"
+            app:SpinKit_Color="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <!--DOWNLOAD INFO-->
         <include
@@ -158,29 +57,15 @@
 
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="title"
             type="String" />
         <variable
+            name="loading"
+            type="Boolean" />
+        <variable
             name="downloadSummary"
-            type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
-        <variable
-            name="downloadArt"
-            type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
-        <variable
-            name="downloadBarcode"
-            type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
-        <variable
-            name="downloadBrand"
-            type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
-        <variable
-            name="downloadGender"
-            type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
-        <variable
-            name="downloadUkuran"
-            type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
-        <variable
-            name="downloadStock"
             type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
     </data>
 

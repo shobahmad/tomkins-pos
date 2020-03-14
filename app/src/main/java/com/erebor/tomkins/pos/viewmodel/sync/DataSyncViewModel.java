@@ -14,7 +14,6 @@ import androidx.work.WorkContinuation;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.erebor.tomkins.pos.data.ui.DownloadUiModel;
 import com.erebor.tomkins.pos.helper.WorkerHelper;
 import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
@@ -33,9 +32,9 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-public class DownloadViewModel extends ViewModel {
+public class DataSyncViewModel extends ViewModel {
     private static final String SYNC_WORK_NAME = "sync_work";
-    private static final String TAG = "DownloadViewModel";
+    private static final String TAG = "DataSyncViewModel";
 
     private WorkManager workManager;
     private Logger logger;
@@ -44,11 +43,11 @@ public class DownloadViewModel extends ViewModel {
 
     private int progress = 0;
 
-    private final MutableLiveData<DownloadViewState> downloadViewState = new MutableLiveData<>();
+    private final MutableLiveData<DataSyncViewState> downloadViewState = new MutableLiveData<>();
     private Map<String, Observer<List<WorkInfo>>> observerHashMap = new HashMap<>();
 
     @Inject
-    public DownloadViewModel(WorkManager workManager, Logger logger, SharedPrefs sharedPrefs, WorkerHelper workerHelper) {
+    public DataSyncViewModel(WorkManager workManager, Logger logger, SharedPrefs sharedPrefs, WorkerHelper workerHelper) {
         this.workManager = workManager;
         this.logger = logger;
         this.sharedPrefs = sharedPrefs;
@@ -56,9 +55,17 @@ public class DownloadViewModel extends ViewModel {
     }
 
     public void observeChanged() {
-        DownloadViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
-        downloadViewState.setValue(DownloadViewState.WAITING_STATE);
+        DataSyncViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
+        downloadViewState.setValue(DataSyncViewState.WAITING_STATE);
         addObservers();
+        startSyncIfEmpty();
+    }
+
+    private void startSyncIfEmpty() {
+        if (getLatestDownloadedDate() != 0) {
+            return;
+        }
+        startSyncFull();
     }
 
     private void addObservers() {
@@ -102,8 +109,8 @@ public class DownloadViewModel extends ViewModel {
         }
 
         long requestId = System.currentTimeMillis();
-        DownloadViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
-        downloadViewState.setValue(DownloadViewState.WAITING_STATE);
+        DataSyncViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
+        downloadViewState.setValue(DataSyncViewState.WAITING_STATE);
 
         OneTimeWorkRequest.Builder initRequest = buildWorkerRequest(
                 requestId,
@@ -183,9 +190,9 @@ public class DownloadViewModel extends ViewModel {
             int updateProgress = progress + ((workerProgress - progress) / 2);
             String message = getProgressMessage(updateProgress) + "... ";
             logger.debug(TAG, "RUNNING " + info.getTags().toArray()[0] + " | Updating progress : " + updateProgress + " --> " + message);
-            DownloadViewState.LOADING_STATE.setMessage(message);
-            DownloadViewState.LOADING_STATE.setProgress(progress);
-            downloadViewState.setValue(DownloadViewState.LOADING_STATE);
+            DataSyncViewState.LOADING_STATE.setMessage(message);
+            DataSyncViewState.LOADING_STATE.setProgress(progress);
+            downloadViewState.setValue(DataSyncViewState.LOADING_STATE);
             return;
         }
 
@@ -203,9 +210,9 @@ public class DownloadViewModel extends ViewModel {
             sharedPrefs.setDownloadRequestId(data.getLong(BaseDownloadWorker.KEY_REQUEST_ID, 0));
             logger.debug(TAG, "SUCCEEDED " + info.getTags().toArray()[0] + " | Updating progress : " + progress);
             sharedPrefs.setLatestSyncDownloadDate(System.currentTimeMillis());
-            DownloadViewState.SUCCESS_STATE.setLastDownloadTime(getLatestDownloadedDate());
-            DownloadViewState.SUCCESS_STATE.setProgress(progress);
-            downloadViewState.setValue(DownloadViewState.SUCCESS_STATE);
+            DataSyncViewState.SUCCESS_STATE.setLastDownloadTime(getLatestDownloadedDate());
+            DataSyncViewState.SUCCESS_STATE.setProgress(progress);
+            downloadViewState.setValue(DataSyncViewState.SUCCESS_STATE);
             makeRequest(sharedPrefs.getSyncAutoDownloadInterval());
             resetProgress(true);
         }
@@ -216,9 +223,9 @@ public class DownloadViewModel extends ViewModel {
             String workerTitle = getProgressMessage(updateProgress);
 
             logger.debug(TAG, "[" + requestId + "]FAILED " + info.getTags().toArray()[0] + " | Updating progress : " + message);
-            DownloadViewState.ERROR_STATE.setMessage(workerTitle + "\r\n" + message);
-            DownloadViewState.ERROR_STATE.setProgress(progress);
-            downloadViewState.setValue(DownloadViewState.ERROR_STATE);
+            DataSyncViewState.ERROR_STATE.setMessage(workerTitle + "\r\n" + message);
+            DataSyncViewState.ERROR_STATE.setProgress(progress);
+            downloadViewState.setValue(DataSyncViewState.ERROR_STATE);
             makeRequest(sharedPrefs.getSyncAutoDownloadInterval());
             return;
         }
@@ -268,7 +275,7 @@ public class DownloadViewModel extends ViewModel {
         return false;
     }
 
-    public LiveData<DownloadViewState> getDownloadViewState() {
+    public LiveData<DataSyncViewState> getDownloadViewState() {
         return downloadViewState;
     }
 

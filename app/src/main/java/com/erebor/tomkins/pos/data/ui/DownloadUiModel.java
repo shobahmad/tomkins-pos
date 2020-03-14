@@ -1,5 +1,8 @@
 package com.erebor.tomkins.pos.data.ui;
 
+
+import androidx.room.DatabaseView;
+
 public class DownloadUiModel {
     private boolean downloading;
     private int progress;
@@ -9,6 +12,12 @@ public class DownloadUiModel {
 
     public DownloadUiModel() {
     }
+
+    public DownloadUiModel(String title, String lastDownloadTime) {
+        this.title = title;
+        this.lastDownloadTime = lastDownloadTime;
+    }
+
 
     public DownloadUiModel(String title) {
         this.title = title;

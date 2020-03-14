@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
@@ -13,8 +14,10 @@ import com.erebor.tomkins.pos.databinding.ActivitySyncBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.helper.ResourceHelper;
-import com.erebor.tomkins.pos.viewmodel.sync.DownloadViewModel;
-import com.erebor.tomkins.pos.viewmodel.sync.DownloadViewState;
+import com.erebor.tomkins.pos.viewmodel.sync.DataSyncViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.DataSyncViewState;
+import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewState;
 
 import javax.inject.Inject;
 
@@ -26,7 +29,10 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
 
-    DownloadViewModel downloadViewModel;
+    DataSyncViewModel dataSyncViewModel;
+    DownloadInfoViewModel downloadInfoViewModel;
+
+    private DownloadInfoAdapter adapter;
 
     @Override
     public void inject(AppComponent appComponent) {
@@ -45,14 +51,12 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
         setToolbar(binding.toolbar.toolbar);
         binding.setTitle(getResources().getString(R.string.dashboard_data_sync));
 
-        binding.setDownloadArt(new DownloadUiModel("Download Artikel"));
-        binding.setDownloadBarcode(new DownloadUiModel("Download Barcode"));
-        binding.setDownloadBrand(new DownloadUiModel("Download Brand"));
-        binding.setDownloadGender(new DownloadUiModel("Download Gender"));
-        binding.setDownloadUkuran(new DownloadUiModel("Download Ukuran"));
-        binding.setDownloadStock(new DownloadUiModel("Download Stock"));
+        adapter = new DownloadInfoAdapter(this);
+        binding.recylerDOwnloadInfo.setLayoutManager(new LinearLayoutManager(this));
+        binding.recylerDOwnloadInfo.setAdapter(adapter);
 
-        downloadViewModel = ViewModelProviders.of(this, viewModelFactory).get(DownloadViewModel.class);
+        dataSyncViewModel = ViewModelProviders.of(this, viewModelFactory).get(DataSyncViewModel.class);
+        downloadInfoViewModel = ViewModelProviders.of(this, viewModelFactory).get(DownloadInfoViewModel.class);
         observeChanges();
 
         DownloadUiModel downloadUiModel = new DownloadUiModel();
@@ -60,52 +64,64 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
         downloadUiModel.setDownloading(false);
         downloadUiModel.setMesssage("click to start download");
         binding.setDownloadSummary(downloadUiModel);
-        binding.layoutDownloadInfo.setArrowClick(v -> downloadViewModel.startSyncFull());
-        binding.layoutDownloadInfo.setContainerClick(v -> downloadViewModel.startSyncFull());
+        binding.layoutDownloadInfo.setArrowClick(v -> dataSyncViewModel.startSyncFull());
+        binding.layoutDownloadInfo.setContainerClick(v -> dataSyncViewModel.startSyncFull());
+
+        downloadInfoViewModel.getInfo();
     }
 
     private void observeChanges() {
-        downloadViewModel.observeChanged();
-        downloadViewModel.getDownloadViewState().observe(this, downloadViewState -> {
-            if (downloadViewState.getCurrentState() == DownloadViewState.WAITING_STATE.getCurrentState()) {
-//
-//                DownloadUiModel downloadUiModel = new DownloadUiModel();
-//                downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
-//                downloadUiModel.setDownloading(false);
-//                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(downloadViewState.getLastDownloadTime()));
-//                binding.setDownloadSummary(downloadUiModel);
-                return;
-            }
-
-            if (downloadViewState.getCurrentState() == DownloadViewState.LOADING_STATE.getCurrentState()) {
-
+        dataSyncViewModel.observeChanged();
+        dataSyncViewModel.getDownloadViewState().observe(this, dataSyncViewState -> {
+            if (dataSyncViewState.getCurrentState() == DataSyncViewState.WAITING_STATE.getCurrentState()) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
-                downloadUiModel.setTitle(downloadViewState.getMessage());
-                downloadUiModel.setMesssage(downloadViewState.getMessage());
-                downloadUiModel.setDownloading(true);
-                downloadUiModel.setProgress(downloadViewState.getProgress());
+                downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
+                downloadUiModel.setDownloading(false);
+                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(dataSyncViewState.getLastDownloadTime()));
                 binding.setDownloadSummary(downloadUiModel);
                 return;
             }
 
-            if (downloadViewState.getCurrentState() == DownloadViewState.SUCCESS_STATE.getCurrentState()) {
+            if (dataSyncViewState.getCurrentState() == DataSyncViewState.LOADING_STATE.getCurrentState()) {
+                DownloadUiModel downloadUiModel = new DownloadUiModel();
+                downloadUiModel.setTitle(dataSyncViewState.getMessage());
+                downloadUiModel.setMesssage(dataSyncViewState.getMessage());
+                downloadUiModel.setDownloading(true);
+                downloadUiModel.setProgress(dataSyncViewState.getProgress());
+                binding.setDownloadSummary(downloadUiModel);
+                return;
+            }
+
+            if (dataSyncViewState.getCurrentState() == DataSyncViewState.SUCCESS_STATE.getCurrentState()) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.last_download));
                 downloadUiModel.setDownloading(false);
-                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(downloadViewState.getLastDownloadTime()));
+                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(dataSyncViewState.getLastDownloadTime()));
                 binding.setDownloadSummary(downloadUiModel);
                 return;
             }
 
-            if (downloadViewState.getCurrentState() == DownloadViewState.ERROR_STATE.getCurrentState()) {
+            if (dataSyncViewState.getCurrentState() == DataSyncViewState.ERROR_STATE.getCurrentState()) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.download_failed));
                 downloadUiModel.setDownloading(false);
-                downloadUiModel.setProgress(downloadViewState.getProgress());
-                downloadUiModel.setLastDownloadTime(downloadViewState.getMessage());
-                downloadUiModel.setMesssage(downloadViewState.getMessage());
+                downloadUiModel.setProgress(dataSyncViewState.getProgress());
+                downloadUiModel.setLastDownloadTime(dataSyncViewState.getMessage());
+                downloadUiModel.setMesssage(dataSyncViewState.getMessage());
                 binding.setDownloadSummary(downloadUiModel);
+            }
+        });
 
+        downloadInfoViewModel.getViewState().observe(this, downloadInfoViewState -> {
+            if (downloadInfoViewState.getCurrentState() == DownloadInfoViewState.LOADING_STATE.getCurrentState()) {
+                binding.setLoading(true);
+                return;
+            }
+            if (downloadInfoViewState.getCurrentState() == DownloadInfoViewState.SUCCESS_STATE.getCurrentState()) {
+                binding.setLoading(false);
+                adapter.clearList();
+                adapter.addList(downloadInfoViewState.getData());
+                return;
             }
         });
     }

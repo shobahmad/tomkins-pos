@@ -2,7 +2,7 @@ package com.erebor.tomkins.pos.viewmodel.sync;
 
 import com.erebor.tomkins.pos.base.BaseViewState;
 
-public class DownloadViewState extends BaseViewState<String> {
+public class DataSyncViewState extends BaseViewState<String> {
 
     public static int STATE_LOADING = -1;
     public static int STATE_SUCCESS = 1;
@@ -46,12 +46,12 @@ public class DownloadViewState extends BaseViewState<String> {
         }
     }
 
-    private DownloadViewState(int currentState) {
+    private DataSyncViewState(int currentState) {
         this.currentState = currentState;
     }
 
-    public static DownloadViewState ERROR_STATE = new DownloadViewState(State.FAILED.value);
-    public static DownloadViewState LOADING_STATE = new DownloadViewState(State.LOADING.value);
-    public static DownloadViewState SUCCESS_STATE = new DownloadViewState(State.SUCCESS.value);
-    public static DownloadViewState WAITING_STATE = new DownloadViewState(State.WAITING.value);
+    public static DataSyncViewState ERROR_STATE = new DataSyncViewState(State.FAILED.value);
+    public static DataSyncViewState LOADING_STATE = new DataSyncViewState(State.LOADING.value);
+    public static DataSyncViewState SUCCESS_STATE = new DataSyncViewState(State.SUCCESS.value);
+    public static DataSyncViewState WAITING_STATE = new DataSyncViewState(State.WAITING.value);
 }

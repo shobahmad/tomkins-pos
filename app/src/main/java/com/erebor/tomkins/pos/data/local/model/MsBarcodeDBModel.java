@@ -5,6 +5,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
 @Entity(tableName = "MSBARCODE",
         primaryKeys = {"NoBarcode", "KodeArt"},
         indices = @Index(value = "NoBarcode", unique = true)
@@ -31,6 +36,12 @@ public class MsBarcodeDBModel {
     private String ukuran;
 
     @NonNull
+    @ColumnInfo(name = "last_update")
+    @SerializedName("last_update")
+    @Expose
+    private Date lastUpdate;
+
+    @NonNull
     public String getNoBarcode() {
         return noBarcode;
     }
@@ -54,5 +65,14 @@ public class MsBarcodeDBModel {
 
     public void setUkuran(String ukuran) {
         this.ukuran = ukuran;
+    }
+
+    @NonNull
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(@NonNull Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

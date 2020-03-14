@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.erebor.tomkins.pos.data.local.TomkinsDatabase;
 import com.erebor.tomkins.pos.data.local.dao.AccessDao;
+import com.erebor.tomkins.pos.data.local.dao.DownloadLastUpdateDao;
 import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
 import com.erebor.tomkins.pos.data.local.dao.UserDao;
 
@@ -33,7 +34,13 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    MsArtDao providesMsArt(TomkinsDatabase tomkinsDatabase) {
+    MsArtDao providesMsArtDao(TomkinsDatabase tomkinsDatabase) {
         return tomkinsDatabase.msArtDao();
+    }
+
+    @Provides
+    @Singleton
+    DownloadLastUpdateDao providesDownloadLastUpdateDao(TomkinsDatabase tomkinsDatabase) {
+        return tomkinsDatabase.downloadLastUpdateDao();
     }
 }
