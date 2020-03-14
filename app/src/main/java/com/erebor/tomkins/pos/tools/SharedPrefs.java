@@ -17,4 +17,9 @@ public interface SharedPrefs {
     String getHostname();
     void setHostname(String hostname);
 
+    void setDownloadRequestId(long aLong);
+    long getDownloadRequestId();
+
+    int getSyncAutoDownloadInterval();
+
 }

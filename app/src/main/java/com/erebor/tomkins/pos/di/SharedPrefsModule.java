@@ -114,6 +114,31 @@ public class SharedPrefsModule {
                 }
                 editor.apply();
             }
+
+            @Override
+            public void setDownloadRequestId(long requestId) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                try {
+                    editor.putLong(getKey(R.string.download_request_id), requestId);
+                } catch (Exception ignored) {
+                }
+                editor.apply();
+            }
+
+            @Override
+            public long getDownloadRequestId() {
+                return getLong(getKey(R.string.download_request_id), 0);
+            }
+
+            @Override
+            public int getSyncAutoDownloadInterval() {
+                String interval = getString(getKey(R.string.setting_key_auto_download_interval), "5");
+                try {
+                    return Integer.parseInt(interval);
+                } catch (NumberFormatException e) {
+                    return 5;
+                }
+            }
         };
     }
 }

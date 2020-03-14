@@ -21,7 +21,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/layout_download_info"
             android:padding="6dp"
             >
 
@@ -31,7 +31,7 @@
 
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardGoods"
+                    android:id="@+id/cardArt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="8dp"
@@ -44,11 +44,11 @@
                         layout="@layout/snippet_sync_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:download="@{downloadGoods}" />
+                        app:download="@{downloadArt}" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardDiscount"
+                    android:id="@+id/cardBarcode"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -56,17 +56,17 @@
                     
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardGoods">
+                    app:layout_constraintTop_toBottomOf="@id/cardArt">
 
                     <include
                         layout="@layout/snippet_sync_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:download="@{downloadDiscount}" />
+                        app:download="@{downloadBarcode}" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardPrice"
+                    android:id="@+id/cardBrand"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -74,13 +74,13 @@
                     
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardDiscount">
+                    app:layout_constraintTop_toBottomOf="@id/cardBarcode">
 
                     <include
                         layout="@layout/snippet_sync_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:download="@{downloadPrice}" />
+                        app:download="@{downloadBrand}" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -92,7 +92,7 @@
                     
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardPrice">
+                    app:layout_constraintTop_toBottomOf="@id/cardBrand">
 
                     <include
                         layout="@layout/snippet_sync_info"
@@ -102,7 +102,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardDelivery"
+                    android:id="@+id/cardUkuran"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -116,11 +116,11 @@
                         layout="@layout/snippet_sync_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:download="@{downloadDelivery}" />
+                        app:download="@{downloadUkuran}" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardOpname"
+                    android:id="@+id/cardStock"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -128,18 +128,32 @@
                     
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardDelivery">
+                    app:layout_constraintTop_toBottomOf="@id/cardUkuran">
 
                     <include
                         layout="@layout/snippet_sync_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:download="@{downloadOpname}" />
+                        app:download="@{downloadStock}" />
                 </androidx.cardview.widget.CardView>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+        <!--DOWNLOAD INFO-->
+        <include
+            android:id="@+id/layout_download_info"
+            layout="@layout/snippet_sync_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:download="@{downloadSummary}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -148,22 +162,25 @@
             name="title"
             type="String" />
         <variable
-            name="downloadGoods"
+            name="downloadSummary"
             type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
         <variable
-            name="downloadDiscount"
+            name="downloadArt"
             type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
         <variable
-            name="downloadPrice"
+            name="downloadBarcode"
+            type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
+        <variable
+            name="downloadBrand"
             type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
         <variable
             name="downloadGender"
             type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
         <variable
-            name="downloadDelivery"
+            name="downloadUkuran"
             type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
         <variable
-            name="downloadOpname"
+            name="downloadStock"
             type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
     </data>
 

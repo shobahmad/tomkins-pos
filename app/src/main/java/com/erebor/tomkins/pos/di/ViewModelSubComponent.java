@@ -2,6 +2,7 @@ package com.erebor.tomkins.pos.di;
 
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
 import com.erebor.tomkins.pos.viewmodel.splash.SplashViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.DownloadViewModel;
 
 import dagger.Subcomponent;
 
@@ -18,5 +19,6 @@ public interface ViewModelSubComponent {
 
     SplashViewModel splashViewModel();
     LoginViewModel loginViewModel();
+    DownloadViewModel downloadViewModel();
 
 }

@@ -11,6 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.erebor.tomkins.pos.data.converters.Converters;
 import com.erebor.tomkins.pos.data.local.dao.AccessDao;
+import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
 import com.erebor.tomkins.pos.data.local.dao.UserDao;
 import com.erebor.tomkins.pos.data.local.model.*;
 
@@ -19,10 +20,10 @@ import com.erebor.tomkins.pos.data.local.model.*;
         UserDBModel.class,
         AccessDBModel.class,
 
-        EventFreeDBModel.class,
-        EventFreeDetDBModel.class,
-        EventHargaDBModel.class,
-        EventHargaDetDBModel.class,
+//        EventFreeDBModel.class,
+//        EventFreeDetDBModel.class,
+//        EventHargaDBModel.class,
+//        EventHargaDetDBModel.class,
         MsArtDBModel.class,
         MsBarcodeDBModel.class,
         MsBrandDBModel.class,
@@ -30,16 +31,16 @@ import com.erebor.tomkins.pos.data.local.model.*;
         MsGenderDBModel.class,
         MsKonterDBModel.class,
         MsUkuranDBModel.class,
-        MutasiArtDBModel.class,
+//        MutasiArtDBModel.class,
         StokRealDBModel.class,
         TrxJualDBModel.class,
         TrxJualDetDBModel.class,
         TrxOpnameDBModel.class,
         TrxOpnameDetDBModel.class,
-        TrxReturGjbDBModel.class,
-        TrxReturGjbDetDBModel.class,
-        TrxTerimaDBModel.class,
-        TrxTerimaDetDBModel.class,
+//        TrxReturGjbDBModel.class,
+//        TrxReturGjbDetDBModel.class,
+//        TrxTerimaDBModel.class,
+//        TrxTerimaDetDBModel.class,
 
 }, version = 1, exportSchema = false)
 @TypeConverters({
@@ -52,6 +53,7 @@ public abstract class TomkinsDatabase extends RoomDatabase {
 
     public abstract UserDao userDAO();
     public abstract AccessDao accessDao();
+    public abstract MsArtDao msArtDao();
 
     private static final Object sLock = new Object();
 

@@ -1,7 +1,12 @@
 package com.erebor.tomkins.pos.repository.network;
 
+import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
 import com.erebor.tomkins.pos.data.remote.LoginRequest;
 import com.erebor.tomkins.pos.data.remote.LoginResponse;
+import com.erebor.tomkins.pos.data.remote.response.RestResponse;
+
+import java.util.Date;
+import java.util.List;
 
 import io.reactivex.Flowable;
 import retrofit2.Call;
@@ -10,7 +15,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
-interface TomkinsService {
+public interface TomkinsService {
 
     @POST("login")
     Flowable<LoginResponse> postLogin(@Body LoginRequest login);
@@ -20,5 +25,8 @@ interface TomkinsService {
 
     @GET("login")
     Call<LoginResponse> getSyncLogin(@Query("username") String username, @Query("password") String password);
+
+    @GET("sync/msart/")
+    Call<RestResponse<List<MsArtDBModel>>> getMsArt(@Query("last_update") Date lastUpdate);
 
 }

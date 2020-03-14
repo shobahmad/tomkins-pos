@@ -7,15 +7,16 @@ import androidx.room.Update;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 public interface BaseDao<D extends BaseDatabaseModel> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Single<Long> insertReplace(D data);
+    Long insertReplaceSync(D data);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Single<List<Long>> insertAllReplace(List<D> listData);
+    List<Long> insertAllReplaceSync(List<D> listData);
 
     @Update
     Single<Integer> update(D data);

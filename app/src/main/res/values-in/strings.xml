@@ -40,4 +40,15 @@
     <string name="stock_report">Stock Report</string>
     <string name="search">Search</string>
     <string name="search_hint">search</string>
+    <string name="downloading">Downloading</string>
+    <string name="download_worker_art">Articles</string>
+    <string name="last_download">Last Download</string>
+    <string name="download_now">Download Now</string>
+    <string name="time_elapsed_just_now">just now</string>
+    <string name="time_elapsed_seconds_ago">seconds ago</string>
+    <string name="time_elapsed_minutes_ago">minutes ago</string>
+    <string name="time_elapsed_a_hour">an hour ago</string>
+    <string name="time_elapsed_hours_ago">hours ago</string>
+    <string name="percent">%</string>
+    <string name="download_failed">Download Failed</string>
 </resources>

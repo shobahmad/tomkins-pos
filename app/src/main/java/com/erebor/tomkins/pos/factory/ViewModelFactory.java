@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.erebor.tomkins.pos.di.ViewModelSubComponent;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
 import com.erebor.tomkins.pos.viewmodel.splash.SplashViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.DownloadViewModel;
 
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -25,6 +26,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
 
         creators.put(SplashViewModel.class, () -> viewModelSubComponent.splashViewModel());
         creators.put(LoginViewModel.class, () -> viewModelSubComponent.loginViewModel());
+        creators.put(DownloadViewModel.class, () -> viewModelSubComponent.downloadViewModel());
 
     }
 

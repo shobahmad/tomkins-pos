@@ -7,6 +7,13 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import com.erebor.tomkins.pos.base.BaseDatabaseModel;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
 import static androidx.room.ForeignKey.RESTRICT;
 
 @Entity(tableName = "MSART",
@@ -26,9 +33,11 @@ import static androidx.room.ForeignKey.RESTRICT;
         },
         indices = {
                 @Index(name = "ind_NamaArt", value = {"NamaArt"}),
+                @Index(name = "KodeBrand", value = {"KodeBrand"}),
+                @Index(name = "KodeGender", value = {"KodeGender"}),
         }
 )
-public class MsArtDBModel {
+public class MsArtDBModel implements BaseDatabaseModel {
     /*
     CREATE TABLE [MSART](
   [KodeArt] VARCHAR(20) PRIMARY KEY ASC NOT NULL ON CONFLICT ABORT UNIQUE ON CONFLICT ABORT,
@@ -45,28 +54,46 @@ public class MsArtDBModel {
 
     @NonNull
     @PrimaryKey
+    @SerializedName("KodeArt")
+    @Expose
     @ColumnInfo(name = "KodeArt")
     private String kodeArt;
 
     @NonNull
+    @SerializedName("NamaArt")
+    @Expose
     @ColumnInfo(name = "NamaArt")
     private String namaArt;
 
     @NonNull
+    @SerializedName("Warna")
+    @Expose
     @ColumnInfo(name = "Warna")
     private String warna;
 
     @NonNull
+    @SerializedName("KodeBrand")
+    @Expose
     @ColumnInfo(name = "KodeBrand")
     private String kodeBrand;
 
     @NonNull
+    @SerializedName("KodeGender")
+    @Expose
     @ColumnInfo(name = "KodeGender")
     private String kodeGender;
 
     @Nullable
+    @SerializedName("Harga")
+    @Expose
     @ColumnInfo(name = "Harga")
     private double harga;
+
+    @NonNull
+    @ColumnInfo(name = "last_update")
+    @SerializedName("last_update")
+    @Expose
+    private Date lastUpdate;
 
     @NonNull
     public String getKodeArt() {
@@ -119,5 +146,14 @@ public class MsArtDBModel {
 
     public void setHarga(double harga) {
         this.harga = harga;
+    }
+
+    @NonNull
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(@NonNull Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

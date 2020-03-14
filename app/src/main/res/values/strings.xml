@@ -54,5 +54,18 @@
     <string name="scanner_camera">Scanner Camera</string>
     <string name="scanner">Scanner</string>
     <string name="setting_key_camera" translatable="false">scanner_camera</string>
+    <string name="downloading">Downloading</string>
+    <string name="download_worker_art">Articles</string>
+    <string name="download_request_id" translatable="false">download_reqiest_id</string>
+    <string name="setting_key_auto_download_interval" translatable="false">key_auto_download_interval</string>
+    <string name="last_download">Last Download</string>
+    <string name="download_now">Download Now</string>
+    <string name="time_elapsed_just_now">just now</string>
+    <string name="time_elapsed_seconds_ago">seconds ago</string>
+    <string name="time_elapsed_minutes_ago">minutes ago</string>
+    <string name="time_elapsed_a_hour">an hour ago</string>
+    <string name="time_elapsed_hours_ago">hours ago</string>
+    <string name="percent">%</string>
+    <string name="download_failed">Download Failed</string>
 
 </resources>
