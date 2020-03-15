@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
@@ -12,6 +14,7 @@ import com.erebor.tomkins.pos.data.ui.ReportSummaryUiModel;
 import com.erebor.tomkins.pos.data.ui.UserUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityDashboardBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
+import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.erebor.tomkins.pos.view.report.StockActivity;
 import com.erebor.tomkins.pos.view.sale.SaleActivity;
@@ -19,6 +22,8 @@ import com.erebor.tomkins.pos.view.scan.VisionScannerActivity;
 import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
 import com.erebor.tomkins.pos.view.setting.SettingActivity;
 import com.erebor.tomkins.pos.view.sync.SyncActivity;
+import com.erebor.tomkins.pos.viewmodel.sync.DataSyncViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.DataSyncViewState;
 
 import javax.inject.Inject;
 
@@ -28,10 +33,19 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
     @Inject
     SharedPrefs sharedPrefs;
+    @Inject
+    DateConverterHelper dateConverterHelper;
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+
+    DataSyncViewModel dataSyncViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        dataSyncViewModel = ViewModelProviders.of(this, viewModelFactory).get(DataSyncViewModel.class);
+        observeChanges();
 
         fetchDummyData();
         binding.buttonScan.setOnClickListener(v -> {
@@ -50,6 +64,49 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
             startActivityForResult(new Intent(DashboardActivity.this, VisionScannerActivity.class), 1);
         });
         binding.setSettingClick(item -> startActivity(new Intent(DashboardActivity.this, SettingActivity.class)));
+    }
+
+    private void observeChanges() {
+        dataSyncViewModel.observeChanged();
+        dataSyncViewModel.getDownloadViewState().observe(this, dataSyncViewState -> {
+            if (dataSyncViewState.getCurrentState() == DataSyncViewState.WAITING_STATE.getCurrentState()) {
+                DownloadUiModel downloadUiModel = new DownloadUiModel();
+                downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
+                downloadUiModel.setDownloading(false);
+                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(dataSyncViewState.getLastDownloadTime()));
+                binding.setDownload(downloadUiModel);
+                return;
+            }
+
+            if (dataSyncViewState.getCurrentState() == DataSyncViewState.LOADING_STATE.getCurrentState()) {
+                DownloadUiModel downloadUiModel = new DownloadUiModel();
+                downloadUiModel.setTitle(dataSyncViewState.getMessage());
+                downloadUiModel.setMesssage(dataSyncViewState.getMessage());
+                downloadUiModel.setDownloading(true);
+                downloadUiModel.setProgress(dataSyncViewState.getProgress());
+                binding.setDownload(downloadUiModel);
+                return;
+            }
+
+            if (dataSyncViewState.getCurrentState() == DataSyncViewState.SUCCESS_STATE.getCurrentState()) {
+                DownloadUiModel downloadUiModel = new DownloadUiModel();
+                downloadUiModel.setTitle(getResources().getString(R.string.last_download));
+                downloadUiModel.setDownloading(false);
+                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(dataSyncViewState.getLastDownloadTime()));
+                binding.setDownload(downloadUiModel);
+                return;
+            }
+
+            if (dataSyncViewState.getCurrentState() == DataSyncViewState.ERROR_STATE.getCurrentState()) {
+                DownloadUiModel downloadUiModel = new DownloadUiModel();
+                downloadUiModel.setTitle(getResources().getString(R.string.download_failed));
+                downloadUiModel.setDownloading(false);
+                downloadUiModel.setProgress(dataSyncViewState.getProgress());
+                downloadUiModel.setLastDownloadTime(dataSyncViewState.getMessage());
+                downloadUiModel.setMesssage(dataSyncViewState.getMessage());
+                binding.setDownload(downloadUiModel);
+            }
+        });
     }
 
     private void startSaleActivity(String productId) {
@@ -79,44 +136,8 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         binding.setUser(userUiModel);
 
 
-        binding.layoutDownloadInfo.setArrowClick(v -> {
-            startActivity(new Intent(DashboardActivity.this, SyncActivity.class));
-        });
-        binding.layoutDownloadInfo.setContainerClick(v -> {
-            if (downloadState == 0) {
-                downloadState = 1;
-                DownloadUiModel downloadUiModel = new DownloadUiModel();
-                downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
-                downloadUiModel.setDownloading(true);
-                downloadUiModel.setMesssage("Downloading products...");
-                downloadUiModel.setProgress(40);
-                binding.setDownload(downloadUiModel);
-
-                binding.layoutDownloadInfo.getRoot().postDelayed(() -> {
-                    downloadUiModel.setDownloading(true);
-                    downloadUiModel.setMesssage("Downloading price...");
-                    downloadUiModel.setProgress(99);
-                    binding.setDownload(downloadUiModel);
-                }, 1000);
-
-                binding.layoutDownloadInfo.getRoot().postDelayed(() -> {
-                    downloadState = 0;
-                    downloadUiModel.setDownloading(false);
-                    downloadUiModel.setLastDownloadTime("3 minutes ago");
-                    binding.setDownload(downloadUiModel);
-                }, 2000);
-
-                return;
-            }
-
-            downloadState = 0;
-            DownloadUiModel downloadUiModel = new DownloadUiModel();
-            downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
-            downloadUiModel.setDownloading(false);
-            downloadUiModel.setLastDownloadTime("3 minutes ago");
-            binding.setDownload(downloadUiModel);
-
-        });
+        binding.layoutDownloadInfo.setArrowClick(v -> startActivity(new Intent(DashboardActivity.this, SyncActivity.class)));
+        binding.layoutDownloadInfo.setContainerClick(v -> startActivity(new Intent(DashboardActivity.this, SyncActivity.class)));
 
         binding.setReportDetailClick(v -> {
             Intent intent = new Intent(DashboardActivity.this, StockActivity.class);
