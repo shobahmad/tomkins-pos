@@ -55,29 +55,41 @@ public class DateConverterHelperImpl implements DateConverterHelper {
         long three_hour = 3 * a_hour;
         long a_day = 24 * a_hour;
 
-        if (difference <= five_second) {
+        Calendar calendar = Calendar.getInstance();
+
+        int nowDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        calendar.setTimeInMillis(time);
+        int timeDayOfMOnth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        boolean sameDay = nowDayOfMonth == timeDayOfMOnth;
+
+        if (difference <= five_second && sameDay) {
             return resourceHelper.getResourceString(R.string.time_elapsed_just_now);
         }
-        if (difference <= a_minutes) {
+        if (difference <= a_minutes && sameDay) {
             return (difference / a_second) + " " + resourceHelper.getResourceString(R.string.time_elapsed_seconds_ago);
         }
-        if (difference <= a_hour) {
+        if (difference <= a_hour && sameDay) {
             return (difference / a_minutes) + " " + resourceHelper.getResourceString(R.string.time_elapsed_minutes_ago);
         }
-        if (difference < a_hour * 2) {
+        if (difference < a_hour * 2 && sameDay) {
             return resourceHelper.getResourceString(R.string.time_elapsed_a_hour);
         }
-        if (difference <= three_hour) {
+        if (difference <= three_hour && sameDay)  {
             return (difference / a_hour) + " " + resourceHelper.getResourceString(R.string.time_elapsed_hours_ago);
         }
-        if (difference <= a_day) {
-            Calendar calendar = Calendar.getInstance();
+        if (difference <= a_day  && sameDay) {
             calendar.setTimeInMillis(time);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
             return simpleDateFormat.format(calendar.getTime());
         }
+        if (difference < 2 * a_day  && !sameDay) {
+            calendar.setTimeInMillis(time);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+            return resourceHelper.getResourceString(R.string.yesterday) + " " + simpleDateFormat.format(calendar.getTime());
+        }
 
-        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-YYYY | HH:mm:ss", Locale.getDefault());
         return simpleDateFormat.format(calendar.getTime());

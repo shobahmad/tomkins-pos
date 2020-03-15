@@ -1,6 +1,7 @@
 package com.erebor.tomkins.pos.repository.network;
 
 import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
+import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.remote.LoginRequest;
 import com.erebor.tomkins.pos.data.remote.LoginResponse;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
@@ -29,5 +30,8 @@ public interface TomkinsService {
 
     @GET("sync_msart")
     Call<RestResponse<DownloadResponse<List<MsArtDBModel>>>> getMsArt(@Query("last_update") String lastUpdate);
+
+    @GET("sync_msbarcode")
+    Call<RestResponse<DownloadResponse<List<MsBarcodeDBModel>>>> getMsBarcode(@Query("last_update") String lastUpdate);
 
 }

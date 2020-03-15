@@ -10,68 +10,33 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="175ea289-52e1-4c41-b652-b195b092c0d7" name="Default Changelist" comment="Local storage database">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_9_4_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_9_4_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_9_4_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_vision_9_4_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/base/BaseWorker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/MsArtDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/response/EmptyResponseException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/response/ErrorResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/response/InvalidResponseException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/response/NetworkBoundResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/response/ResponseCallback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/response/ResponseStatusConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/response/RestResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/DateConverterHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/ResourceHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/WorkerHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/DateConverterHelperImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/ResourceHelperImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/WorkerHelperImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DownloadViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DownloadViewState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/BaseDownloadWorker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/DownloadMsArtWorker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/WorkerRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_sync.xml" afterDir="false" />
+    <list default="true" id="175ea289-52e1-4c41-b652-b195b092c0d7" name="Default Changelist" comment="Download b">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/MsBarcodeDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/SyncMsArtWorker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/SyncMsBarcodeWorker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_scottyab_showhidepasswordedittext_0_8_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_scottyab_showhidepasswordedittext_0_8_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_readystatesoftware_chuck_library_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_readystatesoftware_chuck_library_1_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sothree_slidinguppanel_library_3_4_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sothree_slidinguppanel_library_3_4_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__me_dm7_barcodescanner_core_1_9_8_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__me_dm7_barcodescanner_core_1_9_8_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/base/BaseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/base/BaseDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/base/BaseDatabaseModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/base/BaseDatabaseModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/TomkinsDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/TomkinsDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventFreeDBModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventFreeDBModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventFreeDetDBModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventFreeDetDBModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventHargaDBModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventHargaDBModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventHargaDetDBModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventHargaDetDBModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsArtDBModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsArtDBModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MutasiArtDBModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MutasiArtDBModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxReturGjbDBModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxReturGjbDBModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxReturGjbDetDBModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxReturGjbDetDBModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxTerimaDBModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxTerimaDBModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxTerimaDetDBModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxTerimaDetDBModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/AccessDBModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/AccessDBModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/DownloadLastUpdateModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/DownloadLastUpdateModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsBarcodeDBModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsBarcodeDBModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/UserDBModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/UserDBModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/AppComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/AppComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/DatabaseModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/DatabaseModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/SharedPrefsModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/SharedPrefsModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/UtilsModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/UtilsModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/ViewModelSubComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/ViewModelSubComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/factory/ViewModelFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/factory/ViewModelFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/repository/network/RetrofitModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/repository/network/RetrofitModule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/DateConverterHelperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/DateConverterHelperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/WorkerHelperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/WorkerHelperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/repository/network/TomkinsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/repository/network/TomkinsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/tools/SharedPrefs.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/tools/SharedPrefs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/view/sync/SyncActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/view/sync/SyncActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_sync.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_sync.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DataSyncViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DataSyncViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/BaseDownloadWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/BaseSyncWorker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/DownloadMsArtWorker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_download_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_download_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/snippet_sync_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/snippet_sync_info.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values-in/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-in/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
@@ -100,125 +65,130 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/view/sync/SyncActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/BaseSyncWorker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="82" selection-start-line="82" selection-end-line="82" />
+            <state relative-caret-position="1080">
+              <caret line="117" column="5" selection-start-line="117" selection-start-column="5" selection-end-line="117" selection-end-column="5" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2124#2178#0" expanded="true" />
-                <element signature="e#2933#2987#0" expanded="true" />
-                <element signature="e#3669#3685#0" expanded="true" />
-                <element signature="e#4138#4186#0" expanded="true" />
-                <element signature="e#4693#4741#0" expanded="true" />
+                <element signature="e#1464#1465#0" expanded="true" />
+                <element signature="e#1509#1510#0" expanded="true" />
+                <element signature="e#1979#2230#0" expanded="true" />
+                <element signature="e#2229#2230#0" expanded="true" />
+                <element signature="method#download#0;class#BaseSyncWorker#0" />
+                <element signature="method#getSuccessOutputData#0;class#BaseSyncWorker#0" />
+                <element signature="e#2399#2407#0" />
+                <element signature="method#doWork#0;class#BaseSyncWorker#0" />
+                <element signature="e#2463#2518#0" />
+                <element signature="e#2539#2797#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/response/NetworkBoundResult.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/DateConverterHelperImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="725">
+              <caret line="87" column="20" selection-start-line="87" selection-start-column="12" selection-end-line="87" selection-end-column="20" />
+              <folding>
+                <element signature="e#751#752#0" expanded="true" />
+                <element signature="e#811#812#0" expanded="true" />
+                <element signature="e#3480#3498#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/WorkerRequest.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DataSyncViewModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            <state relative-caret-position="119">
+              <caret line="208" column="72" selection-start-line="208" selection-start-column="72" selection-end-line="208" selection-end-column="72" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3228#3229#0" expanded="true" />
+                <element signature="e#3290#3291#0" expanded="true" />
+                <element signature="e#10776#10777#0" expanded="true" />
+                <element signature="e#10816#10817#0" expanded="true" />
+                <element signature="e#11418#11419#0" expanded="true" />
+                <element signature="e#11451#11452#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/WorkerHelper.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/DownloadLastUpdateModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+            <state relative-caret-position="158">
+              <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/AppComponent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="229">
+              <caret line="42" column="45" selection-start-line="42" selection-start-column="45" selection-end-line="42" selection-end-column="45" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml">
+          <provider selected="true" editor-type-id="text-editor" />
+          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/WorkerHelperImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="23" column="37" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="37" />
+            <state relative-caret-position="495">
+              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
               <folding>
-                <element signature="e#768#796#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DownloadViewModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="95" column="24" selection-start-line="95" selection-start-column="24" selection-end-line="95" selection-end-column="24" />
-              <folding>
-                <element signature="method#DownloadViewModel#0;class#DownloadViewModel#0" />
-                <element signature="method#addObservers#0;class#DownloadViewModel#0" />
-                <element signature="method#getObserver#0;class#DownloadViewModel#0" />
-                <element signature="method#getProgressMessage#0;class#DownloadViewModel#0" />
-                <element signature="method#buildWorkerRequest#0;class#DownloadViewModel#0" />
-                <element signature="method#handleWorkerCallback#0;class#DownloadViewModel#0" />
-                <element signature="method#resetProgress#0;class#DownloadViewModel#0" />
-                <element signature="method#cancelEnqueued#0;class#DownloadViewModel#0" />
-                <element signature="method#isEnqueued#0;class#DownloadViewModel#0" />
-                <element signature="method#removeObservers#0;class#DownloadViewModel#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/DownloadMsArtWorker.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="60" column="26" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="30" />
-              <folding>
-                <element signature="e#1637#1868#0" expanded="true" />
-                <element signature="e#1867#1868#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#891#919#0" expanded="true" />
+                <element signature="e#1122#1154#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/BaseDownloadWorker.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="65" column="13" lean-forward="true" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+            <state relative-caret-position="292">
+              <caret line="78" column="12" lean-forward="true" selection-start-line="78" selection-start-column="12" selection-end-line="78" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_sync.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values-in/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="61">
-              <caret line="149" column="43" selection-start-line="149" selection-start-column="43" selection-end-line="149" selection-end-column="43" />
+            <state relative-caret-position="126">
+              <caret line="51" selection-start-line="50" selection-end-line="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/DownloadLastUpdateDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
               <folding>
-                <element signature="e#589#6262#0" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
-          <provider editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_dashboard.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="134" column="42" selection-start-line="134" selection-start-column="42" selection-end-line="134" selection-end-column="42" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
@@ -228,27 +198,15 @@
       <list>
         <option value="valueResourceFile" />
         <option value="layoutResourceFile_vertical" />
-        <option value="resourceFile" />
-        <option value="Interface" />
         <option value="JUnit4 Test Class" />
+        <option value="Interface" />
+        <option value="resourceFile" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>price</find>
-      <find>size</find>
-      <find>imagProduct</find>
-      <find>glide</find>
-      <find>Salami Pizza</find>
-      <find>room</find>
-      <find>price_format</find>
-      <find>\\n\</find>
-      <find>+\n&quot;</find>
-      <find>SysAktif</find>
-      <find>SMALLINT</find>
-      <find>iDCounter</find>
       <find>KodeGender</find>
       <find>KodeArt</find>
       <find>flash</find>
@@ -267,6 +225,18 @@
       <find>downloading</find>
       <find>chu</find>
       <find>chucj</find>
+      <find>downloadSummary</find>
+      <find>text_label_last_download</find>
+      <find>invalid</find>
+      <find>download</find>
+      <find>download()</find>
+      <find>callap</find>
+      <find>callApi</find>
+      <find>DataSyncViewState</find>
+      <find>''</find>
+      <find>MsArtDBModel</find>
+      <find>MSART</find>
+      <find>yes</find>
     </findStrings>
     <replaceStrings>
       <replace>250</replace>
@@ -293,6 +263,10 @@
       <replace>Falcon All Black</replace>
       <replace>cardStock</replace>
       <replace>SyncViewState</replace>
+      <replace>DownloadInfoViewState</replace>
+      <replace>NULL</replace>
+      <replace>MsBarcodeDBModel</replace>
+      <replace>MSBARCODE</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/app/src/main/res/layout</dir>
@@ -310,57 +284,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/view/sale/SaleActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/base/BaseWorker.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/WorkerModule.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/DatabaseModule.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/DownloadArtWorker.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/NetworkBoundResult.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/response/ResponseStatusConstant.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/response/RestResponse.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/repository/network/TomkinsService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/SyncViewModel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DownloadViewState.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/WorkerHelper.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/ResourceHelper.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/ResourceHelperImpl.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/tools/SharedPrefs.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/SyncViewState.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/WorkerRequest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/MsArtSyncViewModel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/SharedPrefsModule.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/BaseDownloadWorker.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/DownloadMsArtWorker.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DownloadViewModel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_sync.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/DateConverterHelper.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/DateConverterHelperImpl.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/UtilsModule.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventFreeDBModel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventFreeDetDBModel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventHargaDBModel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventHargaDetDBModel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MutasiArtDBModel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxOpnameDBModel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxReturGjbDBModel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxReturGjbDetDBModel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxTerimaDBModel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxTerimaDetDBModel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/TomkinsDatabase.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsArtDBModel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/base/BaseDao.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/MsArtDao.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/repository/network/RetrofitModule.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/ViewModelSubComponent.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/factory/ViewModelFactory.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/AppComponent.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_sync.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/view/sync/SyncActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values-in/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/WorkerHelperImpl.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/response/NetworkBoundResult.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/response/DownloadResponse.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsArtDBModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/converters/DateDeserializer.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/DownloadRequest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/BaseDownloadWorker.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/DownloadMsArtWorker.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DownloadViewModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DownloadViewState.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DataSyncViewState.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DownloadInfoViewState.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/DownloadInfoDao.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/UserDao.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/factory/ViewModelFactory.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/ViewModelSubComponent.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/view/sync/DownloadInfoAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/ui/DownloadUiModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/DownloadInfoViewModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DownloadInfoViewModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/DownloadLastUpdateDao.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_sync.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_download_info.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/snippet_sync_info.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/view/sync/SyncActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/MsBarcodeDao.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/TomkinsDatabase.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/DatabaseModule.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/repository/network/TomkinsService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/DownloadMsBarcodeWorker.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/base/BaseDatabaseModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsBarcodeDBModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/BaseSyncWorker.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/SyncMsBarcodeWorker.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/SyncMsArtWorker.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/UserDBModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/AccessDBModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/DownloadLastUpdateModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/DateConverterHelperImpl.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DataSyncViewModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/AppComponent.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/WorkerHelperImpl.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values-in/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       </list>
     </option>
   </component>
@@ -458,7 +432,134 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="converters" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="local" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="local" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="di" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="factory" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="helper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="helper" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="tools" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="sync" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="viewmodel" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="viewmodel" type="462c0819:PsiDirectoryNode" />
+              <item name="login" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="viewmodel" type="462c0819:PsiDirectoryNode" />
+              <item name="splash" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="viewmodel" type="462c0819:PsiDirectoryNode" />
+              <item name="sync" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="pos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="worker" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
             </path>
             <path>
               <item name="tomkins-pos" type="1abcf292:AndroidViewProjectNode" />
@@ -504,11 +605,11 @@
       <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.erebor.tomkins.pos.helper.impl" />
-      <recent name="com.erebor.tomkins.pos.helper" />
       <recent name="com.erebor.tomkins.pos.worker" />
-      <recent name="com.erebor.tomkins.pos.viewmodel.sync" />
+      <recent name="com.erebor.tomkins.pos.data.local.dao" />
+      <recent name="com.erebor.tomkins.pos.data.remote" />
       <recent name="com.erebor.tomkins.pos.data.remote.response" />
+      <recent name="com.erebor.tomkins.pos.helper.impl" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -1034,7 +1135,28 @@
       <option name="project" value="LOCAL" />
       <updated>1582107195017</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Download view model">
+      <created>1584169386567</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1584169386567</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Download MsArt">
+      <created>1584190478543</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1584190478543</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Download info query">
+      <created>1584199839687</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1584199839687</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1074,7 +1196,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" weight="0.3297568" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.3297568" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -1082,16 +1204,16 @@
       <window_info id="Designer" order="6" />
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
-      <window_info anchor="bottom" id="Run" order="0" weight="0.51256984" />
+      <window_info anchor="bottom" id="Run" order="0" weight="0.5118881" />
       <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49928468" weight="0.60419583" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.45734265" />
       <window_info anchor="bottom" id="Terminal" order="4" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5007153" side_tool="true" weight="0.60419583" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.32960895" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.43496504" />
+      <window_info active="true" anchor="bottom" id="Build" order="7" visible="true" weight="0.43496504" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
-      <window_info active="true" anchor="bottom" id="Find" order="9" visible="true" weight="0.29090908" />
+      <window_info anchor="bottom" id="Find" order="9" weight="0.29090908" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32960895" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
@@ -1150,9 +1272,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Dashboard layout" />
-    <MESSAGE value="Dashboard layout : scan button" />
-    <MESSAGE value="Dashboard layout : last download info" />
     <MESSAGE value="Report summary" />
     <MESSAGE value="Scanner" />
     <MESSAGE value="sale confirmation" />
@@ -1175,321 +1294,367 @@
     <MESSAGE value="DB mutation..." />
     <MESSAGE value="Scanner options : add google vision" />
     <MESSAGE value="Upgrade version" />
-    <option name="LAST_COMMIT_MESSAGE" value="Upgrade version" />
+    <MESSAGE value="Download view model" />
+    <MESSAGE value="Download MsArt" />
+    <MESSAGE value="Download info query" />
+    <option name="LAST_COMMIT_MESSAGE" value="Download info query" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventFreeDBModel.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/DownloadRequest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="13" column="15" selection-end-line="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventFreeDetDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="39" lean-forward="true" selection-end-line="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventHargaDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="29" column="29" lean-forward="true" selection-end-line="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/EventHargaDetDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="29" column="15" selection-end-line="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsBarcodeDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsDepStoreDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsGenderDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsKonterDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/StokRealDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MutasiArtDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="13" column="15" selection-end-line="128" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxOpnameDetDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxOpnameDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="240">
+          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#708#709#0" expanded="true" />
-            <element signature="e#741#742#0" expanded="true" />
-            <element signature="e#802#803#0" expanded="true" />
-            <element signature="e#846#847#0" expanded="true" />
-            <element signature="e#880#881#0" expanded="true" />
-            <element signature="e#912#913#0" expanded="true" />
-            <element signature="e#960#961#0" expanded="true" />
-            <element signature="e#997#998#0" expanded="true" />
-            <element signature="e#1037#1038#0" expanded="true" />
-            <element signature="e#1072#1073#0" expanded="true" />
-            <element signature="e#1129#1130#0" expanded="true" />
-            <element signature="e#1177#1178#0" expanded="true" />
+            <element signature="e#250#251#0" expanded="true" />
+            <element signature="e#284#285#0" expanded="true" />
+            <element signature="e#342#343#0" expanded="true" />
+            <element signature="e#394#395#0" expanded="true" />
+            <element signature="e#438#439#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxReturGjbDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="10" column="15" selection-end-line="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxReturGjbDetDBModel.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/DateConverterHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
-          <caret line="11" column="15" selection-end-line="84" />
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxTerimaDBModel.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/BaseDownloadWorker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="11" column="15" selection-end-line="80" />
+        <state relative-caret-position="155">
+          <caret line="33" column="50" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/TrxTerimaDetDBModel.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/repository/network/LoginRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="8" column="15" selection-end-line="80" />
+        <state relative-caret-position="150">
+          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/UserDBModel.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DownloadInfoViewState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/AccessDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="47" column="1" selection-start-line="47" selection-start-column="1" selection-end-line="47" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/TomkinsDatabase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="49" column="54" selection-start-line="49" selection-start-column="54" selection-end-line="49" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsBrandDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsArtDBModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/base/BaseDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/MsArtDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        <state relative-caret-position="135">
+          <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#659#660#0" expanded="true" />
+            <element signature="e#707#708#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/UserDao.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/DownloadInfoDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/AppModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/TomkinApps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/repository/network/TomkinsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/factory/ViewModelFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="28" column="79" selection-start-line="28" selection-start-column="79" selection-end-line="28" selection-end-column="79" />
+        <state relative-caret-position="90">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/ViewModelSubComponent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+        <state relative-caret-position="270">
+          <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_sale_history.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" selection-end-line="7" />
+        </state>
+      </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.work/work-runtime/2.2.0/931b590ec36e49f50b2383517f00cff323111b3e/work-runtime-2.2.0-sources.jar!/androidx/work/WorkManager.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/factory/ViewModelFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="178" column="39" selection-start-line="178" selection-start-column="39" selection-end-line="178" selection-end-column="39" />
+        <state relative-caret-position="169">
+          <caret line="29" column="82" selection-start-line="29" selection-start-column="82" selection-end-line="29" selection-end-column="82" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/WorkerModule.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/base/BaseAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+        <state relative-caret-position="240">
+          <caret line="117" column="16" selection-start-line="117" selection-start-column="16" selection-end-line="117" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/AppComponent.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/login/LoginViewModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+        <state relative-caret-position="385">
+          <caret line="71" column="74" selection-start-line="71" selection-start-column="74" selection-end-line="71" selection-end-column="74" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/ViewModelModule.java">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.2.9/db5b86f1e51213169fc7b6c17843e470f9bb40bc/rxjava-2.2.9-sources.jar!/io/reactivex/disposables/CompositeDisposable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+        <state relative-caret-position="230">
+          <caret line="97" column="19" selection-start-line="97" selection-start-column="19" selection-end-line="97" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/splash/SplashViewModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="75" column="48" selection-start-line="75" selection-start-column="43" selection-end-line="75" selection-end-column="48" />
+        <state relative-caret-position="349">
+          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/repository/network/RetrofitModule.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DataSyncViewState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="32" column="45" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
+        <state relative-caret-position="667">
+          <caret line="55" column="36" selection-start-line="55" selection-start-column="36" selection-end-line="55" selection-end-column="36" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#686#687#0" expanded="true" />
+            <element signature="e#724#725#0" expanded="true" />
+            <element signature="e#765#766#0" expanded="true" />
+            <element signature="e#804#805#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/HttpClientModule.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/view/sync/DownloadInfoAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="53" column="51" lean-forward="true" selection-start-line="53" selection-start-column="51" selection-end-line="53" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/view/dashboard/DashboardActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="55" />
+        <state relative-caret-position="83">
+          <caret line="13" column="69" selection-start-line="13" selection-start-column="69" selection-end-line="13" selection-end-column="69" />
           <folding>
-            <element signature="e#1274#1877#0" />
-            <element signature="e#1429#1574#1" />
-            <element signature="e#1617#1762#1" />
-            <element signature="method#startSaleActivity#0;class#DashboardActivity#0" />
-            <element signature="method#onActivityResult#0;class#DashboardActivity#0" />
-            <element signature="e#2447#2549#1" />
-            <element signature="e#3112#4259#1" />
-            <element signature="e#3615#3882#0" />
-            <element signature="e#3957#4212#0" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#459#460#0" expanded="true" />
+            <element signature="e#489#490#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/ui/DownloadUiModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="52" column="16" selection-start-line="52" selection-start-column="16" selection-end-line="52" selection-end-column="16" />
+        <state relative-caret-position="30">
+          <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/UserDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="20" column="54" selection-start-line="20" selection-start-column="54" selection-end-line="20" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/base/BaseDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DownloadInfoViewModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="46" column="26" selection-start-line="46" selection-start-column="26" selection-end-line="46" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2898#2930#0" expanded="true" />
+            <element signature="e#3068#3098#0" expanded="true" />
+            <element signature="e#3236#3267#0" expanded="true" />
+            <element signature="e#3405#3436#0" expanded="true" />
+            <element signature="e#3574#3604#0" expanded="true" />
+            <element signature="e#3851#3876#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="133" column="45" lean-forward="true" selection-start-line="133" selection-start-column="45" selection-end-line="133" selection-end-column="45" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/view/login/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="21" column="56" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="56" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_sync.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="149" column="43" selection-start-line="149" selection-start-column="43" selection-end-line="149" selection-end-column="43" />
+        <state relative-caret-position="336">
+          <caret line="26" column="49" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_download_info.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/snippet_sync_info.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="60" column="52" selection-start-line="60" selection-start-column="52" selection-end-line="60" selection-end-column="52" />
           <folding>
-            <element signature="e#589#6262#0" />
+            <element signature="e#3369#3397#0" expanded="true" />
           </folding>
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/view/sync/SyncActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="53" column="48" lean-forward="true" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3107#3161#0" expanded="true" />
+            <element signature="e#4789#4839#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsArtDBModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="36" column="11" lean-forward="true" selection-start-line="34" selection-start-column="4" selection-end-line="36" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/MsArtDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="46" selection-start-line="15" selection-start-column="4" selection-end-line="16" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/TomkinsDatabase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="60" column="27" lean-forward="true" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/DatabaseModule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="43" column="45" selection-start-line="43" selection-start-column="45" selection-end-line="43" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/MsBarcodeDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="29" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/MsBarcodeDBModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="488">
+          <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1597#1598#0" expanded="true" />
+            <element signature="e#1630#1631#0" expanded="true" />
+            <element signature="e#1675#1676#0" expanded="true" />
+            <element signature="e#1719#1720#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/base/BaseDatabaseModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/repository/network/TomkinsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="31" column="60" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/DownloadMsBarcodeWorker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="63" column="60" selection-start-line="60" selection-start-column="8" selection-end-line="63" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#463#464#0" expanded="true" />
+            <element signature="e#490#491#0" expanded="true" />
+            <element signature="e#1659#1660#0" expanded="true" />
+            <element signature="e#1705#1706#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/DownloadMsArtWorker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="72" column="56" selection-start-line="69" selection-start-column="8" selection-end-line="72" selection-end-column="56" />
+          <folding>
+            <element signature="method#DownloadMsArtWorker#0;class#DownloadMsArtWorker#0" />
+            <element signature="e#1818#1819#0" expanded="true" />
+            <element signature="e#1876#1877#0" expanded="true" />
+            <element signature="e#1883#1892#0" />
+            <element signature="e#2199#2504#0" expanded="true" />
+            <element signature="e#2503#2504#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/SyncMsArtWorker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43">
+          <caret line="24" column="43" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#597#598#0" expanded="true" />
+            <element signature="e#624#625#0" expanded="true" />
+            <element signature="e#663#664#0" expanded="true" />
+            <element signature="e#690#691#0" expanded="true" />
+            <element signature="e#1747#1748#0" expanded="true" />
+            <element signature="e#1774#1775#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/UserDBModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+          <folding>
+            <element signature="e#1616#1617#0" expanded="true" />
+            <element signature="e#1643#1644#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/AccessDBModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
+          <folding>
+            <element signature="e#1178#1179#0" expanded="true" />
+            <element signature="e#1205#1206#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/WorkerRequest.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1498,101 +1663,133 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/WorkerHelper.java">
+    <entry file="file://$PROJECT_DIR$/app/build/generated/ap_generated_sources/debug/out/com/erebor/tomkins/pos/data/local/dao/DownloadLastUpdateDao_Impl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        <state relative-caret-position="281">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/SyncMsBarcodeWorker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#617#618#0" expanded="true" />
+            <element signature="e#644#645#0" expanded="true" />
+            <element signature="e#687#688#0" expanded="true" />
+            <element signature="e#714#715#0" expanded="true" />
+            <element signature="e#1730#1731#0" expanded="true" />
+            <element signature="e#1757#1758#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/dao/DownloadLastUpdateDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/local/model/DownloadLastUpdateModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/BaseSyncWorker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1080">
+          <caret line="117" column="5" selection-start-line="117" selection-start-column="5" selection-end-line="117" selection-end-column="5" />
+          <folding>
+            <element signature="e#1464#1465#0" expanded="true" />
+            <element signature="e#1509#1510#0" expanded="true" />
+            <element signature="e#1979#2230#0" expanded="true" />
+            <element signature="e#2229#2230#0" expanded="true" />
+            <element signature="method#download#0;class#BaseSyncWorker#0" />
+            <element signature="method#getSuccessOutputData#0;class#BaseSyncWorker#0" />
+            <element signature="e#2399#2407#0" />
+            <element signature="method#doWork#0;class#BaseSyncWorker#0" />
+            <element signature="e#2463#2518#0" />
+            <element signature="e#2539#2797#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/DateConverterHelperImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="725">
+          <caret line="87" column="20" selection-start-line="87" selection-start-column="12" selection-end-line="87" selection-end-column="20" />
+          <folding>
+            <element signature="e#751#752#0" expanded="true" />
+            <element signature="e#811#812#0" expanded="true" />
+            <element signature="e#3480#3498#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DataSyncViewModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="208" column="72" selection-start-line="208" selection-start-column="72" selection-end-line="208" selection-end-column="72" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3228#3229#0" expanded="true" />
+            <element signature="e#3290#3291#0" expanded="true" />
+            <element signature="e#10776#10777#0" expanded="true" />
+            <element signature="e#10816#10817#0" expanded="true" />
+            <element signature="e#11418#11419#0" expanded="true" />
+            <element signature="e#11451#11452#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/di/AppComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="42" column="45" selection-start-line="42" selection-start-column="45" selection-end-line="42" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/WorkerHelperImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#891#919#0" expanded="true" />
+            <element signature="e#1122#1154#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-in/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="51" selection-start-line="50" selection-end-line="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="57" column="46" selection-start-line="57" selection-start-column="46" selection-end-line="57" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_dashboard.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="134" column="42" selection-start-line="134" selection-start-column="42" selection-end-line="134" selection-end-column="42" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-in/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="43" column="46" selection-start-line="43" selection-start-column="46" selection-end-line="43" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/helper/impl/WorkerHelperImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="23" column="37" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="37" />
-          <folding>
-            <element signature="e#768#796#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/viewmodel/sync/DownloadViewModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="95" column="24" selection-start-line="95" selection-start-column="24" selection-end-line="95" selection-end-column="24" />
-          <folding>
-            <element signature="method#DownloadViewModel#0;class#DownloadViewModel#0" />
-            <element signature="method#addObservers#0;class#DownloadViewModel#0" />
-            <element signature="method#getObserver#0;class#DownloadViewModel#0" />
-            <element signature="method#getProgressMessage#0;class#DownloadViewModel#0" />
-            <element signature="method#buildWorkerRequest#0;class#DownloadViewModel#0" />
-            <element signature="method#handleWorkerCallback#0;class#DownloadViewModel#0" />
-            <element signature="method#resetProgress#0;class#DownloadViewModel#0" />
-            <element signature="method#cancelEnqueued#0;class#DownloadViewModel#0" />
-            <element signature="method#isEnqueued#0;class#DownloadViewModel#0" />
-            <element signature="method#removeObservers#0;class#DownloadViewModel#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/view/sync/SyncActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="82" selection-start-line="82" selection-end-line="82" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2124#2178#0" expanded="true" />
-            <element signature="e#2933#2987#0" expanded="true" />
-            <element signature="e#3669#3685#0" expanded="true" />
-            <element signature="e#4138#4186#0" expanded="true" />
-            <element signature="e#4693#4741#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/data/remote/response/NetworkBoundResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/DownloadMsArtWorker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="60" column="26" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="30" />
-          <folding>
-            <element signature="e#1637#1868#0" expanded="true" />
-            <element signature="e#1867#1868#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/erebor/tomkins/pos/worker/BaseDownloadWorker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="65" column="13" lean-forward="true" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+        <state relative-caret-position="292">
+          <caret line="78" column="12" lean-forward="true" selection-start-line="78" selection-start-column="12" selection-end-line="78" selection-end-column="12" />
         </state>
       </provider>
     </entry>

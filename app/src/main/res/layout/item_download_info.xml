@@ -2,11 +2,10 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        android:layout_margin="4dp"
+        android:padding="4dp"
         >
 
         <include
@@ -15,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:download="@{download}" />
-    </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>
         <variable

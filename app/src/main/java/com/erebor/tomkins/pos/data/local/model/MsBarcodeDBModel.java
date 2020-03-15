@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
 
+import com.erebor.tomkins.pos.base.BaseDatabaseModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -14,24 +15,23 @@ import java.util.Date;
         primaryKeys = {"NoBarcode", "KodeArt"},
         indices = @Index(value = "NoBarcode", unique = true)
 )
-public class MsBarcodeDBModel {
-    /*
-    CREATE TABLE [MSBARCODE](
-  [NoBarcode] VARCHAR(20) UNIQUE,
-  [KodeArt] VARCHAR(20),
-  [Ukuran] VARCHAR(5),
-  PRIMARY KEY([NoBarcode], [KodeArt]) ON CONFLICT ROLLBACK)
-     */
-
+public class MsBarcodeDBModel implements BaseDatabaseModel {
 
     @NonNull
+    @SerializedName("NoBarcode")
+    @Expose
     @ColumnInfo(name = "NoBarcode")
     private String noBarcode;
 
     @NonNull
+    @SerializedName("KodeArt")
+    @Expose
     @ColumnInfo(name = "KodeArt")
     private String kodeArt;
 
+    @NonNull
+    @SerializedName("Ukuran")
+    @Expose
     @ColumnInfo(name = "Ukuran")
     private String ukuran;
 
@@ -68,10 +68,12 @@ public class MsBarcodeDBModel {
     }
 
     @NonNull
+    @Override
     public Date getLastUpdate() {
         return lastUpdate;
     }
 
+    @Override
     public void setLastUpdate(@NonNull Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }

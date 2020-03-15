@@ -10,7 +10,8 @@ import com.erebor.tomkins.pos.view.sale.SaleActivity;
 import com.erebor.tomkins.pos.view.setting.SettingPrefsFragment;
 import com.erebor.tomkins.pos.view.splash.SplashScreenActivity;
 import com.erebor.tomkins.pos.view.sync.SyncActivity;
-import com.erebor.tomkins.pos.worker.DownloadMsArtWorker;
+import com.erebor.tomkins.pos.worker.SyncMsArtWorker;
+import com.erebor.tomkins.pos.worker.SyncMsBarcodeWorker;
 
 import javax.inject.Singleton;
 
@@ -39,6 +40,7 @@ public interface AppComponent {
 
     void doInjection(SettingPrefsFragment fragment);
 
-    void doInjection(DownloadMsArtWorker worker);
+    void doInjection(SyncMsArtWorker worker);
+    void doInjection(SyncMsBarcodeWorker worker);
 
 }

@@ -60,7 +60,7 @@
     <string name="setting_key_auto_download_interval" translatable="false">key_auto_download_interval</string>
     <string name="last_download">Last Download</string>
     <string name="download_now">Download Now</string>
-    <string name="time_elapsed_just_now">just now</string>
+    <string name="time_elapsed_just_now">Just now</string>
     <string name="time_elapsed_seconds_ago">seconds ago</string>
     <string name="time_elapsed_minutes_ago">minutes ago</string>
     <string name="time_elapsed_a_hour">an hour ago</string>
@@ -73,5 +73,7 @@
     <string name="download_worker_gender">Gender</string>
     <string name="download_worker_ukuran">Size</string>
     <string name="download_worker_stock">Stock</string>
+    <string name="last_download_time">last time downloaded</string>
+    <string name="yesterday">Yesterday</string>
 
 </resources>

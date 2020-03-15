@@ -64,6 +64,7 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
         downloadUiModel.setDownloading(false);
         downloadUiModel.setMesssage("click to start download");
         binding.setDownloadSummary(downloadUiModel);
+        binding.layoutDownloadInfo.imageArrowRight.setImageResource(R.drawable.ic_sync);
         binding.layoutDownloadInfo.setArrowClick(v -> dataSyncViewModel.startSyncFull());
         binding.layoutDownloadInfo.setContainerClick(v -> dataSyncViewModel.startSyncFull());
 

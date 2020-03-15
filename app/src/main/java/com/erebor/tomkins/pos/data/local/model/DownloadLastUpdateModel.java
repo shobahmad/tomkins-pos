@@ -2,13 +2,13 @@ package com.erebor.tomkins.pos.data.local.model;
 
 import androidx.room.DatabaseView;
 
-import com.erebor.tomkins.pos.base.BaseDatabaseModel;
-
 import java.util.Date;
 
-@DatabaseView("select * from (select last_update article, NULL barcode, NULL brand, NULL gender, NULL size, NULL stock  from MSART order by last_update desc limit 1) art union " +
-              "select * from (select NULL article, last_update barcode, NULL brand, NULL gender, NULL size, NULL stock  from MSBARCODE order by last_update desc limit 1) barcode")
-public class DownloadLastUpdateModel implements BaseDatabaseModel {
+@DatabaseView("select article.last_update article, barcode.last_update barcode, NULL brand, NULL gender, NULL size, NULL stock from " +
+              "(select last_update from MSART order by last_update desc limit 1) article, " +
+              "(select last_update from MSBARCODE order by last_update desc limit 1) barcode"
+             )
+public class DownloadLastUpdateModel  {
     public Date article;
     public Date barcode;
     public Date brand;

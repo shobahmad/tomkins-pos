@@ -17,8 +17,7 @@ import androidx.work.WorkManager;
 import com.erebor.tomkins.pos.helper.WorkerHelper;
 import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
-import com.erebor.tomkins.pos.worker.BaseDownloadWorker;
-import com.erebor.tomkins.pos.worker.DownloadMsArtWorker;
+import com.erebor.tomkins.pos.worker.BaseSyncWorker;
 import com.erebor.tomkins.pos.worker.WorkerRequest;
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -160,9 +159,9 @@ public class DataSyncViewModel extends ViewModel {
         return progress + "%";
     }
 
-    private OneTimeWorkRequest.Builder buildWorkerRequest(long requestId, Class<? extends BaseDownloadWorker> worker) {
+    private OneTimeWorkRequest.Builder buildWorkerRequest(long requestId, Class<? extends BaseSyncWorker> worker) {
         Data data = new Data.Builder()
-                .putLong(BaseDownloadWorker.KEY_REQUEST_ID, requestId)
+                .putLong(BaseSyncWorker.KEY_REQUEST_ID, requestId)
                 .build();
 
         return new OneTimeWorkRequest.Builder(worker)
@@ -173,8 +172,8 @@ public class DataSyncViewModel extends ViewModel {
 
     private void handleWorkerCallback(WorkInfo info, Data data, int workerProgress) {
         WorkInfo.State state = info.getState();
-        long requestId = data.getLong(BaseDownloadWorker.KEY_REQUEST_ID, 0);
-        boolean completedRequestBefore = data.getLong(BaseDownloadWorker.KEY_REQUEST_ID, 0) == sharedPrefs.getDownloadRequestId();
+        long requestId = data.getLong(BaseSyncWorker.KEY_REQUEST_ID, 0);
+        boolean completedRequestBefore = data.getLong(BaseSyncWorker.KEY_REQUEST_ID, 0) == sharedPrefs.getDownloadRequestId();
 
         if (state.equals(WorkInfo.State.BLOCKED)) {
             return;
@@ -207,7 +206,7 @@ public class DataSyncViewModel extends ViewModel {
         }
 
         if (state.equals(WorkInfo.State.SUCCEEDED) && progress == 100) {
-            sharedPrefs.setDownloadRequestId(data.getLong(BaseDownloadWorker.KEY_REQUEST_ID, 0));
+            sharedPrefs.setDownloadRequestId(data.getLong(BaseSyncWorker.KEY_REQUEST_ID, 0));
             logger.debug(TAG, "SUCCEEDED " + info.getTags().toArray()[0] + " | Updating progress : " + progress);
             sharedPrefs.setLatestSyncDownloadDate(System.currentTimeMillis());
             DataSyncViewState.SUCCESS_STATE.setLastDownloadTime(getLatestDownloadedDate());
@@ -217,7 +216,7 @@ public class DataSyncViewModel extends ViewModel {
             resetProgress(true);
         }
 
-        String message = data.getString(BaseDownloadWorker.KEY_EXCEPTION_MESSAGE);
+        String message = data.getString(BaseSyncWorker.KEY_EXCEPTION_MESSAGE);
         if (state.equals(WorkInfo.State.FAILED) && message != null) {
             int updateProgress = progress + ((workerProgress - progress) / 2);
             String workerTitle = getProgressMessage(updateProgress);
@@ -255,7 +254,7 @@ public class DataSyncViewModel extends ViewModel {
     }
 
     private boolean isEnqueued() {
-        ListenableFuture<List<WorkInfo>> listListenableFuture = workManager.getWorkInfosByTag(DownloadMsArtWorker.class.getName());
+        ListenableFuture<List<WorkInfo>> listListenableFuture = workManager.getWorkInfosByTag(BaseSyncWorker.class.getName());
         try {
             List<WorkInfo> workInfos = listListenableFuture.get();
             if (workInfos.isEmpty()) {

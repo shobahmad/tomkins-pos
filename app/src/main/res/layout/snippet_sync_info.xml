@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="52dp"
                 android:text="@{download.downloading ? download.messsage : download.title, default=`Title or message here`}"
-                android:textColor="@color/greyishBrown"
+                android:textColor="@color/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -69,6 +69,19 @@
                 app:layout_constraintStart_toEndOf="@id/text_label_last_download"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:textColor="@color/warmGrey"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/last_download_time"
+                android:textSize="10sp"
+                android:gravity="right"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/text_download_info"
+                android:visibility="@{download.downloading ? View.GONE : View.VISIBLE}"
+                android:paddingBottom="2dp"
+                />
 
             <ProgressBar
                 android:id="@+id/progress_download"

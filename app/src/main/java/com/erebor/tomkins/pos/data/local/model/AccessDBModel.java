@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey;
 
 import com.erebor.tomkins.pos.base.BaseDatabaseModel;
 
+import java.util.Date;
+
 @Entity(tableName = "access")
 public class AccessDBModel implements BaseDatabaseModel {
 
@@ -44,5 +46,15 @@ public class AccessDBModel implements BaseDatabaseModel {
 
     public String getPrimaryKeyValue() {
         return String.valueOf(id);
+    }
+
+    @Override
+    public void setLastUpdate(Date lastUpdate) {
+
+    }
+
+    @Override
+    public Date getLastUpdate() {
+        return null;
     }
 }
