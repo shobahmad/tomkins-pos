@@ -3,6 +3,7 @@ package com.erebor.tomkins.pos.repository.network;
 import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBrandDBModel;
+import com.erebor.tomkins.pos.data.local.model.MsGenderDBModel;
 import com.erebor.tomkins.pos.data.remote.LoginRequest;
 import com.erebor.tomkins.pos.data.remote.LoginResponse;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
@@ -29,13 +30,16 @@ public interface TomkinsService {
     @GET("login")
     Call<LoginResponse> getSyncLogin(@Query("username") String username, @Query("password") String password);
 
-    @GET("sync_msart")
+    @GET("sync/msart")
     Call<RestResponse<DownloadResponse<List<MsArtDBModel>>>> getMsArt(@Query("last_update") String lastUpdate);
 
-    @GET("sync_msbarcode")
+    @GET("sync/msbarcode")
     Call<RestResponse<DownloadResponse<List<MsBarcodeDBModel>>>> getMsBarcode(@Query("last_update") String lastUpdate);
 
-    @GET("sync_msbrand")
+    @GET("sync/msbrand")
     Call<RestResponse<DownloadResponse<List<MsBrandDBModel>>>> getMsBrand(@Query("last_update") String lastUpdate);
+
+    @GET("sync/msgender")
+    Call<RestResponse<DownloadResponse<List<MsGenderDBModel>>>> getMsGender(@Query("last_update") String lastUpdate);
 
 }

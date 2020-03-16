@@ -79,12 +79,12 @@ public class DateConverterHelperImpl implements DateConverterHelper {
         if (difference <= three_hour && sameDay)  {
             return (difference / a_hour) + " " + resourceHelper.getResourceString(R.string.time_elapsed_hours_ago);
         }
-        if (difference <= a_day  && sameDay) {
+        if (difference <= a_day && sameDay) {
             calendar.setTimeInMillis(time);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
             return simpleDateFormat.format(calendar.getTime());
         }
-        if (difference < 2 * a_day  && !sameDay) {
+        if (difference <= a_day) {
             calendar.setTimeInMillis(time);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
             return resourceHelper.getResourceString(R.string.yesterday) + " " + simpleDateFormat.format(calendar.getTime());

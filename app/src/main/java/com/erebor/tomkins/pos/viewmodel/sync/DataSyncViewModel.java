@@ -222,7 +222,7 @@ public class DataSyncViewModel extends ViewModel {
             String workerTitle = getProgressMessage(updateProgress);
 
             logger.debug(TAG, "[" + requestId + "]FAILED " + info.getTags().toArray()[0] + " | Updating progress : " + message);
-            DataSyncViewState.ERROR_STATE.setMessage(workerTitle + "\r\n" + message);
+            DataSyncViewState.ERROR_STATE.setMessage(workerTitle + " " + message);
             DataSyncViewState.ERROR_STATE.setProgress(progress);
             downloadViewState.setValue(DataSyncViewState.ERROR_STATE);
             makeRequest(sharedPrefs.getSyncAutoDownloadInterval());

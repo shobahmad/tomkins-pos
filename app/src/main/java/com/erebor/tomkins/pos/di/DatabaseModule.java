@@ -8,7 +8,9 @@ import com.erebor.tomkins.pos.data.local.dao.DownloadLastUpdateDao;
 import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBrandDao;
+import com.erebor.tomkins.pos.data.local.dao.MsGenderDao;
 import com.erebor.tomkins.pos.data.local.dao.UserDao;
+import com.erebor.tomkins.pos.data.local.model.MsGenderDBModel;
 
 import javax.inject.Singleton;
 
@@ -48,6 +50,11 @@ public class DatabaseModule {
     @Singleton
     MsBrandDao providesMsBrandDao(TomkinsDatabase tomkinsDatabase) {
         return tomkinsDatabase.msBrandDao();
+    }
+    @Provides
+    @Singleton
+    MsGenderDao providesMsGenderDao(TomkinsDatabase tomkinsDatabase) {
+        return tomkinsDatabase.msGenderDao();
     }
 
     @Provides

@@ -4,10 +4,11 @@ import androidx.room.DatabaseView;
 
 import java.util.Date;
 
-@DatabaseView("select article.last_update article, barcode.last_update barcode, brand.last_update brand, NULL gender, NULL size, NULL stock from " +
+@DatabaseView("select article.last_update article, barcode.last_update barcode, brand.last_update brand, gender.last_update gender, NULL size, NULL stock from " +
               "(select last_update from MSART order by last_update desc limit 1) article, " +
               "(select last_update from MSBARCODE order by last_update desc limit 1) barcode, " +
-              "(select last_update from MSBRAND order by last_update desc limit 1) brand "
+              "(select last_update from MSBRAND order by last_update desc limit 1) brand, " +
+              "(select last_update from MSGENDER order by last_update desc limit 1) gender "
              )
 public class DownloadLastUpdateModel  {
     public Date article;
