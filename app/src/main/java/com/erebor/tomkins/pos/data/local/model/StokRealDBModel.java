@@ -5,11 +5,17 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
+import com.erebor.tomkins.pos.base.BaseDatabaseModel;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
 import static androidx.room.ForeignKey.RESTRICT;
 
 @Entity(tableName = "STOKREAL",
 primaryKeys = {"KodeArt", "Ukuran"})
-public class StokRealDBModel {
+public class StokRealDBModel implements BaseDatabaseModel {
     /*
     CREATE TABLE [STOKREAL](
   [KodeArt] VARCHAR(20) NOT NULL REFERENCES [MSART]([KodeArt]) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -20,22 +26,27 @@ public class StokRealDBModel {
 
     @NonNull
     @ColumnInfo(name = "KodeArt")
-    @ForeignKey(
-            entity = MsArtDBModel.class,
-            parentColumns = "KodeArt",
-            childColumns = "KodeArt",
-            onDelete = RESTRICT,
-            onUpdate = RESTRICT
-    )
+    @SerializedName("KodeArt")
+    @Expose
     private String kodeArt;
 
     @NonNull
     @ColumnInfo(name = "Ukuran")
+    @SerializedName("Ukuran")
+    @Expose
     private String ukuran;
 
     @NonNull
     @ColumnInfo(name = "QtyStok", defaultValue = "0")
+    @SerializedName("QtyStok")
+    @Expose
     private Integer qtyStok;
+
+    @NonNull
+    @ColumnInfo(name = "last_update")
+    @SerializedName("last_update")
+    @Expose
+    private Date lastUpdate;
 
     @NonNull
     public String getKodeArt() {
@@ -62,5 +73,16 @@ public class StokRealDBModel {
 
     public void setQtyStok(@NonNull Integer qtyStok) {
         this.qtyStok = qtyStok;
+    }
+
+    @Override
+    @NonNull
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    @Override
+    public void setLastUpdate(@NonNull Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

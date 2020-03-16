@@ -5,6 +5,7 @@ import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBrandDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsGenderDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsUkuranDBModel;
+import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
 import com.erebor.tomkins.pos.data.remote.LoginRequest;
 import com.erebor.tomkins.pos.data.remote.LoginResponse;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
@@ -44,5 +45,8 @@ public interface TomkinsService {
 
     @GET("sync/msukuran")
     Call<RestResponse<DownloadResponse<List<MsUkuranDBModel>>>> getMsUkuran(@Query("last_update") String lastUpdate);
+
+    @GET("sync/stokreal")
+    Call<RestResponse<DownloadResponse<List<StokRealDBModel>>>> getStokReal(@Query("last_update") String lastUpdate);
 
 }

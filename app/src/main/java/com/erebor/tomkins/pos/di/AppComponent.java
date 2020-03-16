@@ -15,6 +15,7 @@ import com.erebor.tomkins.pos.worker.SyncMsBarcodeWorker;
 import com.erebor.tomkins.pos.worker.SyncMsBrandWorker;
 import com.erebor.tomkins.pos.worker.SyncMsGenderWorker;
 import com.erebor.tomkins.pos.worker.SyncMsUkuranWorker;
+import com.erebor.tomkins.pos.worker.SyncStokRealWorker;
 
 import javax.inject.Singleton;
 
@@ -48,5 +49,6 @@ public interface AppComponent {
     void doInjection(SyncMsBrandWorker worker);
     void doInjection(SyncMsGenderWorker worker);
     void doInjection(SyncMsUkuranWorker worker);
+    void doInjection(SyncStokRealWorker worker);
 
 }

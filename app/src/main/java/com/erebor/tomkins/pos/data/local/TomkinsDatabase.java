@@ -17,6 +17,7 @@ import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBrandDao;
 import com.erebor.tomkins.pos.data.local.dao.MsGenderDao;
 import com.erebor.tomkins.pos.data.local.dao.MsUkuranDao;
+import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.data.local.dao.UserDao;
 import com.erebor.tomkins.pos.data.local.model.*;
 
@@ -65,6 +66,7 @@ public abstract class TomkinsDatabase extends RoomDatabase {
     public abstract MsBrandDao msBrandDao();
     public abstract MsGenderDao msGenderDao();
     public abstract MsUkuranDao msUkuranDao();
+    public abstract StokRealDao stokRealDao();
     public abstract DownloadLastUpdateDao downloadLastUpdateDao();
 
     private static final Object sLock = new Object();

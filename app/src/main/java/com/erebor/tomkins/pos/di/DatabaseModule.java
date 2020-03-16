@@ -10,6 +10,7 @@ import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBrandDao;
 import com.erebor.tomkins.pos.data.local.dao.MsGenderDao;
 import com.erebor.tomkins.pos.data.local.dao.MsUkuranDao;
+import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.data.local.dao.UserDao;
 import com.erebor.tomkins.pos.data.local.model.MsGenderDBModel;
 
@@ -61,6 +62,11 @@ public class DatabaseModule {
     @Singleton
     MsUkuranDao providesMsUkuranDao(TomkinsDatabase tomkinsDatabase) {
         return tomkinsDatabase.msUkuranDao();
+    }
+    @Provides
+    @Singleton
+    StokRealDao providesStokRealDao(TomkinsDatabase tomkinsDatabase) {
+        return tomkinsDatabase.stokRealDao();
     }
 
     @Provides
