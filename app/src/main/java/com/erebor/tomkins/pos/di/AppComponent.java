@@ -12,6 +12,7 @@ import com.erebor.tomkins.pos.view.splash.SplashScreenActivity;
 import com.erebor.tomkins.pos.view.sync.SyncActivity;
 import com.erebor.tomkins.pos.worker.SyncMsArtWorker;
 import com.erebor.tomkins.pos.worker.SyncMsBarcodeWorker;
+import com.erebor.tomkins.pos.worker.SyncMsBrandWorker;
 
 import javax.inject.Singleton;
 
@@ -42,5 +43,6 @@ public interface AppComponent {
 
     void doInjection(SyncMsArtWorker worker);
     void doInjection(SyncMsBarcodeWorker worker);
+    void doInjection(SyncMsBrandWorker worker);
 
 }

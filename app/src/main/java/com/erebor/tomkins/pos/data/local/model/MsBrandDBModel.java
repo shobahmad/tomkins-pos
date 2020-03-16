@@ -5,21 +5,32 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "MSBRAND")
-public class MsBrandDBModel {
-    /*
-    CREATE TABLE [MSBRAND](
-  [KodeBrand] VARCHAR(2) PRIMARY KEY ASC NOT NULL,
-  [NamaBrand] VARCHAR(40) NOT NULL)
-     */
+import com.erebor.tomkins.pos.base.BaseDatabaseModel;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
+@Entity(tableName = "MSBRAND")
+public class MsBrandDBModel implements BaseDatabaseModel {
     @NonNull
     @PrimaryKey
+    @SerializedName("KodeBrand")
+    @Expose
     @ColumnInfo(name = "KodeBrand")
     private String kodeBrand;
 
+    @NonNull
+    @SerializedName("NamaBrand")
+    @Expose
     @ColumnInfo(name = "NamaBrand")
     private String namaBrand;
+
+    @NonNull
+    @ColumnInfo(name = "last_update")
+    @SerializedName("last_update")
+    @Expose
+    private Date lastUpdate;
 
     @NonNull
     public String getKodeBrand() {
@@ -36,5 +47,14 @@ public class MsBrandDBModel {
 
     public void setNamaBrand(String namaBrand) {
         this.namaBrand = namaBrand;
+    }
+
+    @NonNull
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(@NonNull Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

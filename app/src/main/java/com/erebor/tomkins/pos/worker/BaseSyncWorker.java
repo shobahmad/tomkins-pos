@@ -1,6 +1,7 @@
 package com.erebor.tomkins.pos.worker;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteConstraintException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
