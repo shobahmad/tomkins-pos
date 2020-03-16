@@ -4,12 +4,12 @@ import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBrandDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsGenderDBModel;
+import com.erebor.tomkins.pos.data.local.model.MsUkuranDBModel;
 import com.erebor.tomkins.pos.data.remote.LoginRequest;
 import com.erebor.tomkins.pos.data.remote.LoginResponse;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -41,5 +41,8 @@ public interface TomkinsService {
 
     @GET("sync/msgender")
     Call<RestResponse<DownloadResponse<List<MsGenderDBModel>>>> getMsGender(@Query("last_update") String lastUpdate);
+
+    @GET("sync/msukuran")
+    Call<RestResponse<DownloadResponse<List<MsUkuranDBModel>>>> getMsUkuran(@Query("last_update") String lastUpdate);
 
 }

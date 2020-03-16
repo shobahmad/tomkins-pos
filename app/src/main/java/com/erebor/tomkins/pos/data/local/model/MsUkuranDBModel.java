@@ -5,11 +5,17 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
+import com.erebor.tomkins.pos.base.BaseDatabaseModel;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
 import static androidx.room.ForeignKey.RESTRICT;
 
 @Entity(tableName = "MSUKURAN",
 primaryKeys = {"KodeGender", "Ukuran"})
-public class MsUkuranDBModel {
+public class MsUkuranDBModel implements BaseDatabaseModel {
     /*
     CREATE TABLE [MSUKURAN](
   [KodeGender] VARCHAR(3) NOT NULL REFERENCES "MSGENDER"([KodeGender]) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -19,22 +25,27 @@ public class MsUkuranDBModel {
      */
 
     @NonNull
+    @SerializedName("KodeGender")
+    @Expose
     @ColumnInfo(name = "KodeGender")
-    @ForeignKey(
-            entity = MsGenderDBModel.class,
-            parentColumns = "KodeGender",
-            childColumns = "KodeGender",
-            onDelete = RESTRICT,
-            onUpdate = RESTRICT
-    )
     private String kodeGender;
 
     @NonNull
+    @SerializedName("Ukuran")
+    @Expose
     @ColumnInfo(name = "Ukuran")
     private String ukuran;
 
+    @SerializedName("PanjangCM")
+    @Expose
     @ColumnInfo(name = "PanjangCM")
     private String panjangCM;
+
+    @NonNull
+    @ColumnInfo(name = "last_update")
+    @SerializedName("last_update")
+    @Expose
+    private Date lastUpdate;
 
     @NonNull
     public String getKodeGender() {
@@ -60,5 +71,14 @@ public class MsUkuranDBModel {
 
     public void setPanjangCM(String panjangCM) {
         this.panjangCM = panjangCM;
+    }
+
+    @NonNull
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(@NonNull Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }
