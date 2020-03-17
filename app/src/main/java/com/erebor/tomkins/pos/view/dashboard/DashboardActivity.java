@@ -22,8 +22,8 @@ import com.erebor.tomkins.pos.view.scan.VisionScannerActivity;
 import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
 import com.erebor.tomkins.pos.view.setting.SettingActivity;
 import com.erebor.tomkins.pos.view.sync.SyncActivity;
-import com.erebor.tomkins.pos.viewmodel.sync.DataSyncViewModel;
-import com.erebor.tomkins.pos.viewmodel.sync.DataSyncViewState;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewState;
 
 import javax.inject.Inject;
 
@@ -38,13 +38,13 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
 
-    DataSyncViewModel dataSyncViewModel;
+    SyncDataMasterViewModel dataSyncViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        dataSyncViewModel = ViewModelProviders.of(this, viewModelFactory).get(DataSyncViewModel.class);
+        dataSyncViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncDataMasterViewModel.class);
         observeChanges();
 
         fetchDummyData();
@@ -68,8 +68,8 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
     private void observeChanges() {
         dataSyncViewModel.observeChanged();
-        dataSyncViewModel.getDownloadViewState().observe(this, dataSyncViewState -> {
-            if (dataSyncViewState.getCurrentState() == DataSyncViewState.WAITING_STATE.getCurrentState()) {
+        dataSyncViewModel.getViewState().observe(this, dataSyncViewState -> {
+            if (dataSyncViewState.getCurrentState() == SyncDataMasterViewState.WAITING_STATE.getCurrentState()) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
                 downloadUiModel.setDownloading(false);
@@ -78,7 +78,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 return;
             }
 
-            if (dataSyncViewState.getCurrentState() == DataSyncViewState.LOADING_STATE.getCurrentState()) {
+            if (dataSyncViewState.getCurrentState() == SyncDataMasterViewState.LOADING_STATE.getCurrentState()) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(dataSyncViewState.getMessage());
                 downloadUiModel.setMesssage(dataSyncViewState.getMessage());
@@ -88,7 +88,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 return;
             }
 
-            if (dataSyncViewState.getCurrentState() == DataSyncViewState.SUCCESS_STATE.getCurrentState()) {
+            if (dataSyncViewState.getCurrentState() == SyncDataMasterViewState.SUCCESS_STATE.getCurrentState()) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.last_download));
                 downloadUiModel.setDownloading(false);
@@ -97,7 +97,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 return;
             }
 
-            if (dataSyncViewState.getCurrentState() == DataSyncViewState.ERROR_STATE.getCurrentState()) {
+            if (dataSyncViewState.getCurrentState() == SyncDataMasterViewState.ERROR_STATE.getCurrentState()) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.download_failed));
                 downloadUiModel.setDownloading(false);
