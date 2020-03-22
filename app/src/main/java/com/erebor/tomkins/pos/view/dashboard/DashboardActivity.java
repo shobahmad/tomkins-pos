@@ -55,6 +55,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         observeChanges();
 
         loginViewModel.checkSession();
+        dataSyncViewModel.observeChanged();
         fetchDummyData();
         binding.buttonScan.setOnClickListener(v -> {
 
@@ -74,8 +75,14 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         binding.setSettingClick(item -> startActivity(new Intent(DashboardActivity.this, SettingActivity.class)));
     }
 
-    private void observeChanges() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         dataSyncViewModel.observeChanged();
+    }
+
+    private void observeChanges() {
         dataSyncViewModel.getViewState().observe(this, dataSyncViewState -> {
             if (dataSyncViewState.getCurrentState() == SyncDataMasterViewState.WAITING_STATE.getCurrentState()) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
