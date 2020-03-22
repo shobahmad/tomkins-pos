@@ -55,4 +55,8 @@
     <string name="download_worker_stock">Stock</string>
     <string name="last_download_time">last time downloaded</string>
     <string name="yesterday">Yesterday</string>
+    <string name="invalid_session">Invalid session! You have to login</string>
+    <string name="scan_barcode">Scan Barcode</string>
+    <string name="scanner">Scanner</string>
+    <string name="scanner_camera">Scanner Camera</string>
 </resources>

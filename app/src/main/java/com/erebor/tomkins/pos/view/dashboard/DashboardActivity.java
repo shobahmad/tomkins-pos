@@ -2,6 +2,7 @@ package com.erebor.tomkins.pos.view.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,14 +17,18 @@ import com.erebor.tomkins.pos.databinding.ActivityDashboardBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
+import com.erebor.tomkins.pos.view.login.LoginActivity;
 import com.erebor.tomkins.pos.view.report.StockActivity;
 import com.erebor.tomkins.pos.view.sale.SaleActivity;
 import com.erebor.tomkins.pos.view.scan.VisionScannerActivity;
 import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
 import com.erebor.tomkins.pos.view.setting.SettingActivity;
 import com.erebor.tomkins.pos.view.sync.SyncActivity;
+import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
+import com.erebor.tomkins.pos.viewmodel.login.LoginViewState;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewState;
+import com.google.android.material.snackbar.Snackbar;
 
 import javax.inject.Inject;
 
@@ -39,14 +44,17 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     ViewModelProvider.Factory viewModelFactory;
 
     SyncDataMasterViewModel dataSyncViewModel;
+    LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         dataSyncViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncDataMasterViewModel.class);
+        loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel.class);
         observeChanges();
 
+        loginViewModel.checkSession();
         fetchDummyData();
         binding.buttonScan.setOnClickListener(v -> {
 
@@ -107,6 +115,20 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 binding.setDownload(downloadUiModel);
             }
         });
+
+        loginViewModel.getViewState().observe(this, loginViewState -> {
+            if (loginViewState.getCurrentState() == LoginViewState.LOGIN_VALID_STATE.getCurrentState()) {
+                binding.setUser(loginViewState.getData());
+                return;
+            }
+
+            if (loginViewState.getCurrentState() == LoginViewState.ERROR_STATE.getCurrentState()) {
+                Toast.makeText(DashboardActivity.this, loginViewState.getError().getMessage(), Toast.LENGTH_LONG).show();
+                finish();
+                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+                return;
+            }
+        });
     }
 
     private void startSaleActivity(String productId) {
@@ -129,11 +151,6 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     }
 
     private void fetchDummyData() {
-
-        UserUiModel userUiModel = new UserUiModel("1", "Frodo Bagins", "2" , "Hobbits");
-        binding.setUser(userUiModel);
-
-
         binding.layoutDownloadInfo.setArrowClick(v -> startActivity(new Intent(DashboardActivity.this, SyncActivity.class)));
         binding.layoutDownloadInfo.setContainerClick(v -> startActivity(new Intent(DashboardActivity.this, SyncActivity.class)));
 

@@ -19,14 +19,14 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".view.splash.SplashScreenActivity" >
+        <activity android:name=".view.splash.SplashScreenActivity" android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.login.LoginActivity"/>
+        <activity android:name=".view.login.LoginActivity" android:noHistory="true"/>
         <activity android:name=".view.dashboard.DashboardActivity"/>
         <activity android:name=".view.scan.ZynxScannerActivity"/>
         <activity android:name=".view.scan.VisionScannerActivity"/>

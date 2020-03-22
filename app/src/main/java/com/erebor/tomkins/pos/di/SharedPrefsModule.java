@@ -161,6 +161,21 @@ public class SharedPrefsModule {
             }
 
             @Override
+            public String getToken() {
+                return getString(getKey(R.string.key_token), "");
+            }
+
+            @Override
+            public void setToken(String token) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                try {
+                    editor.putString(getKey(R.string.key_token), token);
+                } catch (Exception e) {
+                }
+                editor.apply();
+            }
+
+            @Override
             public String getHostname() {
                 return getString(getKey(R.string.setting_key_server_config), BuildConfig.HOSTNAME);
             }

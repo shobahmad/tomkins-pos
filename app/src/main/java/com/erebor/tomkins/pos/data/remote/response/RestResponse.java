@@ -16,6 +16,12 @@ public class RestResponse<T> {
     private ResponseStatusConstant status;
 
     @NonNull
+    @SerializedName("message")
+    @Expose
+    @Ignore
+    private String message;
+
+    @NonNull
     @SerializedName(RESULT_SERIALIZED_NAME)
     @Expose
     @Ignore
@@ -42,6 +48,15 @@ public class RestResponse<T> {
     @NonNull
     public T getResult() {
         return result;
+    }
+
+    @NonNull
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(@NonNull String message) {
+        this.message = message;
     }
 
     public boolean statusIsError() {

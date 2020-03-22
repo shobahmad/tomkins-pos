@@ -52,7 +52,7 @@
     <string name="stock_report">Stock Report</string>
     <string name="search">Search</string>
     <string name="search_hint">search</string>
-    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+    <string name="low_storage_error" translatable="false">Face detector dependencies cannot be downloaded due to low device storage</string>
     <string name="scan_barcode">Scan Barcode</string>
     <string name="key_setting_camera" translatable="false">setting_camera</string>
     <string name="scanner_camera">Scanner Camera</string>
@@ -79,5 +79,7 @@
     <string name="download_worker_stock">Stock</string>
     <string name="last_download_time">last time downloaded</string>
     <string name="yesterday">Yesterday</string>
+    <string name="invalid_session">Invalid session! You have to login</string>
+    <string name="key_token" translatable="false">token</string>
 
 </resources>

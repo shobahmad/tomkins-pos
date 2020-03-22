@@ -20,6 +20,10 @@ public class LoginResponse {
     @Expose
     private String NamaSPG;
 
+    @SerializedName("Token")
+    @Expose
+    private String Token;
+
     public String getKodeKonter() {
         return KodeKonter;
     }
@@ -50,5 +54,13 @@ public class LoginResponse {
 
     public void setNamaSPG(String namaSPG) {
         NamaSPG = namaSPG;
+    }
+
+    public String getToken() {
+        return Token;
+    }
+
+    public void setToken(String token) {
+        Token = token;
     }
 }
