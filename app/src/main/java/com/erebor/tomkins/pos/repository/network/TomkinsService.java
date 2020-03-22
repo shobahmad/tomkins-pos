@@ -26,6 +26,10 @@ public interface TomkinsService {
     @POST("login")
     Flowable<RestResponse<LoginResponse>> postLogin(@Body LoginRequest login);
 
+
+    @POST("logout")
+    Flowable<RestResponse<String>> postLogout();
+
     @GET("sync/msart")
     Call<RestResponse<DownloadResponse<List<MsArtDBModel>>>> getMsArt(@Query("last_update") String lastUpdate);
 

@@ -6,7 +6,7 @@ import com.erebor.tomkins.pos.data.ui.UserUiModel;
 public class LoginViewState extends BaseViewState<UserUiModel> {
 
     public enum State {
-        LOADING(0), LOGIN_VALID(1), ERROR(-1);
+        LOADING(0), LOGIN_VALID(1), ERROR(-1), LOGOUT_VALID(2);
         public int value;
 
         State(int val) {
@@ -20,5 +20,6 @@ public class LoginViewState extends BaseViewState<UserUiModel> {
 
     public static LoginViewState LOADING_STATE = new LoginViewState(State.LOADING.value);
     public static LoginViewState LOGIN_VALID_STATE = new LoginViewState(State.LOGIN_VALID.value);
+    public static LoginViewState LOGOUT_VALID_STATE = new LoginViewState(State.LOGOUT_VALID.value);
     public static LoginViewState ERROR_STATE = new LoginViewState(State.ERROR.value);
 }

@@ -12,7 +12,6 @@ import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
 import com.erebor.tomkins.pos.data.ui.DownloadUiModel;
 import com.erebor.tomkins.pos.data.ui.ReportSummaryUiModel;
-import com.erebor.tomkins.pos.data.ui.UserUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityDashboardBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
@@ -28,7 +27,6 @@ import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewState;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewState;
-import com.google.android.material.snackbar.Snackbar;
 
 import javax.inject.Inject;
 
@@ -54,8 +52,6 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel.class);
         observeChanges();
 
-        loginViewModel.checkSession();
-        dataSyncViewModel.observeChanged();
         fetchDummyData();
         binding.buttonScan.setOnClickListener(v -> {
 
@@ -80,6 +76,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         super.onResume();
 
         dataSyncViewModel.observeChanged();
+        loginViewModel.checkSession();
     }
 
     private void observeChanges() {
@@ -129,11 +126,15 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 return;
             }
 
+            if (loginViewState.getCurrentState() == LoginViewState.LOGOUT_VALID_STATE.getCurrentState()) {
+                finish();
+                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+                return;
+            }
             if (loginViewState.getCurrentState() == LoginViewState.ERROR_STATE.getCurrentState()) {
                 Toast.makeText(DashboardActivity.this, loginViewState.getError().getMessage(), Toast.LENGTH_LONG).show();
                 finish();
                 startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
-                return;
             }
         });
     }

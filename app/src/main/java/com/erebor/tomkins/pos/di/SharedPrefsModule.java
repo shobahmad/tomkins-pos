@@ -177,14 +177,14 @@ public class SharedPrefsModule {
 
             @Override
             public String getHostname() {
-                return getString(getKey(R.string.setting_key_server_config), BuildConfig.HOSTNAME);
+                return getString(getKey(R.string.key_setting_host), BuildConfig.HOSTNAME);
             }
 
             @Override
             public void setHostname(String hostname) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 try {
-                    editor.putString(getKey(R.string.setting_key_server_config), hostname);
+                    editor.putString(getKey(R.string.key_setting_host), hostname);
                 } catch (Exception e) {
                 }
                 editor.apply();

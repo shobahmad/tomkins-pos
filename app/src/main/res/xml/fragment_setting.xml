@@ -14,24 +14,6 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        app:key="@string/key_setting_account"
-        app:title="@string/setting_account"
-        >
-
-        <com.erebor.tomkins.pos.view.custom.EncryptedEditTextPreference
-            app:key="@string/key_setting_email"
-            app:summary="@string/setting_email"
-            app:title="@string/setting_email"
-            />
-
-        <com.erebor.tomkins.pos.view.custom.EncryptedEditTextPreference
-            app:key="@string/key_setting_password"
-            app:summary="@string/setting_password"
-            app:title="@string/setting_password"
-            />
-
-    </PreferenceCategory>
 
     <PreferenceCategory
         app:key="@string/key_setting_camera"
@@ -45,6 +27,39 @@
             app:entryValues="@array/scanner_entries_values"
             />
 
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="@string/key_setting_account"
+        app:title="@string/setting_account"
+        >
+
+        <EditTextPreference
+            app:key="@string/key_kode_spg"
+            app:title="@string/spg_code"
+            android:enabled="false"
+            />
+        <EditTextPreference
+            app:key="@string/key_nama_spg"
+            app:title="@string/spg_name"
+            android:enabled="false"
+            />
+        <EditTextPreference
+            app:key="@string/key_kode_konter"
+            app:title="@string/kode_konter"
+            android:enabled="false"
+            />
+        <EditTextPreference
+            app:key="@string/key_nama_konter"
+            app:title="@string/nama_konter"
+            android:enabled="false"
+            />
+        <Preference
+            app:key="@string/session_key_username"
+            app:title="@string/logout"
+            app:icon="@drawable/ic_account"
+            />
 
     </PreferenceCategory>
 </PreferenceScreen>

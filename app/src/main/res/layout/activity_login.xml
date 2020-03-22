@@ -54,7 +54,7 @@
                         android:minHeight="48dp"
                         android:backgroundTint="@color/greyLines"
                         android:ems="10"
-                        android:hint="@string/login_email"
+                        android:hint="@string/login_username"
                         android:importantForAutofill="noExcludeDescendants"
                         android:inputType="textEmailAddress"
                         android:lines="1"
@@ -127,7 +127,8 @@
                     android:gravity="center_vertical"
                     app:layout_constraintBottom_toBottomOf="@+id/checkbox_remember"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/checkbox_remember" />
+                    app:layout_constraintTop_toTopOf="@+id/checkbox_remember"
+                    android:visibility="invisible"/>
 
                 <com.github.ybq.android.spinkit.SpinKitView
                     android:id="@+id/spin_kit"

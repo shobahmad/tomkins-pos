@@ -66,6 +66,35 @@ public class LoginViewModel extends BaseViewModel<LoginViewState> {
                         })
         );
     }
+    public void postLogout() {
+        setValue(LoginViewState.LOADING_STATE);
+
+        getDisposable().add(service.postLogout()
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(loginResponse -> {
+                            if (loginResponse.statusIsError()) {
+                                LoginViewState.ERROR_STATE.setError(new Exception(loginResponse.getMessage()));
+                                postValue(LoginViewState.ERROR_STATE);
+                                return;
+                            }
+                            sharedPrefs.setUsername("");
+                            sharedPrefs.setPassword("");
+                            sharedPrefs.setKodeKonter("");
+                            sharedPrefs.setNamaKonter("");
+                            sharedPrefs.setKodeSPG("");
+                            sharedPrefs.setNamaSPG("");
+                            sharedPrefs.setToken("");
+
+                            postValue(LoginViewState.LOGOUT_VALID_STATE);
+                        },
+                        throwable -> {
+                            logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
+                            LoginViewState.ERROR_STATE.setError(throwable);
+                            postValue(LoginViewState.ERROR_STATE);
+                        })
+        );
+    }
 
     public void checkSession() {
         setValue(LoginViewState.LOADING_STATE);
@@ -90,7 +119,7 @@ public class LoginViewModel extends BaseViewModel<LoginViewState> {
     }
 
     private Flowable<UserUiModel> getSession() throws Exception {
-        if (sharedPrefs.getKodeSPG() == null) {
+        if (sharedPrefs.getUsername().isEmpty()) {
             throw new Exception(resourceHelper.getResourceString(R.string.invalid_session));
         }
         return Flowable.just(new UserUiModel(sharedPrefs.getKodeSPG(), sharedPrefs.getNamaSPG(), sharedPrefs.getKodeKonter(), sharedPrefs.getNamaKonter()));

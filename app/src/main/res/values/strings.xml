@@ -8,7 +8,7 @@
     <string name="key_nama_konter" translatable="false">nama_konter</string>
     <string name="key_kode_spg" translatable="false">kode_spg</string>
     <string name="key_nama_spg" translatable="false">nama_spg</string>
-    <string name="login_email">Email</string>
+    <string name="login_username">Username</string>
     <string name="login_login">Login</string>
     <string name="login_password">Password</string>
     <string name="login_remember_me">Remember me</string>
@@ -81,5 +81,10 @@
     <string name="yesterday">Yesterday</string>
     <string name="invalid_session">Invalid session! You have to login</string>
     <string name="key_token" translatable="false">token</string>
+    <string name="spg_name">SPG Name</string>
+    <string name="spg_code">Kode SPG</string>
+    <string name="kode_konter">Kode Konter</string>
+    <string name="nama_konter">Nama Konter</string>
+    <string name="logout">Logout</string>
 
 </resources>

@@ -96,6 +96,11 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
 
     @SuppressWarnings("unchecked")
     private void makeRequest(int delay) {
+        if (sharedPrefs.getUsername().isEmpty()) {
+            cancelEnqueued();
+            logger.debug(TAG, "makeRequest cancelled, invalid session");
+            return;
+        }
         if (delay > 0) {
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.MINUTE, delay);

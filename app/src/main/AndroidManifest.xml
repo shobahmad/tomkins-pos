@@ -31,7 +31,7 @@
         <activity android:name=".view.scan.ZynxScannerActivity"/>
         <activity android:name=".view.scan.VisionScannerActivity"/>
         <activity android:name=".view.sale.SaleActivity"/>
-        <activity android:name=".view.setting.SettingActivity"/>
+        <activity android:name=".view.setting.SettingActivity" android:noHistory="true"/>
         <activity android:name=".view.sync.SyncActivity"/>
         <activity android:name=".view.report.StockActivity"/>
     </application>
