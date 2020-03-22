@@ -4,96 +4,51 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
-    @SerializedName("error_code")
+    @SerializedName("KodeKonter")
     @Expose
-    private String error_code;
+    private String KodeKonter;
 
-    @SerializedName("message")
+    @SerializedName("NamaKonter")
     @Expose
-    private String message;
+    private String NamaKonter;
 
-    @SerializedName("result")
+    @SerializedName("KodeSPG")
     @Expose
-    private Result result;
+    private String KodeSPG;
 
-    public String getError_code() {
-        return error_code;
+    @SerializedName("NamaSPG")
+    @Expose
+    private String NamaSPG;
+
+    public String getKodeKonter() {
+        return KodeKonter;
     }
 
-    public void setError_code(String error_code) {
-        this.error_code = error_code;
+    public void setKodeKonter(String kodeKonter) {
+        KodeKonter = kodeKonter;
     }
 
-    public String getMessage() {
-        return message;
+    public String getNamaKonter() {
+        return NamaKonter;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setNamaKonter(String namaKonter) {
+        NamaKonter = namaKonter;
     }
 
-    public Result getResult() {
-        return result;
+    public String getKodeSPG() {
+        return KodeSPG;
     }
 
-    public void setResult(Result result) {
-        this.result = result;
+    public void setKodeSPG(String kodeSPG) {
+        KodeSPG = kodeSPG;
     }
 
-    public class Result {
-        public Result() {
-            id = 0;
-            username = "";
-            name = "";
-            position = "";
-        }
+    public String getNamaSPG() {
+        return NamaSPG;
+    }
 
-        @SerializedName("id")
-        @Expose
-        private int id;
-
-        @SerializedName("username")
-        @Expose
-        private String username;
-
-        @SerializedName("name")
-        @Expose
-        private String name;
-
-        @SerializedName("position")
-        @Expose
-        private String position;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getPosition() {
-            return position;
-        }
-
-        public void setPosition(String position) {
-            this.position = position;
-        }
+    public void setNamaSPG(String namaSPG) {
+        NamaSPG = namaSPG;
     }
 }

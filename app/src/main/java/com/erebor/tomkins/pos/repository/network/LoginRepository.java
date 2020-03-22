@@ -15,13 +15,6 @@ public class LoginRepository {
     }
 
     public LoginResponse getSyncLogin(String username, String password) {
-        try {
-            Response<LoginResponse> response = service.getSyncLogin(username, password).execute();
-            return response.body();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         return null;
     }
 }

@@ -101,6 +101,66 @@ public class SharedPrefsModule {
             }
 
             @Override
+            public String getKodeKonter() {
+                return getString(getKey(R.string.key_kode_konter), null);
+            }
+
+            @Override
+            public void setKodeKonter(String KodeKonter) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                try {
+                    editor.putString(getKey(R.string.key_kode_konter), KodeKonter);
+                } catch (Exception e) {
+                }
+                editor.apply();
+            }
+
+            @Override
+            public String getNamaKonter() {
+                return getString(getKey(R.string.key_nama_konter), null);
+            }
+
+            @Override
+            public void setNamaKonter(String NamaKonter) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                try {
+                    editor.putString(getKey(R.string.key_nama_konter), NamaKonter);
+                } catch (Exception e) {
+                }
+                editor.apply();
+            }
+
+            @Override
+            public String getKodeSPG() {
+                return getString(getKey(R.string.key_kode_spg), null);
+            }
+
+            @Override
+            public void setKodeSPG(String KodeSPG) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                try {
+                    editor.putString(getKey(R.string.key_kode_spg), KodeSPG);
+                } catch (Exception e) {
+                }
+                editor.apply();
+            }
+
+            @Override
+            public String getNamaSPG() {
+                return getString(getKey(R.string.key_nama_spg), null);
+            }
+
+            @Override
+            public void setNamaSPG(String NamaSPG) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                try {
+                    editor.putString(getKey(R.string.key_nama_spg), NamaSPG);
+                } catch (Exception e) {
+                }
+                editor.apply();
+            }
+
+            @Override
             public String getHostname() {
                 return getString(getKey(R.string.setting_key_server_config), BuildConfig.HOSTNAME);
             }

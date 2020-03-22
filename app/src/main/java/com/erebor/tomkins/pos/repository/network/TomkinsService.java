@@ -4,6 +4,7 @@ import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBrandDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsGenderDBModel;
+import com.erebor.tomkins.pos.data.local.model.MsKonterDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsUkuranDBModel;
 import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
 import com.erebor.tomkins.pos.data.remote.LoginRequest;
@@ -23,13 +24,7 @@ import retrofit2.http.Query;
 public interface TomkinsService {
 
     @POST("login")
-    Flowable<LoginResponse> postLogin(@Body LoginRequest login);
-
-    @GET("login")
-    Flowable<LoginResponse> gettLogin(@Query("username") String username, @Query("password") String password);
-
-    @GET("login")
-    Call<LoginResponse> getSyncLogin(@Query("username") String username, @Query("password") String password);
+    Flowable<RestResponse<LoginResponse>> postLogin(@Body LoginRequest login);
 
     @GET("sync/msart")
     Call<RestResponse<DownloadResponse<List<MsArtDBModel>>>> getMsArt(@Query("last_update") String lastUpdate);

@@ -64,7 +64,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
         binding.editName.setError(null);
         binding.editPassword.setError(null);
-        viewModel.getLogin(binding.editName.getText().toString(), binding.editPassword.getText().toString());
+        viewModel.postLogin(binding.editName.getText().toString(), binding.editPassword.getText().toString());
     }
 
     private void observerChange() {

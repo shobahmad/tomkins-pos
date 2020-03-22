@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">Tomkins POS</string>
-    <string name="setting_key_latest_download_date">latest_download_date</string>
-    <string name="session_key_username">username</string>
-    <string name="session_key_password">password</string>
-    <string name="setting_key_server_config">server_config</string>
+    <string name="setting_key_latest_download_date" translatable="false">latest_download_date</string>
+    <string name="session_key_username" translatable="false">username</string>
+    <string name="session_key_password" translatable="false">password</string>
+    <string name="setting_key_server_config" translatable="false">server_config</string>
+    <string name="key_kode_konter" translatable="false">kode_konter</string>
+    <string name="key_nama_konter" translatable="false">nama_konter</string>
+    <string name="key_kode_spg" translatable="false">kode_spg</string>
+    <string name="key_nama_spg" translatable="false">nama_spg</string>
     <string name="login_email">Email</string>
     <string name="login_login">Login</string>
     <string name="login_password">Password</string>

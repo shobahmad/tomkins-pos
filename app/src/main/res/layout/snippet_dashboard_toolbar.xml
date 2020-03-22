@@ -24,23 +24,13 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp">
 
-
-                <ImageView
-                    android:id="@+id/image_arrow_down"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_dashboard_arrow_down"
-                    app:layout_constraintStart_toEndOf="@id/text_position"
-                    app:layout_constraintTop_toBottomOf="@id/text_username" />
-
                 <TextView
                     android:id="@+id/text_position"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
                     android:gravity="start"
-                    android:text="@{user.position, default=`Position`}"
+                    android:text="@{user.namaCounter, default=`Position`}"
                     android:textColor="@color/greyishBrown"
                     android:textSize="14sp"
                     android:textStyle="normal"
@@ -53,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="start"
-                    android:text="@{user.name, default=`Name`}"
+                    android:text="@{user.namaSPG, default=`Name`}"
                     android:textColor="@color/greyishBrown"
                     android:textSize="16sp"
                     android:textStyle="normal"

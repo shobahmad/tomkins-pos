@@ -14,6 +14,18 @@ public interface SharedPrefs {
     String getPassword();
     void setPassword(String password);
 
+    String getKodeKonter();
+    void setKodeKonter(String KodeKonter);
+
+    String getNamaKonter();
+    void setNamaKonter(String NamaKonter);
+
+    String getKodeSPG();
+    void setKodeSPG(String KodeSPG);
+
+    String getNamaSPG();
+    void setNamaSPG(String NamaSPG);
+
     String getHostname();
     void setHostname(String hostname);
 

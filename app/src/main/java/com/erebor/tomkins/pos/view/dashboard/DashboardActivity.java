@@ -130,9 +130,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
     private void fetchDummyData() {
 
-        UserUiModel userUiModel = new UserUiModel();
-        userUiModel.setName("Frodo Bagins");
-        userUiModel.setPosition("Hobbits");
+        UserUiModel userUiModel = new UserUiModel("1", "Frodo Bagins", "2" , "Hobbits");
         binding.setUser(userUiModel);
 
 
