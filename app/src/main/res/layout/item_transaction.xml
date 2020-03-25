@@ -179,8 +179,8 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTransDate"
-                android:layout_width="match_parent"
+                android:id="@+id/editNote"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="11sp"
                 android:hint="@string/transaction_note"

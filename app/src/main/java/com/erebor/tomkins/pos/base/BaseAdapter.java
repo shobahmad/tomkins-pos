@@ -94,6 +94,17 @@ public abstract class BaseAdapter<B extends ViewDataBinding, T> extends Recycler
 
     }
 
+    public void setList(final List<T> newList) {
+        if (this.list == null) {
+            this.list = newList;
+            notifyItemRangeInserted(0, newList.size());
+            return;
+        }
+        this.list = newList;
+        notifyDataSetChanged();
+
+    }
+
     public void removeItem(int position) {
         list.remove(position);
         notifyItemRemoved(position);

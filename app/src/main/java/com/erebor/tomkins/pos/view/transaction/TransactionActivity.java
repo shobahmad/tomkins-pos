@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
+import com.erebor.tomkins.pos.data.ui.TransactionDetailUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityTransactionBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
@@ -22,6 +23,7 @@ import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewModel;
 import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewState;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -86,7 +88,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
     private void startObserver() {
         transactionViewModel.getViewState().observe(this, transactionViewState -> {
             if (transactionViewState.getCurrentState().equals(TransactionViewState.FOUND_STATE.getCurrentState())) {
-                transactionAdapter.addList(transactionViewState.getData().getListTransaction());
+                transactionAdapter.setList(transactionViewState.getData().getListTransaction());
                 binding.setTransaction(transactionViewState.getData());
                 return;
             }
@@ -145,6 +147,11 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             @Override
             public void qtyUpdate(String barcode, int qty) {
                 transactionViewModel.updateQuantity(barcode, qty);
+            }
+
+            @Override
+            public void noteUpdate(String barcode, String note) {
+                transactionViewModel.updateNote(barcode, note);
             }
         });
         binding.recyclerTransaction.setLayoutManager(new LinearLayoutManager(this));

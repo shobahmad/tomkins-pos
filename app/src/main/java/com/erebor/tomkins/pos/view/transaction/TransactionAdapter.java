@@ -1,6 +1,11 @@
 package com.erebor.tomkins.pos.view.transaction;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +19,26 @@ import com.erebor.tomkins.pos.view.callback.ItemQtyHandler;
 
 public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, TransactionDetailUiModel> {
 
+    final Handler handler;
+
     public TransactionAdapter(Context context) {
         super(context);
+        handler = new Handler(msg -> {
+            if (msg.what == 1) {
+                String barcode = msg.getData().getString("barcode");
+                int qty = msg.getData().getInt("qty");
+                itemUpdatedListener.qtyUpdate(barcode, qty);
+                return true;
+            }
+
+            if (msg.what == 2) {
+                String barcode = msg.getData().getString("barcode");
+                String note = msg.getData().getString("note");
+                itemUpdatedListener.noteUpdate(barcode, note);
+            }
+
+            return false;
+        });
     }
     private ItemUpdatedListener itemUpdatedListener;
 
@@ -50,9 +73,8 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
             TransactionDetailUiModel transaction = binding.getTransaction();
             @Override
             public void onPositiveButtonClick(View item) {
-
                 if (itemUpdatedListener != null) {
-                    itemUpdatedListener.qtyUpdate(transaction.getBarcode(), transaction.getQty() + 1);
+                    sendUpdateQty(transaction.getBarcode(), transaction.getQty() + 1);
                     return;
                 }
                 setItem(position, new TransactionDetailUiModel(
@@ -73,7 +95,8 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
             @Override
             public void onNegativeButtonClick(View item) {
                 if (transaction.getQty() == 1 && itemUpdatedListener != null) {
-                    itemUpdatedListener.qtyUpdate(transaction.getBarcode(), 0);
+                    sendUpdateQty(transaction.getBarcode(), 0);
+//                    itemUpdatedListener.qtyUpdate(transaction.getBarcode(), 0);
                     return;
                 }
                 if (transaction.getQty() == 1) {
@@ -82,7 +105,8 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
                 }
 
                 if (itemUpdatedListener != null) {
-                    itemUpdatedListener.qtyUpdate(transaction.getBarcode(), transaction.getQty() - 1);
+                    sendUpdateQty(transaction.getBarcode(), transaction.getQty() - 1);
+//                    itemUpdatedListener.qtyUpdate(transaction.getBarcode(), transaction.getQty() - 1);
                     return;
                 }
                 setItem(position, new TransactionDetailUiModel(
@@ -101,6 +125,60 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
 
             }
         });
+        binding.editNote.addTextChangedListener(new TextWatcher() {
+            TransactionDetailUiModel transaction = binding.getTransaction();
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (itemUpdatedListener != null) {
+                    sendUpdateNote(transaction.getBarcode(), s.toString());
+                    return;
+                }
+
+                setItem(position, new TransactionDetailUiModel(
+                        transaction.getIndTrx(),
+                        transaction.getArtName(),
+                        transaction.getArtCode(),
+                        transaction.getBarcode(),
+                        transaction.getSize(),
+                        transaction.getHargaNormal(),
+                        transaction.getEventName(),
+                        transaction.getQty(),
+                        transaction.getHargaJual(),
+                        s.toString()
+                ));
+                notifyItemChanged(position);
+            }
+        });
+    }
+
+    private void sendUpdateQty(String barcode, int qty) {
+        Message message = new Message();
+        message.what = 1;
+        Bundle bundle = new Bundle();
+        bundle.putString("barcode", barcode);
+        bundle.putInt("qty", qty);
+        message.setData(bundle);
+        handler.removeMessages(1);
+        handler.sendMessageDelayed(message, 500);
+    }
+    private void sendUpdateNote(String barcode, String note) {
+        Message message = new Message();
+        message.what = 2;
+        Bundle bundle = new Bundle();
+        bundle.putString("barcode", barcode);
+        bundle.putString("note", note);
+        message.setData(bundle);
+        handler.removeMessages(2);
+        handler.sendMessageDelayed(message, 500);
     }
 
     public void setItemUpdatedListener(ItemUpdatedListener itemUpdatedListener) {
@@ -109,5 +187,6 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
 
     public interface ItemUpdatedListener {
         void qtyUpdate(String barcode, int qty);
+        void noteUpdate(String barcode, String note);
     }
 }

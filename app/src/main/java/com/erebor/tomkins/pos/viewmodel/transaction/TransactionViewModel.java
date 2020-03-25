@@ -100,6 +100,44 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                             postValue(TransactionViewState.ERROR_STATE);
                         }));
     }
+    public void updateNote(String barcode, String note) {
+        getDisposable().add(Single.fromCallable(() -> {
+            logger.debug(getClass().getSimpleName(), "Update note of " + barcode + " to " + note);
+            TransactionUiModel transactionUiModel = TransactionViewState.FOUND_STATE.getData();
+            ArrayList<TransactionDetailUiModel> list = transactionUiModel.getListTransaction();
+            for (int i = 0; i < list.size(); i++) {
+                TransactionDetailUiModel detail = list.get(0);
+                if (!detail.getBarcode().equals(barcode)) {
+                    continue;
+                }
+
+                TransactionDetailUiModel updatedDetail = new TransactionDetailUiModel(
+                        detail.getIndTrx(),
+                        detail.getArtName(),
+                        detail.getArtCode(),
+                        detail.getBarcode(),
+                        detail.getSize(),
+                        detail.getHargaNormal(),
+                        detail.getEventName(),
+                        detail.getQty(),
+                        detail.getHargaJual(),
+                        note
+                );
+                list.set(i, updatedDetail);
+                break;
+            }
+
+            TransactionViewState.FOUND_STATE.setData(transactionUiModel);
+            return TransactionViewState.FOUND_STATE;
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(state -> postValue(state),
+                        throwable -> {
+                            TransactionViewState.ERROR_STATE.setError(throwable);
+                            postValue(TransactionViewState.ERROR_STATE);
+                        }));
+    }
 
     private TransactionViewState barcodeValidation(String barcode) {
         //@ get barcpde
