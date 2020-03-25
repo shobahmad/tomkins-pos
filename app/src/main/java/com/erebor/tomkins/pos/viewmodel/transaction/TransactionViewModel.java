@@ -58,7 +58,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
             TransactionUiModel transactionUiModel = TransactionViewState.FOUND_STATE.getData();
             ArrayList<TransactionDetailUiModel> list = transactionUiModel.getListTransaction();
             for (int i = 0; i < list.size(); i++) {
-                TransactionDetailUiModel detail = list.get(0);
+                TransactionDetailUiModel detail = list.get(i);
                 if (!detail.getBarcode().equals(barcode)) {
                     continue;
                 }
@@ -106,7 +106,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
             TransactionUiModel transactionUiModel = TransactionViewState.FOUND_STATE.getData();
             ArrayList<TransactionDetailUiModel> list = transactionUiModel.getListTransaction();
             for (int i = 0; i < list.size(); i++) {
-                TransactionDetailUiModel detail = list.get(0);
+                TransactionDetailUiModel detail = list.get(i);
                 if (!detail.getBarcode().equals(barcode)) {
                     continue;
                 }
@@ -140,7 +140,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
     }
 
     private TransactionViewState barcodeValidation(String barcode) {
-        //@ get barcpde
+        //@ get barcode
         MsBarcodeDBModel msBarcodeDBModel = msBarcodeDao.getSyncByNoBarcode(barcode);
         if (msBarcodeDBModel == null) {
             return TransactionViewState.NOT_FOUND_STATE;
@@ -210,7 +210,15 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
             list.add(newestDetail);
         }
 
-        TransactionViewState.FOUND_STATE.setData(transactionUiModel);
+
+        TransactionUiModel updatedTransaction = new TransactionUiModel(
+                transactionUiModel.getTransactionId(),
+                transactionUiModel.getTransactionDate(),
+                transactionUiModel.getGrandTotal() + newestDetail.getHargaJual(),
+                list
+        );
+
+        TransactionViewState.FOUND_STATE.setData(updatedTransaction);
         return TransactionViewState.FOUND_STATE;
     }
 }
