@@ -97,6 +97,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
                     i + 1,
                     "Artikel " + i,
                     "ART0" + i,
+                    "123425387102931" + i,
                     "41",
                     100000,
                     "dikson lebaran",
