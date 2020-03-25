@@ -17,7 +17,10 @@ public interface MsBarcodeDao extends BaseDao<MsBarcodeDBModel> {
     Flowable<List<MsBarcodeDBModel>> getListAll();
 
     @Query("SELECT * FROM MSBARCODE WHERE NoBarcode=:value")
-    MsBarcodeDBModel getByNoBarcode(String value);
+    MsBarcodeDBModel getSyncByNoBarcode(String value);
+
+    @Query("SELECT * FROM MSBARCODE WHERE NoBarcode=:value")
+    Flowable<MsBarcodeDBModel> getByNoBarcode(String value);
 
     @Query("SELECT * FROM MSBARCODE ORDER BY last_update DESC LIMIT 1")
     MsBarcodeDBModel getSyncLatest();

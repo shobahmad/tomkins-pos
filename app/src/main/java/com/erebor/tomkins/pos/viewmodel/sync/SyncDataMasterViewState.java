@@ -4,10 +4,10 @@ import com.erebor.tomkins.pos.base.BaseViewState;
 
 public class SyncDataMasterViewState extends BaseViewState<String> {
 
-    public static int STATE_LOADING = -1;
-    public static int STATE_SUCCESS = 1;
-    public static int STATE_FAILED = 2;
-    public static int STATE_WAITING = 3;
+    public static String STATE_LOADING = "loading";
+    public static String STATE_SUCCESS = "success";
+    public static String STATE_FAILED = "failed";
+    public static String STATE_WAITING = "waiting";
 
     private int progress = 0;
     private String message = "";
@@ -39,14 +39,14 @@ public class SyncDataMasterViewState extends BaseViewState<String> {
 
     public enum State {
         LOADING(STATE_LOADING), SUCCESS(STATE_SUCCESS), FAILED(STATE_FAILED), WAITING(STATE_WAITING);
-        public int value;
+        public String value;
 
-        State(int val) {
+        State(String val) {
             value = val;
         }
     }
 
-    private SyncDataMasterViewState(int currentState) {
+    private SyncDataMasterViewState(String currentState) {
         this.currentState = currentState;
     }
 

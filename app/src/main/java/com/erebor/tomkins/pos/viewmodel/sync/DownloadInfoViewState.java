@@ -6,22 +6,22 @@ import com.erebor.tomkins.pos.data.ui.DownloadUiModel;
 import java.util.List;
 
 public class DownloadInfoViewState extends BaseViewState<List<DownloadUiModel>> {
-    private static int STATE_LOADING = -1;
-    private static int STATE_SUCCESS = 1;
-    private static int STATE_ERROR = 2;
+    private static String STATE_LOADING = "loading";
+    private static String STATE_SUCCESS = "success";
+    private static String STATE_ERROR = "error";
 
 
 
     public enum State {
         LOADING(STATE_LOADING), SUCCESS(STATE_SUCCESS), ERROR(STATE_ERROR);
-        public int value;
+        public String value;
 
-        State(int val) {
+        State(String val) {
             value = val;
         }
     }
 
-    private DownloadInfoViewState(int currentState) {
+    private DownloadInfoViewState(String currentState) {
         this.currentState = currentState;
     }
 

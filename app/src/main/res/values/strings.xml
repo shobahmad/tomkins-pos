@@ -92,5 +92,6 @@
     <string name="transaction_note">Note</string>
     <string name="transaction_sub_total">Sub Total</string>
     <string name="transaction">Transaction</string>
+    <string name="art_not_found">Article not found!</string>
 
 </resources>

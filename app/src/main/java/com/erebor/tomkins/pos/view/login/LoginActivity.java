@@ -69,19 +69,19 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
     private void observerChange() {
         viewModel.getViewState().observe(this, loginViewState -> {
-            if (loginViewState.getCurrentState() == LoginViewState.LOADING_STATE.getCurrentState()) {
+            if (loginViewState.getCurrentState().equals(LoginViewState.LOADING_STATE.getCurrentState())) {
                 binding.setLoading(true);
                 binding.setError(null);
                 return;
             }
 
-            if (loginViewState.getCurrentState() == LoginViewState.ERROR_STATE.getCurrentState()) {
+            if (loginViewState.getCurrentState().equals(LoginViewState.ERROR_STATE.getCurrentState())) {
                 binding.setLoading(false);
                 binding.setError(loginViewState.getError().getMessage());
                 return;
             }
 
-            if (loginViewState.getCurrentState() == LoginViewState.LOGIN_VALID_STATE.getCurrentState()) {
+            if (loginViewState.getCurrentState().equals(LoginViewState.LOGIN_VALID_STATE.getCurrentState())) {
                 binding.setLoading(false);
                 binding.setError(null);
                 startActivity(new Intent(LoginActivity.this, DashboardActivity.class));

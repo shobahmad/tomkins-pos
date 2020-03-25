@@ -17,7 +17,10 @@ public interface MsArtDao extends BaseDao<MsArtDBModel> {
     Flowable<List<MsArtDBModel>> getListAll();
 
     @Query("SELECT * FROM MSART WHERE KodeArt=:value")
-    MsArtDBModel getByKodeArt(String value);
+    MsArtDBModel getSyncByKodeArt(String value);
+
+    @Query("SELECT * FROM MSART WHERE KodeArt=:value")
+    Flowable<MsArtDBModel> getByKodeArt(String value);
 
     @Query("SELECT * FROM MSART ORDER BY last_update DESC LIMIT 1")
     MsArtDBModel getSyncLatest();

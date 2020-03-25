@@ -1,20 +1,27 @@
 package com.erebor.tomkins.pos.view.transaction;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
-import com.erebor.tomkins.pos.data.ui.TransactionDetailUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityTransactionBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.helper.ResourceHelper;
+import com.erebor.tomkins.pos.tools.SharedPrefs;
+import com.erebor.tomkins.pos.view.scan.VisionScannerActivity;
+import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
+import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewModel;
+import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewState;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,6 +32,13 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
     ResourceHelper resourceHelper;
     @Inject
     DateConverterHelper dateConverterHelper;
+    @Inject
+    ViewModelProvider.Factory factory;
+    @Inject
+    SharedPrefs sharedPrefs;
+
+    TransactionViewModel transactionViewModel;
+
     private Date selectedDate = null;
 
     private TransactionAdapter transactionAdapter;
@@ -45,11 +59,48 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
 
         setToolbar(binding.toolbar.toolbar);
         binding.toolbar.setTitle(resourceHelper.getResourceString(R.string.transaction));
+        transactionViewModel = ViewModelProviders.of(this, factory).get(TransactionViewModel.class);
+
+        binding.buttonScan.setOnClickListener(v -> {
+            String scanner = sharedPrefs.getString(getResources().getString(R.string.setting_key_camera), "");
+            if (scanner.equals("")) {
+                startActivityForResult(new Intent(TransactionActivity.this, ZynxScannerActivity.class), 1);
+                return;
+            }
+
+            if (scanner.equals("zxing")) {
+                startActivityForResult(new Intent(TransactionActivity.this, ZynxScannerActivity.class), 1);
+                return;
+            }
+
+            startActivityForResult(new Intent(TransactionActivity.this, VisionScannerActivity.class), 1);
+        });
 
         setupAdapter();
-        loadDummy();
         setupDatePicker();
+        startObserver();
 
+        transactionViewModel.scanBarcode(getIntent().getStringExtra("data"));
+    }
+
+    private void startObserver() {
+        transactionViewModel.getViewState().observe(this, transactionViewState -> {
+            if (transactionViewState.getCurrentState().equals(TransactionViewState.FOUND_STATE.getCurrentState())) {
+                transactionAdapter.addList(transactionViewState.getData().getListTransaction());
+                binding.setTransaction(transactionViewState.getData());
+                return;
+            }
+
+            if (transactionViewState.getCurrentState().equals(TransactionViewState.NOT_FOUND_STATE.getCurrentState())) {
+                Toast.makeText(TransactionActivity.this, "barcode not found!", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if (transactionViewState.getCurrentState().equals(TransactionViewState.ERROR_STATE.getCurrentState())) {
+                Toast.makeText(TransactionActivity.this, transactionViewState.getError().getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        });
     }
 
     private void setupDatePicker() {
@@ -88,29 +139,24 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
     }
 
-
-
-    private void loadDummy() {
-        ArrayList<TransactionDetailUiModel> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(new TransactionDetailUiModel(
-                    i + 1,
-                    "Artikel " + i,
-                    "ART0" + i,
-                    "123425387102931" + i,
-                    "41",
-                    100000,
-                    "dikson lebaran",
-                    2,
-                    80000,
-                    ""
-            ));
-        }
-        transactionAdapter.addList(list);
-    }
     private void setupAdapter() {
         transactionAdapter = new TransactionAdapter(this);
+        transactionAdapter.setItemUpdatedListener(new TransactionAdapter.ItemUpdatedListener() {
+            @Override
+            public void qtyUpdate(String barcode, int qty) {
+                transactionViewModel.updateQuantity(barcode, qty);
+            }
+        });
         binding.recyclerTransaction.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerTransaction.setAdapter(transactionAdapter);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            transactionViewModel.scanBarcode(data.getStringExtra("data"));
+        }
     }
 }

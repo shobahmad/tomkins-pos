@@ -17,6 +17,7 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
     public TransactionAdapter(Context context) {
         super(context);
     }
+    private ItemUpdatedListener itemUpdatedListener;
 
     @Override
     public void setDataBinding(ViewHolder viewHolder, TransactionDetailUiModel data) {
@@ -50,6 +51,10 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
             @Override
             public void onPositiveButtonClick(View item) {
 
+                if (itemUpdatedListener != null) {
+                    itemUpdatedListener.qtyUpdate(transaction.getBarcode(), transaction.getQty() + 1);
+                    return;
+                }
                 setItem(position, new TransactionDetailUiModel(
                         transaction.getIndTrx(),
                         transaction.getArtName(),
@@ -67,8 +72,17 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
 
             @Override
             public void onNegativeButtonClick(View item) {
+                if (transaction.getQty() == 1 && itemUpdatedListener != null) {
+                    itemUpdatedListener.qtyUpdate(transaction.getBarcode(), 0);
+                    return;
+                }
                 if (transaction.getQty() == 1) {
                     removeItem(getList().get(position));
+                    return;
+                }
+
+                if (itemUpdatedListener != null) {
+                    itemUpdatedListener.qtyUpdate(transaction.getBarcode(), transaction.getQty() - 1);
                     return;
                 }
                 setItem(position, new TransactionDetailUiModel(
@@ -87,5 +101,13 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
 
             }
         });
+    }
+
+    public void setItemUpdatedListener(ItemUpdatedListener itemUpdatedListener) {
+        this.itemUpdatedListener = itemUpdatedListener;
+    }
+
+    public interface ItemUpdatedListener {
+        void qtyUpdate(String barcode, int qty);
     }
 }

@@ -100,7 +100,7 @@
                             android:layout_height="wrap_content"
                             style="@style/TextAppearance.AppCompat.Title"
                             android:enabled="false"
-                            android:text="Rp 100,000"
+                            android:text="@{@string/price_format(transaction.grandTotal), default=`Rp 100,000`}"
                             android:textColor="@color/colorPrimary"
                             android:background="@color/white"
                             />
@@ -158,4 +158,10 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+        <variable
+            name="transaction"
+            type="com.erebor.tomkins.pos.data.ui.TransactionUiModel" />
+    </data>
 </layout>

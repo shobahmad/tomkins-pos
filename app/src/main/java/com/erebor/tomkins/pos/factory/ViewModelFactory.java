@@ -10,6 +10,7 @@ import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
 import com.erebor.tomkins.pos.viewmodel.splash.SplashViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewModel;
+import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewModel;
 
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -29,6 +30,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         creators.put(LoginViewModel.class, () -> viewModelSubComponent.loginViewModel());
         creators.put(DownloadInfoViewModel.class, () -> viewModelSubComponent.downloadInfoViewModel());
         creators.put(SyncDataMasterViewModel.class, () -> viewModelSubComponent.syncDataMasterViewModel());
+        creators.put(TransactionViewModel.class, () -> viewModelSubComponent.transactionViewModel());
 
     }
 

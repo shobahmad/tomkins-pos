@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.erebor.tomkins.pos.view.callback.IItemClick;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseAdapter<B extends ViewDataBinding, T> extends RecyclerView.Adapter<BaseAdapter.ViewHolder> {
@@ -108,6 +109,12 @@ public abstract class BaseAdapter<B extends ViewDataBinding, T> extends Recycler
     }
 
     public void addItem(int position, T item) {
+        if (this.list == null) {
+            this.list = new ArrayList<>();
+            list.add(item);
+            notifyItemInserted(0);
+            return;
+        }
         list.add(position, item);
         notifyItemInserted(position);
     }

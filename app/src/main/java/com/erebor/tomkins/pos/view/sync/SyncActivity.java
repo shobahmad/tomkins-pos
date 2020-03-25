@@ -75,7 +75,7 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
         dataSyncViewModel.observeChanged();
         dataSyncViewModel.getViewState().observe(this, dataSyncViewState -> {
 
-            if (dataSyncViewState.getCurrentState() == SyncDataMasterViewState.ERROR_STATE.getCurrentState()) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.ERROR_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.download_failed));
                 downloadUiModel.setDownloading(false);
@@ -84,7 +84,7 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
                 downloadUiModel.setMesssage(dataSyncViewState.getMessage());
                 binding.setDownloadSummary(downloadUiModel);
             }
-            if (dataSyncViewState.getCurrentState() == SyncDataMasterViewState.SUCCESS_STATE.getCurrentState()) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.SUCCESS_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(dataSyncViewState.getMessage());
                 downloadUiModel.setDownloading(true);
@@ -95,7 +95,7 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
                 return;
             }
 
-            if (dataSyncViewState.getCurrentState() == SyncDataMasterViewState.WAITING_STATE.getCurrentState()) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.WAITING_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
                 downloadUiModel.setDownloading(false);
@@ -104,7 +104,7 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
                 return;
             }
 
-            if (dataSyncViewState.getCurrentState() == SyncDataMasterViewState.LOADING_STATE.getCurrentState()) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.LOADING_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(dataSyncViewState.getMessage());
                 downloadUiModel.setMesssage(dataSyncViewState.getMessage());
@@ -117,11 +117,11 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
         });
 
         downloadInfoViewModel.getViewState().observe(this, downloadInfoViewState -> {
-            if (downloadInfoViewState.getCurrentState() == DownloadInfoViewState.LOADING_STATE.getCurrentState()) {
+            if (downloadInfoViewState.getCurrentState().equals(DownloadInfoViewState.LOADING_STATE.getCurrentState())) {
                 binding.setLoading(true);
                 return;
             }
-            if (downloadInfoViewState.getCurrentState() == DownloadInfoViewState.SUCCESS_STATE.getCurrentState()) {
+            if (downloadInfoViewState.getCurrentState().equals(DownloadInfoViewState.SUCCESS_STATE.getCurrentState())) {
                 binding.setLoading(false);
                 adapter.clearList();
                 adapter.addList(downloadInfoViewState.getData());

@@ -19,21 +19,21 @@ public class BaseViewState<T> {
         this.error = error;
     }
 
-    public int getCurrentState() {
+    public String getCurrentState() {
         return currentState;
     }
 
-    public void setCurrentState(int currentState) {
+    public void setCurrentState(String currentState) {
         this.currentState = currentState;
     }
 
     protected T data;
     protected Throwable error;
-    protected int currentState;
+    protected String currentState;
 
     @NonNull
     @Override
     public String toString() {
-        return currentState + "";
+        return currentState;
     }
 }

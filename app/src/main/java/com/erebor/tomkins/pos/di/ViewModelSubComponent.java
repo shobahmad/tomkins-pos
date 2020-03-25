@@ -4,6 +4,7 @@ import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
 import com.erebor.tomkins.pos.viewmodel.splash.SplashViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewModel;
+import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewModel;
 
 import dagger.Subcomponent;
 
@@ -13,6 +14,7 @@ import dagger.Subcomponent;
  */
 @Subcomponent
 public interface ViewModelSubComponent {
+
     @Subcomponent.Builder
     interface Builder {
         ViewModelSubComponent build();
@@ -22,5 +24,6 @@ public interface ViewModelSubComponent {
     LoginViewModel loginViewModel();
     DownloadInfoViewModel downloadInfoViewModel();
     SyncDataMasterViewModel syncDataMasterViewModel();
+    TransactionViewModel transactionViewModel();
 
 }

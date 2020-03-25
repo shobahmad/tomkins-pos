@@ -47,25 +47,25 @@ public class SplashScreenActivity extends BaseActivity<ActivitySplashBinding> {
 
     private void observeDataChange() {
         splashViewModel.getViewState().observe(this, splashViewState -> {
-            if (splashViewState.getCurrentState() == SplashViewState.LOADING_STATE.getCurrentState()) {
+            if (splashViewState.getCurrentState().equals(SplashViewState.LOADING_STATE.getCurrentState())) {
                 binding.setProgress(splashViewState.getProgress());
                 return;
             }
 
-            if (splashViewState.getCurrentState() == SplashViewState.SESSION_EMPTY_STATE.getCurrentState()) {
+            if (splashViewState.getCurrentState().equals(SplashViewState.SESSION_EMPTY_STATE.getCurrentState())) {
                 binding.setProgress(splashViewState.getProgress());
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 return;
             }
 
-            if (splashViewState.getCurrentState() == SplashViewState.SESSION_VALID_STATE.getCurrentState()) {
+            if (splashViewState.getCurrentState().equals(SplashViewState.SESSION_VALID_STATE.getCurrentState())) {
                 binding.setProgress(splashViewState.getProgress());
                 startActivity(new Intent(this, DashboardActivity.class));
                 finish();
                 return;
             }
-            if (splashViewState.getCurrentState() == SplashViewState.ERROR_STATE.getCurrentState()) {
+            if (splashViewState.getCurrentState().equals(SplashViewState.ERROR_STATE.getCurrentState())) {
                 binding.setProgress(splashViewState.getProgress());
                 Toast.makeText(this, splashViewState.getError().getMessage(), Toast.LENGTH_LONG).show();
                 return;

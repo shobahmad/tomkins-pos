@@ -24,15 +24,15 @@ public class SplashViewState extends BaseViewState<String> {
     }
 
     public enum State {
-        LOADING(0), SESSION_VALID(1), SESSION_EMPTY(2), ERROR(-1);
-        public int value;
+        LOADING("loading"), SESSION_VALID("valid"), SESSION_EMPTY("empty"), ERROR("error");
+        public String value;
 
-        State(int val) {
+        State(String val) {
             value = val;
         }
     }
 
-    private SplashViewState(int currentState) {
+    private SplashViewState(String currentState) {
         this.currentState = currentState;
     }
 
@@ -44,5 +44,5 @@ public class SplashViewState extends BaseViewState<String> {
     public static SplashViewState LOADING_STATE = new SplashViewState(State.LOADING.value);
     public static SplashViewState SESSION_VALID_STATE = new SplashViewState(State.SESSION_VALID.value);
     public static SplashViewState SESSION_EMPTY_STATE = new SplashViewState(State.SESSION_EMPTY.value);
-    public static SplashViewState ERROR_STATE = new SplashViewState(State.ERROR.value,"");
+    public static SplashViewState ERROR_STATE = new SplashViewState(State.ERROR.value);
 }

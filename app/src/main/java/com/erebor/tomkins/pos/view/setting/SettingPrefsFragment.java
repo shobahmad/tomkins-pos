@@ -92,11 +92,11 @@ public class SettingPrefsFragment extends PreferenceFragmentCompat {
 
     void startObserver() {
         viewModel.getViewState().observe(getViewLifecycleOwner(), loginViewState -> {
-            if (loginViewState.getCurrentState() == LoginViewState.LOGOUT_VALID_STATE.getCurrentState()) {
+            if (loginViewState.getCurrentState().equals(LoginViewState.LOGOUT_VALID_STATE.getCurrentState())) {
                 getActivity().finish();
                 return;
             }
-            if (loginViewState.getCurrentState() == LoginViewState.ERROR_STATE.getCurrentState()) {
+            if (loginViewState.getCurrentState().equals(LoginViewState.ERROR_STATE.getCurrentState())) {
                 getActivity().finish();
             }
         });

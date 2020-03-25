@@ -56,7 +56,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         fetchDummyData();
         binding.buttonScan.setOnClickListener(v -> {
             if (true) {
-                startSaleActivity("xxx");
+                startSaleActivity("8994906080063");
                 return;
             }
             String scanner = sharedPrefs.getString(getResources().getString(R.string.setting_key_camera), "");
@@ -85,7 +85,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
     private void observeChanges() {
         dataSyncViewModel.getViewState().observe(this, dataSyncViewState -> {
-            if (dataSyncViewState.getCurrentState() == SyncDataMasterViewState.WAITING_STATE.getCurrentState()) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.WAITING_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
                 downloadUiModel.setDownloading(false);
@@ -94,7 +94,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 return;
             }
 
-            if (dataSyncViewState.getCurrentState() == SyncDataMasterViewState.LOADING_STATE.getCurrentState()) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.LOADING_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(dataSyncViewState.getMessage());
                 downloadUiModel.setMesssage(dataSyncViewState.getMessage());
@@ -104,7 +104,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 return;
             }
 
-            if (dataSyncViewState.getCurrentState() == SyncDataMasterViewState.SUCCESS_STATE.getCurrentState()) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.SUCCESS_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.last_download));
                 downloadUiModel.setDownloading(false);
@@ -113,7 +113,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 return;
             }
 
-            if (dataSyncViewState.getCurrentState() == SyncDataMasterViewState.ERROR_STATE.getCurrentState()) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.ERROR_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.download_failed));
                 downloadUiModel.setDownloading(false);
@@ -125,17 +125,17 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         });
 
         loginViewModel.getViewState().observe(this, loginViewState -> {
-            if (loginViewState.getCurrentState() == LoginViewState.LOGIN_VALID_STATE.getCurrentState()) {
+            if (loginViewState.getCurrentState().equals(LoginViewState.LOGIN_VALID_STATE.getCurrentState())) {
                 binding.setUser(loginViewState.getData());
                 return;
             }
 
-            if (loginViewState.getCurrentState() == LoginViewState.LOGOUT_VALID_STATE.getCurrentState()) {
+            if (loginViewState.getCurrentState().equals(LoginViewState.LOGOUT_VALID_STATE.getCurrentState())) {
                 finish();
                 startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
                 return;
             }
-            if (loginViewState.getCurrentState() == LoginViewState.ERROR_STATE.getCurrentState()) {
+            if (loginViewState.getCurrentState().equals(LoginViewState.ERROR_STATE.getCurrentState())) {
                 Toast.makeText(DashboardActivity.this, loginViewState.getError().getMessage(), Toast.LENGTH_LONG).show();
                 finish();
                 startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
@@ -143,9 +143,9 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         });
     }
 
-    private void startSaleActivity(String productId) {
+    private void startSaleActivity(String barcode) {
         Intent intent = new Intent(DashboardActivity.this, TransactionActivity.class);
-        intent.putExtra("data", productId);
+        intent.putExtra("data", barcode);
         startActivity(intent);
     }
 
