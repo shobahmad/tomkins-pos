@@ -98,6 +98,15 @@ public abstract class BaseAdapter<B extends ViewDataBinding, T> extends Recycler
         notifyItemRemoved(position);
     }
 
+    public void removeItem(T item) {
+        list.remove(item);
+        notifyDataSetChanged();
+    }
+    public void setItem(int position, T item) {
+        list.set(position, item);
+        notifyItemChanged(position);
+    }
+
     public void addItem(int position, T item) {
         list.add(position, item);
         notifyItemInserted(position);

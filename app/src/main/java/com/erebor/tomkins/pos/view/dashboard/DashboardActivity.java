@@ -23,6 +23,7 @@ import com.erebor.tomkins.pos.view.scan.VisionScannerActivity;
 import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
 import com.erebor.tomkins.pos.view.setting.SettingActivity;
 import com.erebor.tomkins.pos.view.sync.SyncActivity;
+import com.erebor.tomkins.pos.view.transaction.TransactionActivity;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewState;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewModel;
@@ -54,7 +55,10 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
         fetchDummyData();
         binding.buttonScan.setOnClickListener(v -> {
-
+            if (true) {
+                startSaleActivity("xxx");
+                return;
+            }
             String scanner = sharedPrefs.getString(getResources().getString(R.string.setting_key_camera), "");
             if (scanner.equals("")) {
                 startActivityForResult(new Intent(DashboardActivity.this, ZynxScannerActivity.class), 1);
@@ -140,7 +144,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     }
 
     private void startSaleActivity(String productId) {
-        Intent intent = new Intent(DashboardActivity.this, SaleActivity.class);
+        Intent intent = new Intent(DashboardActivity.this, TransactionActivity.class);
         intent.putExtra("data", productId);
         startActivity(intent);
     }

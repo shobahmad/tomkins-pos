@@ -13,10 +13,16 @@ public class DateConverterHelperImpl implements DateConverterHelper {
     private ResourceHelper resourceHelper;
 
     private static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE_FORMAT = "dd MMMM yyyy";
     private static final String DATETIME_DISPLAY_FORMAT = "dd-MM-yyyy HH:mm:ss";
 
     public DateConverterHelperImpl(ResourceHelper resourceHelper) {
         this.resourceHelper = resourceHelper;
+    }
+
+    @Override
+    public String toDatetring(Date date) {
+        return toStringFormat(date, DATE_FORMAT);
     }
 
     @Override

@@ -82,9 +82,15 @@
     <string name="invalid_session">Invalid session! You have to login</string>
     <string name="key_token" translatable="false">token</string>
     <string name="spg_name">SPG Name</string>
-    <string name="spg_code">Kode SPG</string>
-    <string name="kode_konter">Kode Konter</string>
-    <string name="nama_konter">Nama Konter</string>
+    <string name="spg_code">SPG Code</string>
+    <string name="kode_konter">Counter Code</string>
+    <string name="nama_konter">Counter Name</string>
     <string name="logout">Logout</string>
+    <string name="sale_scan">Scan</string>
+    <string name="transaction_date">Transaction Date</string>
+    <string name="transaction_grand_total">Grand Total</string>
+    <string name="transaction_note">Note</string>
+    <string name="transaction_sub_total">Sub Total</string>
+    <string name="transaction">Transaction</string>
 
 </resources>

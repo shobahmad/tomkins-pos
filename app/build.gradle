@@ -42,6 +42,7 @@ dependencies {
 
     // Material Design
     implementation "com.google.android.material:material:$materialVersion"
+    implementation "com.wdullaer:materialdatetimepicker:2.3.0"
 
     // Spinkit
     implementation "com.github.ybq:Android-SpinKit:$spinKitVersion"

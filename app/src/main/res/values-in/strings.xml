@@ -59,8 +59,15 @@
     <string name="scan_barcode">Scan Barcode</string>
     <string name="scanner">Scanner</string>
     <string name="scanner_camera">Scanner Camera</string>
-    <string name="spg_name">SPG Name</string>
+    <string name="spg_name">Nama SPG</string>
     <string name="kode_konter">Kode Konter</string>
     <string name="nama_konter">Nama Konter</string>
     <string name="logout">Logout</string>
+    <string name="spg_code">Kode SPG</string>
+    <string name="sale_scan">Scan</string>
+    <string name="transaction_date">Transaction Date</string>
+    <string name="transaction_grand_total">Grand Total</string>
+    <string name="transaction_note">Note</string>
+    <string name="transaction_sub_total">Sub Total</string>
+    <string name="transaction">Transaction</string>
 </resources>

@@ -5,6 +5,8 @@ import java.util.Date;
 
 public interface DateConverterHelper {
 
+    String toDatetring(Date date);
+
     String toDateTimeString(Date date);
 
     String toDateTimeDisplayString(Date date);
