@@ -4,6 +4,7 @@
     <PreferenceCategory
         app:key="@string/key_setting_connection"
         app:title="@string/setting_connection"
+        app:isPreferenceVisible="false"
         >
 
         <EditTextPreference
@@ -25,6 +26,21 @@
             app:title="@string/scanner_camera"
             app:entries="@array/scanner_entries"
             app:entryValues="@array/scanner_entries_values"
+            />
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="@string/key_setting_camera"
+        app:title="@string/dashboard_data_sync"
+        >
+
+        <ListPreference
+            app:key="@string/setting_key_auto_download_interval"
+            app:title="@string/download_interval"
+            app:entries="@array/download_interval_entries"
+            app:entryValues="@array/download_interval_entries"
             />
 
 

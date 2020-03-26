@@ -78,4 +78,6 @@
     <string name="download_worker_event">Events</string>
     <string name="download_worker_event_detail">Diskon</string>
     <string name="data_master">Data Master</string>
+    <string name="download_interval">Download Inverval</string>
+    <string name="minutes_5">5 minutes</string>
 </resources>

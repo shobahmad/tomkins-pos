@@ -112,7 +112,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
                 downloadUiModel.setDownloading(false);
-                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(dataSyncViewState.getLastDownloadTime()));
+                downloadUiModel.setLastDownloadTime(dateConverterHelper.toDateTimeDisplayString(dataSyncViewState.getLastDownloadTime()));
                 binding.setDownload(downloadUiModel);
                 return;
             }
@@ -131,7 +131,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.last_download));
                 downloadUiModel.setDownloading(false);
-                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(dataSyncViewState.getLastDownloadTime()));
+                downloadUiModel.setLastDownloadTime(dateConverterHelper.toDateTimeDisplayString(dataSyncViewState.getLastDownloadTime()));
                 binding.setDownload(downloadUiModel);
                 return;
             }

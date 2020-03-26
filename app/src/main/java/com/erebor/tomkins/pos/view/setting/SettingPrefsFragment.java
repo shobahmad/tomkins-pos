@@ -72,6 +72,14 @@ public class SettingPrefsFragment extends PreferenceFragmentCompat {
             return preference.getEntry();
         });
 
+        ListPreference listInterval = findPreference(getResources().getString(R.string.setting_key_auto_download_interval));
+        listInterval.setSummaryProvider((Preference.SummaryProvider<ListPreference>) preference -> {
+            if (preference.getEntry() == null) {
+                return getResources().getString(R.string.minutes_5);
+            }
+            return preference.getEntry();
+        });
+
 
         EditTextPreference kodeSPG = findPreference(getResources().getString(R.string.key_kode_spg));
         kodeSPG.setSummary(sharedPrefs.getKodeSPG());

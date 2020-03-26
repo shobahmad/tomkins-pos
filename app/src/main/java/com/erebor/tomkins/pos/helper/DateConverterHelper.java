@@ -11,7 +11,10 @@ public interface DateConverterHelper {
 
     String toDateTimeDisplayString(Date date);
 
+    String toDateTimeDisplayString(Long time);
+
     String getDifference(Long time);
+
 
     Calendar atEndOfDay(Calendar calendar);
 }
