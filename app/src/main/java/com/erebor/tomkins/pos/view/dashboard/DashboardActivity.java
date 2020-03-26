@@ -67,7 +67,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 //            }
             String scanner = sharedPrefs.getString(getResources().getString(R.string.setting_key_camera), "");
             if (scanner.equals("")) {
-                startActivityForResult(new Intent(DashboardActivity.this, ZynxScannerActivity.class), 1);
+                startActivityForResult(new Intent(DashboardActivity.this, VisionScannerActivity.class), 1);
                 return;
             }
 

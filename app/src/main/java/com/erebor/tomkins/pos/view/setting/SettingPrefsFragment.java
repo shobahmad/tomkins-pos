@@ -54,15 +54,6 @@ public class SettingPrefsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.fragment_setting, rootKey);
 
         viewModel = ViewModelProviders.of(this, factory).get(LoginViewModel.class);
-        EditTextPreference editHostPrefs = findPreference(getResources().getString(R.string.key_setting_host));
-        editHostPrefs.setOnBindEditTextListener(editText -> editText.setText(sharedPrefs.getHostname()));
-        editHostPrefs.setSummaryProvider((Preference.SummaryProvider<EditTextPreference>) preference -> {
-            String text = preference.getText();
-            if (TextUtils.isEmpty(text)){
-                return sharedPrefs.getHostname();
-            }
-            return text;
-        });
 
         ListPreference listScanner = findPreference(getResources().getString(R.string.setting_key_camera));
         listScanner.setSummaryProvider((Preference.SummaryProvider<ListPreference>) preference -> {

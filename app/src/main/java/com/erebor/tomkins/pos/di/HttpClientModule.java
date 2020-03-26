@@ -39,11 +39,6 @@ public class HttpClientModule {
 
     @Provides
     @Singleton
-    HostSelectionInterceptor provideHostSelectionInterceptor(SharedPrefs sharedPrefs) {
-        return new HostSelectionInterceptor(sharedPrefs);
-    }
-    @Provides
-    @Singleton
     RequestHeaderInterceptor provideHostRequestHeaderInterceptor(Context context, SharedPrefs sharedPrefs) {
         return new RequestHeaderInterceptor(context, sharedPrefs);
     }
@@ -51,7 +46,7 @@ public class HttpClientModule {
 
     @Provides
     @Singleton
-    OkHttpClient getRequestHeader(Context context, HostSelectionInterceptor hostSelectionInterceptor, RequestHeaderInterceptor requestHeaderInterceptor) {
+    OkHttpClient getRequestHeader(Context context, RequestHeaderInterceptor requestHeaderInterceptor) {
         HttpLoggingInterceptor logger = new HttpLoggingInterceptor(message -> Log.d("HttpLog", message));
         logger.setLevel(HttpLoggingInterceptor.Level.BASIC);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -61,7 +56,6 @@ public class HttpClientModule {
                 .writeTimeout(100, TimeUnit.SECONDS)
                 .readTimeout(300, TimeUnit.SECONDS)
                 .addInterceptor(requestHeaderInterceptor)
-                .addInterceptor(hostSelectionInterceptor)
                 .addNetworkInterceptor(logger)
                 .addInterceptor(logger)
                 .addInterceptor(new ChuckInterceptor(context));

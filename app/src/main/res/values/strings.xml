@@ -55,6 +55,7 @@
     <string name="low_storage_error" translatable="false">Face detector dependencies cannot be downloaded due to low device storage</string>
     <string name="scan_barcode">Scan Barcode</string>
     <string name="key_setting_camera" translatable="false">setting_camera</string>
+    <string name="key_setting_download" translatable="false">setting_download</string>
     <string name="scanner_camera">Scanner Camera</string>
     <string name="scanner">Scanner</string>
     <string name="setting_key_camera" translatable="false">scanner_camera</string>

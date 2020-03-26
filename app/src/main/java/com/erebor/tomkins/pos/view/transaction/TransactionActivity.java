@@ -68,7 +68,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
 //            }
             String scanner = sharedPrefs.getString(getResources().getString(R.string.setting_key_camera), "");
             if (scanner.equals("")) {
-                startActivityForResult(new Intent(TransactionActivity.this, ZynxScannerActivity.class), 1);
+                startActivityForResult(new Intent(TransactionActivity.this, VisionScannerActivity.class), 1);
                 return;
             }
 
