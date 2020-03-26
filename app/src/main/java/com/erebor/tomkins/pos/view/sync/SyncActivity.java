@@ -96,6 +96,14 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
                 return;
             }
 
+            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.WAITING_STATE.getCurrentState())) {
+                DownloadUiModel downloadUiModel = new DownloadUiModel();
+                downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
+                downloadUiModel.setDownloading(false);
+                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(dataSyncViewState.getLastDownloadTime()));
+                binding.setDownloadSummary(downloadUiModel);
+                return;
+            }
 
             if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.LOADING_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();

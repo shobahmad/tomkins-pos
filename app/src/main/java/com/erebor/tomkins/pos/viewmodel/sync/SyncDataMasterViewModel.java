@@ -51,8 +51,8 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
     }
 
     public void observeChanged() {
-//        SyncDataMasterViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
-//        setValue(SyncDataMasterViewState.WAITING_STATE);
+        SyncDataMasterViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
+        setValue(SyncDataMasterViewState.WAITING_STATE);
         addObservers();
         startSync();
     }
@@ -117,8 +117,8 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
         }
 
         long requestId = System.currentTimeMillis();
-//        SyncDataMasterViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
-//        setValue(SyncDataMasterViewState.WAITING_STATE);
+        SyncDataMasterViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
+        setValue(SyncDataMasterViewState.WAITING_STATE);
 
         OneTimeWorkRequest.Builder initRequest = buildWorkerRequest(
                 requestId,
@@ -235,7 +235,6 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
             SyncDataMasterViewState.ERROR_STATE.setMessage(workerTitle + " " + message);
             SyncDataMasterViewState.ERROR_STATE.setProgress(progress);
             setValue(SyncDataMasterViewState.ERROR_STATE);
-            makeRequest(sharedPrefs.getSyncAutoDownloadInterval());
             return;
         }
 

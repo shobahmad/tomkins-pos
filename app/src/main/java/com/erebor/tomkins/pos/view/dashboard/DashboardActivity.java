@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
@@ -18,14 +19,15 @@ import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.erebor.tomkins.pos.view.login.LoginActivity;
 import com.erebor.tomkins.pos.view.report.StockActivity;
-import com.erebor.tomkins.pos.view.sale.SaleActivity;
 import com.erebor.tomkins.pos.view.scan.VisionScannerActivity;
 import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
 import com.erebor.tomkins.pos.view.setting.SettingActivity;
-import com.erebor.tomkins.pos.view.sync.SyncActivity;
+import com.erebor.tomkins.pos.view.sync.DownloadInfoAdapter;
 import com.erebor.tomkins.pos.view.transaction.TransactionActivity;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewState;
+import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewState;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewState;
 
@@ -43,13 +45,17 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     ViewModelProvider.Factory viewModelFactory;
 
     SyncDataMasterViewModel dataSyncViewModel;
+    DownloadInfoViewModel downloadInfoViewModel;
     LoginViewModel loginViewModel;
+
+    private DownloadInfoAdapter downloadInfoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         dataSyncViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncDataMasterViewModel.class);
+        downloadInfoViewModel = ViewModelProviders.of(this, viewModelFactory).get(DownloadInfoViewModel.class);
         loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel.class);
         observeChanges();
 
@@ -73,6 +79,13 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
             startActivityForResult(new Intent(DashboardActivity.this, VisionScannerActivity.class), 1);
         });
         binding.setSettingClick(item -> startActivity(new Intent(DashboardActivity.this, SettingActivity.class)));
+
+        downloadInfoAdapter = new DownloadInfoAdapter(this);
+        binding.snippetSyncSummary.recylerDownloadInfo.setLayoutManager(new LinearLayoutManager(this));
+        binding.snippetSyncSummary.recylerDownloadInfo.setAdapter(downloadInfoAdapter);
+
+        binding.layoutDownloadInfo.setArrowClick(v -> dataSyncViewModel.observeChanged());
+        binding.layoutDownloadInfo.setContainerClick(v -> dataSyncViewModel.observeChanged());
     }
 
     @Override
@@ -81,6 +94,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
         dataSyncViewModel.observeChanged();
         loginViewModel.checkSession();
+        downloadInfoViewModel.getInfo();
     }
 
     private void observeChanges() {
@@ -94,14 +108,14 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 downloadUiModel.setMesssage(dataSyncViewState.getMessage());
                 binding.setDownload(downloadUiModel);
             }
-//            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.WAITING_STATE.getCurrentState())) {
-//                DownloadUiModel downloadUiModel = new DownloadUiModel();
-//                downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
-//                downloadUiModel.setDownloading(false);
-//                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(dataSyncViewState.getLastDownloadTime()));
-//                binding.setDownload(downloadUiModel);
-//                return;
-//            }
+            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.WAITING_STATE.getCurrentState())) {
+                DownloadUiModel downloadUiModel = new DownloadUiModel();
+                downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
+                downloadUiModel.setDownloading(false);
+                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(dataSyncViewState.getLastDownloadTime()));
+                binding.setDownload(downloadUiModel);
+                return;
+            }
 
             if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.LOADING_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
@@ -140,6 +154,19 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
             }
         });
+
+        downloadInfoViewModel.getViewState().observe(this, downloadInfoViewState -> {
+            if (downloadInfoViewState.getCurrentState().equals(DownloadInfoViewState.LOADING_STATE.getCurrentState())) {
+                binding.snippetSyncSummary.setLoading(true);
+                return;
+            }
+            if (downloadInfoViewState.getCurrentState().equals(DownloadInfoViewState.SUCCESS_STATE.getCurrentState())) {
+                binding.snippetSyncSummary.setLoading(false);
+                downloadInfoAdapter.clearList();
+                downloadInfoAdapter.addList(downloadInfoViewState.getData());
+                return;
+            }
+        });
     }
 
     private void startSaleActivity(String barcode) {
@@ -162,8 +189,6 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     }
 
     private void fetchDummyData() {
-        binding.layoutDownloadInfo.setArrowClick(v -> startActivity(new Intent(DashboardActivity.this, SyncActivity.class)));
-        binding.layoutDownloadInfo.setContainerClick(v -> startActivity(new Intent(DashboardActivity.this, SyncActivity.class)));
 
         binding.setReportDetailClick(v -> {
             Intent intent = new Intent(DashboardActivity.this, StockActivity.class);

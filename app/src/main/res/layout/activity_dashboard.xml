@@ -126,7 +126,23 @@
             app:summary="@{summary}"
             app:detailClick="@{reportDetailClick}"
             app:headerEnabled="@{true}"
+            android:visibility="gone"
             />
+
+        <!--SYNC SUMMARY-->
+        <include
+            android:id="@+id/snippet_sync_summary"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            layout="@layout/snippet_sync_summary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_sync"
+            app:layout_constraintBottom_toTopOf="@id/layout_download_info"
+            android:layout_marginTop="16dp"
+            app:headerEnabled="@{true}"
+            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
