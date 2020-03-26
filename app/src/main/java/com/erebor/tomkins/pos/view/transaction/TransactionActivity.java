@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
-import com.erebor.tomkins.pos.data.ui.TransactionDetailUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityTransactionBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
@@ -23,7 +22,6 @@ import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewModel;
 import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewState;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -64,6 +62,10 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         transactionViewModel = ViewModelProviders.of(this, factory).get(TransactionViewModel.class);
 
         binding.buttonScan.setOnClickListener(v -> {
+//            if (true) {
+//                transactionViewModel.scanBarcode("8994906080070");
+//                return;
+//            }
             String scanner = sharedPrefs.getString(getResources().getString(R.string.setting_key_camera), "");
             if (scanner.equals("")) {
                 startActivityForResult(new Intent(TransactionActivity.this, ZynxScannerActivity.class), 1);

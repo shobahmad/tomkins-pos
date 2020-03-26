@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 
@@ -20,6 +21,7 @@ import com.erebor.tomkins.pos.view.callback.ItemQtyHandler;
 public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, TransactionDetailUiModel> {
 
     final Handler handler;
+    private TextWatcher textWatcher = null;
 
     public TransactionAdapter(Context context) {
         super(context);
@@ -125,7 +127,10 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
 
             }
         });
-        binding.editNote.addTextChangedListener(new TextWatcher() {
+        if (textWatcher != null) {
+            binding.editNote.removeTextChangedListener(textWatcher);
+        }
+        textWatcher = new TextWatcher() {
             TransactionDetailUiModel transaction = binding.getTransaction();
 
             @Override
@@ -157,7 +162,9 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
                 ));
                 notifyItemChanged(position);
             }
-        });
+        };
+        binding.editNote.addTextChangedListener(textWatcher);
+        binding.textNote.setStartIconOnClickListener(null);
     }
 
     private void sendUpdateQty(String barcode, int qty) {
@@ -178,7 +185,24 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
         bundle.putString("note", note);
         message.setData(bundle);
         handler.removeMessages(2);
-        handler.sendMessageDelayed(message, 500);
+        handler.sendMessageDelayed(message, 1000);
+    }
+
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ViewHolder viewHolder =  super.onCreateViewHolder(parent, viewType);
+        ItemTransactionBinding binding = (ItemTransactionBinding) viewHolder.getBinding();
+        showSoftKeyboard(binding.editNote);
+        return viewHolder;
+    }
+    public void showSoftKeyboard(View view) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)
+                    getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
     }
 
     public void setItemUpdatedListener(ItemUpdatedListener itemUpdatedListener) {

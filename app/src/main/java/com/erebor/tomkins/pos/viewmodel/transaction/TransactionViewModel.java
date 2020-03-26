@@ -184,7 +184,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         ArrayList<TransactionDetailUiModel> list = transactionUiModel.getListTransaction();
         boolean found = false;
         for (int i = 0; i < list.size(); i++) {
-            TransactionDetailUiModel detail = list.get(0);
+            TransactionDetailUiModel detail = list.get(i);
             if (!detail.getBarcode().equals(newestDetail.getBarcode())) {
                 continue;
             }

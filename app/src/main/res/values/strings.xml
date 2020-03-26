@@ -93,5 +93,9 @@
     <string name="transaction_sub_total">Sub Total</string>
     <string name="transaction">Transaction</string>
     <string name="art_not_found">Article not found!</string>
+    <string name="art_code">Art Code</string>
+    <string name="barcode">Barcode</string>
+    <string name="colour">Colour</string>
+    <string name="size">Size</string>
 
 </resources>

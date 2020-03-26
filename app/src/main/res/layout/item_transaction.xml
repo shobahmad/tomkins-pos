@@ -39,11 +39,12 @@
             <!--ITEM DESC-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutArt"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/snippedQty"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/layoutPrice"
                 >
 
                 <com.google.android.material.textview.MaterialTextView
@@ -59,41 +60,95 @@
                     android:layout_marginLeft="6dp"
                     android:layout_marginStart="6dp"
                     />
-                <com.google.android.material.textview.MaterialTextView
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textArtCode"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="@{transaction.artCode, default=`PZR)3`}"
-                    style="@style/TextAppearance.AppCompat.Caption"
                     app:layout_constraintTop_toBottomOf="@id/textArtName"
                     app:layout_constraintStart_toStartOf="@id/textArtName"
-                    />
+                    app:layout_constraintEnd_toStartOf="@id/textSize"
+                    app:hintEnabled="true"
+                    >
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textBarcode"
-                    android:layout_width="wrap_content"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.AppCompat.Caption"
+                        android:hint="@string/art_code"
+                        android:background="@color/white"
+                        android:text="@{transaction.artCode, default=`PZR3`}"
+                        android:enabled="false"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textSize"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="@{transaction.barcode, default=`1231723bJAHSD`}"
-                    style="@style/TextAppearance.AppCompat.Caption"
+                    app:layout_constraintTop_toBottomOf="@id/textArtName"
+                    app:layout_constraintStart_toEndOf="@id/textArtCode"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:hintEnabled="true"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.AppCompat.Caption"
+                        android:hint="@string/size"
+                        android:background="@color/white"
+                        android:text="@{transaction.size, default=`42`}"
+                        android:enabled="false"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textBarcode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/textArtCode"
                     app:layout_constraintStart_toStartOf="@id/textArtName"
-                    />
+                    app:layout_constraintEnd_toStartOf="@id/textColor"
+                    app:hintEnabled="true"
+                    >
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textArtSize"
-                    android:layout_width="wrap_content"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.AppCompat.Caption"
+                        android:hint="@string/barcode"
+                        android:background="@color/white"
+                        android:text="@{transaction.barcode, default=`1231723bJAHSD`}"
+                        android:enabled="false"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textColor"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="@{transaction.size, default=`42`}"
-                    style="@style/TextAppearance.AppCompat.Title"
-                    app:layout_constraintTop_toTopOf="@id/textArtName"
-                    app:layout_constraintStart_toEndOf="@id/textArtName"
-                    app:layout_constraintBottom_toBottomOf="@id/textArtName"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginStart="4dp"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/textArtCode"
+                    app:layout_constraintStart_toEndOf="@id/textBarcode"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:hintEnabled="true"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.AppCompat.Caption"
+                        android:hint="@string/colour"
+                        android:background="@color/white"
+                        android:text="@{transaction.artCode, default=`Black`}"
+                        android:enabled="false"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--ITEM PRICE-->
@@ -185,40 +240,35 @@
                 android:textSize="11sp"
                 android:hint="@string/transaction_note"
                 android:background="@color/white"
+                android:text="@{transaction.note}"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/textNote"
             app:layout_constraintBottom_toBottomOf="@id/textNote"
-            android:padding="@dimen/dp_8"
+            app:hintEnabled="true"
+            android:layout_marginRight="@dimen/dp_8"
             >
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/textTotal"
-                style="@style/TextAppearance.AppCompat.Body2"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:hint="@string/transaction_sub_total"
+                android:background="@color/white"
+                android:textColor="@color/greyishBrown"
                 android:text="@{@string/price_format(transaction.hargaJual * transaction.qty), default = `Rp 200,000`}"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:enabled="false"
                 />
 
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/transaction_sub_total"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textTotal"
-                android:visibility="@{transaction.hargaNormal == transaction.hargaJual ? View.GONE : View.VISIBLE}"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

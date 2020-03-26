@@ -25,41 +25,17 @@
             android:background="@color/paleGrey"
             >
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textTransDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:background="@color/white"
-                android:padding="@dimen/dp_8"
-                app:startIconTint="@color/colorPrimary"
-                app:startIconDrawable="@drawable/ic_date"
-                >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTransDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="datetime"
-                    android:enabled="false"
-                    android:hint="@string/transaction_date"
-                    />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerTransaction"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textTransDate"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/cardGrandTotal"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:listitem="@layout/item_transaction"
-                android:paddingStart="@dimen/dp_8"
-                android:paddingEnd="@dimen/dp_8"
+                android:padding="@dimen/dp_8"
                 />
 
             <androidx.cardview.widget.CardView
@@ -84,12 +60,37 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         />
 
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textTransDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/textTotal"
+                        android:background="@color/white"
+                        android:padding="@dimen/dp_8"
+                        app:startIconTint="@color/colorPrimary"
+                        app:startIconDrawable="@drawable/ic_date"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTransDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="datetime"
+                            android:enabled="false"
+                            android:hint="@string/transaction_date"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/viewLine"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/textTransDate"
                         android:padding="@dimen/dp_8"
                         app:helperTextEnabled="true"
                         app:helperText="@string/transaction_grand_total"
