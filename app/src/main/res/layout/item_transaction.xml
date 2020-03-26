@@ -143,7 +143,7 @@
                         style="@style/TextAppearance.AppCompat.Caption"
                         android:hint="@string/colour"
                         android:background="@color/white"
-                        android:text="@{transaction.artCode, default=`Black`}"
+                        android:text="@{transaction.colour, default=`Black`}"
                         android:enabled="false"
                         />
 
