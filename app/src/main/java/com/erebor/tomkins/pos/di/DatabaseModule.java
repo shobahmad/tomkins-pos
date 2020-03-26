@@ -5,6 +5,8 @@ import android.content.Context;
 import com.erebor.tomkins.pos.data.local.TomkinsDatabase;
 import com.erebor.tomkins.pos.data.local.dao.AccessDao;
 import com.erebor.tomkins.pos.data.local.dao.DownloadLastUpdateDao;
+import com.erebor.tomkins.pos.data.local.dao.EventHargaDao;
+import com.erebor.tomkins.pos.data.local.dao.EventHargaDetDao;
 import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBrandDao;
@@ -73,5 +75,16 @@ public class DatabaseModule {
     @Singleton
     DownloadLastUpdateDao providesDownloadLastUpdateDao(TomkinsDatabase tomkinsDatabase) {
         return tomkinsDatabase.downloadLastUpdateDao();
+    }
+
+    @Provides
+    @Singleton
+    EventHargaDao providesEventHargaDao(TomkinsDatabase tomkinsDatabase) {
+        return tomkinsDatabase.eventHargaDao();
+    }
+    @Provides
+    @Singleton
+    EventHargaDetDao providesEventHargaDetDao(TomkinsDatabase tomkinsDatabase) {
+        return tomkinsDatabase.eventHargaDetDao();
     }
 }

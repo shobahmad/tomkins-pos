@@ -3,6 +3,8 @@ package com.erebor.tomkins.pos.helper.impl;
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.helper.ResourceHelper;
 import com.erebor.tomkins.pos.helper.WorkerHelper;
+import com.erebor.tomkins.pos.worker.SyncEventHargaDetWorker;
+import com.erebor.tomkins.pos.worker.SyncEventHargaWorker;
 import com.erebor.tomkins.pos.worker.SyncMsArtWorker;
 import com.erebor.tomkins.pos.worker.SyncMsBarcodeWorker;
 import com.erebor.tomkins.pos.worker.SyncMsBrandWorker;
@@ -30,8 +32,10 @@ public class WorkerHelperImpl implements WorkerHelper {
                 add(new WorkerRequest(SyncMsBarcodeWorker.class, 32, getDownloadingText(R.string.download_worker_barcode)));
                 add(new WorkerRequest(SyncMsBrandWorker.class, 48, getDownloadingText(R.string.download_worker_brand)));
                 add(new WorkerRequest(SyncMsGenderWorker.class, 64, getDownloadingText(R.string.download_worker_gender)));
-                add(new WorkerRequest(SyncMsUkuranWorker.class, 80, getDownloadingText(R.string.download_worker_ukuran)));
-                add(new WorkerRequest(SyncStokRealWorker.class, 100, getDownloadingText(R.string.download_worker_stock)));
+                add(new WorkerRequest(SyncMsUkuranWorker.class, 75, getDownloadingText(R.string.download_worker_ukuran)));
+                add(new WorkerRequest(SyncStokRealWorker.class, 80, getDownloadingText(R.string.download_worker_stock)));
+                add(new WorkerRequest(SyncEventHargaWorker.class, 90, getDownloadingText(R.string.download_worker_event)));
+                add(new WorkerRequest(SyncEventHargaDetWorker.class, 100, getDownloadingText(R.string.download_worker_event_detail)));
             }
         };
     }

@@ -60,6 +60,8 @@ public class DownloadInfoViewModel extends BaseViewModel<DownloadInfoViewState> 
         result.add(new DownloadUiModel(resourceHelper.getResourceString(R.string.download_worker_gender), getLastUpdate(downloadLastUpdateModel.gender)));
         result.add(new DownloadUiModel(resourceHelper.getResourceString(R.string.download_worker_ukuran), getLastUpdate(downloadLastUpdateModel.size)));
         result.add(new DownloadUiModel(resourceHelper.getResourceString(R.string.download_worker_stock), getLastUpdate(downloadLastUpdateModel.stock)));
+        result.add(new DownloadUiModel(resourceHelper.getResourceString(R.string.download_worker_event), getLastUpdate(downloadLastUpdateModel.event)));
+        result.add(new DownloadUiModel(resourceHelper.getResourceString(R.string.download_worker_event_detail), getLastUpdate(downloadLastUpdateModel.eventdetail)));
 
         return result;
     }

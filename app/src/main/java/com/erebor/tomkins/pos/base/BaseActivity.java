@@ -98,4 +98,5 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

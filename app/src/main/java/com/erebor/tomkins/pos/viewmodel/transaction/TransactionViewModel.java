@@ -14,7 +14,6 @@ import com.erebor.tomkins.pos.tools.SharedPrefs;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -141,13 +140,13 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
 
     private TransactionViewState barcodeValidation(String barcode) {
         //@ get barcode
-        MsBarcodeDBModel msBarcodeDBModel = msBarcodeDao.getSyncByNoBarcode(barcode);
+        MsBarcodeDBModel msBarcodeDBModel = msBarcodeDao.getByNoBarcode(barcode);
         if (msBarcodeDBModel == null) {
             return TransactionViewState.NOT_FOUND_STATE;
         }
 
         //@ get article
-        MsArtDBModel msArtDBModel = msArtDao.getSyncByKodeArt(msBarcodeDBModel.getKodeArt());
+        MsArtDBModel msArtDBModel = msArtDao.getByKodeArt(msBarcodeDBModel.getKodeArt());
         if (msArtDBModel == null) {
             TransactionViewState.ERROR_STATE.setError(new Exception(resourceHelper.getResourceString(R.string.art_not_found)));
             return TransactionViewState.ERROR_STATE;

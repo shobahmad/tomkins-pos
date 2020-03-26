@@ -11,6 +11,8 @@ import com.erebor.tomkins.pos.view.setting.SettingPrefsFragment;
 import com.erebor.tomkins.pos.view.splash.SplashScreenActivity;
 import com.erebor.tomkins.pos.view.sync.SyncActivity;
 import com.erebor.tomkins.pos.view.transaction.TransactionActivity;
+import com.erebor.tomkins.pos.worker.SyncEventHargaDetWorker;
+import com.erebor.tomkins.pos.worker.SyncEventHargaWorker;
 import com.erebor.tomkins.pos.worker.SyncMsArtWorker;
 import com.erebor.tomkins.pos.worker.SyncMsBarcodeWorker;
 import com.erebor.tomkins.pos.worker.SyncMsBrandWorker;
@@ -52,5 +54,7 @@ public interface AppComponent {
     void doInjection(SyncMsGenderWorker worker);
     void doInjection(SyncMsUkuranWorker worker);
     void doInjection(SyncStokRealWorker worker);
+    void doInjection(SyncEventHargaWorker worker);
+    void doInjection(SyncEventHargaDetWorker worker);
 
 }

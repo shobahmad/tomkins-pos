@@ -12,6 +12,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.erebor.tomkins.pos.data.converters.Converters;
 import com.erebor.tomkins.pos.data.local.dao.AccessDao;
 import com.erebor.tomkins.pos.data.local.dao.DownloadLastUpdateDao;
+import com.erebor.tomkins.pos.data.local.dao.EventHargaDao;
+import com.erebor.tomkins.pos.data.local.dao.EventHargaDetDao;
 import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBrandDao;
@@ -28,8 +30,8 @@ import com.erebor.tomkins.pos.data.local.model.*;
 
 //        EventFreeDBModel.class,
 //        EventFreeDetDBModel.class,
-//        EventHargaDBModel.class,
-//        EventHargaDetDBModel.class,
+        EventHargaDBModel.class,
+        EventHargaDetDBModel.class,
         MsArtDBModel.class,
         MsBarcodeDBModel.class,
         MsBrandDBModel.class,
@@ -68,6 +70,8 @@ public abstract class TomkinsDatabase extends RoomDatabase {
     public abstract MsUkuranDao msUkuranDao();
     public abstract StokRealDao stokRealDao();
     public abstract DownloadLastUpdateDao downloadLastUpdateDao();
+    public abstract EventHargaDao eventHargaDao();
+    public abstract EventHargaDetDao eventHargaDetDao();
 
     private static final Object sLock = new Object();
 

@@ -97,5 +97,7 @@
     <string name="barcode">Barcode</string>
     <string name="colour">Colour</string>
     <string name="size">Size</string>
+    <string name="download_worker_event">Events</string>
+    <string name="download_worker_event_detail">Discount</string>
 
 </resources>

@@ -155,7 +155,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_account_circle_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_date_range_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -165,8 +165,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="4a4a4a" />
-                            <entry key="outputName" value="ic_account" />
+                            <entry key="color" value="42a316" />
+                            <entry key="outputName" value="ic_date" />
                             <entry key="sourceFile" value="$PROJECT_DIR$/../../../ci.loket.id/loket/images/lpos/app_logo.svg" />
                           </map>
                         </option>

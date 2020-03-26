@@ -1,5 +1,7 @@
 package com.erebor.tomkins.pos.repository.network;
 
+import com.erebor.tomkins.pos.data.local.model.EventHargaDBModel;
+import com.erebor.tomkins.pos.data.local.model.EventHargaDetDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBrandDBModel;
@@ -47,5 +49,11 @@ public interface TomkinsService {
 
     @GET("sync/stokreal")
     Call<RestResponse<DownloadResponse<List<StokRealDBModel>>>> getStokReal(@Query("last_update") String lastUpdate);
+
+    @GET("sync/eventharga")
+    Call<RestResponse<DownloadResponse<List<EventHargaDBModel>>>> getEventHarga(@Query("last_update") String lastUpdate);
+
+    @GET("sync/eventhargadet")
+    Call<RestResponse<DownloadResponse<List<EventHargaDetDBModel>>>> getEventHargaDet(@Query("last_update") String lastUpdate);
 
 }
