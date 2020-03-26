@@ -2,8 +2,10 @@ package com.erebor.tomkins.pos.viewmodel.transaction;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseViewModel;
+import com.erebor.tomkins.pos.data.local.dao.EventDiscountDao;
 import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
+import com.erebor.tomkins.pos.data.local.model.EventDiscountModel;
 import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.ui.TransactionDetailUiModel;
@@ -14,6 +16,8 @@ import com.erebor.tomkins.pos.tools.SharedPrefs;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -25,17 +29,19 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
     private MsBarcodeDao msBarcodeDao;
     private MsArtDao msArtDao;
     private SharedPrefs sharedPrefs;
+    private EventDiscountDao eventDiscountDao;
     private ResourceHelper resourceHelper;
     private Logger logger;
 
 
     @Inject
-    public TransactionViewModel(Logger logger, MsBarcodeDao msBarcodeDao, MsArtDao msArtDao, SharedPrefs sharedPrefs, ResourceHelper resourceHelper) {
+    public TransactionViewModel(Logger logger, MsBarcodeDao msBarcodeDao, MsArtDao msArtDao, SharedPrefs sharedPrefs, ResourceHelper resourceHelper, EventDiscountDao eventDiscountDao) {
         this.logger = logger;
         this.msBarcodeDao = msBarcodeDao;
         this.msArtDao = msArtDao;
         this.sharedPrefs = sharedPrefs;
         this.resourceHelper = resourceHelper;
+        this.eventDiscountDao = eventDiscountDao;
     }
 
     public void scanBarcode(String barcode) {
@@ -151,6 +157,38 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
             TransactionViewState.ERROR_STATE.setError(new Exception(resourceHelper.getResourceString(R.string.art_not_found)));
             return TransactionViewState.ERROR_STATE;
         }
+
+        //@ get discount
+        List<EventDiscountModel> eventDiscountModels = eventDiscountDao.getPrice(msBarcodeDBModel.getKodeArt());
+        double hargaJual = msArtDBModel.getHarga();
+        String kodeEvent = "";
+        HARGA_JUAL: {
+            if (eventDiscountModels == null || eventDiscountModels.isEmpty()) {
+                hargaJual = msArtDBModel.getHarga();
+                break HARGA_JUAL;
+            }
+
+            Date curdate = Calendar.getInstance().getTime();
+            for (EventDiscountModel eventDiscountModel : eventDiscountModels) {
+                if (curdate.before(eventDiscountModel.tglDari)) {
+                    continue;
+                }
+
+                if (curdate.after(eventDiscountModel.tglSampai)) {
+                    continue;
+                }
+
+                if (eventDiscountModel.hargaKhusus != 0) {
+                    hargaJual = eventDiscountModel.hargaKhusus - eventDiscountModel.diskon;
+                    kodeEvent = eventDiscountModel.kodeEvent;
+                    break HARGA_JUAL;
+                }
+
+                hargaJual = msArtDBModel.getHarga() - eventDiscountModel.diskon;
+                kodeEvent = eventDiscountModel.kodeEvent;
+            }
+        }
+
         //@ create detail
         String transidGenerated = sharedPrefs.getKodeSPG() + System.currentTimeMillis();
         TransactionDetailUiModel newestDetail = new TransactionDetailUiModel(
@@ -160,9 +198,9 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                 msBarcodeDBModel.getNoBarcode(),
                 msBarcodeDBModel.getUkuran(),
                 msArtDBModel.getHarga(),
-                "",
+                kodeEvent,
                 1,
-                msArtDBModel.getHarga(),
+                hargaJual,
                 ""
         );
 

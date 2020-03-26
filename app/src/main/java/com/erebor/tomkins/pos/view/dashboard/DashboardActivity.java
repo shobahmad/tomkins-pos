@@ -85,14 +85,23 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
     private void observeChanges() {
         dataSyncViewModel.getViewState().observe(this, dataSyncViewState -> {
-            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.WAITING_STATE.getCurrentState())) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.ERROR_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
-                downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
-                downloadUiModel.setDownloading(false);
-                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(dataSyncViewState.getLastDownloadTime()));
+                downloadUiModel.setTitle(getResources().getString(R.string.download_failed));
+                downloadUiModel.setDownloading(true);
+                downloadUiModel.setProgress(dataSyncViewState.getProgress());
+                downloadUiModel.setLastDownloadTime(dataSyncViewState.getMessage());
+                downloadUiModel.setMesssage(dataSyncViewState.getMessage());
                 binding.setDownload(downloadUiModel);
-                return;
             }
+//            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.WAITING_STATE.getCurrentState())) {
+//                DownloadUiModel downloadUiModel = new DownloadUiModel();
+//                downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
+//                downloadUiModel.setDownloading(false);
+//                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(dataSyncViewState.getLastDownloadTime()));
+//                binding.setDownload(downloadUiModel);
+//                return;
+//            }
 
             if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.LOADING_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
@@ -111,16 +120,6 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(dataSyncViewState.getLastDownloadTime()));
                 binding.setDownload(downloadUiModel);
                 return;
-            }
-
-            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.ERROR_STATE.getCurrentState())) {
-                DownloadUiModel downloadUiModel = new DownloadUiModel();
-                downloadUiModel.setTitle(getResources().getString(R.string.download_failed));
-                downloadUiModel.setDownloading(false);
-                downloadUiModel.setProgress(dataSyncViewState.getProgress());
-                downloadUiModel.setLastDownloadTime(dataSyncViewState.getMessage());
-                downloadUiModel.setMesssage(dataSyncViewState.getMessage());
-                binding.setDownload(downloadUiModel);
             }
         });
 

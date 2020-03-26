@@ -25,7 +25,7 @@ public class EventHargaDBModel implements BaseDatabaseModel {
     @ColumnInfo(name = "TglDari")
     @SerializedName("TglDari")
     @Expose
-    private Date tglDari;
+    private Date TglDari;
 
     @NonNull
     @ColumnInfo(name = "TglSampai")
@@ -50,11 +50,11 @@ public class EventHargaDBModel implements BaseDatabaseModel {
 
     @NonNull
     public Date getTglDari() {
-        return tglDari;
+        return TglDari;
     }
 
     public void setTglDari(@NonNull Date tglDari) {
-        this.tglDari = tglDari;
+        TglDari = tglDari;
     }
 
     @NonNull

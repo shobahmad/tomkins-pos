@@ -78,11 +78,12 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
             if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.ERROR_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.download_failed));
-                downloadUiModel.setDownloading(false);
+                downloadUiModel.setDownloading(true);
                 downloadUiModel.setProgress(dataSyncViewState.getProgress());
                 downloadUiModel.setLastDownloadTime(dataSyncViewState.getMessage());
                 downloadUiModel.setMesssage(dataSyncViewState.getMessage());
                 binding.setDownloadSummary(downloadUiModel);
+                return;
             }
             if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.SUCCESS_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
@@ -95,14 +96,6 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
                 return;
             }
 
-            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.WAITING_STATE.getCurrentState())) {
-                DownloadUiModel downloadUiModel = new DownloadUiModel();
-                downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
-                downloadUiModel.setDownloading(false);
-                downloadUiModel.setLastDownloadTime(dateConverterHelper.getDifference(dataSyncViewState.getLastDownloadTime()));
-                binding.setDownloadSummary(downloadUiModel);
-                return;
-            }
 
             if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.LOADING_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();

@@ -51,14 +51,21 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
     }
 
     public void observeChanged() {
-        SyncDataMasterViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
-        setValue(SyncDataMasterViewState.WAITING_STATE);
+//        SyncDataMasterViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
+//        setValue(SyncDataMasterViewState.WAITING_STATE);
         addObservers();
-        startSyncIfEmpty();
+        startSync();
     }
 
-    private void startSyncIfEmpty() {
+    private void startSync() {
         if (getLatestDownloadedDate() != 0) {
+            cancelEnqueued();
+            long curtime = System.currentTimeMillis();
+            long intervalInMilis = sharedPrefs.getSyncAutoDownloadInterval() * 1000 * 60;
+
+            int deviationInMinutes = ((Number) (curtime - intervalInMilis / (1000 * 60))).intValue();
+            int delay = curtime - getLatestDownloadedDate() >= intervalInMilis ? 0 : deviationInMinutes;
+            makeRequest(delay);
             return;
         }
         startSyncFull();
@@ -110,8 +117,8 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
         }
 
         long requestId = System.currentTimeMillis();
-        SyncDataMasterViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
-        setValue(SyncDataMasterViewState.WAITING_STATE);
+//        SyncDataMasterViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
+//        setValue(SyncDataMasterViewState.WAITING_STATE);
 
         OneTimeWorkRequest.Builder initRequest = buildWorkerRequest(
                 requestId,
@@ -216,6 +223,7 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
             setValue(SyncDataMasterViewState.SUCCESS_STATE);
             makeRequest(sharedPrefs.getSyncAutoDownloadInterval());
             resetProgress(true);
+            return;
         }
 
         String message = data.getString(BaseSyncWorker.KEY_EXCEPTION_MESSAGE);

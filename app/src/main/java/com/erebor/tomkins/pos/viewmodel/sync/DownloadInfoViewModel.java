@@ -38,17 +38,28 @@ public class DownloadInfoViewModel extends BaseViewModel<DownloadInfoViewState> 
         getDisposable().add(downloadLastUpdateDao.getLatestInfo()
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .subscribe(
-                        downloadLastUpdateModel -> {
+                .doOnNext(downloadLastUpdateModel -> {
                             DownloadInfoViewState.SUCCESS_STATE.setData(getDownloadInfo(downloadLastUpdateModel));
                             postValue(DownloadInfoViewState.SUCCESS_STATE);
-                        },
-                        throwable -> {
-                            DownloadInfoViewState.ERROR_STATE.setError(throwable);
-                            postValue(DownloadInfoViewState.ERROR_STATE);
-                            logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
-                        }
-                ));
+                        })
+                .doOnError(throwable -> {
+                    DownloadInfoViewState.ERROR_STATE.setError(throwable);
+                    postValue(DownloadInfoViewState.ERROR_STATE);
+                    logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
+                })
+                .subscribe());
+//                .subscribe(
+//                        downloadLastUpdateModel -> {
+//                            DownloadInfoViewState.SUCCESS_STATE.setData(getDownloadInfo(downloadLastUpdateModel));
+//                            postValue(DownloadInfoViewState.SUCCESS_STATE);
+//                        },
+//                        throwable -> {
+//                            DownloadInfoViewState.ERROR_STATE.setError(throwable);
+//                            postValue(DownloadInfoViewState.ERROR_STATE);
+//                            logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
+//                        }
+//                ))
+//        ;
     }
 
     private List<DownloadUiModel> getDownloadInfo(DownloadLastUpdateModel downloadLastUpdateModel) {
