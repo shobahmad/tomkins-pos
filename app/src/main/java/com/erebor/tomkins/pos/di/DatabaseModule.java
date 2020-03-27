@@ -14,6 +14,8 @@ import com.erebor.tomkins.pos.data.local.dao.MsBrandDao;
 import com.erebor.tomkins.pos.data.local.dao.MsGenderDao;
 import com.erebor.tomkins.pos.data.local.dao.MsUkuranDao;
 import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
+import com.erebor.tomkins.pos.data.local.dao.TrxJualDao;
+import com.erebor.tomkins.pos.data.local.dao.TrxJualDetDao;
 import com.erebor.tomkins.pos.data.local.dao.UserDao;
 import com.erebor.tomkins.pos.data.local.model.MsGenderDBModel;
 
@@ -92,5 +94,15 @@ public class DatabaseModule {
     @Singleton
     EventDiscountDao providesEventDiscountDao(TomkinsDatabase tomkinsDatabase) {
         return tomkinsDatabase.eventDiscountDao();
+    }
+    @Provides
+    @Singleton
+    TrxJualDao providesTrxJualDao(TomkinsDatabase tomkinsDatabase) {
+        return tomkinsDatabase.trxJualDao();
+    }
+    @Provides
+    @Singleton
+    TrxJualDetDao providesTrxJualDetDao(TomkinsDatabase tomkinsDatabase) {
+        return tomkinsDatabase.trxJualDetDao();
     }
 }

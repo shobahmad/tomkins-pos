@@ -5,5 +5,6 @@ import com.erebor.tomkins.pos.worker.WorkerRequest;
 import java.util.List;
 
 public interface WorkerHelper {
-    List<WorkerRequest> getWorkerRequest();
+    List<WorkerRequest> getDownloadWorkerRequest();
+    WorkerRequest getUploadWorkerRequest();
 }

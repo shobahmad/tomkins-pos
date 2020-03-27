@@ -11,14 +11,15 @@ import com.erebor.tomkins.pos.view.setting.SettingPrefsFragment;
 import com.erebor.tomkins.pos.view.splash.SplashScreenActivity;
 import com.erebor.tomkins.pos.view.sync.SyncActivity;
 import com.erebor.tomkins.pos.view.transaction.TransactionActivity;
-import com.erebor.tomkins.pos.worker.SyncEventHargaDetWorker;
-import com.erebor.tomkins.pos.worker.SyncEventHargaWorker;
-import com.erebor.tomkins.pos.worker.SyncMsArtWorker;
-import com.erebor.tomkins.pos.worker.SyncMsBarcodeWorker;
-import com.erebor.tomkins.pos.worker.SyncMsBrandWorker;
-import com.erebor.tomkins.pos.worker.SyncMsGenderWorker;
-import com.erebor.tomkins.pos.worker.SyncMsUkuranWorker;
-import com.erebor.tomkins.pos.worker.SyncStokRealWorker;
+import com.erebor.tomkins.pos.worker.SyncEventHargaDetDownloadWorker;
+import com.erebor.tomkins.pos.worker.SyncEventHargaDownloadWorker;
+import com.erebor.tomkins.pos.worker.SyncMsArtDownloadWorker;
+import com.erebor.tomkins.pos.worker.SyncMsBarcodeDownloadWorker;
+import com.erebor.tomkins.pos.worker.SyncMsBrandDownloadWorker;
+import com.erebor.tomkins.pos.worker.SyncMsGenderDownloadWorker;
+import com.erebor.tomkins.pos.worker.SyncMsUkuranDownloadWorker;
+import com.erebor.tomkins.pos.worker.SyncStokRealDownloadWorker;
+import com.erebor.tomkins.pos.worker.SyncUploadWorker;
 
 import javax.inject.Singleton;
 
@@ -48,13 +49,15 @@ public interface AppComponent {
 
     void doInjection(SettingPrefsFragment fragment);
 
-    void doInjection(SyncMsArtWorker worker);
-    void doInjection(SyncMsBarcodeWorker worker);
-    void doInjection(SyncMsBrandWorker worker);
-    void doInjection(SyncMsGenderWorker worker);
-    void doInjection(SyncMsUkuranWorker worker);
-    void doInjection(SyncStokRealWorker worker);
-    void doInjection(SyncEventHargaWorker worker);
-    void doInjection(SyncEventHargaDetWorker worker);
+    void doInjection(SyncMsArtDownloadWorker worker);
+    void doInjection(SyncMsBarcodeDownloadWorker worker);
+    void doInjection(SyncMsBrandDownloadWorker worker);
+    void doInjection(SyncMsGenderDownloadWorker worker);
+    void doInjection(SyncMsUkuranDownloadWorker worker);
+    void doInjection(SyncStokRealDownloadWorker worker);
+    void doInjection(SyncEventHargaDownloadWorker worker);
+    void doInjection(SyncEventHargaDetDownloadWorker worker);
+
+    void doInjection(SyncUploadWorker worker);
 
 }

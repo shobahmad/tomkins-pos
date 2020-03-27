@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.work.WorkerParameters;
 
-import com.erebor.tomkins.pos.data.local.dao.EventHargaDao;
-import com.erebor.tomkins.pos.data.local.model.EventHargaDBModel;
+import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
+import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.di.AppComponent;
@@ -22,18 +22,18 @@ import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class SyncEventHargaWorker extends BaseSyncWorker<EventHargaDBModel, EventHargaDao> {
+public class SyncMsBarcodeDownloadWorker extends BaseSyncDownloadWorker<MsBarcodeDBModel, MsBarcodeDao> {
+
     @Inject
     Logger logger;
     @Inject
-    EventHargaDao eventHargaDao;
+    MsBarcodeDao msBarcodeDao;
     @Inject
     TomkinsService tomkinsService;
     @Inject
     DateConverterHelper dateConverterHelper;
 
-
-    public SyncEventHargaWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public SyncMsBarcodeDownloadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 
@@ -43,22 +43,22 @@ public class SyncEventHargaWorker extends BaseSyncWorker<EventHargaDBModel, Even
     }
 
     @Override
-    EventHargaDao getDao() {
-        return eventHargaDao;
+    MsBarcodeDao getDao() {
+        return msBarcodeDao;
     }
 
     @Nullable
     @Override
     Date getLastItemUpdate() {
-        if (eventHargaDao.getSyncLatest() == null) {
+        if (msBarcodeDao.getSyncLatest() == null) {
             return null;
         }
-        return eventHargaDao.getSyncLatest().getLastUpdate();
+        return msBarcodeDao.getSyncLatest().getLastUpdate();
     }
 
     @Override
-    Call<RestResponse<DownloadResponse<List<EventHargaDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getEventHarga(dateConverterHelper.toDateTimeString(lastUpdate));
+    Call<RestResponse<DownloadResponse<List<MsBarcodeDBModel>>>> getDataFromApi(Date lastUpdate) {
+        return tomkinsService.getMsBarcode(dateConverterHelper.toDateTimeString(lastUpdate));
     }
 
     @Override

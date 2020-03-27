@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.work.WorkerParameters;
 
-import com.erebor.tomkins.pos.data.local.dao.MsBrandDao;
-import com.erebor.tomkins.pos.data.local.model.MsBrandDBModel;
+import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
+import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.di.AppComponent;
@@ -22,18 +22,18 @@ import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class SyncMsBrandWorker extends BaseSyncWorker<MsBrandDBModel, MsBrandDao> {
-
+public class SyncMsArtDownloadWorker extends BaseSyncDownloadWorker<MsArtDBModel, MsArtDao> {
     @Inject
     Logger logger;
     @Inject
-    MsBrandDao msBrandDao;
+    MsArtDao msArtDao;
     @Inject
     TomkinsService tomkinsService;
     @Inject
     DateConverterHelper dateConverterHelper;
 
-    public SyncMsBrandWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+
+    public SyncMsArtDownloadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 
@@ -43,22 +43,22 @@ public class SyncMsBrandWorker extends BaseSyncWorker<MsBrandDBModel, MsBrandDao
     }
 
     @Override
-    MsBrandDao getDao() {
-        return msBrandDao;
+    MsArtDao getDao() {
+        return msArtDao;
     }
 
     @Nullable
     @Override
     Date getLastItemUpdate() {
-        if (msBrandDao.getSyncLatest() == null) {
+        if (msArtDao.getSyncLatest() == null) {
             return null;
         }
-        return msBrandDao.getSyncLatest().getLastUpdate();
+        return msArtDao.getSyncLatest().getLastUpdate();
     }
 
     @Override
-    Call<RestResponse<DownloadResponse<List<MsBrandDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getMsBrand(dateConverterHelper.toDateTimeString(lastUpdate));
+    Call<RestResponse<DownloadResponse<List<MsArtDBModel>>>> getDataFromApi(Date lastUpdate) {
+        return tomkinsService.getMsArt(dateConverterHelper.toDateTimeString(lastUpdate));
     }
 
     @Override

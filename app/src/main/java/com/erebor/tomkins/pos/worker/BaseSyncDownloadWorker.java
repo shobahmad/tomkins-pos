@@ -25,13 +25,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import retrofit2.Call;
 
-public abstract class BaseSyncWorker<T extends BaseDatabaseModel, D extends BaseDao> extends BaseWorker {
+public abstract class BaseSyncDownloadWorker<T extends BaseDatabaseModel, D extends BaseDao> extends BaseWorker {
     public static final String KEY_EXCEPTION_MESSAGE = "key_exception";
     public static final String KEY_REQUEST_ID = "key_request_id";
 
     private D dao;
 
-    public BaseSyncWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public BaseSyncDownloadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
 
         dao = getDao();

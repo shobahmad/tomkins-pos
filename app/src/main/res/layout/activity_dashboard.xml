@@ -41,43 +41,46 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_dashboard_upload" />
+                android:src="@drawable/ic_dashboard_upload"
+                />
+
 
             <TextView
-                android:id="@+id/text_pending"
-                style="@style/TextButtonInfo"
+                android:id="@+id/text_label_pending"
+                style="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintStart_toEndOf="@id/image_pending"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:gravity="right|center_vertical"
-                android:text="6"
+                android:text="@{uploadInfo, default=`Pending transaction(s)`}"
                 android:textAlignment="gravity" />
 
-            <TextView
-                android:id="@+id/text_label_pending"
-                style="@style/TextButtonInfo"
-                app:layout_constraintStart_toEndOf="@id/text_pending"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="wrap_content"
+            <ProgressBar
+                android:id="@+id/progress_upload"
+                style="@style/DownloadBar"
+                android:indeterminateOnly="true"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp"
-                android:gravity="right|center_vertical"
-                android:text="@string/dashboard_pending"
-                android:textAlignment="gravity" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/text_label_pending"
+                app:layout_constraintTop_toBottomOf="@id/text_label_pending"
+                android:visibility="@{uploading ? View.VISIBLE : View.GONE}"
+                />
 
             <TextView
                 android:id="@+id/text_sync"
                 style="@style/TextButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="right|center_vertical"
-                android:text="@string/dashboard_sync_now"
+                android:text="@{String.valueOf(uploadCount), default=`0`}"
                 android:textAlignment="gravity" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -164,5 +167,14 @@
         <variable
             name="reportDetailClick"
             type="android.view.View.OnClickListener" />
+        <variable
+            name="uploadInfo"
+            type="String" />
+        <variable
+            name="uploadCount"
+            type="Integer" />
+        <variable
+            name="uploading"
+            type="Boolean" />
     </data>
 </layout>

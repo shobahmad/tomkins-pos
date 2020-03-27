@@ -5,12 +5,18 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
+import com.erebor.tomkins.pos.base.BaseDatabaseModel;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
 import static androidx.room.ForeignKey.RESTRICT;
 
 @Entity(tableName = "TRXJUALDET",
         primaryKeys = {"NoBon", "IndTrx", "KodeArt", "Ukuran"}
 )
-public class TrxJualDetDBModel {
+public class TrxJualDetDBModel implements BaseDatabaseModel {
     /*
     CREATE TABLE [TRXJUALDET](
   [NoBon] VARCHAR(20) NOT NULL REFERENCES [TRXJUAL]([NoBon]) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -27,52 +33,58 @@ public class TrxJualDetDBModel {
      */
 
     @NonNull
-    @ForeignKey(
-            entity = TrxJualDBModel.class,
-            parentColumns = "NoBon",
-            childColumns = "NoBon",
-            onDelete = RESTRICT,
-            onUpdate = RESTRICT
-    )
     @ColumnInfo(name = "NoBon")
+    @SerializedName("NoBon")
+    @Expose
     private String noBon;
 
     @NonNull
     @ColumnInfo(name = "IndTrx")
+    @SerializedName("IndTrx")
+    @Expose
     private Integer indTrx;
 
     @NonNull
-    @ForeignKey(
-            entity = MsArtDBModel.class,
-            parentColumns = "KodeArt",
-            childColumns = "KodeArt",
-            onDelete = RESTRICT,
-            onUpdate = RESTRICT
-    )
     @ColumnInfo(name = "KodeArt")
+    @SerializedName("KodeArt")
+    @Expose
     private String kodeArt;
 
     @NonNull
     @ColumnInfo(name = "Ukuran")
+    @SerializedName("Ukuran")
+    @Expose
     private String ukuran;
 
     @ColumnInfo(name = "HargaNormal")
+    @SerializedName("HargaNormal")
+    @Expose
     private double hargaNormal;
 
     @ColumnInfo(name = "KodeEvent")
+    @SerializedName("KodeEvent")
+    @Expose
     private String kodeEvent;
 
     @NonNull
     @ColumnInfo(name = "QtyJual")
+    @SerializedName("QtyJual")
+    @Expose
     private Integer qtyJual;
 
     @ColumnInfo(name = "Diskon")
+    @SerializedName("Diskon")
+    @Expose
     private double diskon;
 
     @ColumnInfo(name = "HargaJual")
+    @SerializedName("HargaJual")
+    @Expose
     private double hrgaJual;
 
     @ColumnInfo(name = "Catatan")
+    @SerializedName("Catatan")
+    @Expose
     private String catatan;
 
     @NonNull
@@ -158,5 +170,15 @@ public class TrxJualDetDBModel {
 
     public void setCatatan(String catatan) {
         this.catatan = catatan;
+    }
+
+    @Override
+    public void setLastUpdate(Date lastUpdate) {
+
+    }
+
+    @Override
+    public Date getLastUpdate() {
+        return null;
     }
 }

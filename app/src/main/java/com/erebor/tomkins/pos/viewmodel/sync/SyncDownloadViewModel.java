@@ -14,7 +14,7 @@ import com.erebor.tomkins.pos.base.BaseViewModel;
 import com.erebor.tomkins.pos.helper.WorkerHelper;
 import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
-import com.erebor.tomkins.pos.worker.BaseSyncWorker;
+import com.erebor.tomkins.pos.worker.BaseSyncDownloadWorker;
 import com.erebor.tomkins.pos.worker.WorkerRequest;
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewState> {
+public class SyncDownloadViewModel extends BaseViewModel<SyncDownloadViewState> {
 
     private static final String SYNC_WORK_NAME = "sync_work";
     private static final String TAG = "DataSyncViewModel";
@@ -43,7 +43,7 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
     private Map<String, Observer<List<WorkInfo>>> observerHashMap = new HashMap<>();
 
     @Inject
-    public SyncDataMasterViewModel(WorkManager workManager, Logger logger, SharedPrefs sharedPrefs, WorkerHelper workerHelper) {
+    public SyncDownloadViewModel(WorkManager workManager, Logger logger, SharedPrefs sharedPrefs, WorkerHelper workerHelper) {
         this.workManager = workManager;
         this.logger = logger;
         this.sharedPrefs = sharedPrefs;
@@ -51,8 +51,8 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
     }
 
     public void observeChanged() {
-        SyncDataMasterViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
-        setValue(SyncDataMasterViewState.WAITING_STATE);
+        SyncDownloadViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
+        setValue(SyncDownloadViewState.WAITING_STATE);
         addObservers();
         startSync();
     }
@@ -72,7 +72,7 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
     }
 
     private void addObservers() {
-        for (WorkerRequest workerRequest : workerHelper.getWorkerRequest()) {
+        for (WorkerRequest workerRequest : workerHelper.getDownloadWorkerRequest()) {
             Observer<List<WorkInfo>> observer = getObserver(workerRequest.getProgressUpdate());
             workManager.getWorkInfosByTagLiveData(
                     workerRequest.getWorker().getSimpleName()
@@ -117,20 +117,20 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
         }
 
         long requestId = System.currentTimeMillis();
-        SyncDataMasterViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
-        setValue(SyncDataMasterViewState.WAITING_STATE);
+        SyncDownloadViewState.WAITING_STATE.setLastDownloadTime(getLatestDownloadedDate());
+        setValue(SyncDownloadViewState.WAITING_STATE);
 
         OneTimeWorkRequest.Builder initRequest = buildWorkerRequest(
                 requestId,
-                workerHelper.getWorkerRequest().get(0).getWorker())
+                workerHelper.getDownloadWorkerRequest().get(0).getWorker())
                 .setInitialDelay(delay, TimeUnit.MINUTES);
 
         WorkContinuation continuation = workManager
                 .beginUniqueWork(SYNC_WORK_NAME,
                         ExistingWorkPolicy.KEEP,
                         initRequest.build());
-        for (int i = 1; i < workerHelper.getWorkerRequest().size(); i++) {
-            WorkerRequest workerRequest = workerHelper.getWorkerRequest().get(i);
+        for (int i = 1; i < workerHelper.getDownloadWorkerRequest().size(); i++) {
+            WorkerRequest workerRequest = workerHelper.getDownloadWorkerRequest().get(i);
             continuation = continuation.then(buildWorkerRequest(
                     requestId,
                     workerRequest.getWorker())
@@ -141,7 +141,7 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
     }
 
     private String getProgressMessage(int progress) {
-        List<WorkerRequest> workerRequests = workerHelper.getWorkerRequest();
+        List<WorkerRequest> workerRequests = workerHelper.getDownloadWorkerRequest();
         if (workerRequests.isEmpty()) {
             return progress + "%";
         }
@@ -168,9 +168,9 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
         return progress + "%";
     }
 
-    private OneTimeWorkRequest.Builder buildWorkerRequest(long requestId, Class<? extends BaseSyncWorker> worker) {
+    private OneTimeWorkRequest.Builder buildWorkerRequest(long requestId, Class<? extends BaseSyncDownloadWorker> worker) {
         Data data = new Data.Builder()
-                .putLong(BaseSyncWorker.KEY_REQUEST_ID, requestId)
+                .putLong(BaseSyncDownloadWorker.KEY_REQUEST_ID, requestId)
                 .build();
 
         return new OneTimeWorkRequest.Builder(worker)
@@ -181,8 +181,8 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
 
     private void handleWorkerCallback(WorkInfo info, Data data, int workerProgress) {
         WorkInfo.State state = info.getState();
-        long requestId = data.getLong(BaseSyncWorker.KEY_REQUEST_ID, 0);
-        boolean completedRequestBefore = data.getLong(BaseSyncWorker.KEY_REQUEST_ID, 0) == sharedPrefs.getDownloadRequestId();
+        long requestId = data.getLong(BaseSyncDownloadWorker.KEY_REQUEST_ID, 0);
+        boolean completedRequestBefore = data.getLong(BaseSyncDownloadWorker.KEY_REQUEST_ID, 0) == sharedPrefs.getDownloadRequestId();
 
         if (state.equals(WorkInfo.State.BLOCKED)) {
             return;
@@ -198,9 +198,9 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
             int updateProgress = progress + ((workerProgress - progress) / 2);
             String message = getProgressMessage(updateProgress) + "... ";
             logger.debug(TAG, "RUNNING " + info.getTags().toArray()[0] + " | Updating progress : " + updateProgress + " --> " + message);
-            SyncDataMasterViewState.LOADING_STATE.setMessage(message);
-            SyncDataMasterViewState.LOADING_STATE.setProgress(progress);
-            setValue(SyncDataMasterViewState.LOADING_STATE);
+            SyncDownloadViewState.LOADING_STATE.setMessage(message);
+            SyncDownloadViewState.LOADING_STATE.setProgress(progress);
+            setValue(SyncDownloadViewState.LOADING_STATE);
             return;
         }
 
@@ -215,26 +215,26 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
         }
 
         if (state.equals(WorkInfo.State.SUCCEEDED) && progress == 100) {
-            sharedPrefs.setDownloadRequestId(data.getLong(BaseSyncWorker.KEY_REQUEST_ID, 0));
+            sharedPrefs.setDownloadRequestId(data.getLong(BaseSyncDownloadWorker.KEY_REQUEST_ID, 0));
             logger.debug(TAG, "SUCCEEDED " + info.getTags().toArray()[0] + " | Updating progress : " + progress);
             sharedPrefs.setLatestSyncDownloadDate(System.currentTimeMillis());
-            SyncDataMasterViewState.SUCCESS_STATE.setLastDownloadTime(getLatestDownloadedDate());
-            SyncDataMasterViewState.SUCCESS_STATE.setProgress(progress);
-            setValue(SyncDataMasterViewState.SUCCESS_STATE);
+            SyncDownloadViewState.SUCCESS_STATE.setLastDownloadTime(getLatestDownloadedDate());
+            SyncDownloadViewState.SUCCESS_STATE.setProgress(progress);
+            setValue(SyncDownloadViewState.SUCCESS_STATE);
             makeRequest(sharedPrefs.getSyncAutoDownloadInterval());
             resetProgress(true);
             return;
         }
 
-        String message = data.getString(BaseSyncWorker.KEY_EXCEPTION_MESSAGE);
+        String message = data.getString(BaseSyncDownloadWorker.KEY_EXCEPTION_MESSAGE);
         if (state.equals(WorkInfo.State.FAILED) && message != null) {
             int updateProgress = progress + ((workerProgress - progress) / 2);
             String workerTitle = getProgressMessage(updateProgress);
 
             logger.debug(TAG, "[" + requestId + "]FAILED " + info.getTags().toArray()[0] + " | Updating progress : " + message);
-            SyncDataMasterViewState.ERROR_STATE.setMessage(workerTitle + " " + message);
-            SyncDataMasterViewState.ERROR_STATE.setProgress(progress);
-            setValue(SyncDataMasterViewState.ERROR_STATE);
+            SyncDownloadViewState.ERROR_STATE.setMessage(workerTitle + " " + message);
+            SyncDownloadViewState.ERROR_STATE.setProgress(progress);
+            setValue(SyncDownloadViewState.ERROR_STATE);
             return;
         }
 
@@ -263,7 +263,7 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
     }
 
     private boolean isEnqueued() {
-        ListenableFuture<List<WorkInfo>> listListenableFuture = workManager.getWorkInfosByTag(BaseSyncWorker.class.getName());
+        ListenableFuture<List<WorkInfo>> listListenableFuture = workManager.getWorkInfosByTag(BaseSyncDownloadWorker.class.getName());
         try {
             List<WorkInfo> workInfos = listListenableFuture.get();
             if (workInfos.isEmpty()) {
@@ -287,7 +287,7 @@ public class SyncDataMasterViewModel extends BaseViewModel<SyncDataMasterViewSta
         if (observerHashMap.isEmpty())
             return;
 
-        for (WorkerRequest workerRequest : workerHelper.getWorkerRequest()) {
+        for (WorkerRequest workerRequest : workerHelper.getDownloadWorkerRequest()) {
             Observer<List<WorkInfo>> observer = observerHashMap.get(
                     workerRequest.getWorker().getSimpleName()
             );

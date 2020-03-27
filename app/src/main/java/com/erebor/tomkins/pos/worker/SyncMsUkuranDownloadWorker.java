@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.work.WorkerParameters;
 
-import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
-import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
+import com.erebor.tomkins.pos.data.local.dao.MsUkuranDao;
+import com.erebor.tomkins.pos.data.local.model.MsUkuranDBModel;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.di.AppComponent;
@@ -22,18 +22,18 @@ import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class SyncMsBarcodeWorker extends BaseSyncWorker<MsBarcodeDBModel, MsBarcodeDao> {
-
+public class SyncMsUkuranDownloadWorker extends BaseSyncDownloadWorker<MsUkuranDBModel, MsUkuranDao> {
     @Inject
     Logger logger;
     @Inject
-    MsBarcodeDao msBarcodeDao;
+    MsUkuranDao msUkuranDao;
     @Inject
     TomkinsService tomkinsService;
     @Inject
     DateConverterHelper dateConverterHelper;
 
-    public SyncMsBarcodeWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+
+    public SyncMsUkuranDownloadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 
@@ -43,22 +43,22 @@ public class SyncMsBarcodeWorker extends BaseSyncWorker<MsBarcodeDBModel, MsBarc
     }
 
     @Override
-    MsBarcodeDao getDao() {
-        return msBarcodeDao;
+    MsUkuranDao getDao() {
+        return msUkuranDao;
     }
 
     @Nullable
     @Override
     Date getLastItemUpdate() {
-        if (msBarcodeDao.getSyncLatest() == null) {
+        if (msUkuranDao.getSyncLatest() == null) {
             return null;
         }
-        return msBarcodeDao.getSyncLatest().getLastUpdate();
+        return msUkuranDao.getSyncLatest().getLastUpdate();
     }
 
     @Override
-    Call<RestResponse<DownloadResponse<List<MsBarcodeDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getMsBarcode(dateConverterHelper.toDateTimeString(lastUpdate));
+    Call<RestResponse<DownloadResponse<List<MsUkuranDBModel>>>> getDataFromApi(Date lastUpdate) {
+        return tomkinsService.getMsUkuran(dateConverterHelper.toDateTimeString(lastUpdate));
     }
 
     @Override

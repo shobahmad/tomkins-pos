@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.work.WorkerParameters;
 
-import com.erebor.tomkins.pos.data.local.dao.EventHargaDetDao;
-import com.erebor.tomkins.pos.data.local.model.EventHargaDetDBModel;
+import com.erebor.tomkins.pos.data.local.dao.MsGenderDao;
+import com.erebor.tomkins.pos.data.local.model.MsGenderDBModel;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.di.AppComponent;
@@ -22,18 +22,18 @@ import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class SyncEventHargaDetWorker extends BaseSyncWorker<EventHargaDetDBModel, EventHargaDetDao> {
+public class SyncMsGenderDownloadWorker extends BaseSyncDownloadWorker<MsGenderDBModel, MsGenderDao> {
+
     @Inject
     Logger logger;
     @Inject
-    EventHargaDetDao eventHargaDao;
+    MsGenderDao msGenderDao;
     @Inject
     TomkinsService tomkinsService;
     @Inject
     DateConverterHelper dateConverterHelper;
 
-
-    public SyncEventHargaDetWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public SyncMsGenderDownloadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 
@@ -43,22 +43,22 @@ public class SyncEventHargaDetWorker extends BaseSyncWorker<EventHargaDetDBModel
     }
 
     @Override
-    EventHargaDetDao getDao() {
-        return eventHargaDao;
+    MsGenderDao getDao() {
+        return msGenderDao;
     }
 
     @Nullable
     @Override
     Date getLastItemUpdate() {
-        if (eventHargaDao.getSyncLatest() == null) {
+        if (msGenderDao.getSyncLatest() == null) {
             return null;
         }
-        return eventHargaDao.getSyncLatest().getLastUpdate();
+        return msGenderDao.getSyncLatest().getLastUpdate();
     }
 
     @Override
-    Call<RestResponse<DownloadResponse<List<EventHargaDetDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getEventHargaDet(dateConverterHelper.toDateTimeString(lastUpdate));
+    Call<RestResponse<DownloadResponse<List<MsGenderDBModel>>>> getDataFromApi(Date lastUpdate) {
+        return tomkinsService.getMsGender(dateConverterHelper.toDateTimeString(lastUpdate));
     }
 
     @Override

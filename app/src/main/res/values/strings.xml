@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Tomkins POS</string>
     <string name="setting_key_latest_download_date" translatable="false">latest_download_date</string>
+    <string name="setting_key_latest_upload_date" translatable="false">latest_upload_date</string>
     <string name="session_key_username" translatable="false">username</string>
     <string name="session_key_password" translatable="false">password</string>
     <string name="setting_key_server_config" translatable="false">server_config</string>
@@ -13,7 +14,7 @@
     <string name="login_password">Password</string>
     <string name="login_remember_me">Remember me</string>
     <string name="login_forgot_password">Forgot Password</string>
-    <string name="dashboard_pending">Pending</string>
+    <string name="dashboard_pending">Pending transaction(s)</string>
     <string name="dashboard_sync_now">Sync Now</string>
     <string name="dashboard_start_scan">Start Scan</string>
     <string name="dashboard_data_sync">Data Synchronization</string>
@@ -103,5 +104,7 @@
     <string name="data_master">Data Master</string>
     <string name="download_interval">Download Inverval</string>
     <string name="minutes_5">5 minutes</string>
+    <string name="uploading">Uploading</string>
+    <string name="dashboard_uploading">Uploading...</string>
 
 </resources>

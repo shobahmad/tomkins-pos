@@ -6,10 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.work.WorkerParameters;
 
-import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
-import com.erebor.tomkins.pos.data.local.dao.MsUkuranDao;
-import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
-import com.erebor.tomkins.pos.data.local.model.MsUkuranDBModel;
+import com.erebor.tomkins.pos.data.local.dao.MsBrandDao;
+import com.erebor.tomkins.pos.data.local.model.MsBrandDBModel;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.di.AppComponent;
@@ -24,18 +22,18 @@ import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class SyncMsUkuranWorker extends BaseSyncWorker<MsUkuranDBModel, MsUkuranDao> {
+public class SyncMsBrandDownloadWorker extends BaseSyncDownloadWorker<MsBrandDBModel, MsBrandDao> {
+
     @Inject
     Logger logger;
     @Inject
-    MsUkuranDao msUkuranDao;
+    MsBrandDao msBrandDao;
     @Inject
     TomkinsService tomkinsService;
     @Inject
     DateConverterHelper dateConverterHelper;
 
-
-    public SyncMsUkuranWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public SyncMsBrandDownloadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 
@@ -45,22 +43,22 @@ public class SyncMsUkuranWorker extends BaseSyncWorker<MsUkuranDBModel, MsUkuran
     }
 
     @Override
-    MsUkuranDao getDao() {
-        return msUkuranDao;
+    MsBrandDao getDao() {
+        return msBrandDao;
     }
 
     @Nullable
     @Override
     Date getLastItemUpdate() {
-        if (msUkuranDao.getSyncLatest() == null) {
+        if (msBrandDao.getSyncLatest() == null) {
             return null;
         }
-        return msUkuranDao.getSyncLatest().getLastUpdate();
+        return msBrandDao.getSyncLatest().getLastUpdate();
     }
 
     @Override
-    Call<RestResponse<DownloadResponse<List<MsUkuranDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getMsUkuran(dateConverterHelper.toDateTimeString(lastUpdate));
+    Call<RestResponse<DownloadResponse<List<MsBrandDBModel>>>> getDataFromApi(Date lastUpdate) {
+        return tomkinsService.getMsBrand(dateConverterHelper.toDateTimeString(lastUpdate));
     }
 
     @Override

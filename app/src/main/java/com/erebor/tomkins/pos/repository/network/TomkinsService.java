@@ -9,11 +9,13 @@ import com.erebor.tomkins.pos.data.local.model.MsGenderDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsKonterDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsUkuranDBModel;
 import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
+import com.erebor.tomkins.pos.data.local.model.TrxJualDBModel;
 import com.erebor.tomkins.pos.data.remote.LoginRequest;
 import com.erebor.tomkins.pos.data.remote.LoginResponse;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -55,5 +57,8 @@ public interface TomkinsService {
 
     @GET("sync/eventhargadet")
     Call<RestResponse<DownloadResponse<List<EventHargaDetDBModel>>>> getEventHargaDet(@Query("last_update") String lastUpdate);
+
+    @POST("transaction")
+    Call<RestResponse<Date>> postTransaction(@Body TrxJualDBModel trxJualDBModel);
 
 }

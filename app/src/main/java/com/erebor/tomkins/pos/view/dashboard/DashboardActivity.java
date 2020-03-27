@@ -16,6 +16,7 @@ import com.erebor.tomkins.pos.data.ui.ReportSummaryUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityDashboardBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
+import com.erebor.tomkins.pos.helper.ResourceHelper;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.erebor.tomkins.pos.view.login.LoginActivity;
 import com.erebor.tomkins.pos.view.report.StockActivity;
@@ -28,8 +29,10 @@ import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewState;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewState;
-import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewModel;
-import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewState;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncDownloadViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncDownloadViewState;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadViewState;
 
 import javax.inject.Inject;
 
@@ -43,8 +46,11 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     DateConverterHelper dateConverterHelper;
     @Inject
     ViewModelProvider.Factory viewModelFactory;
+    @Inject
+    ResourceHelper resourceHelper;
 
-    SyncDataMasterViewModel dataSyncViewModel;
+    SyncDownloadViewModel dataSyncViewModel;
+    SyncUploadViewModel syncUploadViewModel;
     DownloadInfoViewModel downloadInfoViewModel;
     LoginViewModel loginViewModel;
 
@@ -54,7 +60,8 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        dataSyncViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncDataMasterViewModel.class);
+        dataSyncViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncDownloadViewModel.class);
+        syncUploadViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncUploadViewModel.class);
         downloadInfoViewModel = ViewModelProviders.of(this, viewModelFactory).get(DownloadInfoViewModel.class);
         loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel.class);
         observeChanges();
@@ -98,8 +105,9 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     }
 
     private void observeChanges() {
+        dataSyncViewModel.observeChanged();
         dataSyncViewModel.getViewState().observe(this, dataSyncViewState -> {
-            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.ERROR_STATE.getCurrentState())) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDownloadViewState.ERROR_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.download_failed));
                 downloadUiModel.setDownloading(true);
@@ -108,7 +116,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 downloadUiModel.setMesssage(dataSyncViewState.getMessage());
                 binding.setDownload(downloadUiModel);
             }
-            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.WAITING_STATE.getCurrentState())) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDownloadViewState.WAITING_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
                 downloadUiModel.setDownloading(false);
@@ -117,7 +125,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 return;
             }
 
-            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.LOADING_STATE.getCurrentState())) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDownloadViewState.LOADING_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(dataSyncViewState.getMessage());
                 downloadUiModel.setMesssage(dataSyncViewState.getMessage());
@@ -127,7 +135,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 return;
             }
 
-            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.SUCCESS_STATE.getCurrentState())) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDownloadViewState.SUCCESS_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.last_download));
                 downloadUiModel.setDownloading(false);
@@ -166,6 +174,32 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 downloadInfoAdapter.addList(downloadInfoViewState.getData());
                 return;
             }
+        });
+
+        syncUploadViewModel.observeChanged();
+        syncUploadViewModel.getViewState().observe(this, syncUploadViewState -> {
+            if (syncUploadViewState.getCurrentState().equals(SyncUploadViewState.STATE_WAITING)) {
+                binding.setUploadInfo(resourceHelper.getResourceString(R.string.dashboard_pending));
+                binding.setUploading(false);
+                return;
+            }
+            if (syncUploadViewState.getCurrentState().equals(SyncUploadViewState.STATE_LOADING)) {
+                binding.setUploadInfo(resourceHelper.getResourceString(R.string.dashboard_uploading));
+                binding.setUploading(true);
+                return;
+            }
+            if (syncUploadViewState.getCurrentState().equals(SyncUploadViewState.STATE_FAILED)) {
+                binding.setUploadInfo(syncUploadViewState.getError().getMessage());
+                binding.setUploading(false);
+                return;
+            }
+            if (syncUploadViewState.getCurrentState().equals(SyncUploadViewState.STATE_SUCCESS)) {
+                binding.setUploadInfo(resourceHelper.getResourceString(R.string.dashboard_pending));
+                binding.setUploading(false);
+            }
+        });
+        syncUploadViewModel.getPendingCountLiveData().observe(this, pendingCount -> {
+            binding.setUploadCount(pendingCount);
         });
     }
 

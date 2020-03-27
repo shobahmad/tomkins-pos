@@ -63,6 +63,18 @@ public class SharedPrefsModule {
             }
 
             @Override
+            public long getLatestSyncUploadDate() {
+                return getLong(getKey(R.string.setting_key_latest_upload_date), 0);
+            }
+
+            @Override
+            public void setLatestSyncUploadDate(long time) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putLong(getKey(R.string.setting_key_latest_upload_date), time);
+                editor.apply();
+            }
+
+            @Override
             public String getUsername() {
                 try {
                     return encryption.aesDecrypt(getString(getKey(R.string.session_key_username), ""));

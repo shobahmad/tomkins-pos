@@ -14,10 +14,10 @@ import com.erebor.tomkins.pos.databinding.ActivitySyncBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.helper.ResourceHelper;
-import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewState;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncDownloadViewState;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewState;
-import com.erebor.tomkins.pos.viewmodel.sync.SyncDataMasterViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncDownloadViewModel;
 
 import javax.inject.Inject;
 
@@ -29,7 +29,7 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
 
-    SyncDataMasterViewModel dataSyncViewModel;
+    SyncDownloadViewModel dataSyncViewModel;
     DownloadInfoViewModel downloadInfoViewModel;
 
     private DownloadInfoAdapter adapter;
@@ -55,7 +55,7 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
         binding.recylerDOwnloadInfo.setLayoutManager(new LinearLayoutManager(this));
         binding.recylerDOwnloadInfo.setAdapter(adapter);
 
-        dataSyncViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncDataMasterViewModel.class);
+        dataSyncViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncDownloadViewModel.class);
         downloadInfoViewModel = ViewModelProviders.of(this, viewModelFactory).get(DownloadInfoViewModel.class);
         observeChanges();
 
@@ -75,7 +75,7 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
         dataSyncViewModel.observeChanged();
         dataSyncViewModel.getViewState().observe(this, dataSyncViewState -> {
 
-            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.ERROR_STATE.getCurrentState())) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDownloadViewState.ERROR_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.download_failed));
                 downloadUiModel.setDownloading(true);
@@ -85,7 +85,7 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
                 binding.setDownloadSummary(downloadUiModel);
                 return;
             }
-            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.SUCCESS_STATE.getCurrentState())) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDownloadViewState.SUCCESS_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(dataSyncViewState.getMessage());
                 downloadUiModel.setDownloading(true);
@@ -96,7 +96,7 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
                 return;
             }
 
-            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.WAITING_STATE.getCurrentState())) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDownloadViewState.WAITING_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
                 downloadUiModel.setDownloading(false);
@@ -105,7 +105,7 @@ public class SyncActivity extends BaseActivity<ActivitySyncBinding> {
                 return;
             }
 
-            if (dataSyncViewState.getCurrentState().equals(SyncDataMasterViewState.LOADING_STATE.getCurrentState())) {
+            if (dataSyncViewState.getCurrentState().equals(SyncDownloadViewState.LOADING_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
                 downloadUiModel.setTitle(dataSyncViewState.getMessage());
                 downloadUiModel.setMesssage(dataSyncViewState.getMessage());

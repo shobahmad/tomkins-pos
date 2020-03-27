@@ -8,6 +8,9 @@ public interface SharedPrefs {
     long getLatestSyncDownloadDate();
     void setLatestSyncDownloadDate(long time);
 
+    long getLatestSyncUploadDate();
+    void setLatestSyncUploadDate(long time);
+
     String getUsername();
     void setUsername(String username);
 

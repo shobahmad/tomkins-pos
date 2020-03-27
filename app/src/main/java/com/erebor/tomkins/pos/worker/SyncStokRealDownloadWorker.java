@@ -6,9 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.work.WorkerParameters;
 
-import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
 import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
-import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
 import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
@@ -24,7 +22,7 @@ import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class SyncStokRealWorker extends BaseSyncWorker<StokRealDBModel, StokRealDao> {
+public class SyncStokRealDownloadWorker extends BaseSyncDownloadWorker<StokRealDBModel, StokRealDao> {
     @Inject
     Logger logger;
     @Inject
@@ -35,7 +33,7 @@ public class SyncStokRealWorker extends BaseSyncWorker<StokRealDBModel, StokReal
     DateConverterHelper dateConverterHelper;
 
 
-    public SyncStokRealWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public SyncStokRealDownloadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 

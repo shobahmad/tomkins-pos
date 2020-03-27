@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.work.WorkerParameters;
 
-import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
-import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
+import com.erebor.tomkins.pos.data.local.dao.EventHargaDao;
+import com.erebor.tomkins.pos.data.local.model.EventHargaDBModel;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.di.AppComponent;
@@ -22,18 +22,18 @@ import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class SyncMsArtWorker extends BaseSyncWorker<MsArtDBModel, MsArtDao> {
+public class SyncEventHargaDownloadWorker extends BaseSyncDownloadWorker<EventHargaDBModel, EventHargaDao> {
     @Inject
     Logger logger;
     @Inject
-    MsArtDao msArtDao;
+    EventHargaDao eventHargaDao;
     @Inject
     TomkinsService tomkinsService;
     @Inject
     DateConverterHelper dateConverterHelper;
 
 
-    public SyncMsArtWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public SyncEventHargaDownloadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 
@@ -43,22 +43,22 @@ public class SyncMsArtWorker extends BaseSyncWorker<MsArtDBModel, MsArtDao> {
     }
 
     @Override
-    MsArtDao getDao() {
-        return msArtDao;
+    EventHargaDao getDao() {
+        return eventHargaDao;
     }
 
     @Nullable
     @Override
     Date getLastItemUpdate() {
-        if (msArtDao.getSyncLatest() == null) {
+        if (eventHargaDao.getSyncLatest() == null) {
             return null;
         }
-        return msArtDao.getSyncLatest().getLastUpdate();
+        return eventHargaDao.getSyncLatest().getLastUpdate();
     }
 
     @Override
-    Call<RestResponse<DownloadResponse<List<MsArtDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getMsArt(dateConverterHelper.toDateTimeString(lastUpdate));
+    Call<RestResponse<DownloadResponse<List<EventHargaDBModel>>>> getDataFromApi(Date lastUpdate) {
+        return tomkinsService.getEventHarga(dateConverterHelper.toDateTimeString(lastUpdate));
     }
 
     @Override
