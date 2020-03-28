@@ -87,8 +87,9 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
                         transaction.getSize(),
                         transaction.getColour(),
                         transaction.getHargaNormal(),
-                        transaction.getEventName(),
+                        transaction.getEventCode(),
                         transaction.getQty() + 1,
+                        transaction.getDiskon(),
                         transaction.getHargaJual(),
                         transaction.getNote()
                 ));
@@ -120,8 +121,9 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
                         transaction.getSize(),
                         transaction.getColour(),
                         transaction.getHargaNormal(),
-                        transaction.getEventName(),
+                        transaction.getEventCode(),
                         transaction.getQty() - 1,
+                        transaction.getDiskon(),
                         transaction.getHargaJual(),
                         transaction.getNote()
                 ));
@@ -158,8 +160,9 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
                         transaction.getSize(),
                         transaction.getColour(),
                         transaction.getHargaNormal(),
-                        transaction.getEventName(),
+                        transaction.getEventCode(),
                         transaction.getQty(),
+                        transaction.getDiskon(),
                         transaction.getHargaJual(),
                         s.toString()
                 ));

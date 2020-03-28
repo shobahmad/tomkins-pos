@@ -5,9 +5,6 @@ import androidx.room.Query;
 
 import com.erebor.tomkins.pos.base.BaseDao;
 import com.erebor.tomkins.pos.data.local.model.EventHargaDBModel;
-import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
-
-import java.util.List;
 
 import io.reactivex.Flowable;
 

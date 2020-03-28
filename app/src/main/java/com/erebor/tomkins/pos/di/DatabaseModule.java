@@ -17,7 +17,6 @@ import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxJualDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxJualDetDao;
 import com.erebor.tomkins.pos.data.local.dao.UserDao;
-import com.erebor.tomkins.pos.data.local.model.MsGenderDBModel;
 
 import javax.inject.Singleton;
 

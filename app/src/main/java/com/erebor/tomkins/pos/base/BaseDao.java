@@ -7,7 +7,6 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 public interface BaseDao<D extends BaseDatabaseModel> {

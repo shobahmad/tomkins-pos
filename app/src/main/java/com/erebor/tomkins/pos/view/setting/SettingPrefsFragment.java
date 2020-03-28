@@ -1,11 +1,7 @@
 package com.erebor.tomkins.pos.view.setting;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,8 +16,6 @@ import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.TomkinApps;
 import com.erebor.tomkins.pos.tools.SecurityEncryption;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
-import com.erebor.tomkins.pos.view.custom.EncryptedEditTextPreference;
-import com.erebor.tomkins.pos.view.login.LoginActivity;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewState;
 

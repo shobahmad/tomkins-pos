@@ -9,12 +9,13 @@ public class TransactionDetailUiModel {
     private final String size;
     private final String colour;
     private final double hargaNormal;
-    private final String eventName;
+    private final String eventCode;
     private final int qty;
+    private final double diskon;
     private final double hargaJual;
     private final String note;
 
-    public TransactionDetailUiModel(String indTrx, String artName, String artCode, String barcode, String size, String colour, double hargaNormal, String eventName, Integer qty, double hargaJual, String note) {
+    public TransactionDetailUiModel(String indTrx, String artName, String artCode, String barcode, String size, String colour, double hargaNormal, String eventCode, Integer qty, double diskon, double hargaJual, String note) {
         this.indTrx = indTrx;
         this.artCode = artCode;
         this.artName = artName;
@@ -22,8 +23,9 @@ public class TransactionDetailUiModel {
         this.size = size;
         this.colour = colour;
         this.hargaNormal = hargaNormal;
-        this.eventName = eventName;
+        this.eventCode = eventCode;
         this.qty = qty;
+        this.diskon = diskon;
         this.hargaJual = hargaJual;
         this.note = note;
     }
@@ -56,12 +58,16 @@ public class TransactionDetailUiModel {
         return hargaNormal;
     }
 
-    public String getEventName() {
-        return eventName;
+    public String getEventCode() {
+        return eventCode;
     }
 
     public int getQty() {
         return qty;
+    }
+
+    public double getDiskon() {
+        return diskon;
     }
 
     public double getHargaJual() {

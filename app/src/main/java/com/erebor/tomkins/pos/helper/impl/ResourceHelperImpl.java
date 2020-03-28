@@ -13,14 +13,7 @@ public class ResourceHelperImpl implements ResourceHelper {
 
     @Override
     public String getResourceString(int id, String... args) {
-        String string = context.getResources().getString(id);
-        for (int arg = 1; arg <= args.length; arg++) {
-            String argValue = args[arg - 1];
-            if (argValue == null)
-                argValue = "";
-            string = string.replace("$s" + arg, argValue);
-        }
-        return string;
+        return context.getResources().getString(id, args);
     }
 
     @Override

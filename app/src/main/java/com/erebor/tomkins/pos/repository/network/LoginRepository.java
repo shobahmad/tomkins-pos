@@ -2,10 +2,6 @@ package com.erebor.tomkins.pos.repository.network;
 
 import com.erebor.tomkins.pos.data.remote.LoginResponse;
 
-import java.io.IOException;
-
-import retrofit2.Response;
-
 public class LoginRepository {
 
     TomkinsService service;

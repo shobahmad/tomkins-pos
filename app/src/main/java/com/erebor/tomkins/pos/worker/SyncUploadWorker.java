@@ -8,6 +8,7 @@ import androidx.work.WorkerParameters;
 
 import com.erebor.tomkins.pos.base.BaseWorker;
 import com.erebor.tomkins.pos.data.local.dao.TrxJualDao;
+import com.erebor.tomkins.pos.data.local.dao.TrxJualDetDao;
 import com.erebor.tomkins.pos.data.local.model.TrxJualDBModel;
 import com.erebor.tomkins.pos.data.remote.response.NetworkBoundResult;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
@@ -26,6 +27,8 @@ public class SyncUploadWorker extends BaseWorker {
 
     @Inject
     TrxJualDao trxJualDao;
+    @Inject
+    TrxJualDetDao trxJualDetDao;
     @Inject
     TomkinsService service;
 
@@ -55,6 +58,10 @@ public class SyncUploadWorker extends BaseWorker {
                     @get first queued transaction data
                  */
                 TrxJualDBModel trxJualDBModel = trxJualDao.getSyncFirstQueue();
+                if (trxJualDBModel == null) {
+                    break;
+                }
+                trxJualDBModel.setListDetail(trxJualDetDao.getListByNoBon(trxJualDBModel.getNoBon()));
 
                 /*
                     @post data
@@ -67,7 +74,7 @@ public class SyncUploadWorker extends BaseWorker {
                  */
                 trxJualDBModel.setUploaded(true);
                 trxJualDBModel.setTanggalUpload(uploadedDate);
-                trxJualDao.update(trxJualDBModel);
+                trxJualDao.update(trxJualDBModel).blockingGet();
             } catch (Exception | Error e) {
                 Data data = new Data.Builder()
                         .putString(KEY_EXCEPTION_MESSAGE, e.getMessage())

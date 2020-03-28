@@ -82,4 +82,11 @@
     <string name="minutes_5">5 minutes</string>
     <string name="uploading">Uploading</string>
     <string name="dashboard_uploading">Uploading...</string>
+    <string name="transaction_reading_barcode">Reading barcode. Please wait...</string>
+    <string name="transaction_saving">Creating transaction. Please wait...</string>
+    <string name="transaction_barcode_not_found">Barcode not found</string>
+    <string name="transaction_success">Transaction Success</string>
+    <string name="transaction_success_message">Transaction with No. Bon %s successfully created</string>
+    <string name="transaction_barcode_input">No barcode match with %s. Please input correctly</string>
+    <string name="transaction_failed">Transaction Failed</string>
 </resources>

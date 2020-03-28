@@ -27,6 +27,11 @@ public class DateConverterHelperImpl implements DateConverterHelper {
     }
 
     @Override
+    public String toDateNoBon(Date date) {
+        return toStringFormat(date, "YYYY/mm/dd");
+    }
+
+    @Override
     public String toDateTimeString(Date date) {
         return toStringFormat(date, DATETIME_FORMAT);
     }

@@ -3,15 +3,12 @@ package com.erebor.tomkins.pos.data.local.model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 
 import com.erebor.tomkins.pos.base.BaseDatabaseModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
-
-import static androidx.room.ForeignKey.RESTRICT;
 
 @Entity(tableName = "TRXJUALDET",
         primaryKeys = {"NoBon", "IndTrx", "KodeArt", "Ukuran"}
@@ -42,7 +39,7 @@ public class TrxJualDetDBModel implements BaseDatabaseModel {
     @ColumnInfo(name = "IndTrx")
     @SerializedName("IndTrx")
     @Expose
-    private Integer indTrx;
+    private String indTrx;
 
     @NonNull
     @ColumnInfo(name = "KodeArt")
@@ -97,11 +94,11 @@ public class TrxJualDetDBModel implements BaseDatabaseModel {
     }
 
     @NonNull
-    public Integer getIndTrx() {
+    public String getIndTrx() {
         return indTrx;
     }
 
-    public void setIndTrx(@NonNull Integer indTrx) {
+    public void setIndTrx(@NonNull String indTrx) {
         this.indTrx = indTrx;
     }
 

@@ -5,7 +5,6 @@ import androidx.room.Query;
 
 import com.erebor.tomkins.pos.base.BaseDao;
 import com.erebor.tomkins.pos.data.local.model.MsBrandDBModel;
-import com.erebor.tomkins.pos.data.local.model.MsBrandDBModel;
 
 import java.util.List;
 

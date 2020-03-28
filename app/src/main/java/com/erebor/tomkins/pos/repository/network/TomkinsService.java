@@ -6,7 +6,6 @@ import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBrandDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsGenderDBModel;
-import com.erebor.tomkins.pos.data.local.model.MsKonterDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsUkuranDBModel;
 import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
 import com.erebor.tomkins.pos.data.local.model.TrxJualDBModel;

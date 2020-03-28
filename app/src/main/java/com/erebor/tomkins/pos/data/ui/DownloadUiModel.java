@@ -1,8 +1,6 @@
 package com.erebor.tomkins.pos.data.ui;
 
 
-import androidx.room.DatabaseView;
-
 public class DownloadUiModel {
     private boolean downloading;
     private int progress;

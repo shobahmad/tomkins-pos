@@ -49,13 +49,14 @@
                 android:id="@+id/text_label_pending"
                 style="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintStart_toEndOf="@id/image_pending"
+                app:layout_constraintEnd_toStartOf="@id/text_sync"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:gravity="right|center_vertical"
+                android:gravity="start|center_vertical"
                 android:text="@{uploadInfo, default=`Pending transaction(s)`}"
                 android:textAlignment="gravity" />
 
@@ -73,15 +74,17 @@
 
             <TextView
                 android:id="@+id/text_sync"
-                style="@style/TextButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="right|center_vertical"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:gravity="center"
                 android:text="@{String.valueOf(uploadCount), default=`0`}"
-                android:textAlignment="gravity" />
+                android:textAlignment="gravity"
+                android:background="@drawable/shape_rounded_green"
+                android:textColor="@color/white"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

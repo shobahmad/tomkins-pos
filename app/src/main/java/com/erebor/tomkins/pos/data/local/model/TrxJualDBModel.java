@@ -1,6 +1,7 @@
 package com.erebor.tomkins.pos.data.local.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -42,7 +43,7 @@ public class TrxJualDBModel implements BaseDatabaseModel {
     private String kodeSPG;
 
 
-    @NonNull
+    @Nullable
     @ColumnInfo(name = "TanggalUpload")
     private Date tanggalUpload;
 

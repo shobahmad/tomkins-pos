@@ -7,6 +7,8 @@ public interface DateConverterHelper {
 
     String toDatetring(Date date);
 
+    String toDateNoBon(Date date);
+
     String toDateTimeString(Date date);
 
     String toDateTimeDisplayString(Date date);
@@ -14,7 +16,6 @@ public interface DateConverterHelper {
     String toDateTimeDisplayString(Long time);
 
     String getDifference(Long time);
-
 
     Calendar atEndOfDay(Calendar calendar);
 }

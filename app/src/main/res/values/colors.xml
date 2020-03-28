@@ -4,6 +4,7 @@
     <color name="colorPrimary">#42a316</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#595959</color>
+    <color name="colorBackground">#39297705</color>
 
     <color name="greyLines">#C6C7C6</color>
     <color name="hintColor">#595959</color>

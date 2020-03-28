@@ -24,7 +24,6 @@ import com.erebor.tomkins.pos.databinding.ActivityVisionScannerBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;

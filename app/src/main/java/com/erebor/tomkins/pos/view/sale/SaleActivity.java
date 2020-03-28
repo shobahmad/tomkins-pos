@@ -19,7 +19,6 @@ import com.erebor.tomkins.pos.databinding.ActivitySaleBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.erebor.tomkins.pos.view.callback.ItemQtyHandler;
-import com.erebor.tomkins.pos.view.dashboard.DashboardActivity;
 import com.erebor.tomkins.pos.view.scan.VisionScannerActivity;
 import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
 

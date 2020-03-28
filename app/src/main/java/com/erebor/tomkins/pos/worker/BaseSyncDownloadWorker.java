@@ -1,7 +1,6 @@
 package com.erebor.tomkins.pos.worker;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteConstraintException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,8 +10,6 @@ import androidx.work.WorkerParameters;
 import com.erebor.tomkins.pos.base.BaseDao;
 import com.erebor.tomkins.pos.base.BaseDatabaseModel;
 import com.erebor.tomkins.pos.base.BaseWorker;
-import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
-import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
 import com.erebor.tomkins.pos.data.remote.response.NetworkBoundResult;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;

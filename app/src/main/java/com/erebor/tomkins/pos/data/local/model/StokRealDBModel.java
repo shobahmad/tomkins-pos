@@ -3,15 +3,12 @@ package com.erebor.tomkins.pos.data.local.model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 
 import com.erebor.tomkins.pos.base.BaseDatabaseModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
-
-import static androidx.room.ForeignKey.RESTRICT;
 
 @Entity(tableName = "STOKREAL",
 primaryKeys = {"KodeArt", "Ukuran"})
