@@ -70,10 +70,10 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         syncUploadViewModel = ViewModelProviders.of(this, factory).get(SyncUploadViewModel.class);
 
         binding.buttonScan.setOnClickListener(v -> {
-            if (true) {
-                transactionViewModel.scanBarcode("89949060800701");
-                return;
-            }
+//            if (true) {
+//                transactionViewModel.scanBarcode("89949060800701");
+//                return;
+//            }
             String scanner = sharedPrefs.getString(getResources().getString(R.string.setting_key_camera), "");
             if (scanner.equals("")) {
                 startActivityForResult(new Intent(TransactionActivity.this, VisionScannerActivity.class), 1);
