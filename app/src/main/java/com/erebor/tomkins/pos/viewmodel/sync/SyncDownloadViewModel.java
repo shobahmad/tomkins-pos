@@ -110,7 +110,9 @@ public class SyncDownloadViewModel extends BaseViewModel<SyncDownloadViewState> 
         }
         if (delay > 0) {
             Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.MINUTE, delay);
+            calendar.setTimeInMillis(System.currentTimeMillis());
+//            calendar.add(Calendar.MINUTE, delay);
+            calendar.add(Calendar.SECOND, 30);
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
             logger.debug(TAG, "makeRequest at " + simpleDateFormat.format(calendar.getTime()));

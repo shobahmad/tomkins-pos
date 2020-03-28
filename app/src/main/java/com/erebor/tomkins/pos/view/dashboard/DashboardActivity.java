@@ -68,10 +68,10 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
         fetchDummyData();
         binding.buttonScan.setOnClickListener(v -> {
-//            if (true) {
-//                startSaleActivity("8994906080063");
-//                return;
-//            }
+            if (true) {
+                startSaleActivity("8994906080063");
+                return;
+            }
             String scanner = sharedPrefs.getString(getResources().getString(R.string.setting_key_camera), "");
             if (scanner.equals("")) {
                 startActivityForResult(new Intent(DashboardActivity.this, VisionScannerActivity.class), 1);

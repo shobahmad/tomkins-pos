@@ -64,6 +64,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/text_download_info"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:singleLine="true"
                     android:gravity="start|center_vertical" />
 
 
