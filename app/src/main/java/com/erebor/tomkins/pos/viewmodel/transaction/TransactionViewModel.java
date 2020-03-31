@@ -331,6 +331,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         trxJualDBModel.setNoBon(generateNoBon(transactionDate));
         trxJualDBModel.setTanggal(transactionDate);
         trxJualDBModel.setKodeSPG(sharedPrefs.getKodeSPG());
+        trxJualDBModel.setKodeCounter(sharedPrefs.getKodeKonter());
         return trxJualDBModel;
     }
 

@@ -26,7 +26,7 @@ import retrofit2.http.Query;
 
 public interface TomkinsService {
 
-    @POST("login")
+    @POST("auth")
     Flowable<RestResponse<LoginResponse>> postLogin(@Body LoginRequest login);
 
 

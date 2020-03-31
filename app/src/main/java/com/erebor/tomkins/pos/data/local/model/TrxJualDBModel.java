@@ -42,6 +42,11 @@ public class TrxJualDBModel implements BaseDatabaseModel {
     @Expose
     private String kodeSPG;
 
+    @NonNull
+    @ColumnInfo(name = "KodeCounter")
+    @SerializedName("KodeCounter")
+    @Expose
+    private String kodeCounter;
 
     @Nullable
     @ColumnInfo(name = "TanggalUpload")
@@ -81,6 +86,14 @@ public class TrxJualDBModel implements BaseDatabaseModel {
         this.kodeSPG = kodeSPG;
     }
 
+    @NonNull
+    public String getKodeCounter() {
+        return kodeCounter;
+    }
+
+    public void setKodeCounter(@NonNull String kodeCounter) {
+        this.kodeCounter = kodeCounter;
+    }
 
     public List<TrxJualDetDBModel> getListDetail() {
         return listDetail;

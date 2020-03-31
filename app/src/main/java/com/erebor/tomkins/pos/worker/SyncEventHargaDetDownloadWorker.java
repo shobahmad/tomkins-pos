@@ -14,6 +14,7 @@ import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.repository.network.TomkinsService;
 import com.erebor.tomkins.pos.tools.Logger;
+import com.erebor.tomkins.pos.tools.SharedPrefs;
 
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,8 @@ public class SyncEventHargaDetDownloadWorker extends BaseSyncDownloadWorker<Even
     TomkinsService tomkinsService;
     @Inject
     DateConverterHelper dateConverterHelper;
+    @Inject
+    SharedPrefs sharedPrefs;
 
 
     public SyncEventHargaDetDownloadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
@@ -45,6 +48,11 @@ public class SyncEventHargaDetDownloadWorker extends BaseSyncDownloadWorker<Even
     @Override
     EventHargaDetDao getDao() {
         return eventHargaDao;
+    }
+
+    @Override
+    SharedPrefs getSharedPrefs() {
+        return sharedPrefs;
     }
 
     @Nullable

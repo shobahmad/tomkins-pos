@@ -14,6 +14,7 @@ import com.erebor.tomkins.pos.data.remote.response.NetworkBoundResult;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.repository.network.TomkinsService;
+import com.erebor.tomkins.pos.tools.SharedPrefs;
 
 import java.util.Date;
 
@@ -31,6 +32,8 @@ public class SyncUploadWorker extends BaseWorker {
     TrxJualDetDao trxJualDetDao;
     @Inject
     TomkinsService service;
+    @Inject
+    SharedPrefs sharedPrefs;
 
     public SyncUploadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -46,6 +49,9 @@ public class SyncUploadWorker extends BaseWorker {
     public Result doWork() {
         while (true) {
             try {
+                if (!isValidSession()) {
+                    break;
+                }
                /*
                   @if unsync transaction is empty then
                       break
@@ -84,6 +90,11 @@ public class SyncUploadWorker extends BaseWorker {
         }
 
         return Result.success(getSuccessOutputData());
+    }
+
+
+    private boolean isValidSession() {
+        return !sharedPrefs.getUsername().isEmpty();
     }
 
     private Date postTransaction(TrxJualDBModel trxJualDBModel) throws Exception {

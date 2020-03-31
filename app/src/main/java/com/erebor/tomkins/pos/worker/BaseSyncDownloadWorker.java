@@ -14,6 +14,7 @@ import com.erebor.tomkins.pos.data.remote.DownloadResponse;
 import com.erebor.tomkins.pos.data.remote.response.NetworkBoundResult;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.tools.Logger;
+import com.erebor.tomkins.pos.tools.SharedPrefs;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +37,7 @@ public abstract class BaseSyncDownloadWorker<T extends BaseDatabaseModel, D exte
 
     abstract Logger getLogger();
     abstract D getDao();
+    abstract SharedPrefs getSharedPrefs();
 
     List<T> getDataWithLastUpdate(List<T> data, Date lastUpdate) {
         List<T> dataModels = new ArrayList<>();
@@ -103,6 +105,12 @@ public abstract class BaseSyncDownloadWorker<T extends BaseDatabaseModel, D exte
     @Override
     public Result doWork() {
         try {
+            if (!isValidSession()) {
+                Data data = new Data.Builder()
+                        .putString(KEY_EXCEPTION_MESSAGE, "Unauthorized access")
+                        .build();
+                return Result.failure(data);
+            }
             saveToLocalStorage(download());
         } catch (Exception e) {
             getLogger().error(getLogTag(), e.getMessage(), e);
@@ -113,5 +121,9 @@ public abstract class BaseSyncDownloadWorker<T extends BaseDatabaseModel, D exte
         }
 
         return Result.success(getSuccessOutputData());
+    }
+
+    private boolean isValidSession() {
+        return !getSharedPrefs().getUsername().isEmpty();
     }
 }

@@ -14,6 +14,7 @@ import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.repository.network.TomkinsService;
 import com.erebor.tomkins.pos.tools.Logger;
+import com.erebor.tomkins.pos.tools.SharedPrefs;
 
 import java.util.Date;
 import java.util.List;
@@ -31,7 +32,8 @@ public class SyncMsArtDownloadWorker extends BaseSyncDownloadWorker<MsArtDBModel
     TomkinsService tomkinsService;
     @Inject
     DateConverterHelper dateConverterHelper;
-
+    @Inject
+    SharedPrefs sharedPrefs;
 
     public SyncMsArtDownloadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -45,6 +47,11 @@ public class SyncMsArtDownloadWorker extends BaseSyncDownloadWorker<MsArtDBModel
     @Override
     MsArtDao getDao() {
         return msArtDao;
+    }
+
+    @Override
+    SharedPrefs getSharedPrefs() {
+        return sharedPrefs;
     }
 
     @Nullable

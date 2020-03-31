@@ -14,6 +14,7 @@ import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.repository.network.TomkinsService;
 import com.erebor.tomkins.pos.tools.Logger;
+import com.erebor.tomkins.pos.tools.SharedPrefs;
 
 import java.util.Date;
 import java.util.List;
@@ -32,6 +33,8 @@ public class SyncMsGenderDownloadWorker extends BaseSyncDownloadWorker<MsGenderD
     TomkinsService tomkinsService;
     @Inject
     DateConverterHelper dateConverterHelper;
+    @Inject
+    SharedPrefs sharedPrefs;
 
     public SyncMsGenderDownloadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -45,6 +48,11 @@ public class SyncMsGenderDownloadWorker extends BaseSyncDownloadWorker<MsGenderD
     @Override
     MsGenderDao getDao() {
         return msGenderDao;
+    }
+
+    @Override
+    SharedPrefs getSharedPrefs() {
+        return sharedPrefs;
     }
 
     @Nullable

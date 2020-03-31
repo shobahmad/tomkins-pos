@@ -22,7 +22,7 @@
 //        dao.getByPrimaryKey(String.valueOf(RECORD.getId()))
 //                .test()
 //                .assertValue(userDBModel -> userDBModel != null
-//                        && userDBModel.getEmail().equals(RECORD.getEmail()));
+//                        && userDBModel.getUsername().equals(RECORD.getUsername()));
 //    }
 //
 //    @Test
