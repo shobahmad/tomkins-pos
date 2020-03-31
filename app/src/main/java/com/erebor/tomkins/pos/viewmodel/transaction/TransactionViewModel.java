@@ -351,7 +351,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
     }
 
     private String generateNoBon(Date transactionDate) {
-        return dateConverterHelper.toDateNoBon(transactionDate) + "-" + sharedPrefs.getKodeSPG() + "-" + Long.toHexString(System.currentTimeMillis()/1000).toUpperCase();
+        return dateConverterHelper.toDateNoBon(transactionDate) + "_" + sharedPrefs.getKodeSPG() + "_" + Long.toHexString(System.currentTimeMillis()/1000).toUpperCase();
     }
     private String generateIndTrx() {
         TransactionUiModel transactionUiModel = TransactionViewState.FOUND_STATE.getData();

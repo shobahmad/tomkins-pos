@@ -58,7 +58,7 @@ public class TrxJualDBModel implements BaseDatabaseModel {
 
     @Ignore
     @Expose
-    @SerializedName("listDetail")
+    @SerializedName("TRXJUALDET")
     private List<TrxJualDetDBModel> listDetail;
 
     @NonNull
