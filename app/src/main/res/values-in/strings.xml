@@ -92,4 +92,6 @@
     <string name="logout_confirm">Are you sure want to logout?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="transaction_cancel">Cancel Transaction</string>
+    <string name="transaction_cancel_confirm">Are you sure want to cancel this transaction?</string>
 </resources>

@@ -159,6 +159,18 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                         }));
     }
 
+    public void reset() {
+        getDisposable().add(Single.fromCallable(() -> {
+            TransactionViewState.FOUND_STATE.setData(null);
+            TransactionViewState.SUCCESS_STATE.setData(null);
+            TransactionViewState.SAVING_STATE.setData(null);
+            return true;
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(state -> postValue(TransactionViewState.RESET_STATE)));
+    }
+
     private TransactionViewState barcodeValidation(String barcode) {
         //@ get barcode
         MsBarcodeDBModel msBarcodeDBModel = msBarcodeDao.getByNoBarcode(barcode);

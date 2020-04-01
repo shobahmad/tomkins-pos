@@ -153,6 +153,24 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
     }
 
     @Override
+    public void onBackPressed() {
+        confirmationDialog();
+    }
+
+
+    private void confirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog);
+        builder.setTitle(resourceHelper.getResourceString(R.string.transaction_cancel));
+        builder.setMessage(resourceHelper.getResourceString(R.string.transaction_cancel_confirm));
+
+        builder.setPositiveButton(R.string.yes, (dialog, which) -> transactionViewModel.reset());
+        builder.setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss());
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
@@ -186,7 +204,8 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         builder.setView(promptsView);
         builder.setPositiveButton(getString(android.R.string.ok), (dialog, which) -> {
             dialog.dismiss();
-            transactionViewModel.scanBarcode(inputBarcode.getText().toString());
+            String newbarcode = inputBarcode.getEditableText().toString();
+            transactionViewModel.scanBarcode(newbarcode);
         });
 
 
@@ -211,7 +230,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         if (transactionViewState.getCurrentState().equals(TransactionViewState.NOT_FOUND_STATE.getCurrentState())) {
             binding.setLoading(null);
             inputBarcodeDialog(transactionViewState.getData().getBarcode());
-            binding.buttonConfirm.setEnabled(!transactionAdapter.getList().isEmpty());
+            binding.buttonConfirm.setEnabled(transactionAdapter.getList() != null && !transactionAdapter.getList().isEmpty());
             return;
         }
 
@@ -237,6 +256,10 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             binding.setLoading(null);
 //            alertDialog(resourceHelper.getResourceString(R.string.transaction_success), getResources().getString(R.string.transaction_success_message, transactionViewState.getData().getTransactionId()), (dialog, which) -> finish());
             alertDialog(resourceHelper.getResourceString(R.string.transaction_success), resourceHelper.getResourceString(R.string.transaction_success_message, transactionViewState.getData().getTransactionId()), (dialog, which) -> finish());
+            return;
+        }
+        if (transactionViewState.getCurrentState().equals(TransactionViewState.RESET_STATE.getCurrentState())) {
+            finish();
         }
     }
 }
