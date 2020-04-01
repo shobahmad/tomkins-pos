@@ -24,4 +24,7 @@ public interface MsArtDao extends BaseDao<MsArtDBModel> {
 
     @Query("SELECT * FROM MSART ORDER BY last_update DESC LIMIT 1")
     Flowable<MsArtDBModel> getLatest();
+
+    @Query("DELETE FROM MSART")
+    void truncate();
 }

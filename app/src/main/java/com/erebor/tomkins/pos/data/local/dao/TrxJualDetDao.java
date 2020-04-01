@@ -13,4 +13,7 @@ public interface TrxJualDetDao extends BaseDao<TrxJualDetDBModel> {
 
     @Query("SELECT * FROM TRXJUALDET WHERE NoBon =:noBon")
     List<TrxJualDetDBModel> getListByNoBon(String noBon);
+
+    @Query("DELETE FROM TRXJUALDET")
+    void truncate();
 }

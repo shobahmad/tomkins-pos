@@ -24,4 +24,7 @@ public interface MsBrandDao extends BaseDao<MsBrandDBModel> {
 
     @Query("SELECT * FROM MSBRAND ORDER BY last_update DESC LIMIT 1")
     Flowable<MsBrandDBModel> getLatest();
+
+    @Query("DELETE FROM MSBRAND")
+    void truncate();
 }

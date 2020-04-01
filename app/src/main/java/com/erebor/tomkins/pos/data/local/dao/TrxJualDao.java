@@ -24,4 +24,7 @@ public interface TrxJualDao extends BaseDao<TrxJualDBModel> {
 
     @Query("SELECT * FROM TRXJUAL WHERE isUploaded = 0")
     List<TrxJualDBModel> getUnsyncList();
+
+    @Query("DELETE FROM TRXJUAL")
+    void truncate();
 }

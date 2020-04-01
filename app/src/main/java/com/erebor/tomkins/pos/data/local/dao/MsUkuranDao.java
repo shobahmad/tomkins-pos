@@ -24,4 +24,7 @@ public interface MsUkuranDao extends BaseDao<MsUkuranDBModel> {
 
     @Query("SELECT * FROM MSUKURAN ORDER BY last_update DESC LIMIT 1")
     Flowable<MsUkuranDBModel> getLatest();
+
+    @Query("DELETE FROM MSUKURAN")
+    void truncate();
 }

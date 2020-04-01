@@ -24,4 +24,7 @@ public interface MsBarcodeDao extends BaseDao<MsBarcodeDBModel> {
 
     @Query("SELECT * FROM MSBARCODE ORDER BY last_update DESC LIMIT 1")
     Flowable<MsBarcodeDBModel> getLatest();
+
+    @Query("DELETE FROM MSBARCODE")
+    void truncate();
 }

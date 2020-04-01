@@ -16,4 +16,7 @@ public interface EventHargaDetDao extends BaseDao<EventHargaDetDBModel> {
 
     @Query("SELECT * FROM EVENTHARGADET ORDER BY last_update DESC LIMIT 1")
     Flowable<EventHargaDetDBModel> getLatest();
+
+    @Query("DELETE FROM EVENTHARGADET")
+    void truncate();
 }

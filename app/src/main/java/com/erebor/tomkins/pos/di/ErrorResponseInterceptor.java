@@ -3,6 +3,9 @@ package com.erebor.tomkins.pos.di;
 import android.text.Html;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -60,6 +63,17 @@ public class ErrorResponseInterceptor implements Interceptor {
             bodyText = readFromBuffer(buffer.clone(), charset);
 
         if (bodyText.isEmpty()) return result;
+
+        if (result.code() == 400) {
+            String message;
+            try {
+                JSONObject jsonObject = new JSONObject(responseBody.string());
+                message = jsonObject.getString("error");
+            } catch (JSONException | IOException e) {
+                message = e.getMessage();
+            }
+            throw new HttpException(createErrorResponse(result.code(), message, responseBody));
+        }
 
         if (result.code() != 200) {
             throw new HttpException(createErrorResponse(result.code(), Html.fromHtml(responseBody.string()).toString(), responseBody));

@@ -24,4 +24,7 @@ public interface StokRealDao extends BaseDao<StokRealDBModel> {
 
     @Query("SELECT * FROM STOKREAL ORDER BY last_update DESC LIMIT 1")
     Flowable<StokRealDBModel> getLatest();
+
+    @Query("DELETE FROM STOKREAL")
+    void truncate();
 }

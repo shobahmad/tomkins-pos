@@ -77,7 +77,7 @@ public class SettingPrefsFragment extends PreferenceFragmentCompat {
         Preference userName = findPreference(getResources().getString(R.string.session_key_username));
         userName.setSummary(sharedPrefs.getUsername());
         userName.setOnPreferenceClickListener(preference -> {
-            viewModel.postLogout();
+            viewModel.logout();
             return false;
         });
 
