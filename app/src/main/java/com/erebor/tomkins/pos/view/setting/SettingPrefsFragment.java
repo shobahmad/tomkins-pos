@@ -1,10 +1,12 @@
 package com.erebor.tomkins.pos.view.setting;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.preference.EditTextPreference;
@@ -14,6 +16,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.TomkinApps;
+import com.erebor.tomkins.pos.helper.ResourceHelper;
 import com.erebor.tomkins.pos.tools.SecurityEncryption;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
@@ -29,6 +32,8 @@ public class SettingPrefsFragment extends PreferenceFragmentCompat {
     SecurityEncryption securityEncryption;
     @Inject
     ViewModelProvider.Factory factory;
+    @Inject
+    ResourceHelper resourceHelper;
 
     LoginViewModel viewModel;
 
@@ -77,10 +82,22 @@ public class SettingPrefsFragment extends PreferenceFragmentCompat {
         Preference userName = findPreference(getResources().getString(R.string.session_key_username));
         userName.setSummary(sharedPrefs.getUsername());
         userName.setOnPreferenceClickListener(preference -> {
-            viewModel.logout();
+            confirmationDialog();
             return false;
         });
 
+    }
+
+    private void confirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
+        builder.setTitle(resourceHelper.getResourceString(R.string.logout));
+        builder.setMessage(resourceHelper.getResourceString(R.string.logout_confirm));
+
+        builder.setPositiveButton(R.string.yes, (dialog, which) -> viewModel.logout());
+        builder.setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss());
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     void startObserver() {
