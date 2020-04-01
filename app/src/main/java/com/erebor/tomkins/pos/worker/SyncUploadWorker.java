@@ -14,6 +14,7 @@ import com.erebor.tomkins.pos.data.remote.response.NetworkBoundResult;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.repository.network.TomkinsService;
+import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 
 import java.util.Date;
@@ -34,6 +35,8 @@ public class SyncUploadWorker extends BaseWorker {
     TomkinsService service;
     @Inject
     SharedPrefs sharedPrefs;
+    @Inject
+    Logger logger;
 
     public SyncUploadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -56,7 +59,9 @@ public class SyncUploadWorker extends BaseWorker {
                   @if unsync transaction is empty then
                       break
                 */
-               if (trxJualDao.getSyncUnuploadedCount() == 0) {
+               int unuploadedCount = trxJualDao.getSyncUnuploadedCount();
+                logger.debug(getClass().getSimpleName(), "Trx queue : " + unuploadedCount);
+               if (unuploadedCount == 0) {
                    break;
                }
 

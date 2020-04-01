@@ -31,7 +31,7 @@ import javax.inject.Inject;
 public class SyncDownloadViewModel extends BaseViewModel<SyncDownloadViewState> {
 
     private static final String SYNC_WORK_NAME = "sync_work";
-    private static final String TAG = "DataSyncViewModel";
+    private static final String TAG = "SyncDownloadViewModel";
 
     private WorkManager workManager;
     private Logger logger;
@@ -61,11 +61,14 @@ public class SyncDownloadViewModel extends BaseViewModel<SyncDownloadViewState> 
         if (getLatestDownloadedDate() != 0) {
             cancelEnqueued();
             long curtime = System.currentTimeMillis();
-            long intervalInMilis = sharedPrefs.getSyncAutoDownloadInterval() * 1000 * 60;
+            long intervalInMinutes = sharedPrefs.getSyncAutoDownloadInterval();
+            long diff = curtime - sharedPrefs.getLatestSyncDownloadDate();
+            long diffMinutes = diff / (60 * 1000) % 60;
 
-            int deviationInMinutes = ((Number) (curtime - intervalInMilis / (1000 * 60))).intValue();
-            int delay = curtime - getLatestDownloadedDate() >= intervalInMilis ? 0 : deviationInMinutes;
-            makeRequest(delay);
+            long delay = diffMinutes >= intervalInMinutes ? 0 : diffMinutes;
+            logger.debug(getClass().getSimpleName(), "diffMinutes: " + diffMinutes +" of interval " + intervalInMinutes + ", delay " + delay);
+
+            makeRequest(((Number) delay).intValue());
             return;
         }
         startSyncFull();
@@ -111,11 +114,13 @@ public class SyncDownloadViewModel extends BaseViewModel<SyncDownloadViewState> 
         if (delay > 0) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
-//            calendar.add(Calendar.MINUTE, delay);
-            calendar.add(Calendar.SECOND, 30);
+            calendar.add(Calendar.MINUTE, delay);
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
             logger.debug(TAG, "makeRequest at " + simpleDateFormat.format(calendar.getTime()));
+        }
+        if (delay == 0) {
+            logger.debug(TAG, "makeRequest no delay ");
         }
 
         long requestId = System.currentTimeMillis();

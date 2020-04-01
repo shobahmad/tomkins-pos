@@ -57,7 +57,7 @@ public interface TomkinsService {
     @GET("sync/eventhargadet")
     Call<RestResponse<DownloadResponse<List<EventHargaDetDBModel>>>> getEventHargaDet(@Query("last_update") String lastUpdate);
 
-    @POST("transaction")
+    @POST("trx")
     Call<RestResponse<Date>> postTransaction(@Body TrxJualDBModel trxJualDBModel);
 
 }

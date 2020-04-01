@@ -23,6 +23,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,11 +96,14 @@ public class SyncUploadViewModel extends BaseViewModel<SyncUploadViewState> {
         if (sharedPrefs.getLatestSyncUploadDate() != 0) {
             cancelEnqueued();
             long curtime = System.currentTimeMillis();
-            long intervalInMilis = UPLOAD_INTERVAL_MINUTES * 1000 * 60;
 
-            int deviationInMinutes = ((Number) (curtime - intervalInMilis / (1000 * 60))).intValue();
-            int delay = curtime - sharedPrefs.getLatestSyncUploadDate() >= intervalInMilis ? 0 : deviationInMinutes;
-            makeRequest(delay);
+            long diff = curtime - sharedPrefs.getLatestSyncUploadDate();
+            long diffMinutes = diff / (60 * 1000) % 60;
+
+            logger.debug(getClass().getSimpleName(), "diffMinutes: " + diffMinutes);
+            long delay = diffMinutes >= UPLOAD_INTERVAL_MINUTES ? 0 : diffMinutes;
+
+            makeRequest(((Number) delay).intValue());
             return;
         }
         startSyncFull();
@@ -173,10 +177,15 @@ public class SyncUploadViewModel extends BaseViewModel<SyncUploadViewState> {
         }
         if (delay > 0) {
             Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.add(Calendar.MINUTE, delay);
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-            logger.debug(TAG, "makeRequest at " + simpleDateFormat.format(calendar.getTime()));
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            logger.debug(TAG, "makeRequest at " + simpleDateFormat.format(calendar.getTime()) +" after add delay " + delay +" minutes");
+        }
+
+        if (delay == 0) {
+            logger.debug(TAG, "makeRequest no delay");
         }
 
         long requestId = System.currentTimeMillis();

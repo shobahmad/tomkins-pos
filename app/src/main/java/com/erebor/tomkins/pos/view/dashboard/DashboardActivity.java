@@ -115,6 +115,8 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 downloadUiModel.setLastDownloadTime(dataSyncViewState.getMessage());
                 downloadUiModel.setMesssage(dataSyncViewState.getMessage());
                 binding.setDownload(downloadUiModel);
+                binding.layoutDownloadInfo.textDownloadInfo.setTextColor(getResources().getColor(R.color.orangeSoft));
+                binding.layoutDownloadInfo.textLabelLastDownload.setTextColor(getResources().getColor(R.color.orangeSoft));
             }
             if (dataSyncViewState.getCurrentState().equals(SyncDownloadViewState.WAITING_STATE.getCurrentState())) {
                 DownloadUiModel downloadUiModel = new DownloadUiModel();
@@ -122,6 +124,8 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 downloadUiModel.setDownloading(false);
                 downloadUiModel.setLastDownloadTime(dateConverterHelper.toDateTimeDisplayString(dataSyncViewState.getLastDownloadTime()));
                 binding.setDownload(downloadUiModel);
+                binding.layoutDownloadInfo.textDownloadInfo.setTextColor(getResources().getColor(R.color.colorPrimary));
+                binding.layoutDownloadInfo.textLabelLastDownload.setTextColor(getResources().getColor(R.color.colorPrimary));
                 return;
             }
 
@@ -132,6 +136,8 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 downloadUiModel.setDownloading(true);
                 downloadUiModel.setProgress(dataSyncViewState.getProgress());
                 binding.setDownload(downloadUiModel);
+                binding.layoutDownloadInfo.textDownloadInfo.setTextColor(getResources().getColor(R.color.colorPrimary));
+                binding.layoutDownloadInfo.textLabelLastDownload.setTextColor(getResources().getColor(R.color.colorPrimary));
                 return;
             }
 
@@ -141,6 +147,8 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 downloadUiModel.setDownloading(false);
                 downloadUiModel.setLastDownloadTime(dateConverterHelper.toDateTimeDisplayString(dataSyncViewState.getLastDownloadTime()));
                 binding.setDownload(downloadUiModel);
+                binding.layoutDownloadInfo.textDownloadInfo.setTextColor(getResources().getColor(R.color.colorPrimary));
+                binding.layoutDownloadInfo.textLabelLastDownload.setTextColor(getResources().getColor(R.color.colorPrimary));
                 return;
             }
         });
@@ -181,21 +189,25 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
             if (syncUploadViewState.getCurrentState().equals(SyncUploadViewState.STATE_WAITING)) {
                 binding.setUploadInfo(resourceHelper.getResourceString(R.string.dashboard_pending));
                 binding.setUploading(false);
+                binding.textLabelPending.setTextColor(getResources().getColor(R.color.colorPrimary));
                 return;
             }
             if (syncUploadViewState.getCurrentState().equals(SyncUploadViewState.STATE_LOADING)) {
                 binding.setUploadInfo(resourceHelper.getResourceString(R.string.dashboard_uploading));
                 binding.setUploading(true);
+                binding.textLabelPending.setTextColor(getResources().getColor(R.color.colorPrimary));
                 return;
             }
             if (syncUploadViewState.getCurrentState().equals(SyncUploadViewState.STATE_FAILED)) {
                 binding.setUploadInfo(syncUploadViewState.getError().getMessage());
                 binding.setUploading(false);
+                binding.textLabelPending.setTextColor(getResources().getColor(R.color.orangeSoft));
                 return;
             }
             if (syncUploadViewState.getCurrentState().equals(SyncUploadViewState.STATE_SUCCESS)) {
                 binding.setUploadInfo(resourceHelper.getResourceString(R.string.dashboard_pending));
                 binding.setUploading(false);
+                binding.textLabelPending.setTextColor(getResources().getColor(R.color.colorPrimary));
             }
         });
         syncUploadViewModel.getPendingCountLiveData().observe(this, pendingCount -> {
