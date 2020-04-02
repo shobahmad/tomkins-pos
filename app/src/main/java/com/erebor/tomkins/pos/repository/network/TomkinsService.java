@@ -22,6 +22,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface TomkinsService {
@@ -48,14 +50,14 @@ public interface TomkinsService {
     @GET("sync/msukuran")
     Call<RestResponse<DownloadResponse<List<MsUkuranDBModel>>>> getMsUkuran(@Query("last_update") String lastUpdate);
 
-    @GET("sync/stokreal")
-    Call<RestResponse<DownloadResponse<List<StokRealDBModel>>>> getStokReal(@Query("last_update") String lastUpdate);
+    @GET("sync/stokreal/{counter}")
+    Call<RestResponse<DownloadResponse<List<StokRealDBModel>>>> getStokReal(@Path("counter") String counter, @Query("last_update") String lastUpdate);
 
-    @GET("sync/eventharga")
-    Call<RestResponse<DownloadResponse<List<EventHargaDBModel>>>> getEventHarga(@Query("last_update") String lastUpdate);
+    @GET("sync/eventharga/{counter}")
+    Call<RestResponse<DownloadResponse<List<EventHargaDBModel>>>> getEventHarga(@Path("counter") String counter, @Query("last_update") String lastUpdate);
 
-    @GET("sync/eventhargadet")
-    Call<RestResponse<DownloadResponse<List<EventHargaDetDBModel>>>> getEventHargaDet(@Query("last_update") String lastUpdate);
+    @GET("sync/eventhargadet/{counter}")
+    Call<RestResponse<DownloadResponse<List<EventHargaDetDBModel>>>> getEventHargaDet(@Path("counter") String counter,@Query("last_update") String lastUpdate);
 
     @POST("trx")
     Call<RestResponse<Date>> postTransaction(@Body TrxJualDBModel trxJualDBModel);

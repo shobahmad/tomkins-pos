@@ -142,6 +142,8 @@ public class LoginViewModel extends BaseViewModel<LoginViewState> {
         sharedPrefs.setNamaSPG("");
         sharedPrefs.setToken("");
 
+        sharedPrefs.setLatestSyncDownloadDate(0);
+        sharedPrefs.setLatestSyncUploadDate(0);
     }
 
     public void checkSession() {

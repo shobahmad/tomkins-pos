@@ -65,7 +65,7 @@ public class SyncStokRealDownloadWorker extends BaseSyncDownloadWorker<StokRealD
 
     @Override
     Call<RestResponse<DownloadResponse<List<StokRealDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getStokReal(dateConverterHelper.toDateTimeString(lastUpdate));
+        return tomkinsService.getStokReal(sharedPrefs.getKodeKonter(), dateConverterHelper.toDateTimeString(lastUpdate));
     }
 
     @Override

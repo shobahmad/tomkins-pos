@@ -66,7 +66,7 @@ public class SyncEventHargaDetDownloadWorker extends BaseSyncDownloadWorker<Even
 
     @Override
     Call<RestResponse<DownloadResponse<List<EventHargaDetDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getEventHargaDet(dateConverterHelper.toDateTimeString(lastUpdate));
+        return tomkinsService.getEventHargaDet(sharedPrefs.getKodeKonter(), dateConverterHelper.toDateTimeString(lastUpdate));
     }
 
     @Override
