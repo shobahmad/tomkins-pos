@@ -11,6 +11,8 @@ public interface DateConverterHelper {
 
     String toDateTimeString(Date date);
 
+    String toDateTimeStringParameter(Date date);
+
     String toDateTimeDisplayString(Date date);
 
     String toDateTimeDisplayString(Long time);

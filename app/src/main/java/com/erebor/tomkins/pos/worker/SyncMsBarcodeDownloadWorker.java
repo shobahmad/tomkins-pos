@@ -66,7 +66,7 @@ public class SyncMsBarcodeDownloadWorker extends BaseSyncDownloadWorker<MsBarcod
 
     @Override
     Call<RestResponse<DownloadResponse<List<MsBarcodeDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getMsBarcode(dateConverterHelper.toDateTimeString(lastUpdate));
+        return tomkinsService.getMsBarcode(dateConverterHelper.toDateTimeStringParameter(lastUpdate));
     }
 
     @Override

@@ -31,7 +31,8 @@ public class HttpClientModule {
     Gson provideGson() {
         GsonBuilder builder =
                 new GsonBuilder()
-                        .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                        .setDateFormat("yyyyMMddHHmmss")
+                        .excludeFieldsWithoutExposeAnnotation()
                         .registerTypeAdapter(Date.class, new DateDeserializer())
                         .registerTypeAdapter(ResponseStatusConstant.class, new ResponseStatusDeserializer())
                         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);

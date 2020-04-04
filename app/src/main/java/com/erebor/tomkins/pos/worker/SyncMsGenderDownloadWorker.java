@@ -66,7 +66,7 @@ public class SyncMsGenderDownloadWorker extends BaseSyncDownloadWorker<MsGenderD
 
     @Override
     Call<RestResponse<DownloadResponse<List<MsGenderDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getMsGender(dateConverterHelper.toDateTimeString(lastUpdate));
+        return tomkinsService.getMsGender(dateConverterHelper.toDateTimeStringParameter(lastUpdate));
     }
 
     @Override

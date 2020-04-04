@@ -65,7 +65,7 @@ public class SyncMsUkuranDownloadWorker extends BaseSyncDownloadWorker<MsUkuranD
 
     @Override
     Call<RestResponse<DownloadResponse<List<MsUkuranDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getMsUkuran(dateConverterHelper.toDateTimeString(lastUpdate));
+        return tomkinsService.getMsUkuran(dateConverterHelper.toDateTimeStringParameter(lastUpdate));
     }
 
     @Override

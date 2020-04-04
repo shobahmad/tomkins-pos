@@ -66,7 +66,7 @@ public class SyncMsBrandDownloadWorker extends BaseSyncDownloadWorker<MsBrandDBM
 
     @Override
     Call<RestResponse<DownloadResponse<List<MsBrandDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getMsBrand(dateConverterHelper.toDateTimeString(lastUpdate));
+        return tomkinsService.getMsBrand(dateConverterHelper.toDateTimeStringParameter(lastUpdate));
     }
 
     @Override

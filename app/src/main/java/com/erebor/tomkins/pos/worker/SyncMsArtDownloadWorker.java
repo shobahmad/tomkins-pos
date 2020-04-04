@@ -65,7 +65,7 @@ public class SyncMsArtDownloadWorker extends BaseSyncDownloadWorker<MsArtDBModel
 
     @Override
     Call<RestResponse<DownloadResponse<List<MsArtDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getMsArt(dateConverterHelper.toDateTimeString(lastUpdate));
+        return tomkinsService.getMsArt(dateConverterHelper.toDateTimeStringParameter(lastUpdate));
     }
 
     @Override

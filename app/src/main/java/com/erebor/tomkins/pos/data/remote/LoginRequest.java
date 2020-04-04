@@ -1,12 +1,16 @@
 package com.erebor.tomkins.pos.data.remote;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by ryandzhunter on 06/03/18.
  */
 
 public class LoginRequest {
 
+    @Expose
     private String username;
+    @Expose
     private String password;
 
     public LoginRequest(String username, String password) {
