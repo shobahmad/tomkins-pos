@@ -16,7 +16,7 @@ public class DateConverterHelperImpl implements DateConverterHelper {
     private static final String DATETIME_PARAM_FORMAT = "yyyyMMddHHmm";
     private static final String DATE_FORMAT = "dd MMMM yyyy";
     private static final String DATETIME_DISPLAY_FORMAT = "dd-MM-yyyy HH:mm:ss";
-    private static final String DATETIME_INFO_FORMAT = "dd-MMM-YYYY | HH:mm:ss";
+    private static final String DATETIME_INFO_FORMAT = "dd-MMM-yyyy | HH:mm:ss";
 
     public DateConverterHelperImpl(ResourceHelper resourceHelper) {
         this.resourceHelper = resourceHelper;
