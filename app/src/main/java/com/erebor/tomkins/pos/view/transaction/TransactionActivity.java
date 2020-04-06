@@ -104,6 +104,9 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         binding.editTransDate.setTag(Calendar.getInstance().getTime());
         binding.editTransDate.setText(dateConverterHelper.toDatetring(Calendar.getInstance().getTime()));
         binding.textTransDate.getEditText().setOnClickListener(v -> showDatePicker());
+        binding.textTransDate.getEditText().setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) showDatePicker();
+        });
         binding.textTransDate.setStartIconOnClickListener(v -> showDatePicker());
         binding.textTransDate.setOnClickListener(v -> showDatePicker());
     }
@@ -195,18 +198,21 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         builder.setTitle(R.string.transaction_barcode_not_found);
 //        builder.setMessage(getResources().getString(R.string.transaction_barcode_input, barcode));
         builder.setMessage(resourceHelper.getResourceString(R.string.transaction_barcode_input, barcode));
-        builder.setCancelable(false);
+        builder.setCancelable(true);
 
         LayoutInflater li = LayoutInflater.from(this);
         View promptsView = li.inflate(R.layout.dialog_input_barcode, null);
         TextInputEditText inputBarcode = promptsView.findViewById(R.id.editTransDate);
         inputBarcode.setText(barcode);
         builder.setView(promptsView);
-        builder.setPositiveButton(getString(android.R.string.ok), (dialog, which) -> {
+        builder.setPositiveButton(getString(R.string.ok), (dialog, which) -> {
             dialog.dismiss();
             String newbarcode = inputBarcode.getEditableText().toString();
             transactionViewModel.scanBarcode(newbarcode);
         });
+        builder.setNegativeButton(getString(R.string.cancel), ((dialog, which) -> {
+            dialog.dismiss();
+        }));
 
 
         AlertDialog dialog = builder.create();
@@ -216,6 +222,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
     private void onChanged(TransactionViewState transactionViewState) {
         if (transactionViewState.getCurrentState().equals(TransactionViewState.LOADING_STATE.getCurrentState())) {
             binding.setLoading(resourceHelper.getResourceString(R.string.transaction_reading_barcode));
+            binding.buttonConfirm.setEnabled(false);
             return;
         }
         if (transactionViewState.getCurrentState().equals(TransactionViewState.FOUND_STATE.getCurrentState())) {

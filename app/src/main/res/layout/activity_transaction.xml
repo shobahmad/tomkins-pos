@@ -78,7 +78,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="datetime"
-                            android:enabled="false"
+                            android:textColor="@android:color/black"
                             android:hint="@string/transaction_date"
                             />
 

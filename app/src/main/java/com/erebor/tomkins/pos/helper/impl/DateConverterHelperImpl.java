@@ -29,7 +29,7 @@ public class DateConverterHelperImpl implements DateConverterHelper {
 
     @Override
     public String toDateNoBon(Date date) {
-        return toStringFormat(date, "YYYYmmdd");
+        return toStringFormat(date, "yyyymmdd");
     }
 
     @Override
@@ -116,7 +116,7 @@ public class DateConverterHelperImpl implements DateConverterHelper {
         }
 
         calendar.setTimeInMillis(time);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-YYYY | HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy | HH:mm:ss", Locale.getDefault());
         return simpleDateFormat.format(calendar.getTime());
     }
 
