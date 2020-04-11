@@ -209,13 +209,13 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
 
                 if (eventDiscountModel.hargaKhusus != 0) {
                     diskon = eventDiscountModel.diskon;
-                    hargaJual = eventDiscountModel.hargaKhusus - eventDiscountModel.diskon;
+                    hargaJual = eventDiscountModel.hargaKhusus - (eventDiscountModel.hargaKhusus * eventDiscountModel.diskon / 100);
                     kodeEvent = eventDiscountModel.kodeEvent;
                     break HARGA_JUAL;
                 }
 
                 diskon = eventDiscountModel.diskon;
-                hargaJual = msArtDBModel.getHarga() - eventDiscountModel.diskon;
+                hargaJual = msArtDBModel.getHarga() - (msArtDBModel.getHarga() * eventDiscountModel.diskon / 100);
                 kodeEvent = eventDiscountModel.kodeEvent;
             }
         }
