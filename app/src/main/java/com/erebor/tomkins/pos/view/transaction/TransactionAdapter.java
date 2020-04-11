@@ -242,7 +242,8 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
         TextInputEditText editDiscount = promptsView.findViewById(R.id.editDiscount);
         Slider slider = promptsView.findViewById(R.id.sliderDiscount);
 
-        TextWatcher textWatcher = new TextWatcher() {
+        editDiscount.setText(getContext().getResources().getString(R.string.discount_format, discount));
+        editDiscount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -253,7 +254,7 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().isEmpty()) {
+                if (s.toString().replaceAll("%", "").isEmpty()) {
                     return;
                 }
 
@@ -268,21 +269,19 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
                 if (value > 100) {
                     editDiscount.setText(getContext().getResources().getString(R.string.discount_format, 100d));
                     slider.setValue(100f);
+                    return;
                 }
 
                 slider.setValue(((Number) value).floatValue());
             }
-        };
-        editDiscount.setText(getContext().getResources().getString(R.string.discount_format, discount));
-        editDiscount.addTextChangedListener(textWatcher);
-
+        });
         slider.setValue(discount.floatValue());
         slider.addOnChangeListener((slider1, value, fromUser) -> {
-            editDiscount.removeTextChangedListener(textWatcher);
+            if (!fromUser) {
+                return;
+            }
             editDiscount.setText(getContext().getResources().getString(R.string.discount_format, ((Number) value).doubleValue()));
-            editDiscount.addTextChangedListener(textWatcher);
         });
-
 
         builder.setView(promptsView);
         builder.setPositiveButton(getContext().getString(R.string.ok), (dialog, which) -> {

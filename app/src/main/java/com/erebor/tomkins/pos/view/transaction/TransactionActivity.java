@@ -1,10 +1,12 @@
 package com.erebor.tomkins.pos.view.transaction;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -208,7 +210,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
 
         LayoutInflater li = LayoutInflater.from(this);
         View promptsView = li.inflate(R.layout.dialog_input_barcode, null);
-        TextInputEditText inputBarcode = promptsView.findViewById(R.id.editTransDate);
+        TextInputEditText inputBarcode = promptsView.findViewById(R.id.editBarcode);
         inputBarcode.setText(barcode);
         builder.setView(promptsView);
         builder.setPositiveButton(getString(R.string.ok), (dialog, which) -> {
@@ -223,6 +225,16 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
 
         AlertDialog dialog = builder.create();
         dialog.show();
+
+        showSoftKeyboard(inputBarcode);
+    }
+
+    public void showSoftKeyboard(View view) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
     }
 
     private void onChanged(TransactionViewState transactionViewState) {
