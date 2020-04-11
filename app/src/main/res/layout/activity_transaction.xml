@@ -94,8 +94,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/textTransDate"
                         android:padding="@dimen/dp_8"
-                        app:helperTextEnabled="true"
-                        app:helperText="@string/transaction_grand_total"
+                        app:helperTextEnabled="false"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         >
 
@@ -104,6 +103,7 @@
                             android:layout_height="wrap_content"
                             style="@style/TextAppearance.AppCompat.Title"
                             android:enabled="false"
+                            android:hint="@string/transaction_grand_total"
                             android:text="@{@string/price_format(transaction.grandTotal), default=`Rp 100,000`}"
                             android:textColor="@color/colorPrimary"
                             android:background="@color/white"
