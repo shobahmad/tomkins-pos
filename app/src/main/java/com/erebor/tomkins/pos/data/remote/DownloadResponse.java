@@ -1,6 +1,5 @@
 package com.erebor.tomkins.pos.data.remote;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.Ignore;
 

@@ -69,6 +69,7 @@
                     app:layout_constraintStart_toStartOf="@id/textArtName"
                     app:layout_constraintEnd_toStartOf="@id/textSize"
                     app:hintEnabled="true"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -91,6 +92,7 @@
                     app:layout_constraintStart_toEndOf="@id/textArtCode"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:hintEnabled="true"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -113,6 +115,7 @@
                     app:layout_constraintStart_toStartOf="@id/textArtName"
                     app:layout_constraintEnd_toStartOf="@id/textColor"
                     app:hintEnabled="true"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -135,6 +138,7 @@
                     app:layout_constraintStart_toEndOf="@id/textBarcode"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:hintEnabled="true"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -173,27 +177,45 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvPrice"
                     android:visibility="@{transaction.hargaNormal == transaction.hargaJual ? View.GONE : View.VISIBLE}"
+                    android:paddingEnd="@dimen/dp_8"
+                    android:paddingStart="@dimen/dp_8"
                     />
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/TextAppearance.AppCompat.Body2"
-                    android:id="@+id/tvEvent"
-                    android:layout_width="wrap_content"
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:id="@+id/btnDiscount"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:text="@{transaction.eventCode + ` ` + @string/discount_format(transaction.diskon), default = `Diskon lebaran 50%`}"
+                    android:gravity="center_vertical|end"
+                    android:textAlignment="textEnd"
+                    android:textSize="12sp"
+                    android:singleLine="true"
+                    android:textAllCaps="false"
+                    app:icon="@drawable/ic_discount"
+                    app:iconTint="@color/orangeSoft"
+                    app:iconSize="14sp"
                     android:textColor="@color/orangeSoft"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvPriceNoDiscount"
                     />
 
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/TextAppearance.AppCompat.Body2"
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:id="@+id/tvPrice"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     android:text="@{@string/price_format(transaction.hargaJual), default = `Rp 80,000`}"
+                    android:textSize="12sp"
+                    android:gravity="center_vertical|end"
+                    android:textAlignment="textEnd"
+                    android:singleLine="true"
+                    android:textAllCaps="false"
+                    android:textColor="@color/greyishBrown"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/tvPriceNoDiscount"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -231,6 +253,7 @@
             app:layout_constraintTop_toBottomOf="@id/viewLine"
             app:startIconDrawable="@drawable/ic_edit_black"
             app:hintEnabled="false"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -251,10 +274,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textNote"
-            app:layout_constraintBottom_toBottomOf="@id/textNote"
+            app:layout_constraintTop_toBottomOf="@id/viewLine"
             app:hintEnabled="true"
+            android:layout_marginTop="4dp"
             android:layout_marginRight="@dimen/dp_8"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
 
             <com.google.android.material.textfield.TextInputEditText

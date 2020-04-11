@@ -133,7 +133,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         }, year, month, day);
         datePickerDialog.setThemeDark(true);
         datePickerDialog.showYearPickerFirst(false);
-        datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
+        datePickerDialog.setAccentColor(getResources().getColor(R.color.orangeSoft));
         datePickerDialog.setTitle(resourceHelper.getResourceString(R.string.transaction_date));
         datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
     }
@@ -162,7 +162,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
 
 
     private void confirmationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);
         builder.setTitle(resourceHelper.getResourceString(R.string.transaction_cancel));
         builder.setMessage(resourceHelper.getResourceString(R.string.transaction_cancel_confirm));
 
@@ -182,7 +182,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
     }
 
     private void alertDialog(String title, String message, DialogInterface.OnClickListener listener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);
         builder.setTitle(title);
         builder.setMessage(message);
         builder.setCancelable(false);
@@ -194,7 +194,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         dialog.show();
     }
     private void inputBarcodeDialog(String barcode) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);
         builder.setTitle(R.string.transaction_barcode_not_found);
 //        builder.setMessage(getResources().getString(R.string.transaction_barcode_input, barcode));
         builder.setMessage(resourceHelper.getResourceString(R.string.transaction_barcode_input, barcode));

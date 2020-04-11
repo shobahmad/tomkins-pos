@@ -72,6 +72,7 @@
                         android:padding="@dimen/dp_8"
                         app:startIconTint="@color/colorPrimary"
                         app:startIconDrawable="@drawable/ic_date"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         >
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editTransDate"
@@ -80,6 +81,7 @@
                             android:inputType="datetime"
                             android:textColor="@android:color/black"
                             android:hint="@string/transaction_date"
+                            android:background="@color/white"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -94,6 +96,7 @@
                         android:padding="@dimen/dp_8"
                         app:helperTextEnabled="true"
                         app:helperText="@string/transaction_grand_total"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         >
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -121,40 +124,35 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/white"
+            android:padding="2dp"
+            >
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonScan"
-                style="@style/ButtonWhite"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="40dp"
-                android:drawableStart="@drawable/ic_sale_qrcode"
-                android:drawableLeft="@drawable/ic_sale_qrcode"
-                android:drawableEnd="@drawable/ic_empty_white"
-                android:drawableRight="@drawable/ic_empty_white"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
+                app:icon="@drawable/ic_sale_qrcode"
                 android:text="@string/sale_scan"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/buttonConfirm"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="4dp"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonConfirm"
-                style="@style/ButtonGreen"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="40dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
                 android:text="@string/sale_confirm"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/buttonScan"
-                android:enabled="false"/>
+                android:enabled="false"
+                android:layout_margin="4dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

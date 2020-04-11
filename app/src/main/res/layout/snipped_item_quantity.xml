@@ -27,27 +27,30 @@
             android:paddingLeft="2dp"
             />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAdd"
-            style="@style/ButtonSmallPositive"
+            style="@style/Widget.MaterialComponents.Button.IconOnly"
+            app:backgroundTint="@color/colorPrimary"
+            app:icon="@drawable/ic_plus"
+            app:iconSize="12dp"
+            app:iconTint="@color/white"
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"
-            android:text="+"
-            android:textStyle="bold"
-            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:paddingLeft="6dp"
             android:enabled="@{positiveButton}"
             android:onClick="@{handler::onPositiveButtonClick}"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRemove"
-            style="@style/ButtonSmallNegative"
+            style="@style/Widget.MaterialComponents.Button.IconOnly"
+            app:icon="@drawable/ic_minus"
+            app:iconSize="12dp"
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"
-            android:text="-"
             android:textStyle="bold"
-            android:textSize="10sp"
+            android:paddingLeft="6dp"
             app:layout_constraintEnd_toStartOf="@id/textValue"
             app:layout_constraintTop_toTopOf="parent"
             android:enabled="@{negativeButton}"

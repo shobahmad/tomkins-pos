@@ -1,6 +1,5 @@
 package com.erebor.tomkins.pos.view.setting;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 
@@ -89,7 +88,7 @@ public class SettingPrefsFragment extends PreferenceFragmentCompat {
     }
 
     private void confirmationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Theme_AppCompat_Dialog);
         builder.setTitle(resourceHelper.getResourceString(R.string.logout));
         builder.setMessage(resourceHelper.getResourceString(R.string.logout_confirm));
 
