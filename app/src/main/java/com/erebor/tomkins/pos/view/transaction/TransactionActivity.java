@@ -196,7 +196,6 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
     private void inputBarcodeDialog(String barcode) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);
         builder.setTitle(R.string.transaction_barcode_not_found);
-//        builder.setMessage(getResources().getString(R.string.transaction_barcode_input, barcode));
         builder.setMessage(resourceHelper.getResourceString(R.string.transaction_barcode_input, barcode));
         builder.setCancelable(true);
 
