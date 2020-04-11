@@ -28,7 +28,7 @@
     <string name="scan_flash_on">On</string>
 
     <string name="price_format">IDR %,.0f</string>
-    <string name="discount_format" translatable="false">%,.0f\%%</string>
+    <string name="discount_format" translatable="false">%,.0f%%</string>
     <string name="stock_format" translatable="false">%,.2f</string>
     <string name="sale_confirm">Confirm</string>
     <string name="sale_total">Total</string>
@@ -112,7 +112,7 @@
     <string name="transaction_barcode_not_found">Barcode not found</string>
     <string name="transaction_success">Transaction Success</string>
     <string name="transaction_success_message">Transaction with No. Bon %s successfully created</string>
-    <string name="transaction_barcode_input">No barcode match with %s. Please input correctly</string>
+    <string name="transaction_barcode_input">No barcode match with %s.\nPlease input correctly</string>
     <string name="transaction_failed">Transaction Failed</string>
     <string name="logout_confirm">Are you sure want to logout?</string>
     <string name="yes">Yes</string>
@@ -121,5 +121,7 @@
     <string name="transaction_cancel_confirm">Are you sure want to cancel this transaction?</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="discount">Discount</string>
+    <string name="transaction_discount_input">Please set discount for %s</string>
 
 </resources>

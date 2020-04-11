@@ -12,11 +12,15 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
+import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseAdapter;
 import com.erebor.tomkins.pos.data.ui.TransactionDetailUiModel;
 import com.erebor.tomkins.pos.databinding.ItemTransactionBinding;
 import com.erebor.tomkins.pos.view.callback.ItemQtyHandler;
+import com.google.android.material.slider.Slider;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, TransactionDetailUiModel> {
 
@@ -90,6 +94,7 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
                         transaction.getEventCode(),
                         transaction.getQty() + 1,
                         transaction.getDiskon(),
+                        transaction.getHargaKhusus(),
                         transaction.getHargaJual(),
                         transaction.getNote()
                 ));
@@ -124,6 +129,7 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
                         transaction.getEventCode(),
                         transaction.getQty() - 1,
                         transaction.getDiskon(),
+                        transaction.getHargaKhusus(),
                         transaction.getHargaJual(),
                         transaction.getNote()
                 ));
@@ -163,6 +169,7 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
                         transaction.getEventCode(),
                         transaction.getQty(),
                         transaction.getDiskon(),
+                        transaction.getHargaKhusus(),
                         transaction.getHargaJual(),
                         s.toString()
                 ));
@@ -171,6 +178,8 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
         };
         binding.editNote.addTextChangedListener(textWatcher);
         binding.textNote.setStartIconOnClickListener(null);
+
+        binding.btnDiscount.setOnClickListener(v -> inputDiscountDialog(binding.getTransaction().getArtName(), binding.getTransaction().getBarcode(), binding.getTransaction().getDiskon()));
     }
 
     private void sendUpdateQty(String barcode, int qty) {
@@ -218,5 +227,79 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
     public interface ItemUpdatedListener {
         void qtyUpdate(String barcode, int qty);
         void noteUpdate(String barcode, String note);
+        void discountUpdate(String barcode, double discount);
     }
+
+    private void inputDiscountDialog(String artikelName, final String barcode, final Double discount) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Theme_AppCompat_Dialog);
+        builder.setTitle(R.string.discount);
+        builder.setMessage(getContext().getResources().getString(R.string.transaction_discount_input, artikelName));
+        builder.setCancelable(true);
+
+        LayoutInflater li = LayoutInflater.from(getContext());
+        View promptsView = li.inflate(R.layout.dialog_input_discount, null);
+
+        TextInputEditText editDiscount = promptsView.findViewById(R.id.editDiscount);
+        Slider slider = promptsView.findViewById(R.id.sliderDiscount);
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().isEmpty()) {
+                    return;
+                }
+
+                double value = Double.parseDouble(s.toString().replaceAll("%", ""));
+
+                if (value < 0) {
+                    editDiscount.setText(getContext().getResources().getString(R.string.discount_format, 0d));
+                    slider.setValue(0f);
+                    return;
+                }
+
+                if (value > 100) {
+                    editDiscount.setText(getContext().getResources().getString(R.string.discount_format, 100d));
+                    slider.setValue(100f);
+                }
+
+                slider.setValue(((Number) value).floatValue());
+            }
+        };
+        editDiscount.setText(getContext().getResources().getString(R.string.discount_format, discount));
+        editDiscount.addTextChangedListener(textWatcher);
+
+        slider.setValue(discount.floatValue());
+        slider.addOnChangeListener((slider1, value, fromUser) -> {
+            editDiscount.removeTextChangedListener(textWatcher);
+            editDiscount.setText(getContext().getResources().getString(R.string.discount_format, ((Number) value).doubleValue()));
+            editDiscount.addTextChangedListener(textWatcher);
+        });
+
+
+        builder.setView(promptsView);
+        builder.setPositiveButton(getContext().getString(R.string.ok), (dialog, which) -> {
+            dialog.dismiss();
+            if (itemUpdatedListener == null) {
+                return;
+            }
+
+            itemUpdatedListener.discountUpdate(barcode, ((Number) slider.getValue()).doubleValue());
+        });
+        builder.setNegativeButton(getContext().getString(R.string.cancel), ((dialog, which) -> {
+            dialog.dismiss();
+        }));
+
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 }

@@ -87,7 +87,8 @@
     <string name="transaction_barcode_not_found">Barcode not found</string>
     <string name="transaction_success">Transaction Success</string>
     <string name="transaction_success_message">Transaction with No. Bon %s successfully created</string>
-    <string name="transaction_barcode_input">No barcode match with %s. Please input correctly</string>
+    <string name="transaction_barcode_input">No barcode match with %s.\nPlease input correctly</string>
+    <string name="transaction_discount_input">Please set discount for %s</string>
     <string name="transaction_failed">Transaction Failed</string>
     <string name="logout_confirm">Are you sure want to logout?</string>
     <string name="yes">Yes</string>
@@ -97,4 +98,5 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="price_format">Rp %,.0f</string>
+    <string name="discount">Discount</string>
 </resources>

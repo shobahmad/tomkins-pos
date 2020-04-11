@@ -165,9 +165,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="42a316" />
-                            <entry key="outputName" value="ic_date" />
-                            <entry key="sourceFile" value="$PROJECT_DIR$/../../../ci.loket.id/loket/images/lpos/app_logo.svg" />
+                            <entry key="outputName" value="ic_discount" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../../images/icon/iconfinder_icons_notes_1564518.svg" />
                           </map>
                         </option>
                       </PersistentState>

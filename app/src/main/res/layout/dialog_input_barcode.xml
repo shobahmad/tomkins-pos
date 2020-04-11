@@ -12,6 +12,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:padding="@dimen/dp_32"
+        app:hintTextColor="@color/white"
+        app:helperTextTextColor="@color/white"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTransDate"
@@ -19,6 +22,8 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:hint="@string/barcode"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             />
 
     </com.google.android.material.textfield.TextInputLayout>

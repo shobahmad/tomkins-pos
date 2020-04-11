@@ -93,6 +93,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                         detail.getEventCode(),
                         qty,
                         detail.getDiskon(),
+                        detail.getHargaKhusus(),
                         detail.getHargaJual(),
                         detail.getNote()
                 );
@@ -140,6 +141,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                         detail.getEventCode(),
                         detail.getQty(),
                         detail.getDiskon(),
+                        detail.getHargaKhusus(),
                         detail.getHargaJual(),
                         note
                 );
@@ -148,6 +150,57 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
             }
 
             TransactionViewState.FOUND_STATE.setData(transactionUiModel);
+            return TransactionViewState.FOUND_STATE;
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(state -> postValue(state),
+                        throwable -> {
+                            TransactionViewState.ERROR_STATE.setError(throwable);
+                            postValue(TransactionViewState.ERROR_STATE);
+                        }));
+    }
+    public void updatDiscount(String barcode, double discount) {
+        getDisposable().add(Single.fromCallable(() -> {
+            logger.debug(getClass().getSimpleName(), "Update discount of " + barcode + " to " + discount);
+            TransactionUiModel transactionUiModel = TransactionViewState.FOUND_STATE.getData();
+            TransactionUiModel updatedTransaction = null;
+            ArrayList<TransactionDetailUiModel> list = transactionUiModel.getListTransaction();
+            for (int i = 0; i < list.size(); i++) {
+                TransactionDetailUiModel detail = list.get(i);
+                if (!detail.getBarcode().equals(barcode)) {
+                    continue;
+                }
+
+                double beforeChanged = detail.getHargaJual() * detail.getQty();
+                double beforeDiscount = detail.getHargaKhusus() != 0 ? detail.getHargaKhusus() : detail.getHargaJual();
+                TransactionDetailUiModel updatedDetail = new TransactionDetailUiModel(
+                        detail.getIndTrx(),
+                        detail.getArtName(),
+                        detail.getArtCode(),
+                        detail.getBarcode(),
+                        detail.getSize(),
+                        detail.getColour(),
+                        detail.getHargaNormal(),
+                        detail.getEventCode(),
+                        detail.getQty(),
+                        discount,
+                        detail.getHargaKhusus(),
+                        beforeDiscount - (beforeDiscount * discount/100),
+                        detail.getNote()
+                );
+                list.set(i, updatedDetail);
+
+                updatedTransaction = new TransactionUiModel(
+                        transactionUiModel.getBarcode(),
+                        transactionUiModel.getTransactionId(),
+                        transactionUiModel.getTransactionDate(),
+                        transactionUiModel.getGrandTotal() - beforeChanged + (updatedDetail.getHargaJual() * updatedDetail.getQty()),
+                        list);
+                break;
+            }
+
+            TransactionViewState.FOUND_STATE.setData(updatedTransaction);
             return TransactionViewState.FOUND_STATE;
         })
                 .subscribeOn(Schedulers.io())
@@ -190,6 +243,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         List<EventDiscountModel> eventDiscountModels = eventDiscountDao.getPrice(msBarcodeDBModel.getKodeArt());
         double hargaJual = msArtDBModel.getHarga();
         double diskon = 0;
+        double hargaKhusus = 0;
         String kodeEvent = "";
         HARGA_JUAL: {
             if (eventDiscountModels == null || eventDiscountModels.isEmpty()) {
@@ -210,12 +264,14 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                 if (eventDiscountModel.hargaKhusus != 0) {
                     diskon = eventDiscountModel.diskon;
                     hargaJual = eventDiscountModel.hargaKhusus - (eventDiscountModel.hargaKhusus * eventDiscountModel.diskon / 100);
+                    hargaKhusus = eventDiscountModel.hargaKhusus;
                     kodeEvent = eventDiscountModel.kodeEvent;
                     break HARGA_JUAL;
                 }
 
                 diskon = eventDiscountModel.diskon;
                 hargaJual = msArtDBModel.getHarga() - (msArtDBModel.getHarga() * eventDiscountModel.diskon / 100);
+                hargaKhusus = eventDiscountModel.hargaKhusus;
                 kodeEvent = eventDiscountModel.kodeEvent;
             }
         }
@@ -233,6 +289,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                 kodeEvent,
                 1,
                 diskon,
+                hargaKhusus,
                 hargaJual,
                 ""
         );
@@ -272,6 +329,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                     detail.getQty() + newestDetail.getQty(),
                     detail.getDiskon(),
                     detail.getHargaJual(),
+                    detail.getHargaKhusus(),
                     detail.getNote()
             );
             list.set(i, updatedDetail);
