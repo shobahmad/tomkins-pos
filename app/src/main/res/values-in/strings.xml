@@ -99,4 +99,6 @@
     <string name="cancel">Cancel</string>
     <string name="price_format">Rp %,.0f</string>
     <string name="discount">Discount</string>
+    <string name="transaction_selling_price">Selling Price</string>
+    <string name="transaction_price_input">Please set price for %s.\nCurrent discount will be removed automatically</string>
 </resources>

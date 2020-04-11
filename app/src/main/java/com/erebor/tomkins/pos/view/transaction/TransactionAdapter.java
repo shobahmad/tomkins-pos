@@ -180,6 +180,7 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
         binding.textNote.setStartIconOnClickListener(null);
 
         binding.btnDiscount.setOnClickListener(v -> inputDiscountDialog(binding.getTransaction().getArtName(), binding.getTransaction().getBarcode(), binding.getTransaction().getDiskon()));
+        binding.btnPrice.setOnClickListener(v -> inputPriceDialog(binding.getTransaction().getArtName(), binding.getTransaction().getBarcode(), binding.getTransaction().getHargaJual()));
     }
 
     private void sendUpdateQty(String barcode, int qty) {
@@ -228,6 +229,7 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
         void qtyUpdate(String barcode, int qty);
         void noteUpdate(String barcode, String note);
         void discountUpdate(String barcode, double discount);
+        void sellingPriceUpdate(String barcode, double price);
     }
 
     private void inputDiscountDialog(String artikelName, final String barcode, final Double discount) {
@@ -299,6 +301,76 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+    private void inputPriceDialog(String artikelName, final String barcode, final Double price) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Theme_AppCompat_Dialog);
+        builder.setTitle(R.string.transaction_selling_price);
+        builder.setMessage(getContext().getResources().getString(R.string.transaction_price_input, artikelName));
+        builder.setCancelable(true);
+
+        LayoutInflater li = LayoutInflater.from(getContext());
+        View promptsView = li.inflate(R.layout.dialog_input_price, null);
+
+        TextInputEditText editPrice = promptsView.findViewById(R.id.editPrice);
+
+        editPrice.setText(getContext().getResources().getString(R.string.price_format, price));
+        editPrice.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editPrice.removeTextChangedListener(this);
+                String cleanString = editPrice.getText().toString().trim().replaceAll("[$,.]", "").replaceAll(" ", "").replaceAll("IDR", "").replaceAll("Rp", "");
+                double price;
+                try {
+                    price = Double.parseDouble(cleanString);
+                } catch (NumberFormatException e) {
+                    editPrice.addTextChangedListener(this);
+                    return;
+                }
+                String formatted = getContext().getResources().getString(R.string.price_format, price);
+                editPrice.setText(formatted);
+                editPrice.addTextChangedListener(this);
+                editPrice.setSelection(formatted.length());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        builder.setView(promptsView);
+        builder.setPositiveButton(getContext().getString(R.string.ok), (dialog, which) -> {
+            if (editPrice.getText().toString().isEmpty()) {
+                return;
+            }
+            if (itemUpdatedListener == null) {
+                dialog.dismiss();
+                return;
+            }
+
+            String cleanString = editPrice.getText().toString().trim().replaceAll("[$,.]", "").replaceAll(" ", "").replaceAll("IDR", "").replaceAll("Rp", "");
+            double editedPrice;
+            try {
+                editedPrice = Double.parseDouble(cleanString);
+            } catch (NumberFormatException e) {
+                return;
+            }
+            itemUpdatedListener.sellingPriceUpdate(barcode, editedPrice);
+            dialog.dismiss();
+        });
+        builder.setNegativeButton(getContext().getString(R.string.cancel), ((dialog, which) -> {
+            dialog.dismiss();
+        }));
+
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        showSoftKeyboard(editPrice);
     }
 
 }

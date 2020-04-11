@@ -211,6 +211,56 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                             postValue(TransactionViewState.ERROR_STATE);
                         }));
     }
+    public void updatSellingPrice(String barcode, double price) {
+        getDisposable().add(Single.fromCallable(() -> {
+            logger.debug(getClass().getSimpleName(), "Update selling price of " + barcode + " to " + price);
+            TransactionUiModel transactionUiModel = TransactionViewState.FOUND_STATE.getData();
+            TransactionUiModel updatedTransaction = null;
+            ArrayList<TransactionDetailUiModel> list = transactionUiModel.getListTransaction();
+            for (int i = 0; i < list.size(); i++) {
+                TransactionDetailUiModel detail = list.get(i);
+                if (!detail.getBarcode().equals(barcode)) {
+                    continue;
+                }
+
+                double beforeChanged = detail.getHargaJual() * detail.getQty();
+                TransactionDetailUiModel updatedDetail = new TransactionDetailUiModel(
+                        detail.getIndTrx(),
+                        detail.getArtName(),
+                        detail.getArtCode(),
+                        detail.getBarcode(),
+                        detail.getSize(),
+                        detail.getColour(),
+                        detail.getHargaNormal(),
+                        detail.getEventCode(),
+                        detail.getQty(),
+                        0,
+                        detail.getHargaKhusus(),
+                        price,
+                        detail.getNote()
+                );
+                list.set(i, updatedDetail);
+
+                updatedTransaction = new TransactionUiModel(
+                        transactionUiModel.getBarcode(),
+                        transactionUiModel.getTransactionId(),
+                        transactionUiModel.getTransactionDate(),
+                        transactionUiModel.getGrandTotal() - beforeChanged + (updatedDetail.getHargaJual() * updatedDetail.getQty()),
+                        list);
+                break;
+            }
+
+            TransactionViewState.FOUND_STATE.setData(updatedTransaction);
+            return TransactionViewState.FOUND_STATE;
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(state -> postValue(state),
+                        throwable -> {
+                            TransactionViewState.ERROR_STATE.setError(throwable);
+                            postValue(TransactionViewState.ERROR_STATE);
+                        }));
+    }
 
     public void reset() {
         getDisposable().add(Single.fromCallable(() -> {

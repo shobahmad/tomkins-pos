@@ -158,6 +158,11 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
                 transactionViewModel.updatDiscount(barcode, discount);
             }
 
+            @Override
+            public void sellingPriceUpdate(String barcode, double price) {
+                transactionViewModel.updatSellingPrice(barcode, price);
+            }
+
 
         });
         binding.recyclerTransaction.setLayoutManager(new LinearLayoutManager(this));
