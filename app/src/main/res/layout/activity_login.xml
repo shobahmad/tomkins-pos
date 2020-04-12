@@ -167,7 +167,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/login_login"
-            android:onClick="onLoginClick"
             android:layout_margin="4dp"
             />
     </LinearLayout>

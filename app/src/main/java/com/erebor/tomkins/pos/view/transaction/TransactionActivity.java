@@ -284,7 +284,6 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         }
         if (transactionViewState.getCurrentState().equals(TransactionViewState.SUCCESS_STATE.getCurrentState())) {
             binding.setLoading(null);
-//            alertDialog(resourceHelper.getResourceString(R.string.transaction_success), getResources().getString(R.string.transaction_success_message, transactionViewState.getData().getTransactionId()), (dialog, which) -> finish());
             alertDialog(resourceHelper.getResourceString(R.string.transaction_success), resourceHelper.getResourceString(R.string.transaction_success_message, transactionViewState.getData().getTransactionId()), (dialog, which) -> finish());
             return;
         }

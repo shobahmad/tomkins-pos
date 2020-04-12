@@ -49,9 +49,10 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
             }
         });
+        binding.buttonLogin.setOnClickListener(v -> onLoginClick());
     }
 
-    public void onLoginClick(View view) {
+    public void onLoginClick() {
         if (binding.editName.getText().toString().isEmpty()) {
             binding.editName.setError(getResources().getString(R.string.login_empty_username));
             return;

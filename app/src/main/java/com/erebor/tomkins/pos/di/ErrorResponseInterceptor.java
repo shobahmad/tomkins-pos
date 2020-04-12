@@ -68,7 +68,8 @@ public class ErrorResponseInterceptor implements Interceptor {
             String message;
             try {
                 JSONObject jsonObject = new JSONObject(responseBody.string());
-                message = jsonObject.getString("error");
+                message = jsonObject.getString("message");
+                message = message == null ? jsonObject.getString("error") : message;
             } catch (JSONException | IOException e) {
                 message = e.getMessage();
             }

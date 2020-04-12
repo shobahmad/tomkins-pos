@@ -111,7 +111,7 @@
     <string name="transaction_saving">Creating transaction. Please wait...</string>
     <string name="transaction_barcode_not_found">Barcode not found</string>
     <string name="transaction_success">Transaction Success</string>
-    <string name="transaction_success_message">Transaction with No. Bon %s successfully created</string>
+    <string name="transaction_success_message">Transaction with No. Bon \n%s\n successfully created</string>
     <string name="transaction_barcode_input">No barcode match with %s.\nPlease input correctly</string>
     <string name="transaction_failed">Transaction Failed</string>
     <string name="logout_confirm">Are you sure want to logout?</string>
