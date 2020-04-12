@@ -125,5 +125,6 @@
     <string name="transaction_discount_input">Please set discount for %s</string>
     <string name="transaction_price_input">Please set price for %s.\nCurrent discount will be removed automatically</string>
     <string name="transaction_selling_price">Selling Price</string>
+    <string name="transaction_barcode_input_manually">Input Barcode Manually</string>
 
 </resources>

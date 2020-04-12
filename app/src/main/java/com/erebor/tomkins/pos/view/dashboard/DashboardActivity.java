@@ -217,7 +217,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
     private void startSaleActivity(String barcode) {
         Intent intent = new Intent(DashboardActivity.this, TransactionActivity.class);
-        intent.putExtra("data", barcode);
+        if (barcode != null) intent.putExtra("data", barcode);
         startActivity(intent);
     }
 
@@ -227,6 +227,11 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             String qrcode = data.getStringExtra("data");
             fetchBarcode(qrcode);
+            return;
+        }
+
+        if (requestCode == 1 && resultCode == RESULT_CANCELED) {
+            startSaleActivity(null);
         }
     }
 

@@ -71,6 +71,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         transactionViewModel = ViewModelProviders.of(this, factory).get(TransactionViewModel.class);
         syncUploadViewModel = ViewModelProviders.of(this, factory).get(SyncUploadViewModel.class);
 
+        binding.buttonAdd.setOnClickListener(v -> inputBarcodeDialog(null));
         binding.buttonScan.setOnClickListener(v -> {
 //            if (true) {
 //                transactionViewModel.scanBarcode("89949060800701");
@@ -95,6 +96,10 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         setupDatePicker();
         startObserver();
 
+        if (getIntent().getStringExtra("data") == null) {
+            inputBarcodeDialog(null);
+            return;
+        }
         transactionViewModel.scanBarcode(getIntent().getStringExtra("data"));
     }
 
@@ -209,8 +214,8 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
     }
     private void inputBarcodeDialog(String barcode) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);
-        builder.setTitle(R.string.transaction_barcode_not_found);
-        builder.setMessage(resourceHelper.getResourceString(R.string.transaction_barcode_input, barcode));
+        builder.setTitle(barcode == null ? R.string.transaction_barcode_input_manually : R.string.transaction_barcode_not_found);
+        builder.setMessage(barcode == null ? "" : resourceHelper.getResourceString(R.string.transaction_barcode_input, barcode));
         builder.setCancelable(true);
 
         LayoutInflater li = LayoutInflater.from(this);
