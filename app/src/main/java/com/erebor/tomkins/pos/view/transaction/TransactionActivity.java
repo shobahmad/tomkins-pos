@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -95,12 +96,13 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         setupAdapter();
         setupDatePicker();
         startObserver();
+        setupTransactionType();
 
         if (getIntent().getStringExtra("data") == null) {
             inputBarcodeDialog(null);
             return;
         }
-        transactionViewModel.scanBarcode(getIntent().getStringExtra("data"));
+        transactionViewModel.scanBarcode(getIntent().getStringExtra("data"),  binding.switchTransType.isChecked());
     }
 
     private void startObserver() {
@@ -174,6 +176,39 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         binding.recyclerTransaction.setAdapter(transactionAdapter);
     }
 
+    private void setupTransactionType() {
+        binding.imageTransaction.setImageResource(R.drawable.ic_transaction_sale);
+        binding.switchTransType.setText(getResources().getText(R.string.transaction_sale));
+        binding.switchTransType.setChecked(true);
+        binding.switchTransType.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            setTransactionType(isChecked);
+        });
+    }
+
+    private void setTransactionType(boolean isSale) {
+        binding.imageTransaction.setImageResource(isSale ? R.drawable.ic_transaction_sale : R.drawable.ic_transaction_return);
+        binding.switchTransType.setText(getResources().getText(isSale ? R.string.transaction_sale : R.string.transaction_return));
+        binding.switchTransType.setTextColor(getResources().getColor(
+                isSale ? R.color.colorPrimary : R.color.colorPrimaryDark));
+        binding.cardGrandTotal.setCardBackgroundColor(getResources().getColor(
+                isSale ? R.color.white : R.color.warning));
+        binding.textTransDate.setBackgroundColor(getResources().getColor(
+                isSale ? R.color.white : R.color.warning));
+        binding.editTransDate.setBackgroundColor(getResources().getColor(
+                isSale ? R.color.white : R.color.warning));
+        binding.textTotal.setBackgroundColor(getResources().getColor(
+                isSale ? R.color.white : R.color.warning));
+        binding.inputTotal.setBackgroundColor(getResources().getColor(
+                isSale ? R.color.white : R.color.warning));
+        binding.buttonAdd.setIconTint(ContextCompat.getColorStateList(this,
+                isSale ? R.color.colorPrimary : R.color.colorPrimaryDark));
+        binding.buttonScan.setIconTint(ContextCompat.getColorStateList(this,
+                isSale ? R.color.colorPrimary : R.color.colorPrimaryDark));
+        binding.buttonScan.setTextColor(getResources().getColor(
+                isSale ? R.color.colorPrimary : R.color.colorPrimaryDark));
+
+    }
+
     @Override
     public void onBackPressed() {
         confirmationDialog();
@@ -196,7 +231,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            transactionViewModel.scanBarcode(data.getStringExtra("data"));
+            transactionViewModel.scanBarcode(data.getStringExtra("data"), binding.switchTransType.isChecked());
         }
     }
 
@@ -226,7 +261,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         builder.setPositiveButton(getString(R.string.ok), (dialog, which) -> {
             dialog.dismiss();
             String newbarcode = inputBarcode.getEditableText().toString();
-            transactionViewModel.scanBarcode(newbarcode);
+            transactionViewModel.scanBarcode(newbarcode, binding.switchTransType.isChecked());
         });
         builder.setNegativeButton(getString(R.string.cancel), ((dialog, which) -> {
             dialog.dismiss();

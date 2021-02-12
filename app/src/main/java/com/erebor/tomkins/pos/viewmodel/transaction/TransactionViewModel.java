@@ -54,8 +54,8 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         this.dateConverterHelper = dateConverterHelper;
     }
 
-    public void scanBarcode(String barcode) {
-        getDisposable().add(Single.fromCallable(() -> barcodeValidation(barcode))
+    public void scanBarcode(String barcode, boolean isSale) {
+        getDisposable().add(Single.fromCallable(() -> barcodeValidation(barcode, isSale))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(state -> postValue(state),
@@ -106,6 +106,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                     transactionUiModel.getTransactionId(),
                     transactionUiModel.getTransactionDate(),
                     transactionUiModel.getGrandTotal() - existingPrice + newPrice,
+                    transactionUiModel.isSale(),
                     list
             );
             TransactionViewState.FOUND_STATE.setData(updatedTransaction);
@@ -196,6 +197,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                         transactionUiModel.getTransactionId(),
                         transactionUiModel.getTransactionDate(),
                         transactionUiModel.getGrandTotal() - beforeChanged + (updatedDetail.getHargaJual() * updatedDetail.getQty()),
+                        transactionUiModel.isSale(),
                         list);
                 break;
             }
@@ -246,6 +248,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                         transactionUiModel.getTransactionId(),
                         transactionUiModel.getTransactionDate(),
                         transactionUiModel.getGrandTotal() - beforeChanged + (updatedDetail.getHargaJual() * updatedDetail.getQty()),
+                        transactionUiModel.isSale(),
                         list);
                 break;
             }
@@ -274,11 +277,11 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                 .subscribe(state -> postValue(TransactionViewState.RESET_STATE)));
     }
 
-    private TransactionViewState barcodeValidation(String barcode) {
+    private TransactionViewState barcodeValidation(String barcode, boolean isSale) {
         //@ get barcode
         MsBarcodeDBModel msBarcodeDBModel = msBarcodeDao.getByNoBarcode(barcode);
         if (msBarcodeDBModel == null) {
-            TransactionViewState.NOT_FOUND_STATE.setData(new TransactionUiModel(barcode, "", Calendar.getInstance().getTime(), 0, new ArrayList<>()));
+            TransactionViewState.NOT_FOUND_STATE.setData(new TransactionUiModel(barcode, "", Calendar.getInstance().getTime(), 0, isSale, new ArrayList<>()));
             return TransactionViewState.NOT_FOUND_STATE;
         }
 
@@ -346,7 +349,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
 
         TransactionUiModel transactionUiModel = TransactionViewState.FOUND_STATE.getData();
         if (transactionUiModel == null) {
-            transactionUiModel = new TransactionUiModel(barcode, "", Calendar.getInstance().getTime(), newestDetail.getHargaJual(), new ArrayList<TransactionDetailUiModel>() {
+            transactionUiModel = new TransactionUiModel(barcode, "", Calendar.getInstance().getTime(), newestDetail.getHargaJual(), isSale, new ArrayList<TransactionDetailUiModel>() {
                 {
                     add(newestDetail);
                 }
@@ -396,7 +399,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                 transactionUiModel.getTransactionId(),
                 transactionUiModel.getTransactionDate(),
                 transactionUiModel.getGrandTotal() + newestDetail.getHargaJual(),
-                list
+                isSale, list
         );
 
         TransactionViewState.FOUND_STATE.setData(updatedTransaction);
@@ -414,7 +417,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                 trxJualDBModel.setListDetail(new ArrayList<>());
                 for (int i = 0; i < list.size(); i++) {
                     TransactionDetailUiModel detail = list.get(i);
-                    trxJualDBModel.getListDetail().add(getTrxJualDet(detail, trxJualDBModel.getNoBon()));
+                    trxJualDBModel.getListDetail().add(getTrxJualDet(detail, trxJualDBModel.getNoBon(), transactionUiModel.isSale()));
                 }
 
                 trxJualDao.insertReplaceSync(trxJualDBModel);
@@ -426,6 +429,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                         trxJualDBModel.getNoBon(),
                         transactionUiModel.getTransactionDate(),
                         transactionUiModel.getGrandTotal(),
+                        transactionUiModel.isSale(),
                         transactionUiModel.getListTransaction()
                 );
                 TransactionViewState.SUCCESS_STATE.setData(successTransaction);
@@ -455,7 +459,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         return trxJualDBModel;
     }
 
-    private TrxJualDetDBModel getTrxJualDet(TransactionDetailUiModel transactionDetailUiModel, String NoBon) {
+    private TrxJualDetDBModel getTrxJualDet(TransactionDetailUiModel transactionDetailUiModel, String NoBon, boolean sale) {
         TrxJualDetDBModel trxJualDetDBModel = new TrxJualDetDBModel();
         trxJualDetDBModel.setNoBon(NoBon);
         trxJualDetDBModel.setIndTrx(transactionDetailUiModel.getIndTrx());
@@ -463,10 +467,10 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         trxJualDetDBModel.setUkuran(transactionDetailUiModel.getSize());
         trxJualDetDBModel.setHargaNormal(transactionDetailUiModel.getHargaNormal());
         trxJualDetDBModel.setKodeEvent(transactionDetailUiModel.getEventCode());
-        trxJualDetDBModel.setQtyJual(transactionDetailUiModel.getQty());
+        trxJualDetDBModel.setQtyJual(transactionDetailUiModel.getQty() * (sale ? 1 : -1));
         trxJualDetDBModel.setDiskon(transactionDetailUiModel.getDiskon());
         trxJualDetDBModel.setHrgaJual(transactionDetailUiModel.getHargaJual());
-        trxJualDetDBModel.setCatatan(transactionDetailUiModel.getNote());
+        trxJualDetDBModel.setCatatan((sale ? "" : "RETURN") + (transactionDetailUiModel.getNote().isEmpty() ? "" : " | ") + transactionDetailUiModel.getNote());
         return trxJualDetDBModel;
     }
 
