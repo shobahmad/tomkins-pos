@@ -100,6 +100,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
 
         if (getIntent().getStringExtra("data") == null) {
             inputBarcodeDialog(null);
+            binding.setEmpty(true);
             return;
         }
         transactionViewModel.scanBarcode(getIntent().getStringExtra("data"),  binding.switchTransType.isChecked());
@@ -232,7 +233,9 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
             transactionViewModel.scanBarcode(data.getStringExtra("data"), binding.switchTransType.isChecked());
+            return;
         }
+        binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
     }
 
     private void alertDialog(String title, String message, DialogInterface.OnClickListener listener) {
@@ -292,6 +295,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             transactionAdapter.setList(transactionViewState.getData().getListTransaction());
             binding.setTransaction(transactionViewState.getData());
             binding.setLoading(null);
+            binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
             binding.buttonConfirm.setEnabled(!transactionAdapter.getList().isEmpty());
             syncUploadViewModel.startSyncFull();
             return;
@@ -300,12 +304,14 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         if (transactionViewState.getCurrentState().equals(TransactionViewState.NOT_FOUND_STATE.getCurrentState())) {
             binding.setLoading(null);
             inputBarcodeDialog(transactionViewState.getData().getBarcode());
+            binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
             binding.buttonConfirm.setEnabled(transactionAdapter.getList() != null && !transactionAdapter.getList().isEmpty());
             return;
         }
 
         if (transactionViewState.getCurrentState().equals(TransactionViewState.ERROR_STATE.getCurrentState())) {
             binding.setLoading(null);
+            binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
             Toast.makeText(TransactionActivity.this, transactionViewState.getError().getMessage(), Toast.LENGTH_LONG).show();
             return;
         }
@@ -324,6 +330,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         }
         if (transactionViewState.getCurrentState().equals(TransactionViewState.SUCCESS_STATE.getCurrentState())) {
             binding.setLoading(null);
+            binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
             alertDialog(resourceHelper.getResourceString(R.string.transaction_success), resourceHelper.getResourceString(R.string.transaction_success_message, transactionViewState.getData().getTransactionId()), (dialog, which) -> finish());
             return;
         }
