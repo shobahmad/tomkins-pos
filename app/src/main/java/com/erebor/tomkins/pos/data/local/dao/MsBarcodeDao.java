@@ -19,6 +19,9 @@ public interface MsBarcodeDao extends BaseDao<MsBarcodeDBModel> {
     @Query("SELECT * FROM MSBARCODE WHERE NoBarcode=:value")
     MsBarcodeDBModel getByNoBarcode(String value);
 
+    @Query("SELECT * FROM MSBARCODE WHERE KodeArt=:value")
+    List<MsBarcodeDBModel> getListByKodeArt(String value);
+
     @Query("SELECT * FROM MSBARCODE ORDER BY last_update DESC LIMIT 1")
     MsBarcodeDBModel getSyncLatest();
 

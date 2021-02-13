@@ -1,5 +1,6 @@
 package com.erebor.tomkins.pos.di;
 
+import com.erebor.tomkins.pos.viewmodel.article.ArticleViewModel;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
 import com.erebor.tomkins.pos.viewmodel.splash.SplashViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewModel;
@@ -27,5 +28,6 @@ public interface ViewModelSubComponent {
     SyncDownloadViewModel syncDataMasterViewModel();
     TransactionViewModel transactionViewModel();
     SyncUploadViewModel syncUploadViewModel();
+    ArticleViewModel articleViewModel();
 
 }

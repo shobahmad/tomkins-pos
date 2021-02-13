@@ -129,5 +129,8 @@
     <string name="transaction_sale">Sale</string>
     <string name="transaction_return">Return</string>
     <string name="there_is_no_items_added">There is no article added, click scan or add button to search article using barcode</string>
+    <string name="search_article">Search Article</string>
+    <string name="article_not_found">Your search did not match any articles.</string>
+    <string name="searching_articles">Searching articles</string>
 
 </resources>

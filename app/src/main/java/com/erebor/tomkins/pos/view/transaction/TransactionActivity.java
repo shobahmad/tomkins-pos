@@ -23,6 +23,7 @@ import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.helper.ResourceHelper;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
+import com.erebor.tomkins.pos.view.article.ArticleActivity;
 import com.erebor.tomkins.pos.view.scan.VisionScannerActivity;
 import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadViewModel;
@@ -72,7 +73,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         transactionViewModel = ViewModelProviders.of(this, factory).get(TransactionViewModel.class);
         syncUploadViewModel = ViewModelProviders.of(this, factory).get(SyncUploadViewModel.class);
 
-        binding.buttonAdd.setOnClickListener(v -> inputBarcodeDialog(null));
+        binding.buttonAdd.setOnClickListener(v -> startSearchArticle());
         binding.buttonScan.setOnClickListener(v -> {
 //            if (true) {
 //                transactionViewModel.scanBarcode("89949060800701");
@@ -99,7 +100,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         setupTransactionType();
 
         if (getIntent().getStringExtra("data") == null) {
-            inputBarcodeDialog(null);
+            startSearchArticle();
             binding.setEmpty(true);
             return;
         }
@@ -235,6 +236,10 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             transactionViewModel.scanBarcode(data.getStringExtra("data"), binding.switchTransType.isChecked());
             return;
         }
+        if (requestCode == 2 && resultCode == RESULT_OK) {
+            transactionViewModel.scanBarcode(data.getStringExtra("data"), binding.switchTransType.isChecked());
+            return;
+        }
         binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
     }
 
@@ -303,7 +308,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
 
         if (transactionViewState.getCurrentState().equals(TransactionViewState.NOT_FOUND_STATE.getCurrentState())) {
             binding.setLoading(null);
-            inputBarcodeDialog(transactionViewState.getData().getBarcode());
+            startSearchArticle();
             binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
             binding.buttonConfirm.setEnabled(transactionAdapter.getList() != null && !transactionAdapter.getList().isEmpty());
             return;
@@ -338,4 +343,9 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             finish();
         }
     }
+
+    private void startSearchArticle() {
+        startActivityForResult(new Intent(this, ArticleActivity.class), 2);
+    }
+
 }

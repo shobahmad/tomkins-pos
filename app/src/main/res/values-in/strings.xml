@@ -105,4 +105,7 @@
     <string name="transaction_sale">Penjualan</string>
     <string name="transaction_return">Retur</string>
     <string name="there_is_no_items_added">Belum ada artikel yang ditambahkan, klik scan atau tombol tambah untuk mencari artikel menggunakan barcode</string>
+    <string name="search_article">Cari Artikel</string>
+    <string name="article_not_found">Tidak ada artikel yang sesuai dengan pencarian Anda.</string>
+    <string name="searching_articles">Pencarian artikel</string>
 </resources>

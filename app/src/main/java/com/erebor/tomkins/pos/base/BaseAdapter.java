@@ -145,7 +145,7 @@ public abstract class BaseAdapter<B extends ViewDataBinding, T> extends Recycler
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         setDataBinding(holder, getItem(position));
 
-        binding.getRoot().setOnClickListener(v -> {
+        holder.getBinding().getRoot().setOnClickListener(v -> {
             if (listener != null) listener.onItemClick(getItem(holder));
         });
     }
