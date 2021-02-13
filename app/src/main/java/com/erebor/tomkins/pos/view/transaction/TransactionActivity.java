@@ -255,32 +255,6 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-    private void inputBarcodeDialog(String barcode) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);
-        builder.setTitle(barcode == null ? R.string.transaction_barcode_input_manually : R.string.transaction_barcode_not_found);
-        builder.setMessage(barcode == null ? "" : resourceHelper.getResourceString(R.string.transaction_barcode_input, barcode));
-        builder.setCancelable(true);
-
-        LayoutInflater li = LayoutInflater.from(this);
-        View promptsView = li.inflate(R.layout.dialog_input_barcode, null);
-        TextInputEditText inputBarcode = promptsView.findViewById(R.id.editBarcode);
-        inputBarcode.setText(barcode);
-        builder.setView(promptsView);
-        builder.setPositiveButton(getString(R.string.ok), (dialog, which) -> {
-            dialog.dismiss();
-            String newbarcode = inputBarcode.getEditableText().toString();
-            transactionViewModel.scanBarcode(newbarcode, binding.switchTransType.isChecked());
-        });
-        builder.setNegativeButton(getString(R.string.cancel), ((dialog, which) -> {
-            dialog.dismiss();
-        }));
-
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-        showSoftKeyboard(inputBarcode);
-    }
 
     public void showSoftKeyboard(View view) {
         if (view.requestFocus()) {
