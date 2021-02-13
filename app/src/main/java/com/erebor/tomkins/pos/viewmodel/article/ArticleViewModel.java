@@ -69,7 +69,7 @@ public class ArticleViewModel extends BaseViewModel<ArticleViewState> {
                 return ArticleViewState.FOUND_STATE;
             }
 
-            List<MsBarcodeDBModel> msBarcodeDBModels = msBarcodeDao.getListByKodeArt(keyword.trim());
+            List<MsBarcodeDBModel> msBarcodeDBModels = msBarcodeDao.getListByKodeArt(keyword.trim().toUpperCase());
             if (msBarcodeDBModels == null || msBarcodeDBModels.isEmpty()) {
                 ArticleViewState.NOT_FOUND_STATE.setError(new Exception(resourceHelper.getResourceString(R.string.art_not_found)));
                 return ArticleViewState.NOT_FOUND_STATE;
