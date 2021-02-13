@@ -79,18 +79,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
 //                transactionViewModel.scanBarcode("89949060800701");
 //                return;
 //            }
-            String scanner = sharedPrefs.getString(getResources().getString(R.string.setting_key_camera), "");
-            if (scanner.equals("")) {
-                startActivityForResult(new Intent(TransactionActivity.this, VisionScannerActivity.class), 1);
-                return;
-            }
-
-            if (scanner.equals("zxing")) {
-                startActivityForResult(new Intent(TransactionActivity.this, ZynxScannerActivity.class), 1);
-                return;
-            }
-
-            startActivityForResult(new Intent(TransactionActivity.this, VisionScannerActivity.class), 1);
+            startScannerActivity();
         });
         binding.buttonConfirm.setOnClickListener(v -> transactionViewModel.saveTransaction((Date) binding.editTransDate.getTag()));
 
@@ -105,6 +94,21 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             return;
         }
         transactionViewModel.scanBarcode(getIntent().getStringExtra("data"),  binding.switchTransType.isChecked());
+    }
+
+    private void startScannerActivity() {
+        String scanner = sharedPrefs.getString(getResources().getString(R.string.setting_key_camera), "");
+        if (scanner.equals("")) {
+            startActivityForResult(new Intent(TransactionActivity.this, ZynxScannerActivity.class), 1);
+            return;
+        }
+
+        if (scanner.equals("zxing")) {
+            startActivityForResult(new Intent(TransactionActivity.this, ZynxScannerActivity.class), 1);
+            return;
+        }
+
+        startActivityForResult(new Intent(TransactionActivity.this, VisionScannerActivity.class), 1);
     }
 
     private void startObserver() {
@@ -255,6 +259,32 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+    private void inputBarcodeDialog(String barcode) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);
+        builder.setTitle(barcode == null ? R.string.transaction_barcode_input_manually : R.string.transaction_barcode_not_found);
+        builder.setMessage(barcode == null ? "" : resourceHelper.getResourceString(R.string.transaction_barcode_input, barcode));
+        builder.setCancelable(true);
+
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.dialog_input_barcode, null);
+        TextInputEditText inputBarcode = promptsView.findViewById(R.id.editBarcode);
+        inputBarcode.setText(barcode);
+        builder.setView(promptsView);
+        builder.setPositiveButton(getString(R.string.ok), (dialog, which) -> {
+            dialog.dismiss();
+            String newbarcode = inputBarcode.getEditableText().toString();
+            transactionViewModel.scanBarcode(newbarcode, binding.switchTransType.isChecked());
+        });
+        builder.setNegativeButton(getString(R.string.cancel), ((dialog, which) -> {
+            dialog.dismiss();
+        }));
+
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        showSoftKeyboard(inputBarcode);
+    }
 
     public void showSoftKeyboard(View view) {
         if (view.requestFocus()) {
@@ -282,7 +312,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
 
         if (transactionViewState.getCurrentState().equals(TransactionViewState.NOT_FOUND_STATE.getCurrentState())) {
             binding.setLoading(null);
-            startSearchArticle();
+            inputBarcodeDialog(transactionViewState.getData().getBarcode());
             binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
             binding.buttonConfirm.setEnabled(transactionAdapter.getList() != null && !transactionAdapter.getList().isEmpty());
             return;
