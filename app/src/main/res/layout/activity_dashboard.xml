@@ -95,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/dashboard_start_scan"
+            android:text="@string/start_sale"
             android:layout_margin="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:icon="@drawable/ic_dashbaord_qrcode"

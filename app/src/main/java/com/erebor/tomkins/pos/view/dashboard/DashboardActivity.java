@@ -20,8 +20,6 @@ import com.erebor.tomkins.pos.helper.ResourceHelper;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.erebor.tomkins.pos.view.login.LoginActivity;
 import com.erebor.tomkins.pos.view.report.StockActivity;
-import com.erebor.tomkins.pos.view.scan.VisionScannerActivity;
-import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
 import com.erebor.tomkins.pos.view.setting.SettingActivity;
 import com.erebor.tomkins.pos.view.sync.DownloadInfoAdapter;
 import com.erebor.tomkins.pos.view.transaction.TransactionActivity;
@@ -68,22 +66,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
         fetchDummyData();
         binding.buttonScan.setOnClickListener(v -> {
-//            if (true) {
-//                startSaleActivity("8994906080063");
-//                return;
-//            }
-            String scanner = sharedPrefs.getString(getResources().getString(R.string.setting_key_camera), "");
-            if (scanner.equals("")) {
-                startActivityForResult(new Intent(DashboardActivity.this, ZynxScannerActivity.class), 1);
-                return;
-            }
-
-            if (scanner.equals("zxing")) {
-                startActivityForResult(new Intent(DashboardActivity.this, ZynxScannerActivity.class), 1);
-                return;
-            }
-
-            startActivityForResult(new Intent(DashboardActivity.this, VisionScannerActivity.class), 1);
+            startSaleActivity(null);
         });
         binding.setSettingClick(item -> startActivity(new Intent(DashboardActivity.this, SettingActivity.class)));
 

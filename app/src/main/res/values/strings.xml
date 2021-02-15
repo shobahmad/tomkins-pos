@@ -132,5 +132,7 @@
     <string name="search_article">Search Article</string>
     <string name="article_not_found">Your search did not match any articles.</string>
     <string name="searching_articles">Searching articles</string>
+    <string name="start_sale">Start Sale</string>
+    <string name="search_article_hint">Please type barcode or art code here</string>
 
 </resources>

@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
-            app:queryHint="Please type barcode or art code here"
+            app:queryHint="@string/search_article_hint"
             />
 
         <androidx.constraintlayout.widget.ConstraintLayout

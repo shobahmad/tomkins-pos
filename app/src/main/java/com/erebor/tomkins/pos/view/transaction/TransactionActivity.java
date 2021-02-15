@@ -81,6 +81,14 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
 //            }
             startScannerActivity();
         });
+        binding.buttonEmptyAdd.setOnClickListener(v -> startSearchArticle());
+        binding.buttonEmptyScan.setOnClickListener(v -> {
+//            if (true) {
+//                transactionViewModel.scanBarcode("89949060800701");
+//                return;
+//            }
+            startScannerActivity();
+        });
         binding.buttonConfirm.setOnClickListener(v -> transactionViewModel.saveTransaction((Date) binding.editTransDate.getTag()));
 
         setupAdapter();
@@ -88,12 +96,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         startObserver();
         setupTransactionType();
 
-        if (getIntent().getStringExtra("data") == null) {
-            startSearchArticle();
-            binding.setEmpty(true);
-            return;
-        }
-        transactionViewModel.scanBarcode(getIntent().getStringExtra("data"),  binding.switchTransType.isChecked());
+        binding.setEmpty(true);
     }
 
     private void startScannerActivity() {
