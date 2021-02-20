@@ -23,25 +23,27 @@
             android:padding="@dimen/dp_8"
             >
 
-            <include
-                android:id="@+id/snippedQty"
-                layout="@layout/snipped_item_quantity"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textTransId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="@{transaction.indTrx, default=`Pizzaro`}"
+                android:textColor="@color/colorPrimary"
+                android:drawableLeft="@drawable/ic_transaction_sale"
+                style="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:text="@{String.valueOf(transaction.qty)}"
-                app:positiveButton="@{true}"
-                app:negativeButton="@{transaction.qty > 0}"
-                app:handler="@{handler}"
+                android:gravity="center_vertical"
                 />
+
 
             <!--ITEM DESC-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutArt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/snippedQty"
+                app:layout_constraintTop_toBottomOf="@id/textTransId"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/layoutPrice"
@@ -258,9 +260,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/layoutTotal"
             app:layout_constraintTop_toBottomOf="@id/viewLine"
-            app:startIconDrawable="@drawable/ic_edit_black"
-            app:hintEnabled="false"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="@string/transaction_note"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -271,6 +272,7 @@
                 android:hint="@string/transaction_note"
                 android:background="@color/white"
                 android:text="@{transaction.note}"
+                android:enabled="false"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -305,9 +307,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <data>
         <import type="android.view.View"/>
-        <variable
-            name="handler"
-            type="com.erebor.tomkins.pos.view.callback.ItemQtyHandler" />
         <variable
             name="transaction"
             type="com.erebor.tomkins.pos.data.ui.TransactionDetailUiModel" />
