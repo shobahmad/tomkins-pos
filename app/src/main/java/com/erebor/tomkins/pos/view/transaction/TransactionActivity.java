@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
+import com.erebor.tomkins.pos.data.ui.TransactionDetailUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityTransactionBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
@@ -35,6 +36,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -265,6 +267,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             binding.setTransaction(transactionViewState.getData());
             binding.setLoading(null);
             binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
+            setTransactionQty(transactionViewState.getData().getListTransaction());
             return;
         }
         if (transactionViewState.getCurrentState().equals(TransactionViewState.FOUND_STATE.getCurrentState())) {
@@ -273,6 +276,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             binding.setLoading(null);
             binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
             syncUploadViewModel.startSyncFull();
+            setTransactionQty(transactionViewState.getData().getListTransaction());
             return;
         }
 
@@ -287,6 +291,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             binding.setLoading(null);
             binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
             Toast.makeText(TransactionActivity.this, transactionViewState.getError().getMessage(), Toast.LENGTH_LONG).show();
+            setTransactionQty(transactionViewState.getData().getListTransaction());
             return;
         }
 
@@ -311,6 +316,24 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         if (transactionViewState.getCurrentState().equals(TransactionViewState.RESET_STATE.getCurrentState())) {
             finish();
         }
+    }
+
+    private void setTransactionQty(List<TransactionDetailUiModel> list) {
+        if (binding.getEmpty()) {
+            binding.setSaleQty(0);
+            binding.setReturnQty(0);
+            return;
+        }
+
+        int saleQty = 0;
+        int returnQty = 0;
+        for (TransactionDetailUiModel transactionDetailUiModel : list) {
+            if (transactionDetailUiModel.getQty() > 0) saleQty++;
+            if (transactionDetailUiModel.getQty() < 0) returnQty++;
+        }
+
+        binding.setSaleQty(saleQty);
+        binding.setReturnQty(returnQty);
     }
 
     private void startSearchArticle() {

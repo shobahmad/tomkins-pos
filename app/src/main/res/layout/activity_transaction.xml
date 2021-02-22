@@ -124,6 +124,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     >
                     <View
                         android:id="@+id/viewLine"
@@ -142,8 +143,6 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/textTotal"
-                        android:background="@color/white"
                         android:padding="@dimen/dp_8"
                         app:startIconTint="@color/colorPrimary"
                         app:startIconDrawable="@drawable/ic_date"
@@ -161,10 +160,60 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textSaleQty"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/textTransDate"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/textReturnQty"
+                        app:hintEnabled="true"
+                        android:paddingStart="8dp"
+                        android:paddingLeft="8dp"
+                        android:textColorHint="@color/warmGrey"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/TextAppearance.AppCompat.Title"
+                            android:textColor="@color/colorPrimary"
+                            android:hint="@string/transaction_sale"
+                            android:background="@color/white"
+                            android:text="@{String.valueOf(saleQty), default=`PZR3`}"
+                            android:enabled="false"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textReturnQty"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/textTransDate"
+                        app:layout_constraintStart_toEndOf="@id/textSaleQty"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:hintEnabled="true"
+                        android:textColorHint="@color/warmGrey"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/TextAppearance.AppCompat.Title"
+                            android:textColor="@color/watermelon"
+                            android:hint="@string/transaction_return"
+                            android:background="@color/white"
+                            android:text="@{String.valueOf(returnQty), default=`PZR3`}"
+                            android:enabled="false"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -185,7 +234,6 @@
                 style="@style/Widget.MaterialComponents.Button.IconOnly"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="6dp"
                 android:paddingLeft="@dimen/dp_8"
                 app:icon="@android:drawable/ic_input_add"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -197,7 +245,6 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
-                android:layout_marginTop="24dp"
                 android:layout_marginLeft="4dp"
                 android:layout_marginStart="4dp"
                 app:icon="@drawable/ic_sale_qrcode"
@@ -260,6 +307,12 @@
         <variable
             name="empty"
             type="boolean" />
+        <variable
+            name="saleQty"
+            type="int" />
+        <variable
+            name="returnQty"
+            type="int" />
         <variable
             name="transaction"
             type="com.erebor.tomkins.pos.data.ui.TransactionUiModel" />
