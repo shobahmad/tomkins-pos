@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -163,24 +164,6 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
     }
 
     @Override
-    public void onBackPressed() {
-        confirmationDialog();
-    }
-
-
-    private void confirmationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);
-        builder.setTitle(resourceHelper.getResourceString(R.string.transaction_cancel));
-        builder.setMessage(resourceHelper.getResourceString(R.string.transaction_cancel_confirm));
-
-        builder.setPositiveButton(R.string.yes, (dialog, which) -> transactionViewModel.reset());
-        builder.setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss());
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
@@ -194,7 +177,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             String discount = cleanPriceString(data.getStringExtra("discount"));
             String price = cleanPriceString(data.getStringExtra("price"));
 
-            transactionViewModel.saveTransaction((Date) binding.editTransDate.getTag(), barcode, isSale, note, discount, price);
+            transactionViewModel.saveTransaction((Date) binding.editTransDate.getTag(), barcode, isSale, note.isEmpty() ? "-" : note, discount, price);
             return;
         }
         binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
@@ -209,18 +192,6 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
                 ;
     }
 
-    private void alertDialog(String title, String message, DialogInterface.OnClickListener listener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setCancelable(false);
-
-        String positiveText = getString(android.R.string.ok);
-        builder.setPositiveButton(positiveText, listener);
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
     private void inputBarcodeDialog(String barcode) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);
         builder.setTitle(barcode == null ? R.string.transaction_barcode_input_manually : R.string.transaction_barcode_not_found);
@@ -246,6 +217,34 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         dialog.show();
 
         showSoftKeyboard(inputBarcode);
+    }
+
+    private void transactionResultDialog(boolean success, String message, DialogInterface.OnClickListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);
+        builder.setTitle(success ? R.string.transaction_success : R.string.transaction_failed);
+        builder.setMessage(null);
+        builder.setCancelable(true);
+
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.dialog_transaction_result, null);
+
+        AppCompatTextView textSuccessMessage = promptsView.findViewById(R.id.textSuccessMessage);
+        AppCompatTextView textErrorMessage = promptsView.findViewById(R.id.textErrorMessage);
+        View layoutError = promptsView.findViewById(R.id.layoutError);
+        View layoutSuccess = promptsView.findViewById(R.id.layoutSuccess);
+
+        textSuccessMessage.setText(message);
+        textErrorMessage.setText(message);
+        layoutError.setVisibility(success ? View.GONE : View.VISIBLE);
+        layoutSuccess.setVisibility(success ? View.VISIBLE : View.GONE);
+
+        builder.setView(promptsView);
+        builder.setPositiveButton(getString(R.string.ok), listener);
+
+
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void showSoftKeyboard(View view) {
@@ -299,12 +298,12 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         }
         if (transactionViewState.getCurrentState().equals(TransactionViewState.FAILED_STATE.getCurrentState())) {
             binding.setLoading(null);
-            alertDialog(resourceHelper.getResourceString(R.string.transaction_failed), transactionViewState.getError().getMessage(), (dialog, which) -> dialog.dismiss());
+            transactionResultDialog(false, transactionViewState.getError().getMessage(), (dialog, which) -> dialog.dismiss());
             return;
         }
         if (transactionViewState.getCurrentState().equals(TransactionViewState.SUCCESS_STATE.getCurrentState())) {
             binding.setLoading(null);
-            alertDialog(resourceHelper.getResourceString(R.string.transaction_success), resourceHelper.getResourceString(R.string.transaction_success_message, transactionViewState.getData().getTransactionId()), (dialog, which) -> {
+            transactionResultDialog(true, resourceHelper.getResourceString(R.string.transaction_success_message, transactionViewState.getData().getTransactionId()), (dialog, which) -> {
                 transactionViewModel.loadTransaction(selectedDate);
             });
             return;

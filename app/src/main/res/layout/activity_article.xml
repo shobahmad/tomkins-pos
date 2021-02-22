@@ -151,8 +151,8 @@
                 app:layout_constraintBottom_toTopOf="@id/textNote"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="@string/transaction_grand_total"
-                android:enabled="false"
                 android:minWidth="100dp"
+                android:enabled="false"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -161,6 +161,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:text="@{@string/price_format(article.hargaJual - (article.hargaJual * article.diskon / 100))}"
+                    android:textColor="@color/colorPrimaryDark"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
