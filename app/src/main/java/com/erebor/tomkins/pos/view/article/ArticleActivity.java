@@ -137,6 +137,9 @@ public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
                 binding.setEmpty(false);
                 articleAdapter.clearList();
                 articleAdapter.setList(articleViewState.getData());
+                if (articleViewState.getData().size() == 1) {
+                    binding.setArticle(articleViewState.getData().get(0));
+                }
                 setupConfirmButton();
                 return;
             }
