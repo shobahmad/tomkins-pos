@@ -48,6 +48,12 @@ public class TrxJualDetDBModel implements BaseDatabaseModel {
     private String kodeArt;
 
     @NonNull
+    @ColumnInfo(name = "NoBarcode")
+    @SerializedName("NoBarcode")
+    @Expose
+    private String noBarcode;
+
+    @NonNull
     @ColumnInfo(name = "Ukuran")
     @SerializedName("Ukuran")
     @Expose
@@ -111,6 +117,15 @@ public class TrxJualDetDBModel implements BaseDatabaseModel {
         this.kodeArt = kodeArt;
     }
 
+
+    @NonNull
+    public String getNoBarcode() {
+        return noBarcode;
+    }
+
+    public void setNoBarcode(@NonNull String noBarcode) {
+        this.noBarcode = noBarcode;
+    }
     @NonNull
     public String getUkuran() {
         return ukuran;

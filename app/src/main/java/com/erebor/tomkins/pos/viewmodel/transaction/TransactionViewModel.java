@@ -19,10 +19,12 @@ import com.erebor.tomkins.pos.helper.ResourceHelper;
 import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -64,6 +66,65 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                             postValue(TransactionViewState.ERROR_STATE);
                         }));
     }
+
+    public void loadTransaction(Date transactionDateParam) {
+        getDisposable().add(Single.fromCallable(() -> {
+            Date transactionDate = transactionDateParam == null ? Calendar.getInstance().getTime() : transactionDateParam;
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+            List<TrxJualDBModel> trxJualDBModels = trxJualDao.getByDate(simpleDateFormat.format(transactionDate));
+            for (TrxJualDBModel trxJualDBModel : trxJualDBModels) {
+                trxJualDBModel.setListDetail(trxJualDetDao.getListByNoBon(trxJualDBModel.getNoBon()));
+            }
+
+            ArrayList<TransactionDetailUiModel> transactionDetailUiModels = new ArrayList<>();
+            for (TrxJualDBModel trxJualDBModel : trxJualDBModels) {
+                for (TrxJualDetDBModel trxJualDetDBModel : trxJualDBModel.getListDetail()) {
+                    MsArtDBModel msArtDBModel = msArtDao.getByKodeArt(trxJualDetDBModel.getKodeArt());
+                    MsBarcodeDBModel msBarcodeDBModel = msBarcodeDao.getByNoBarcode(trxJualDetDBModel.getNoBarcode());
+
+                    TransactionDetailUiModel newestDetail = new TransactionDetailUiModel(
+                            trxJualDBModel.getNoBon(),
+                            msArtDBModel.getNamaArt(),
+                            msArtDBModel.getKodeArt(),
+                            msBarcodeDBModel.getNoBarcode(),
+                            msBarcodeDBModel.getUkuran(),
+                            msArtDBModel.getWarna(),
+                            msArtDBModel.getHarga(),
+                            trxJualDetDBModel.getKodeEvent(),
+                            trxJualDetDBModel.getQtyJual(),
+                            trxJualDetDBModel.getDiskon(),
+                            trxJualDetDBModel.getHargaNormal(),
+                            trxJualDetDBModel.getHrgaJual(),
+                            trxJualDetDBModel.getCatatan()
+                    );
+                    transactionDetailUiModels.add(0, newestDetail);
+                }
+            }
+
+            TransactionUiModel transactionUiModel = new TransactionUiModel(
+                    "",
+                    "",
+                    transactionDate,
+                    0,
+                    true,
+                    transactionDetailUiModels
+            );
+
+
+
+            TransactionViewState.LOADED_STATE.setData(transactionUiModel);
+            return TransactionViewState.LOADED_STATE;
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(state -> postValue(state),
+                        throwable -> {
+                            logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
+                            TransactionViewState.ERROR_STATE.setError(throwable);
+                            postValue(TransactionViewState.ERROR_STATE);
+                        }));
+    }
+
 
     public void updateQuantity(String barcode, int qty) {
         getDisposable().add(Single.fromCallable(() -> {
@@ -406,31 +467,97 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         return TransactionViewState.FOUND_STATE;
     }
 
-    public void saveTransaction(Date transactionDate) {
+    public void saveTransaction(Date transactionDate, String barcode, boolean isSale, String note) {
         getDisposable().add(Single.fromCallable(() -> {
             postValue(TransactionViewState.SAVING_STATE);
             try {
-                TransactionUiModel transactionUiModel = TransactionViewState.FOUND_STATE.getData();
-
                 TrxJualDBModel trxJualDBModel = getTrxJual(transactionDate);
-                ArrayList<TransactionDetailUiModel> list = transactionUiModel.getListTransaction();
                 trxJualDBModel.setListDetail(new ArrayList<>());
-                for (int i = 0; i < list.size(); i++) {
-                    TransactionDetailUiModel detail = list.get(i);
-                    trxJualDBModel.getListDetail().add(getTrxJualDet(detail, trxJualDBModel.getNoBon(), transactionUiModel.isSale()));
+                //@ get barcode
+                MsBarcodeDBModel msBarcodeDBModel = msBarcodeDao.getByNoBarcode(barcode);
+                if (msBarcodeDBModel == null) {
+                    TransactionViewState.NOT_FOUND_STATE.setData(new TransactionUiModel(barcode, "", Calendar.getInstance().getTime(), 0, isSale, new ArrayList<>()));
+                    return TransactionViewState.NOT_FOUND_STATE;
                 }
+
+                //@ get article
+                MsArtDBModel msArtDBModel = msArtDao.getByKodeArt(msBarcodeDBModel.getKodeArt());
+                if (msArtDBModel == null) {
+                    TransactionViewState.ERROR_STATE.setError(new Exception(resourceHelper.getResourceString(R.string.art_not_found)));
+                    return TransactionViewState.ERROR_STATE;
+                }
+
+                //@ get discount
+                List<EventDiscountModel> eventDiscountModels = eventDiscountDao.getPrice(msBarcodeDBModel.getKodeArt());
+                double hargaJual = msArtDBModel.getHarga();
+                double diskon = 0;
+                double hargaKhusus = 0;
+                String kodeEvent = "";
+                HARGA_JUAL: {
+                    if (eventDiscountModels == null || eventDiscountModels.isEmpty()) {
+                        hargaJual = msArtDBModel.getHarga();
+                        break HARGA_JUAL;
+                    }
+
+                    Date curdate = Calendar.getInstance().getTime();
+                    for (EventDiscountModel eventDiscountModel : eventDiscountModels) {
+                        if (curdate.before(eventDiscountModel.tglDari)) {
+                            continue;
+                        }
+
+                        if (curdate.after(eventDiscountModel.tglSampai)) {
+                            continue;
+                        }
+
+                        if (eventDiscountModel.hargaKhusus != 0) {
+                            diskon = eventDiscountModel.diskon;
+                            hargaJual = eventDiscountModel.hargaKhusus - (eventDiscountModel.hargaKhusus * eventDiscountModel.diskon / 100);
+                            hargaKhusus = eventDiscountModel.hargaKhusus;
+                            kodeEvent = eventDiscountModel.kodeEvent;
+                            break HARGA_JUAL;
+                        }
+
+                        diskon = eventDiscountModel.diskon;
+                        hargaJual = msArtDBModel.getHarga() - (msArtDBModel.getHarga() * eventDiscountModel.diskon / 100);
+                        hargaKhusus = eventDiscountModel.hargaKhusus;
+                        kodeEvent = eventDiscountModel.kodeEvent;
+                    }
+                }
+
+                //@ create detail
+                String transidGenerated = generateIndTrx();
+                TransactionDetailUiModel newestDetail = new TransactionDetailUiModel(
+                        transidGenerated,
+                        msArtDBModel.getNamaArt(),
+                        msArtDBModel.getKodeArt(),
+                        msBarcodeDBModel.getNoBarcode(),
+                        msBarcodeDBModel.getUkuran(),
+                        msArtDBModel.getWarna(),
+                        msArtDBModel.getHarga(),
+                        kodeEvent,
+                        isSale ? 1 : -1,
+                        diskon,
+                        hargaKhusus,
+                        hargaJual,
+                        note
+                );
+
+                trxJualDBModel.getListDetail().add(getTrxJualDet(newestDetail, trxJualDBModel.getNoBon(), isSale));
 
                 trxJualDao.insertReplaceSync(trxJualDBModel);
                 trxJualDetDao.insertAllReplaceSync(trxJualDBModel.getListDetail());
 
-                transactionUiModel.getListTransaction().clear();
                 TransactionUiModel successTransaction = new TransactionUiModel(
-                        transactionUiModel.getBarcode(),
+                        barcode,
                         trxJualDBModel.getNoBon(),
-                        transactionUiModel.getTransactionDate(),
-                        transactionUiModel.getGrandTotal(),
-                        transactionUiModel.isSale(),
-                        transactionUiModel.getListTransaction()
+                        transactionDate,
+                        0,
+                        isSale,
+                        new ArrayList<TransactionDetailUiModel>() {
+                            {
+                                add(newestDetail);
+                            }
+                        }
                 );
                 TransactionViewState.SUCCESS_STATE.setData(successTransaction);
                 return TransactionViewState.SUCCESS_STATE;
@@ -463,14 +590,15 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         TrxJualDetDBModel trxJualDetDBModel = new TrxJualDetDBModel();
         trxJualDetDBModel.setNoBon(NoBon);
         trxJualDetDBModel.setIndTrx(transactionDetailUiModel.getIndTrx());
+        trxJualDetDBModel.setNoBarcode(transactionDetailUiModel.getBarcode());
         trxJualDetDBModel.setKodeArt(transactionDetailUiModel.getArtCode());
         trxJualDetDBModel.setUkuran(transactionDetailUiModel.getSize());
         trxJualDetDBModel.setHargaNormal(transactionDetailUiModel.getHargaNormal());
         trxJualDetDBModel.setKodeEvent(transactionDetailUiModel.getEventCode());
-        trxJualDetDBModel.setQtyJual(transactionDetailUiModel.getQty() * (sale ? 1 : -1));
+        trxJualDetDBModel.setQtyJual(transactionDetailUiModel.getQty());
         trxJualDetDBModel.setDiskon(transactionDetailUiModel.getDiskon());
         trxJualDetDBModel.setHrgaJual(transactionDetailUiModel.getHargaJual());
-        trxJualDetDBModel.setCatatan((sale ? "" : "RETURN") + (transactionDetailUiModel.getNote().isEmpty() ? "" : " | ") + transactionDetailUiModel.getNote());
+        trxJualDetDBModel.setCatatan(transactionDetailUiModel.getNote());
         return trxJualDetDBModel;
     }
 

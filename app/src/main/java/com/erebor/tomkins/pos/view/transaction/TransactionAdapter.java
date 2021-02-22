@@ -1,6 +1,7 @@
 package com.erebor.tomkins.pos.view.transaction;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -57,8 +58,12 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
         binding.btnDiscount.setOnClickListener(v -> inputDiscountDialog(binding.getTransaction().getArtName(), binding.getTransaction().getBarcode(), binding.getTransaction().getDiskon()));
         binding.btnPrice.setOnClickListener(v -> inputPriceDialog(binding.getTransaction().getArtName(), binding.getTransaction().getBarcode(), binding.getTransaction().getHargaJual()));
 
-        binding.textTransId.setTextColor(getContext().getResources().getColor(binding.getTransaction().getQty() < 0 ?  R.color.warning : R.color.colorPrimary));
-        binding.textTransId.setCompoundDrawables(getContext().getResources().getDrawable(binding.getTransaction().getQty() < 0 ? R.drawable.ic_transaction_return : R.drawable.ic_transaction_sale), null, null, null);
+        binding.textTransId.setTextColor(getContext().getResources().getColor(binding.getTransaction().getQty() < 0 ?  R.color.watermelon : R.color.colorPrimary));
+        binding.textSubTotal.setTextColor(getContext().getResources().getColor(binding.getTransaction().getQty() < 0 ?  R.color.watermelon : R.color.colorPrimary));
+
+        Drawable img = getContext().getResources().getDrawable(binding.getTransaction().getQty() < 0 ? R.drawable.ic_transaction_return : R.drawable.ic_transaction_sale);
+        img.setBounds(0, 0, 60, 60);
+        binding.textTransId.setCompoundDrawables(img, null, null, null);
     }
 
 

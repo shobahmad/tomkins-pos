@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -50,6 +51,30 @@ public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
         setupSearchView();
         observeDataChanged();
         setupConfirmButton();
+        setupTransactionType();
+
+        String barcode = getIntent().getStringExtra("barcode");
+        if (barcode == null) {
+            return;
+        }
+        binding.search.setQuery(barcode, true);
+    }
+
+
+    private void setupTransactionType() {
+        binding.imageTransaction.setImageResource(R.drawable.ic_transaction_sale);
+        binding.switchTransType.setText(getResources().getText(R.string.transaction_sale));
+        binding.switchTransType.setChecked(true);
+        binding.switchTransType.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            setTransactionType(isChecked);
+        });
+    }
+
+    private void setTransactionType(boolean isSale) {
+        binding.imageTransaction.setImageResource(isSale ? R.drawable.ic_transaction_sale : R.drawable.ic_transaction_return);
+        binding.switchTransType.setText(getResources().getText(isSale ? R.string.transaction_sale : R.string.transaction_return));
+        binding.switchTransType.setTextColor(getResources().getColor(
+                isSale ? R.color.colorPrimary : R.color.colorPrimaryDark));
     }
 
     private void setupAdapter() {
@@ -134,7 +159,9 @@ public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
                 binding.buttonConfirm.setEnabled(true);
                 binding.buttonConfirm.setOnClickListener(v -> {
                     Intent intent = new Intent();
-                    intent.putExtra("data", articleUiModel.getBarcode());
+                    intent.putExtra("barcode", articleUiModel.getBarcode());
+                    intent.putExtra("is_sale", binding.switchTransType.isChecked());
+                    intent.putExtra("note", binding.editNote.getText().toString());
                     setResult(RESULT_OK, intent);
                     finish();
                 });

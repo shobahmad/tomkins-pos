@@ -6,7 +6,11 @@ import com.erebor.tomkins.pos.data.ui.TransactionUiModel;
 public class TransactionViewState extends BaseViewState<TransactionUiModel> {
 
     public enum State {
-        LOADING("loading"), NOT_FOUND("not_found"), FOUND("found"), ERROR("error"), SAVING("saving"), SUCCESS("success"), FAILED("failed"), RESET("reset");
+        LOADING("loading"), LOADED("loaded"),
+        NOT_FOUND("not_found"), FOUND("found"),
+        ERROR("error"),
+        SAVING("saving"), SUCCESS("success"), FAILED("failed"),
+        RESET("reset");
         public String value;
 
         State(String val) {
@@ -19,6 +23,7 @@ public class TransactionViewState extends BaseViewState<TransactionUiModel> {
     }
 
     public static TransactionViewState LOADING_STATE = new TransactionViewState(State.LOADING.value);
+    public static TransactionViewState LOADED_STATE = new TransactionViewState(State.LOADED.value);
     public static TransactionViewState NOT_FOUND_STATE = new TransactionViewState(State.NOT_FOUND.value);
     public static TransactionViewState FOUND_STATE = new TransactionViewState(State.FOUND.value);
     public static TransactionViewState ERROR_STATE = new TransactionViewState(State.ERROR.value);

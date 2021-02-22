@@ -135,40 +135,13 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         />
 
-                    <ImageView
-                        android:id="@+id/imageTransaction"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        app:layout_constraintTop_toTopOf="@id/switchTransType"
-                        app:layout_constraintBottom_toBottomOf="@id/switchTransType"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:src="@drawable/ic_transaction_sale"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginStart="8dp"
-                        android:padding="4dp"
-                        />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switchTransType"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toEndOf="@id/imageTransaction"
-                        app:layout_constraintTop_toBottomOf="@id/viewLine"
-                        android:text="@string/transaction_return"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginStart="2dp"
-                        android:textColor="@color/colorPrimary"
-                        android:checked="true"
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textTransDate"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/switchTransType"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/textTotal"
                         android:background="@color/white"
                         android:padding="@dimen/dp_8"
@@ -188,32 +161,6 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textTotal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minWidth="100dp"
-                        app:layout_constraintTop_toBottomOf="@id/switchTransType"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/textTransDate"
-                        android:padding="@dimen/dp_8"
-                        app:helperTextEnabled="false"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/inputTotal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            style="@style/TextAppearance.AppCompat.Title"
-                            android:enabled="false"
-                            android:hint="@string/transaction_grand_total"
-                            android:text="@{@string/price_format(transaction.grandTotal), default=`Rp 100,000`}"
-                            android:textColor="@color/colorPrimary"
-                            android:background="@color/white"
-                            />
-
-                    </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
@@ -230,6 +177,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:padding="2dp"
+            android:visibility="@{empty ? View.GONE : View.VISIBLE}"
             >
 
             <com.google.android.material.button.MaterialButton
@@ -237,41 +185,28 @@
                 style="@style/Widget.MaterialComponents.Button.IconOnly"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="6dp"
                 android:paddingLeft="@dimen/dp_8"
                 app:icon="@android:drawable/ic_input_add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_margin="4dp"
-                android:visibility="@{empty ? View.GONE : View.VISIBLE}"
                 />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonScan"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="40dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 app:icon="@drawable/ic_sale_qrcode"
                 android:text="@string/sale_scan"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/buttonConfirm"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/buttonAdd"
-                android:layout_margin="4dp"
-                android:visibility="@{empty ? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
                 />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonConfirm"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="40dp"
-                android:text="@string/sale_confirm"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/buttonScan"
-                android:enabled="false"
-                android:layout_margin="4dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

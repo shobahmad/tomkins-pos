@@ -80,6 +80,12 @@ public class TransactionDetailUiModel {
         return hargaJual;
     }
 
+    public double getSubTotal() {
+        return hargaJual * qty;
+    }
+
+
+
     public String getNote() {
         return note;
     }

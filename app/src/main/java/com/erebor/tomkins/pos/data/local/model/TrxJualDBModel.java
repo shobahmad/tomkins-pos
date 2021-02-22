@@ -11,8 +11,10 @@ import com.erebor.tomkins.pos.base.BaseDatabaseModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Entity(tableName = "TRXJUAL")
 public class TrxJualDBModel implements BaseDatabaseModel {
@@ -29,6 +31,12 @@ public class TrxJualDBModel implements BaseDatabaseModel {
     @SerializedName("NoBon")
     @Expose
     private String noBon;
+
+    @NonNull
+    @ColumnInfo(name = "StringTanggal")
+    @SerializedName("StringTanggal")
+    @Expose
+    private String stringTanggal;
 
     @NonNull
     @ColumnInfo(name = "Tanggal")
@@ -70,12 +78,23 @@ public class TrxJualDBModel implements BaseDatabaseModel {
         this.noBon = noBon;
     }
 
+    @NonNull
+    public String getStringTanggal() {
+        return stringTanggal;
+    }
+
     public Date getTanggal() {
         return tanggal;
     }
 
     public void setTanggal(Date tanggal) {
         this.tanggal = tanggal;
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        stringTanggal = format.format(tanggal);
+    }
+
+    public void setStringTanggal(@NonNull String stringTanggal) {
+        this.stringTanggal = stringTanggal;
     }
 
     public String getKodeSPG() {

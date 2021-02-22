@@ -89,14 +89,13 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
 //            }
             startScannerActivity();
         });
-        binding.buttonConfirm.setOnClickListener(v -> transactionViewModel.saveTransaction((Date) binding.editTransDate.getTag()));
 
         setupAdapter();
         setupDatePicker();
         startObserver();
-        setupTransactionType();
 
         binding.setEmpty(true);
+        transactionViewModel.loadTransaction(selectedDate);
     }
 
     private void startScannerActivity() {
@@ -148,6 +147,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             selectedDate = calendar1.getTime();
             binding.editTransDate.setText(dateConverterHelper.toDatetring(calendar1.getTime()));
             binding.editTransDate.setTag(selectedDate);
+            transactionViewModel.loadTransaction(selectedDate);
         }, year, month, day);
         datePickerDialog.setThemeDark(true);
         datePickerDialog.showYearPickerFirst(false);
@@ -185,39 +185,6 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         binding.recyclerTransaction.setAdapter(transactionAdapter);
     }
 
-    private void setupTransactionType() {
-        binding.imageTransaction.setImageResource(R.drawable.ic_transaction_sale);
-        binding.switchTransType.setText(getResources().getText(R.string.transaction_sale));
-        binding.switchTransType.setChecked(true);
-        binding.switchTransType.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            setTransactionType(isChecked);
-        });
-    }
-
-    private void setTransactionType(boolean isSale) {
-        binding.imageTransaction.setImageResource(isSale ? R.drawable.ic_transaction_sale : R.drawable.ic_transaction_return);
-        binding.switchTransType.setText(getResources().getText(isSale ? R.string.transaction_sale : R.string.transaction_return));
-        binding.switchTransType.setTextColor(getResources().getColor(
-                isSale ? R.color.colorPrimary : R.color.colorPrimaryDark));
-        binding.cardGrandTotal.setCardBackgroundColor(getResources().getColor(
-                isSale ? R.color.white : R.color.warning));
-        binding.textTransDate.setBackgroundColor(getResources().getColor(
-                isSale ? R.color.white : R.color.warning));
-        binding.editTransDate.setBackgroundColor(getResources().getColor(
-                isSale ? R.color.white : R.color.warning));
-        binding.textTotal.setBackgroundColor(getResources().getColor(
-                isSale ? R.color.white : R.color.warning));
-        binding.inputTotal.setBackgroundColor(getResources().getColor(
-                isSale ? R.color.white : R.color.warning));
-        binding.buttonAdd.setIconTint(ContextCompat.getColorStateList(this,
-                isSale ? R.color.colorPrimary : R.color.colorPrimaryDark));
-        binding.buttonScan.setIconTint(ContextCompat.getColorStateList(this,
-                isSale ? R.color.colorPrimary : R.color.colorPrimaryDark));
-        binding.buttonScan.setTextColor(getResources().getColor(
-                isSale ? R.color.colorPrimary : R.color.colorPrimaryDark));
-
-    }
-
     @Override
     public void onBackPressed() {
         confirmationDialog();
@@ -240,11 +207,15 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            transactionViewModel.scanBarcode(data.getStringExtra("data"), binding.switchTransType.isChecked());
+            startSearchArticle(data.getStringExtra("data"));
             return;
         }
         if (requestCode == 2 && resultCode == RESULT_OK) {
-            transactionViewModel.scanBarcode(data.getStringExtra("data"), binding.switchTransType.isChecked());
+            String barcode = data.getStringExtra("barcode");
+            boolean isSale = data.getBooleanExtra("is_sale", true);
+            String note = data.getStringExtra("note");
+
+            transactionViewModel.saveTransaction((Date) binding.editTransDate.getTag(), barcode, isSale, note);
             return;
         }
         binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
@@ -276,7 +247,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         builder.setPositiveButton(getString(R.string.ok), (dialog, which) -> {
             dialog.dismiss();
             String newbarcode = inputBarcode.getEditableText().toString();
-            transactionViewModel.scanBarcode(newbarcode, binding.switchTransType.isChecked());
+            startSearchArticle(newbarcode);
         });
         builder.setNegativeButton(getString(R.string.cancel), ((dialog, which) -> {
             dialog.dismiss();
@@ -300,7 +271,13 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
     private void onChanged(TransactionViewState transactionViewState) {
         if (transactionViewState.getCurrentState().equals(TransactionViewState.LOADING_STATE.getCurrentState())) {
             binding.setLoading(resourceHelper.getResourceString(R.string.transaction_reading_barcode));
-            binding.buttonConfirm.setEnabled(false);
+            return;
+        }
+        if (transactionViewState.getCurrentState().equals(TransactionViewState.LOADED_STATE.getCurrentState())) {
+            transactionAdapter.setList(transactionViewState.getData().getListTransaction());
+            binding.setTransaction(transactionViewState.getData());
+            binding.setLoading(null);
+            binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
             return;
         }
         if (transactionViewState.getCurrentState().equals(TransactionViewState.FOUND_STATE.getCurrentState())) {
@@ -308,7 +285,6 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             binding.setTransaction(transactionViewState.getData());
             binding.setLoading(null);
             binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
-            binding.buttonConfirm.setEnabled(!transactionAdapter.getList().isEmpty());
             syncUploadViewModel.startSyncFull();
             return;
         }
@@ -317,7 +293,6 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             binding.setLoading(null);
             inputBarcodeDialog(transactionViewState.getData().getBarcode());
             binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
-            binding.buttonConfirm.setEnabled(transactionAdapter.getList() != null && !transactionAdapter.getList().isEmpty());
             return;
         }
 
@@ -337,13 +312,13 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         if (transactionViewState.getCurrentState().equals(TransactionViewState.FAILED_STATE.getCurrentState())) {
             binding.setLoading(null);
             alertDialog(resourceHelper.getResourceString(R.string.transaction_failed), transactionViewState.getError().getMessage(), (dialog, which) -> dialog.dismiss());
-            binding.buttonConfirm.setEnabled(!transactionAdapter.getList().isEmpty());
             return;
         }
         if (transactionViewState.getCurrentState().equals(TransactionViewState.SUCCESS_STATE.getCurrentState())) {
             binding.setLoading(null);
-            binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
-            alertDialog(resourceHelper.getResourceString(R.string.transaction_success), resourceHelper.getResourceString(R.string.transaction_success_message, transactionViewState.getData().getTransactionId()), (dialog, which) -> finish());
+            alertDialog(resourceHelper.getResourceString(R.string.transaction_success), resourceHelper.getResourceString(R.string.transaction_success_message, transactionViewState.getData().getTransactionId()), (dialog, which) -> {
+                transactionViewModel.loadTransaction(selectedDate);
+            });
             return;
         }
         if (transactionViewState.getCurrentState().equals(TransactionViewState.RESET_STATE.getCurrentState())) {
@@ -352,7 +327,14 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
     }
 
     private void startSearchArticle() {
-        startActivityForResult(new Intent(this, ArticleActivity.class), 2);
+        startSearchArticle(null);
+    }
+    private void startSearchArticle(String barcode) {
+        Intent intent = new Intent(this, ArticleActivity.class);
+        if (barcode != null) {
+            intent.putExtra("barcode", barcode);
+        }
+        startActivityForResult(intent, 2);
     }
 
 }
