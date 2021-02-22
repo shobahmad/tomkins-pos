@@ -3,6 +3,7 @@ package com.erebor.tomkins.pos.di;
 import android.content.Context;
 import android.util.Log;
 
+import com.erebor.tomkins.pos.BuildConfig;
 import com.erebor.tomkins.pos.data.converters.DateDeserializer;
 import com.erebor.tomkins.pos.data.converters.ResponseStatusDeserializer;
 import com.erebor.tomkins.pos.data.remote.response.ResponseStatusConstant;
@@ -65,8 +66,11 @@ public class HttpClientModule {
                 .addInterceptor(requestHeaderInterceptor)
                 .addInterceptor(errorResponseInterceptor)
                 .addNetworkInterceptor(logger)
-                .addInterceptor(logger)
-                .addInterceptor(new ChuckInterceptor(context));
+                .addInterceptor(logger);
+
+        if (BuildConfig.DEBUG) {
+            httpClient.addInterceptor(new ChuckInterceptor(context));
+        }
 
         return httpClient.build();
     }
