@@ -46,6 +46,21 @@ public class ArticleUiModel {
         this.selected = selected;
     }
 
+    public ArticleUiModel(ArticleUiModel articleUiModel, double hargaJual, double diskon) {
+        this.artCode = articleUiModel.artCode;
+        this.artName = articleUiModel.artName;
+        this.barcode = articleUiModel.barcode;
+        this.size = articleUiModel.size;
+        this.colour = articleUiModel.colour;
+        this.hargaNormal = articleUiModel.hargaNormal;
+        this.eventCode = articleUiModel.eventCode;
+        this.qty = articleUiModel.qty;
+        this.diskon = diskon;
+        this.hargaKhusus = articleUiModel.hargaKhusus;
+        this.hargaJual = hargaJual;
+        this.selected = articleUiModel.selected;
+    }
+
 
 
     public String getArtName() {

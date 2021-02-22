@@ -158,29 +158,6 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
 
     private void setupAdapter() {
         transactionAdapter = new TransactionAdapter(this);
-        transactionAdapter.setItemUpdatedListener(new TransactionAdapter.ItemUpdatedListener() {
-            @Override
-            public void qtyUpdate(String barcode, int qty) {
-                transactionViewModel.updateQuantity(barcode, qty);
-            }
-
-            @Override
-            public void noteUpdate(String barcode, String note) {
-                 transactionViewModel.updateNote(barcode, note);
-            }
-
-            @Override
-            public void discountUpdate(String barcode, double discount) {
-                transactionViewModel.updatDiscount(barcode, discount);
-            }
-
-            @Override
-            public void sellingPriceUpdate(String barcode, double price) {
-                transactionViewModel.updatSellingPrice(barcode, price);
-            }
-
-
-        });
         binding.recyclerTransaction.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerTransaction.setAdapter(transactionAdapter);
     }
@@ -214,11 +191,22 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             String barcode = data.getStringExtra("barcode");
             boolean isSale = data.getBooleanExtra("is_sale", true);
             String note = data.getStringExtra("note");
+            String discount = cleanPriceString(data.getStringExtra("discount"));
+            String price = cleanPriceString(data.getStringExtra("price"));
 
-            transactionViewModel.saveTransaction((Date) binding.editTransDate.getTag(), barcode, isSale, note);
+            transactionViewModel.saveTransaction((Date) binding.editTransDate.getTag(), barcode, isSale, note, discount, price);
             return;
         }
         binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
+    }
+
+    private String cleanPriceString(String price) {
+        return price.trim().replaceAll("[$,.]", "")
+                .replaceAll(" ", "")
+                .replaceAll("IDR", "")
+                .replaceAll("Rp", "")
+                .replaceAll("%", "")
+                ;
     }
 
     private void alertDialog(String title, String message, DialogInterface.OnClickListener listener) {
