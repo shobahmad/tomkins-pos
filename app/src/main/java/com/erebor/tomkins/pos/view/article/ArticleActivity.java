@@ -71,11 +71,9 @@ public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
 
     private void setupInputPrice() {
         binding.textPrice.setEndIconOnClickListener(v -> {
-            System.out.println(binding.getArticle());
             inputPriceDialog();
         });
         binding.textPrice.setOnClickListener(v -> {
-            System.out.println(binding.getArticle());
             inputPriceDialog();
         });
         binding.editPrice.setOnFocusChangeListener((v, hasFocus) -> {
@@ -140,6 +138,7 @@ public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
                 articleAdapter.setList(articleViewState.getData());
                 if (articleViewState.getData().size() == 1) {
                     binding.setArticle(articleViewState.getData().get(0));
+                    setupInputPrice();
                 }
                 setupConfirmButton();
                 return;
@@ -178,6 +177,7 @@ public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
                 if (query.length() < 3) {
                     return false;
                 }
+                binding.setArticle(null);
                 articleViewModel.searchArticle(query);
                 return false;
             }
@@ -379,13 +379,6 @@ public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
             InputMethodManager imm = (InputMethodManager)
                     getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-        }
-    }
-    public void hideSoftKeyboard(View view) {
-        if (view.requestFocus()) {
-            InputMethodManager imm = (InputMethodManager)
-                    getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(view, InputMethodManager.HIDE_IMPLICIT_ONLY);
         }
     }
 }
