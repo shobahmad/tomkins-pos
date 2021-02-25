@@ -43,8 +43,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:text="@{transaction.transTime, default=`14:00`}"
-                android:drawableEnd="@drawable/ic_time"
-                android:drawableRight="@drawable/ic_time"
                 android:textColor="@color/colorPrimaryDark"
                 android:drawablePadding="2dp"
                 style="@style/TextAppearance.AppCompat.Body2"

@@ -86,8 +86,8 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                             trxJualDetDBModel.getDiskon(),
                             trxJualDetDBModel.getHargaNormal(),
                             trxJualDetDBModel.getHrgaJual(),
-                            trxJualDetDBModel.getCatatan()
-                    );
+                            trxJualDetDBModel.getCatatan(),
+                            trxJualDBModel.isUploaded());
                     transactionDetailUiModels.add(0, newestDetail);
                 }
             }
@@ -194,8 +194,8 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                         Double.parseDouble(discount),
                         hargaKhusus,
                         Double.parseDouble(price),
-                        note
-                );
+                        note,
+                        false);
 
                 trxJualDBModel.getListDetail().add(getTrxJualDet(newestDetail, trxJualDBModel.getNoBon(), isSale));
 

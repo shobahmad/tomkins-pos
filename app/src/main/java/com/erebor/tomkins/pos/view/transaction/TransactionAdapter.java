@@ -57,9 +57,13 @@ public class TransactionAdapter extends BaseAdapter<ItemTransactionBinding, Tran
         binding.textTransId.setTextColor(getContext().getResources().getColor(binding.getTransaction().getQty() < 0 ?  R.color.watermelon : R.color.colorPrimary));
         binding.textSubTotal.setTextColor(getContext().getResources().getColor(binding.getTransaction().getQty() < 0 ?  R.color.watermelon : R.color.colorPrimary));
 
-        Drawable img = getContext().getResources().getDrawable(binding.getTransaction().getQty() < 0 ? R.drawable.ic_transaction_return : R.drawable.ic_transaction_sale);
-        img.setBounds(0, 0, 60, 60);
-        binding.textTransId.setCompoundDrawables(img, null, null, null);
+        Drawable transType = getContext().getResources().getDrawable(binding.getTransaction().getQty() < 0 ? R.drawable.ic_transaction_return : R.drawable.ic_transaction_sale);
+        transType.setBounds(0, 0, 60, 60);
+        binding.textTransId.setCompoundDrawables(transType, null, null, null);
+
+        Drawable transStatus = getContext().getResources().getDrawable(binding.getTransaction().isUploaded() ? R.drawable.ic_done : R.drawable.ic_time);
+        transStatus.setBounds(0, 0, 60, 60);
+        binding.textTransTime.setCompoundDrawables(null, null, transStatus, null);
     }
 
 

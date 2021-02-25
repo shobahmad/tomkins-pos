@@ -16,8 +16,9 @@ public class TransactionDetailUiModel {
     private final double hargaKhusus;
     private final double hargaJual;
     private final String note;
+    private final boolean isUploaded;
 
-    public TransactionDetailUiModel(String indTrx, String transTime, String artName, String artCode, String barcode, String size, String colour, double hargaNormal, String eventCode, Integer qty, double diskon, double hargaKhusus, double hargaJual, String note) {
+    public TransactionDetailUiModel(String indTrx, String transTime, String artName, String artCode, String barcode, String size, String colour, double hargaNormal, String eventCode, Integer qty, double diskon, double hargaKhusus, double hargaJual, String note, boolean isUploaded) {
         this.indTrx = indTrx;
         this.transTime = transTime;
         this.artCode = artCode;
@@ -32,6 +33,7 @@ public class TransactionDetailUiModel {
         this.hargaKhusus = hargaKhusus;
         this.hargaJual = hargaJual;
         this.note = note;
+        this.isUploaded = isUploaded;
     }
 
     public String getIndTrx() {
@@ -90,9 +92,11 @@ public class TransactionDetailUiModel {
         return hargaJual * qty;
     }
 
-
-
     public String getNote() {
         return note;
+    }
+
+    public boolean isUploaded() {
+        return isUploaded;
     }
 }
