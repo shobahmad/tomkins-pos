@@ -56,16 +56,6 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         this.dateConverterHelper = dateConverterHelper;
     }
 
-    public void scanBarcode(String barcode, boolean isSale) {
-        getDisposable().add(Single.fromCallable(() -> barcodeValidation(barcode, isSale))
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(state -> postValue(state),
-                        throwable -> {
-                            TransactionViewState.ERROR_STATE.setError(throwable);
-                            postValue(TransactionViewState.ERROR_STATE);
-                        }));
-    }
 
     public void loadTransaction(Date transactionDateParam) {
         getDisposable().add(Single.fromCallable(() -> {
@@ -84,6 +74,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
 
                     TransactionDetailUiModel newestDetail = new TransactionDetailUiModel(
                             trxJualDBModel.getNoBon(),
+                            dateConverterHelper.toTimeString(trxJualDBModel.getTanggal()),
                             msArtDBModel.getNamaArt(),
                             msArtDBModel.getKodeArt(),
                             msBarcodeDBModel.getNoBarcode(),
@@ -136,135 +127,6 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(state -> postValue(TransactionViewState.RESET_STATE)));
-    }
-
-    private TransactionViewState barcodeValidation(String barcode, boolean isSale) {
-        //@ get barcode
-        MsBarcodeDBModel msBarcodeDBModel = msBarcodeDao.getByNoBarcode(barcode);
-        if (msBarcodeDBModel == null) {
-            TransactionViewState.NOT_FOUND_STATE.setData(new TransactionUiModel(barcode, "", Calendar.getInstance().getTime(), 0, isSale, new ArrayList<>()));
-            return TransactionViewState.NOT_FOUND_STATE;
-        }
-
-        //@ get article
-        MsArtDBModel msArtDBModel = msArtDao.getByKodeArt(msBarcodeDBModel.getKodeArt());
-        if (msArtDBModel == null) {
-            TransactionViewState.ERROR_STATE.setError(new Exception(resourceHelper.getResourceString(R.string.art_not_found)));
-            return TransactionViewState.ERROR_STATE;
-        }
-
-        //@ get discount
-        List<EventDiscountModel> eventDiscountModels = eventDiscountDao.getPrice(msBarcodeDBModel.getKodeArt());
-        double hargaJual = msArtDBModel.getHarga();
-        double diskon = 0;
-        double hargaKhusus = 0;
-        String kodeEvent = "";
-        HARGA_JUAL: {
-            if (eventDiscountModels == null || eventDiscountModels.isEmpty()) {
-                hargaJual = msArtDBModel.getHarga();
-                break HARGA_JUAL;
-            }
-
-            Date curdate = Calendar.getInstance().getTime();
-            for (EventDiscountModel eventDiscountModel : eventDiscountModels) {
-                if (curdate.before(eventDiscountModel.tglDari)) {
-                    continue;
-                }
-
-                if (curdate.after(eventDiscountModel.tglSampai)) {
-                    continue;
-                }
-
-                if (eventDiscountModel.hargaKhusus != 0) {
-                    diskon = eventDiscountModel.diskon;
-                    hargaJual = eventDiscountModel.hargaKhusus - (eventDiscountModel.hargaKhusus * eventDiscountModel.diskon / 100);
-                    hargaKhusus = eventDiscountModel.hargaKhusus;
-                    kodeEvent = eventDiscountModel.kodeEvent;
-                    break HARGA_JUAL;
-                }
-
-                diskon = eventDiscountModel.diskon;
-                hargaJual = msArtDBModel.getHarga() - (msArtDBModel.getHarga() * eventDiscountModel.diskon / 100);
-                hargaKhusus = eventDiscountModel.hargaKhusus;
-                kodeEvent = eventDiscountModel.kodeEvent;
-            }
-        }
-
-        //@ create detail
-        String transidGenerated = generateIndTrx();
-        TransactionDetailUiModel newestDetail = new TransactionDetailUiModel(
-                transidGenerated,
-                msArtDBModel.getNamaArt(),
-                msArtDBModel.getKodeArt(),
-                msBarcodeDBModel.getNoBarcode(),
-                msBarcodeDBModel.getUkuran(),
-                msArtDBModel.getWarna(),
-                msArtDBModel.getHarga(),
-                kodeEvent,
-                1,
-                diskon,
-                hargaKhusus,
-                hargaJual,
-                ""
-        );
-
-        TransactionUiModel transactionUiModel = TransactionViewState.FOUND_STATE.getData();
-        if (transactionUiModel == null) {
-            transactionUiModel = new TransactionUiModel(barcode, "", Calendar.getInstance().getTime(), newestDetail.getHargaJual(), isSale, new ArrayList<TransactionDetailUiModel>() {
-                {
-                    add(newestDetail);
-                }
-            });
-
-
-            TransactionViewState.FOUND_STATE.setData(transactionUiModel);
-            return TransactionViewState.FOUND_STATE;
-        }
-
-        //@ check update detail
-        ArrayList<TransactionDetailUiModel> list = transactionUiModel.getListTransaction();
-        boolean found = false;
-        for (int i = 0; i < list.size(); i++) {
-            TransactionDetailUiModel detail = list.get(i);
-            if (!detail.getBarcode().equals(newestDetail.getBarcode())) {
-                continue;
-            }
-
-            found = true;
-            TransactionDetailUiModel updatedDetail = new TransactionDetailUiModel(
-                    detail.getIndTrx(),
-                    detail.getArtName(),
-                    detail.getArtCode(),
-                    detail.getBarcode(),
-                    detail.getSize(),
-                    detail.getColour(),
-                    detail.getHargaNormal(),
-                    detail.getEventCode(),
-                    detail.getQty() + newestDetail.getQty(),
-                    detail.getDiskon(),
-                    detail.getHargaJual(),
-                    detail.getHargaKhusus(),
-                    detail.getNote()
-            );
-            list.set(i, updatedDetail);
-            break;
-        }
-
-        if (!found) {
-            list.add(newestDetail);
-        }
-
-
-        TransactionUiModel updatedTransaction = new TransactionUiModel(
-                transactionUiModel.getBarcode(),
-                transactionUiModel.getTransactionId(),
-                transactionUiModel.getTransactionDate(),
-                transactionUiModel.getGrandTotal() + newestDetail.getHargaJual(),
-                isSale, list
-        );
-
-        TransactionViewState.FOUND_STATE.setData(updatedTransaction);
-        return TransactionViewState.FOUND_STATE;
     }
 
     public void saveTransaction(Date transactionDate, String barcode, boolean isSale, String note, String discount, String price) {
@@ -321,7 +183,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                 String transidGenerated = generateIndTrx();
                 TransactionDetailUiModel newestDetail = new TransactionDetailUiModel(
                         transidGenerated,
-                        msArtDBModel.getNamaArt(),
+                        dateConverterHelper.toTimeString(transactionDate), msArtDBModel.getNamaArt(),
                         msArtDBModel.getKodeArt(),
                         msBarcodeDBModel.getNoBarcode(),
                         msBarcodeDBModel.getUkuran(),

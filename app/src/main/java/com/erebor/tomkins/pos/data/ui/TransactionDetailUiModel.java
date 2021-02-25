@@ -3,6 +3,7 @@ package com.erebor.tomkins.pos.data.ui;
 public class TransactionDetailUiModel {
 
     private final String indTrx;
+    private final String transTime;
     private final String artCode;
     private final String artName;
     private final String barcode;
@@ -16,8 +17,9 @@ public class TransactionDetailUiModel {
     private final double hargaJual;
     private final String note;
 
-    public TransactionDetailUiModel(String indTrx, String artName, String artCode, String barcode, String size, String colour, double hargaNormal, String eventCode, Integer qty, double diskon, double hargaKhusus, double hargaJual, String note) {
+    public TransactionDetailUiModel(String indTrx, String transTime, String artName, String artCode, String barcode, String size, String colour, double hargaNormal, String eventCode, Integer qty, double diskon, double hargaKhusus, double hargaJual, String note) {
         this.indTrx = indTrx;
+        this.transTime = transTime;
         this.artCode = artCode;
         this.artName = artName;
         this.barcode = barcode;
@@ -34,6 +36,10 @@ public class TransactionDetailUiModel {
 
     public String getIndTrx() {
         return indTrx;
+    }
+
+    public String getTransTime() {
+        return transTime;
     }
 
     public String getArtName() {
