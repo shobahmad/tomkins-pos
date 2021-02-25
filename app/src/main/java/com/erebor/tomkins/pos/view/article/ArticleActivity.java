@@ -66,6 +66,7 @@ public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
             return;
         }
         binding.search.setQuery(barcode, true);
+        binding.search.clearFocus();
     }
 
     private void setupInputPrice() {
@@ -378,6 +379,13 @@ public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
             InputMethodManager imm = (InputMethodManager)
                     getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+    public void hideSoftKeyboard(View view) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, InputMethodManager.HIDE_IMPLICIT_ONLY);
         }
     }
 }
