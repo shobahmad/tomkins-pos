@@ -180,7 +180,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="@{article.eventCode + ` ` + @string/discount_format(article.diskon), default = `Diskon lebaran 50%`}"
+                    android:text="@{article.eventCode + (article.diskon == 0 ? `` : ` ` + @string/discount_format(article.diskon)), default = `Diskon lebaran 50%`}"
                     android:gravity="center_vertical|end"
                     android:textAlignment="textEnd"
                     android:textSize="12sp"

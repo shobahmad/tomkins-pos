@@ -160,7 +160,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:text="@{@string/price_format(article.hargaJual - (article.hargaJual * article.diskon / 100))}"
+                    android:text="@{@string/price_format(article.hargaNormalKhusus - (article.hargaNormalKhusus * article.diskon / 100))}"
                     android:textColor="@color/colorPrimaryDark"
                     />
 
@@ -194,7 +194,7 @@
                 app:layout_constraintEnd_toStartOf="@id/textDiscount"
                 app:layout_constraintBottom_toTopOf="@id/buttonConfirm"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:hint="@string/transaction_selling_price"
+                android:hint="@string/transaction_price"
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/ic_dashboard_arrow_right"
                 >
@@ -204,7 +204,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:text="@{@string/price_format(article.hargaJual)}"
+                    android:text="@{@string/price_format(article.hargaNormalKhusus)}"
                     android:enabled="@{article != null}"
                     android:editable="false"
                     />

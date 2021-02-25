@@ -288,7 +288,7 @@ public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
             } catch (NumberFormatException e) {
             }
 
-            binding.setArticle(new ArticleUiModel(binding.getArticle(), binding.getArticle().getHargaJual(), discountPercentage));
+            binding.setArticle(new ArticleUiModel(binding.getArticle(), binding.getArticle().getHargaNormal(), discountPercentage));
             dialog.dismiss();
 
         });
@@ -305,7 +305,7 @@ public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
             return;
         }
         String artikelName = binding.getArticle().getArtName();
-        final Double price = binding.getArticle().getHargaJual();
+        final Double price = binding.getArticle().getHargaNormal();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);
         builder.setTitle(R.string.transaction_selling_price);

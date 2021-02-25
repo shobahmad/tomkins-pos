@@ -46,18 +46,18 @@ public class ArticleUiModel {
         this.selected = selected;
     }
 
-    public ArticleUiModel(ArticleUiModel articleUiModel, double hargaJual, double diskon) {
+    public ArticleUiModel(ArticleUiModel articleUiModel, double hargaNormal, double diskon) {
         this.artCode = articleUiModel.artCode;
         this.artName = articleUiModel.artName;
         this.barcode = articleUiModel.barcode;
         this.size = articleUiModel.size;
         this.colour = articleUiModel.colour;
-        this.hargaNormal = articleUiModel.hargaNormal;
+        this.hargaNormal = hargaNormal;
         this.eventCode = articleUiModel.eventCode;
         this.qty = articleUiModel.qty;
         this.diskon = diskon;
         this.hargaKhusus = articleUiModel.hargaKhusus;
-        this.hargaJual = hargaJual;
+        this.hargaJual = articleUiModel.hargaJual;
         this.selected = articleUiModel.selected;
     }
 
@@ -105,6 +105,14 @@ public class ArticleUiModel {
 
     public double getHargaJual() {
         return hargaJual;
+    }
+
+    public double getHargaNormalKhusus() {
+        if (hargaKhusus == 0) {
+            return hargaNormal;
+        }
+
+        return hargaKhusus;
     }
 
     public boolean isSelected() {

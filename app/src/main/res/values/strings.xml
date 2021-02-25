@@ -134,5 +134,6 @@
     <string name="searching_articles">Searching articles</string>
     <string name="start_sale">Start Sale</string>
     <string name="search_article_hint">Please type barcode or art code here</string>
+    <string name="transaction_price">Price</string>
 
 </resources>
