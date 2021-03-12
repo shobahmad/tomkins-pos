@@ -64,7 +64,8 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel.class);
         observeChanges();
 
-        fetchDummyData();
+        binding.layoutReport.setOnClickListener(v -> startReportMenu());
+        binding.imageArrowRight.setOnClickListener(v -> startReportMenu());
         binding.buttonScan.setOnClickListener(v -> {
             startSaleActivity(null);
         });
@@ -76,6 +77,11 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
         binding.layoutDownloadInfo.setArrowClick(v -> dataSyncViewModel.observeChanged());
         binding.layoutDownloadInfo.setContainerClick(v -> dataSyncViewModel.observeChanged());
+    }
+
+    private void startReportMenu() {
+        Intent intent = new Intent(DashboardActivity.this, StockActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -220,27 +226,6 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
     private void fetchBarcode(String qrcode) {
         startSaleActivity(qrcode);
-    }
-
-    private void fetchDummyData() {
-
-        binding.setReportDetailClick(v -> {
-            Intent intent = new Intent(DashboardActivity.this, StockActivity.class);
-            startActivity(intent);
-        });
-
-        downloadState = 0;
-        DownloadUiModel downloadUiModel = new DownloadUiModel();
-        downloadUiModel.setTitle(getResources().getString(R.string.dashboard_data_sync));
-        downloadUiModel.setDownloading(false);
-        downloadUiModel.setLastDownloadTime("3 minutes ago");
-        binding.setDownload(downloadUiModel);
-
-        ReportSummaryUiModel reportSummaryUiModel = new ReportSummaryUiModel();
-        reportSummaryUiModel.setStockTotal(120);
-        reportSummaryUiModel.setStockIncoming(100);
-        reportSummaryUiModel.setStockOutgoing(82);
-        binding.setSummary(reportSummaryUiModel);
     }
 
     @Override

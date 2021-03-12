@@ -114,19 +114,61 @@
             android:layout_marginTop="16dp"
             />
 
-        <!--REPORT SUMMARY-->
-        <include
-            android:id="@+id/layoutReport"
+        <!--REPORT-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_report"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             layout="@layout/snippet_report_summary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_sync"
-            app:summary="@{summary}"
-            app:detailClick="@{reportDetailClick}"
-            app:headerEnabled="@{true}"
-            />
+            android:background="@drawable/background_rounded_white"
+            android:padding="@dimen/dp_16"
+            android:layout_margin="@dimen/dp_16"
+            >
+
+            <ImageView
+                android:id="@+id/image_report"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_stock"
+                />
+
+
+            <TextView
+                android:id="@+id/text_label_report"
+                style="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintStart_toEndOf="@id/image_report"
+                app:layout_constraintEnd_toStartOf="@id/image_arrow_right"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:singleLine="true"
+                android:gravity="start|center_vertical"
+                android:text="@string/stock_report"
+                android:textAlignment="gravity" />
+
+            <ImageButton
+                android:id="@+id/image_arrow_right"
+                android:layout_width="48dp"
+                android:layout_height="0dp"
+                style="@style/ButtonTransparent"
+                android:src="@drawable/ic_dashboard_arrow_right"
+                android:tint="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--SYNC SUMMARY-->
         <include
@@ -136,7 +178,7 @@
             layout="@layout/snippet_sync_summary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutReport"
+            app:layout_constraintTop_toBottomOf="@id/layout_report"
             app:layout_constraintBottom_toTopOf="@id/layout_download_info"
             app:headerEnabled="@{true}"
             />
@@ -153,9 +195,6 @@
         <variable
             name="download"
             type="com.erebor.tomkins.pos.data.ui.DownloadUiModel" />
-        <variable
-            name="summary"
-            type="com.erebor.tomkins.pos.data.ui.ReportSummaryUiModel" />
         <variable
             name="settingClick"
             type="com.erebor.tomkins.pos.view.callback.IItemClick" />

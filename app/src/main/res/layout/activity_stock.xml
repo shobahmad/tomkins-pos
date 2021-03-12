@@ -17,19 +17,6 @@
             app:title="@{@string/stock_report}"
             />
 
-       <!--REPORT SUMMARY-->
-       <include
-           android:id="@+id/layoutSummary"
-           android:layout_width="0dp"
-           android:layout_height="wrap_content"
-           layout="@layout/snippet_report_summary"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/toolbar"
-           app:summary="@{summary}"
-           app:headerEnabled="@{false}"
-           />
-
        <View
            android:id="@+id/viewDevider"
            android:layout_width="0dp"
@@ -37,7 +24,7 @@
            android:background="@color/greyLines"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/layoutSummary"
+           app:layout_constraintTop_toBottomOf="@id/toolbar"
            />
 
        <!--STOCK REPORT-->
@@ -51,10 +38,4 @@
            />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <data>
-        <variable
-            name="summary"
-            type="com.erebor.tomkins.pos.data.ui.ReportSummaryUiModel" />
-    </data>
 </layout>
