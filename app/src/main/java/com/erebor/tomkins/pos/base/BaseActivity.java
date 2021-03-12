@@ -54,6 +54,13 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
         }
     }
 
+    protected int getSearcahbleMenu() {
+        return R.menu.search;
+    }
+    protected int getActionSearchMenuItem() {
+        return R.id.action_search;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!isMenuSearchEnabled()) {
@@ -61,9 +68,9 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
         }
 
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.search, menu);
+        menuInflater.inflate(getSearcahbleMenu(), menu);
 
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        MenuItem searchItem = menu.findItem(getActionSearchMenuItem());
 
         SearchManager searchManager = (SearchManager) BaseActivity.this.getSystemService(Context.SEARCH_SERVICE);
 

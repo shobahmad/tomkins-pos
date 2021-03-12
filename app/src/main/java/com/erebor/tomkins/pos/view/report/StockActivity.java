@@ -50,6 +50,16 @@ public class StockActivity extends BaseActivity<ActivityStockBinding> {
     }
 
     @Override
+    protected int getSearcahbleMenu() {
+        return R.menu.report_stock;
+    }
+
+    @Override
+    protected int getActionSearchMenuItem() {
+        return R.id.action_search_art;
+    }
+
+    @Override
     protected boolean onQueryTextSubmit(String query) {
         Toast.makeText(this, query, Toast.LENGTH_SHORT).show();
         return super.onQueryTextSubmit(query);
