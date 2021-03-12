@@ -9,7 +9,7 @@
     <string name="dashboard_sync_now">Sinkronisasi Sekarang</string>
     <string name="dashboard_start_scan">Mulai Scan</string>
     <string name="dashboard_data_sync">Sinkronisasi Data</string>
-    <string name="report_today_stock">Stok Hari ini</string>
+    <string name="report_today_stock">Stok Terakhir</string>
     <string name="report_view_detail">View Detail</string>
     <string name="report_total">Total</string>
     <string name="report_available_stock">Tersedia</string>
@@ -111,4 +111,5 @@
     <string name="start_sale">Mulai Penjualan</string>
     <string name="search_article_hint">Silakan ketik barcode atau kode art</string>
     <string name="transaction_price">Harga</string>
+    <string name="last_update">Terakhir Update</string>
 </resources>

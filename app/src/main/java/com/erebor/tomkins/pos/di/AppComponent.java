@@ -7,6 +7,7 @@ import com.erebor.tomkins.pos.repository.network.RetrofitModule;
 import com.erebor.tomkins.pos.view.article.ArticleActivity;
 import com.erebor.tomkins.pos.view.dashboard.DashboardActivity;
 import com.erebor.tomkins.pos.view.login.LoginActivity;
+import com.erebor.tomkins.pos.view.report.StockActivity;
 import com.erebor.tomkins.pos.view.sale.SaleActivity;
 import com.erebor.tomkins.pos.view.setting.SettingPrefsFragment;
 import com.erebor.tomkins.pos.view.splash.SplashScreenActivity;
@@ -34,7 +35,8 @@ import dagger.Component;
         HttpClientModule.class,
         RetrofitModule.class,
         SharedPrefsModule.class,
-        DatabaseModule.class
+        DatabaseModule.class,
+        RepositoryModule.class
 })
 @Singleton
 public interface AppComponent {
@@ -48,6 +50,7 @@ public interface AppComponent {
     void doInjection(SyncActivity activity);
     void doInjection(TransactionActivity activity);
     void doInjection(ArticleActivity activity);
+    void doInjection(StockActivity activity);
 
     void doInjection(SettingPrefsFragment fragment);
 

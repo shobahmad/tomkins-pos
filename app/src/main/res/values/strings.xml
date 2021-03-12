@@ -18,7 +18,7 @@
     <string name="dashboard_sync_now">Sync Now</string>
     <string name="dashboard_start_scan">Start Scan</string>
     <string name="dashboard_data_sync">Data Synchronization</string>
-    <string name="report_today_stock">Today Stock</string>
+    <string name="report_today_stock">Latest Stock</string>
     <string name="report_view_detail">View Detail</string>
     <string name="report_total">Total</string>
     <string name="report_available_stock">Available</string>
@@ -135,5 +135,6 @@
     <string name="start_sale">Start Sale</string>
     <string name="search_article_hint">Please type barcode or art code here</string>
     <string name="transaction_price">Price</string>
+    <string name="last_update">Last Update</string>
 
 </resources>

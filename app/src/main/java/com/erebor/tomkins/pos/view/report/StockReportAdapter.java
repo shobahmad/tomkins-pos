@@ -5,18 +5,22 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.erebor.tomkins.pos.base.BaseAdapter;
-import com.erebor.tomkins.pos.data.ui.StockUiModel;
+import com.erebor.tomkins.pos.data.local.model.StockReportModel;
 import com.erebor.tomkins.pos.databinding.ItemStockBinding;
+import com.erebor.tomkins.pos.helper.DateConverterHelper;
 
-public class StockReportAdapter extends BaseAdapter<ItemStockBinding, StockUiModel> {
+public class StockReportAdapter extends BaseAdapter<ItemStockBinding, StockReportModel> {
 
-    public StockReportAdapter(Context context) {
+    private final DateConverterHelper dateConverterHelper;
+    public StockReportAdapter(Context context, DateConverterHelper dateConverterHelper) {
         super(context);
+        this.dateConverterHelper = dateConverterHelper;
     }
 
     @Override
-    public void setDataBinding(ViewHolder viewHolder, StockUiModel data) {
+    public void setDataBinding(ViewHolder viewHolder, StockReportModel data) {
         ItemStockBinding binding = (ItemStockBinding) viewHolder.getBinding();
+        binding.setFormattedLastUpdate(dateConverterHelper.getDifference(data.getLastUpdate().getTime()));
         binding.setStock(data);
     }
 
@@ -26,12 +30,12 @@ public class StockReportAdapter extends BaseAdapter<ItemStockBinding, StockUiMod
     }
 
     @Override
-    public boolean areItemsTheSame(StockUiModel oldItem, StockUiModel newItem) {
-        return oldItem.getProductId().equals(newItem.getProductId());
+    public boolean areItemsTheSame(StockReportModel oldItem, StockReportModel newItem) {
+        return oldItem.getNoBarcode().equals(newItem.getNoBarcode());
     }
 
     @Override
-    public StockUiModel getItem(ViewHolder viewHolder) {
+    public StockReportModel getItem(ViewHolder viewHolder) {
         ItemStockBinding binding = (ItemStockBinding) viewHolder.getBinding();
         return binding.getStock();
     }

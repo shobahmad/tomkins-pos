@@ -20,6 +20,7 @@ import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBrandDao;
 import com.erebor.tomkins.pos.data.local.dao.MsGenderDao;
 import com.erebor.tomkins.pos.data.local.dao.MsUkuranDao;
+import com.erebor.tomkins.pos.data.local.dao.StockReportDao;
 import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxJualDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxJualDetDao;
@@ -54,7 +55,11 @@ import com.erebor.tomkins.pos.data.local.model.*;
 //        TrxTerimaDetDBModel.class,
 
     },
-    views = {DownloadLastUpdateModel.class, EventDiscountModel.class},
+    views = {
+            DownloadLastUpdateModel.class,
+            EventDiscountModel.class,
+            StockReportModel.class
+    },
     version = 1, exportSchema = false)
 @TypeConverters({
         Converters.class
@@ -78,6 +83,7 @@ public abstract class TomkinsDatabase extends RoomDatabase {
     public abstract EventDiscountDao eventDiscountDao();
     public abstract TrxJualDao trxJualDao();
     public abstract TrxJualDetDao trxJualDetDao();
+    public abstract StockReportDao stockReportDao();
 
     private static final Object sLock = new Object();
 

@@ -8,6 +8,7 @@ import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.di.AppModule;
 import com.erebor.tomkins.pos.di.DaggerAppComponent;
 import com.erebor.tomkins.pos.di.UtilsModule;
+import com.erebor.tomkins.pos.repository.local.StockReportLocalRepository;
 
 
 public class TomkinApps extends MultiDexApplication {

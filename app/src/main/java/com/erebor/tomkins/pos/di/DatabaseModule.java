@@ -13,6 +13,7 @@ import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBrandDao;
 import com.erebor.tomkins.pos.data.local.dao.MsGenderDao;
 import com.erebor.tomkins.pos.data.local.dao.MsUkuranDao;
+import com.erebor.tomkins.pos.data.local.dao.StockReportDao;
 import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxJualDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxJualDetDao;
@@ -103,5 +104,10 @@ public class DatabaseModule {
     @Singleton
     TrxJualDetDao providesTrxJualDetDao(TomkinsDatabase tomkinsDatabase) {
         return tomkinsDatabase.trxJualDetDao();
+    }
+    @Provides
+    @Singleton
+    StockReportDao providesStockReportDao(TomkinsDatabase tomkinsDatabase) {
+        return tomkinsDatabase.stockReportDao();
     }
 }
