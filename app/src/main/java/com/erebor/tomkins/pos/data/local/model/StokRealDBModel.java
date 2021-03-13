@@ -46,6 +46,10 @@ public class StokRealDBModel implements BaseDatabaseModel {
     private Date lastUpdate;
 
     @NonNull
+    @ColumnInfo(name = "isUploaded", defaultValue = "1")
+    private Boolean isUploaded;
+
+    @NonNull
     public String getKodeArt() {
         return kodeArt;
     }
@@ -81,5 +85,14 @@ public class StokRealDBModel implements BaseDatabaseModel {
     @Override
     public void setLastUpdate(@NonNull Date lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    @NonNull
+    public Boolean getUploaded() {
+        return isUploaded;
+    }
+
+    public void setUploaded(@NonNull Boolean uploaded) {
+        isUploaded = uploaded;
     }
 }

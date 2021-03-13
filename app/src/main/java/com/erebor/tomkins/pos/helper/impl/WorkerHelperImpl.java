@@ -11,7 +11,8 @@ import com.erebor.tomkins.pos.worker.SyncMsBrandDownloadWorker;
 import com.erebor.tomkins.pos.worker.SyncMsGenderDownloadWorker;
 import com.erebor.tomkins.pos.worker.SyncMsUkuranDownloadWorker;
 import com.erebor.tomkins.pos.worker.SyncStokRealDownloadWorker;
-import com.erebor.tomkins.pos.worker.SyncUploadWorker;
+import com.erebor.tomkins.pos.worker.SyncUploadStockWorker;
+import com.erebor.tomkins.pos.worker.SyncUploadTransactionWorker;
 import com.erebor.tomkins.pos.worker.WorkerRequest;
 
 import java.util.ArrayList;
@@ -42,8 +43,13 @@ public class WorkerHelperImpl implements WorkerHelper {
     }
 
     @Override
-    public WorkerRequest getUploadWorkerRequest() {
-        return new WorkerRequest(SyncUploadWorker.class, 100, getUploadingText(R.string.transaction));
+    public WorkerRequest getUploadTrxWorkerRequest() {
+        return new WorkerRequest(SyncUploadTransactionWorker.class, 100, getUploadingText(R.string.transaction));
+    }
+
+    @Override
+    public WorkerRequest getUploadStockWorkerRequest() {
+        return new WorkerRequest(SyncUploadStockWorker.class, 100, getUploadingText(R.string.stock));
     }
 
     private String getDownloadingText(int stringResource) {

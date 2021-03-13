@@ -5,6 +5,7 @@ import androidx.room.Query;
 
 import com.erebor.tomkins.pos.base.BaseDao;
 import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
+import com.erebor.tomkins.pos.data.local.model.TrxJualDBModel;
 
 import java.util.List;
 
@@ -27,4 +28,13 @@ public interface StokRealDao extends BaseDao<StokRealDBModel> {
 
     @Query("DELETE FROM STOKREAL")
     void truncate();
+
+    @Query("SELECT COUNT(*) FROM STOKREAL WHERE isUploaded = 0")
+    Flowable<Integer> getUnuploadedCount();
+
+    @Query("SELECT COUNT(*) FROM STOKREAL WHERE isUploaded = 0")
+    Integer getSyncUnuploadedCount();
+
+    @Query("SELECT * FROM STOKREAL WHERE isUploaded = 0 order by last_update asc limit 1")
+    StokRealDBModel getSyncFirstQueue();
 }

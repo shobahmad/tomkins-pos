@@ -21,7 +21,8 @@ import com.erebor.tomkins.pos.worker.SyncMsBrandDownloadWorker;
 import com.erebor.tomkins.pos.worker.SyncMsGenderDownloadWorker;
 import com.erebor.tomkins.pos.worker.SyncMsUkuranDownloadWorker;
 import com.erebor.tomkins.pos.worker.SyncStokRealDownloadWorker;
-import com.erebor.tomkins.pos.worker.SyncUploadWorker;
+import com.erebor.tomkins.pos.worker.SyncUploadStockWorker;
+import com.erebor.tomkins.pos.worker.SyncUploadTransactionWorker;
 
 import javax.inject.Singleton;
 
@@ -63,6 +64,7 @@ public interface AppComponent {
     void doInjection(SyncEventHargaDownloadWorker worker);
     void doInjection(SyncEventHargaDetDownloadWorker worker);
 
-    void doInjection(SyncUploadWorker worker);
+    void doInjection(SyncUploadTransactionWorker worker);
+    void doInjection(SyncUploadStockWorker worker);
 
 }

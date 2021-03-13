@@ -9,9 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class StockReportLocalRepositoryImpl implements StockReportLocalRepository {
-    @Inject
-    StockReportDao stockReportDao;
-
+    private final StockReportDao stockReportDao;
     public StockReportLocalRepositoryImpl(StockReportDao stockReportDao) {
         this.stockReportDao = stockReportDao;
     }

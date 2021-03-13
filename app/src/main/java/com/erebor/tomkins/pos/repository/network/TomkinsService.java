@@ -57,5 +57,7 @@ public interface TomkinsService {
 
     @POST("trx")
     Call<RestResponse<Date>> postTransaction(@Body TrxJualDBModel trxJualDBModel);
+    @POST("trx")
+    Call<RestResponse<Date>> postStock(@Body StokRealDBModel stokRealDBModel);
 
 }

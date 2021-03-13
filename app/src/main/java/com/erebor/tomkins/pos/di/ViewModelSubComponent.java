@@ -7,7 +7,8 @@ import com.erebor.tomkins.pos.viewmodel.report.StockReportViewModel;
 import com.erebor.tomkins.pos.viewmodel.splash.SplashViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDownloadViewModel;
-import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadStockViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadTrxViewModel;
 import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewModel;
 
 import dagger.Subcomponent;
@@ -29,9 +30,10 @@ public interface ViewModelSubComponent {
     DownloadInfoViewModel downloadInfoViewModel();
     SyncDownloadViewModel syncDataMasterViewModel();
     TransactionViewModel transactionViewModel();
-    SyncUploadViewModel syncUploadViewModel();
+    SyncUploadTrxViewModel syncUploadViewModel();
     ArticleViewModel articleViewModel();
     StockReportViewModel stockReportViewModel();
     GenderViewModel genderViewModel();
+    SyncUploadStockViewModel syncUploadStockViewModel();
 
 }

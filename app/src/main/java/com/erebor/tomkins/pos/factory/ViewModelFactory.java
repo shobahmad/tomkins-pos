@@ -13,7 +13,8 @@ import com.erebor.tomkins.pos.viewmodel.report.StockReportViewModel;
 import com.erebor.tomkins.pos.viewmodel.splash.SplashViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDownloadViewModel;
-import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadStockViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadTrxViewModel;
 import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewModel;
 
 import java.util.Map;
@@ -35,10 +36,11 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         creators.put(DownloadInfoViewModel.class, () -> viewModelSubComponent.downloadInfoViewModel());
         creators.put(SyncDownloadViewModel.class, () -> viewModelSubComponent.syncDataMasterViewModel());
         creators.put(TransactionViewModel.class, () -> viewModelSubComponent.transactionViewModel());
-        creators.put(SyncUploadViewModel.class, () -> viewModelSubComponent.syncUploadViewModel());
+        creators.put(SyncUploadTrxViewModel.class, () -> viewModelSubComponent.syncUploadViewModel());
         creators.put(ArticleViewModel.class, () -> viewModelSubComponent.articleViewModel());
         creators.put(StockReportViewModel.class, () -> viewModelSubComponent.stockReportViewModel());
         creators.put(GenderViewModel.class, () -> viewModelSubComponent.genderViewModel());
+        creators.put(SyncUploadStockViewModel.class, () -> viewModelSubComponent.syncUploadStockViewModel());
 
     }
 

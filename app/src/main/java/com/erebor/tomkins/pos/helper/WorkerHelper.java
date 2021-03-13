@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface WorkerHelper {
     List<WorkerRequest> getDownloadWorkerRequest();
-    WorkerRequest getUploadWorkerRequest();
+    WorkerRequest getUploadTrxWorkerRequest();
+    WorkerRequest getUploadStockWorkerRequest();
 }

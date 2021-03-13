@@ -13,11 +13,11 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 
 import com.erebor.tomkins.pos.base.BaseViewModel;
-import com.erebor.tomkins.pos.data.local.dao.TrxJualDao;
+import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.helper.WorkerHelper;
 import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
-import com.erebor.tomkins.pos.worker.SyncUploadWorker;
+import com.erebor.tomkins.pos.worker.SyncUploadStockWorker;
 import com.erebor.tomkins.pos.worker.WorkerRequest;
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -33,15 +33,15 @@ import javax.inject.Inject;
 
 import io.reactivex.schedulers.Schedulers;
 
-public class SyncUploadViewModel extends BaseViewModel<SyncUploadViewState> {
+public class SyncUploadStockViewModel extends BaseViewModel<SyncUploadViewState> {
 
-    private static final String SYNC_WORK_NAME = "upload_work";
-    private static final String TAG = "SyncUploadViewModel";
-    private WorkManager workManager;
-    private Logger logger;
-    private SharedPrefs sharedPrefs;
-    private WorkerHelper workerHelper;
-    private TrxJualDao trxJualDao;
+    private static final String SYNC_WORK_NAME = "upload_stock_work";
+    private static final String TAG = "SyncUploadStockViewModel";
+    private final WorkManager workManager;
+    private final Logger logger;
+    private final SharedPrefs sharedPrefs;
+    private final WorkerHelper workerHelper;
+    private final StokRealDao stokRealDao;
 
     private final int UPLOAD_INTERVAL_MINUTES = 5;
 
@@ -50,12 +50,13 @@ public class SyncUploadViewModel extends BaseViewModel<SyncUploadViewState> {
     private final MutableLiveData<Integer> pendingCountLiveData;
 
     @Inject
-    public SyncUploadViewModel(WorkManager workManager, Logger logger, SharedPrefs sharedPrefs, WorkerHelper workerHelper, TrxJualDao trxJualDao) {
+    public SyncUploadStockViewModel(WorkManager workManager, Logger logger, SharedPrefs sharedPrefs, 
+                                    WorkerHelper workerHelper, StokRealDao stokRealDao) {
         this.workManager = workManager;
         this.logger = logger;
         this.sharedPrefs = sharedPrefs;
         this.workerHelper = workerHelper;
-        this.trxJualDao = trxJualDao;
+        this.stokRealDao = stokRealDao;
 
         this.pendingCountLiveData = new MutableLiveData<>();
     }
@@ -71,7 +72,7 @@ public class SyncUploadViewModel extends BaseViewModel<SyncUploadViewState> {
     }
 
     private void getPendingCount() {
-        getDisposable().add(trxJualDao.getUnuploadedCount()
+        getDisposable().add(stokRealDao.getUnuploadedCount()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(unuploadedCount -> pendingCountLiveData.postValue(unuploadedCount))
@@ -79,7 +80,7 @@ public class SyncUploadViewModel extends BaseViewModel<SyncUploadViewState> {
     }
 
     private void addObservers() {
-            WorkerRequest workerRequest = workerHelper.getUploadWorkerRequest();
+            WorkerRequest workerRequest = workerHelper.getUploadStockWorkerRequest();
             Observer<List<WorkInfo>> observer = getObserver(workerRequest.getProgressUpdate());
             workManager.getWorkInfosByTagLiveData(
                     workerRequest.getWorker().getSimpleName()
@@ -159,7 +160,7 @@ public class SyncUploadViewModel extends BaseViewModel<SyncUploadViewState> {
         }
 
 
-        String message = data.getString(SyncUploadWorker.KEY_EXCEPTION_MESSAGE);
+        String message = data.getString(SyncUploadStockWorker.KEY_EXCEPTION_MESSAGE);
         if (state.equals(WorkInfo.State.FAILED) && message != null) {
             logger.debug(TAG, "FAILED " + info.getTags().toArray()[0] +" -> " + message);
             SyncUploadViewState.ERROR_STATE.setError(new Exception(message));
@@ -192,7 +193,7 @@ public class SyncUploadViewModel extends BaseViewModel<SyncUploadViewState> {
 
         OneTimeWorkRequest.Builder initRequest = buildWorkerRequest(
                 requestId,
-                workerHelper.getUploadWorkerRequest().getWorker())
+                workerHelper.getUploadStockWorkerRequest().getWorker())
                 .setInitialDelay(delay, TimeUnit.MINUTES);
 
         WorkContinuation continuation = workManager
@@ -216,7 +217,7 @@ public class SyncUploadViewModel extends BaseViewModel<SyncUploadViewState> {
     }
 
     private boolean isEnqueued() {
-        ListenableFuture<List<WorkInfo>> listListenableFuture = workManager.getWorkInfosByTag(SyncUploadWorker.class.getName());
+        ListenableFuture<List<WorkInfo>> listListenableFuture = workManager.getWorkInfosByTag(SyncUploadStockWorker.class.getName());
         try {
             List<WorkInfo> workInfos = listListenableFuture.get();
             if (workInfos.isEmpty()) {
@@ -239,7 +240,7 @@ public class SyncUploadViewModel extends BaseViewModel<SyncUploadViewState> {
 
     private OneTimeWorkRequest.Builder buildWorkerRequest(long requestId, Class<? extends Worker> worker) {
         Data data = new Data.Builder()
-                .putLong(SyncUploadWorker.KEY_REQUEST_ID, requestId)
+                .putLong(SyncUploadStockWorker.KEY_REQUEST_ID, requestId)
                 .build();
 
         return new OneTimeWorkRequest.Builder(worker)
@@ -253,7 +254,7 @@ public class SyncUploadViewModel extends BaseViewModel<SyncUploadViewState> {
         if (observerHashMap.isEmpty())
             return;
 
-        WorkerRequest workerRequest = workerHelper.getUploadWorkerRequest();
+        WorkerRequest workerRequest = workerHelper.getUploadStockWorkerRequest();
         Observer<List<WorkInfo>> observer = observerHashMap.get(
                 workerRequest.getWorker().getSimpleName()
         );

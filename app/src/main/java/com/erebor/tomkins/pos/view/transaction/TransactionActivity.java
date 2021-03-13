@@ -27,7 +27,7 @@ import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.erebor.tomkins.pos.view.article.ArticleActivity;
 import com.erebor.tomkins.pos.view.scan.VisionScannerActivity;
 import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
-import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadTrxViewModel;
 import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewModel;
 import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewState;
 import com.google.android.material.textfield.TextInputEditText;
@@ -50,7 +50,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
     SharedPrefs sharedPrefs;
 
     TransactionViewModel transactionViewModel;
-    SyncUploadViewModel syncUploadViewModel;
+    SyncUploadTrxViewModel syncUploadTrxViewModel;
 
     private Date selectedDate = null;
 
@@ -73,7 +73,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         setToolbar(binding.toolbar.toolbar);
         binding.toolbar.setTitle(resourceHelper.getResourceString(R.string.transaction));
         transactionViewModel = ViewModelProviders.of(this, factory).get(TransactionViewModel.class);
-        syncUploadViewModel = ViewModelProviders.of(this, factory).get(SyncUploadViewModel.class);
+        syncUploadTrxViewModel = ViewModelProviders.of(this, factory).get(SyncUploadTrxViewModel.class);
 
         binding.buttonAdd.setOnClickListener(v -> startSearchArticle());
         binding.buttonScan.setOnClickListener(v -> {
@@ -274,7 +274,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             binding.setTransaction(transactionViewState.getData());
             binding.setLoading(null);
             binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
-            syncUploadViewModel.startSyncFull();
+            syncUploadTrxViewModel.startSyncFull();
             setTransactionQty(transactionViewState.getData().getListTransaction());
             return;
         }

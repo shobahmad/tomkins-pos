@@ -2,6 +2,7 @@ package com.erebor.tomkins.pos.viewmodel.transaction;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseViewModel;
+import com.erebor.tomkins.pos.data.local.TomkinsDatabase;
 import com.erebor.tomkins.pos.data.local.dao.EventDiscountDao;
 import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
@@ -16,6 +17,7 @@ import com.erebor.tomkins.pos.data.ui.TransactionDetailUiModel;
 import com.erebor.tomkins.pos.data.ui.TransactionUiModel;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.helper.ResourceHelper;
+import com.erebor.tomkins.pos.repository.local.StockUpdateLocalRepository;
 import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 
@@ -42,9 +44,14 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
     private ResourceHelper resourceHelper;
     private Logger logger;
     private DateConverterHelper dateConverterHelper;
+    private final TomkinsDatabase tomkinsDatabase;
+    private final StockUpdateLocalRepository stockUpdateLocalRepository;
 
     @Inject
-    public TransactionViewModel(MsBarcodeDao msBarcodeDao, MsArtDao msArtDao, TrxJualDao trxJualDao, TrxJualDetDao trxJualDetDao, SharedPrefs sharedPrefs, EventDiscountDao eventDiscountDao, ResourceHelper resourceHelper, Logger logger, DateConverterHelper dateConverterHelper) {
+    public TransactionViewModel(MsBarcodeDao msBarcodeDao, MsArtDao msArtDao, TrxJualDao trxJualDao,
+                                TrxJualDetDao trxJualDetDao, SharedPrefs sharedPrefs, EventDiscountDao eventDiscountDao,
+                                ResourceHelper resourceHelper, Logger logger, DateConverterHelper dateConverterHelper,
+                                TomkinsDatabase tomkinsDatabase, StockUpdateLocalRepository stockUpdateLocalRepository) {
         this.msBarcodeDao = msBarcodeDao;
         this.msArtDao = msArtDao;
         this.trxJualDao = trxJualDao;
@@ -54,6 +61,8 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         this.resourceHelper = resourceHelper;
         this.logger = logger;
         this.dateConverterHelper = dateConverterHelper;
+        this.tomkinsDatabase = tomkinsDatabase;
+        this.stockUpdateLocalRepository = stockUpdateLocalRepository;
     }
 
 
@@ -114,19 +123,6 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                             TransactionViewState.ERROR_STATE.setError(throwable);
                             postValue(TransactionViewState.ERROR_STATE);
                         }));
-    }
-
-
-    public void reset() {
-        getDisposable().add(Single.fromCallable(() -> {
-            TransactionViewState.FOUND_STATE.setData(null);
-            TransactionViewState.SUCCESS_STATE.setData(null);
-            TransactionViewState.SAVING_STATE.setData(null);
-            return true;
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(state -> postValue(TransactionViewState.RESET_STATE)));
     }
 
     public void saveTransaction(Date transactionDate, String barcode, boolean isSale, String note, String discount, String price) {
@@ -198,9 +194,19 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                         false);
 
                 trxJualDBModel.getListDetail().add(getTrxJualDet(newestDetail, trxJualDBModel.getNoBon(), isSale));
+                tomkinsDatabase.runInTransaction(() -> {
+                    trxJualDao.insertReplaceSync(trxJualDBModel);
+                    trxJualDetDao.insertAllReplaceSync(trxJualDBModel.getListDetail());
+                    if (isSale) {
+                        stockUpdateLocalRepository.removeStock(newestDetail.getArtCode(), newestDetail.getSize(), 1);
+                        return true;
+                    }
 
-                trxJualDao.insertReplaceSync(trxJualDBModel);
-                trxJualDetDao.insertAllReplaceSync(trxJualDBModel.getListDetail());
+                    stockUpdateLocalRepository.addStock(newestDetail.getArtCode(), newestDetail.getSize(), 1);
+
+
+                    return true;
+                });
 
                 TransactionUiModel successTransaction = new TransactionUiModel(
                         barcode,

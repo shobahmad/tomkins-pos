@@ -150,6 +150,6 @@ public class StockActivity extends BaseActivity<ActivityStockBinding> {
 
     private void applyFilter() {
         String searchQuery = getSearchQueryText();
-        stockReportViewModel.getStock(searchQuery.trim().isEmpty() ? null : searchQuery.trim() , binding.getSize(), binding.getGender());
+        stockReportViewModel.getStock(searchQuery.trim().isEmpty() ? null : searchQuery.trim().toUpperCase() , binding.getSize(), binding.getGender());
     }
 }

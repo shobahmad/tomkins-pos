@@ -141,5 +141,6 @@
     <string name="filter_apply">Apply</string>
     <string name="gender">Gender</string>
     <string name="stock_no_result">Couldn\'t find any articles with current filters</string>
+    <string name="stock">Stock</string>
 
 </resources>

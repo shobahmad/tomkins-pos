@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
 import com.erebor.tomkins.pos.data.ui.DownloadUiModel;
-import com.erebor.tomkins.pos.data.ui.ReportSummaryUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityDashboardBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
@@ -29,8 +28,10 @@ import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewState;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDownloadViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDownloadViewState;
-import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadStockViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadTrxViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadViewState;
+import com.erebor.tomkins.pos.worker.SyncUploadStockWorker;
 
 import javax.inject.Inject;
 
@@ -48,7 +49,8 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     ResourceHelper resourceHelper;
 
     SyncDownloadViewModel dataSyncViewModel;
-    SyncUploadViewModel syncUploadViewModel;
+    SyncUploadTrxViewModel syncUploadTrxViewModel;
+    SyncUploadStockViewModel syncUploadStockViewModel;
     DownloadInfoViewModel downloadInfoViewModel;
     LoginViewModel loginViewModel;
 
@@ -59,7 +61,8 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         super.onCreate(savedInstanceState);
 
         dataSyncViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncDownloadViewModel.class);
-        syncUploadViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncUploadViewModel.class);
+        syncUploadTrxViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncUploadTrxViewModel.class);
+        syncUploadStockViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncUploadStockViewModel.class);
         downloadInfoViewModel = ViewModelProviders.of(this, viewModelFactory).get(DownloadInfoViewModel.class);
         loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel.class);
         observeChanges();
@@ -173,8 +176,10 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
             }
         });
 
-        syncUploadViewModel.observeChanged();
-        syncUploadViewModel.getViewState().observe(this, syncUploadViewState -> {
+        syncUploadStockViewModel.observeChanged();
+
+        syncUploadTrxViewModel.observeChanged();
+        syncUploadTrxViewModel.getViewState().observe(this, syncUploadViewState -> {
             if (syncUploadViewState.getCurrentState().equals(SyncUploadViewState.STATE_WAITING)) {
                 binding.setUploadInfo(resourceHelper.getResourceString(R.string.dashboard_pending));
                 binding.setUploading(false);
@@ -199,7 +204,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 binding.textLabelPending.setTextColor(getResources().getColor(R.color.colorPrimary));
             }
         });
-        syncUploadViewModel.getPendingCountLiveData().observe(this, pendingCount -> {
+        syncUploadTrxViewModel.getPendingCountLiveData().observe(this, pendingCount -> {
             binding.setUploadCount(pendingCount);
         });
     }

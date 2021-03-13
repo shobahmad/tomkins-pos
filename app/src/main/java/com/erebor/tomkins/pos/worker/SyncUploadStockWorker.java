@@ -7,9 +7,8 @@ import androidx.work.Data;
 import androidx.work.WorkerParameters;
 
 import com.erebor.tomkins.pos.base.BaseWorker;
-import com.erebor.tomkins.pos.data.local.dao.TrxJualDao;
-import com.erebor.tomkins.pos.data.local.dao.TrxJualDetDao;
-import com.erebor.tomkins.pos.data.local.model.TrxJualDBModel;
+import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
+import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
 import com.erebor.tomkins.pos.data.remote.response.NetworkBoundResult;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.di.AppComponent;
@@ -23,14 +22,12 @@ import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class SyncUploadWorker extends BaseWorker {
+public class SyncUploadStockWorker extends BaseWorker {
     public static final String KEY_EXCEPTION_MESSAGE = "key_exception";
     public static final String KEY_REQUEST_ID = "key_request_id";
 
     @Inject
-    TrxJualDao trxJualDao;
-    @Inject
-    TrxJualDetDao trxJualDetDao;
+    StokRealDao stokRealDao;
     @Inject
     TomkinsService service;
     @Inject
@@ -38,7 +35,7 @@ public class SyncUploadWorker extends BaseWorker {
     @Inject
     Logger logger;
 
-    public SyncUploadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public SyncUploadStockWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 
@@ -59,8 +56,8 @@ public class SyncUploadWorker extends BaseWorker {
                   @if unsync transaction is empty then
                       break
                 */
-               int unuploadedCount = trxJualDao.getSyncUnuploadedCount();
-                logger.debug(getClass().getSimpleName(), "Trx queue : " + unuploadedCount);
+               int unuploadedCount = stokRealDao.getSyncUnuploadedCount();
+                logger.debug(getClass().getSimpleName(), "Stock queue : " + unuploadedCount);
                if (unuploadedCount == 0) {
                    break;
                }
@@ -68,24 +65,21 @@ public class SyncUploadWorker extends BaseWorker {
                 /*
                     @get first queued transaction data
                  */
-                TrxJualDBModel trxJualDBModel = trxJualDao.getSyncFirstQueue();
-                if (trxJualDBModel == null) {
+                StokRealDBModel stokRealDBModel = stokRealDao.getSyncFirstQueue();
+                if (stokRealDBModel == null) {
                     break;
                 }
-                trxJualDBModel.setListDetail(trxJualDetDao.getListByNoBon(trxJualDBModel.getNoBon()));
-
                 /*
                     @post data
                     @read response
                  */
-                Date uploadedDate = postTransaction(trxJualDBModel);
+                Date uploadedDate = postTransaction(stokRealDBModel);
 
                 /*
                 @update transaction set sync
                  */
-                trxJualDBModel.setUploaded(true);
-                trxJualDBModel.setTanggalUpload(uploadedDate);
-                trxJualDao.update(trxJualDBModel).blockingGet();
+                stokRealDBModel.setUploaded(true);
+                stokRealDao.update(stokRealDBModel).blockingGet();
             } catch (Exception | Error e) {
                 Data data = new Data.Builder()
                         .putString(KEY_EXCEPTION_MESSAGE, e.getMessage())
@@ -102,11 +96,11 @@ public class SyncUploadWorker extends BaseWorker {
         return !sharedPrefs.getUsername().isEmpty();
     }
 
-    private Date postTransaction(TrxJualDBModel trxJualDBModel) throws Exception {
+    private Date postTransaction(StokRealDBModel stokRealDBModel) throws Exception {
         return new NetworkBoundResult<Date>() {
             @Override
             protected Call<RestResponse<Date>> callApiAction() {
-                return service.postTransaction(trxJualDBModel);
+                return service.postStock(stokRealDBModel);
             }
         }.fetchData();
     }
