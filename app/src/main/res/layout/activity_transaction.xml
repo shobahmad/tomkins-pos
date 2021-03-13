@@ -173,6 +173,8 @@
                         android:layout_marginStart="16dp"
                         android:textColorHint="@color/warmGrey"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:helperText="@{saleTotal == 0 ? `` : @string/price_format(saleTotal)}"
+                        app:helperTextTextColor="@color/colorPrimary"
                         >
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -199,6 +201,8 @@
                         app:hintEnabled="true"
                         android:textColorHint="@color/warmGrey"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:helperText="@{returnTotal == 0 ? `` : @string/price_format(returnTotal)}"
+                        app:helperTextTextColor="@color/watermelon"
                         >
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -315,6 +319,12 @@
         <variable
             name="returnQty"
             type="int" />
+        <variable
+            name="saleTotal"
+            type="double" />
+        <variable
+            name="returnTotal"
+            type="double" />
         <variable
             name="transaction"
             type="com.erebor.tomkins.pos.data.ui.TransactionUiModel" />

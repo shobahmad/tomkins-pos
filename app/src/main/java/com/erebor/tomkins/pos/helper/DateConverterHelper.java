@@ -5,7 +5,8 @@ import java.util.Date;
 
 public interface DateConverterHelper {
 
-    String toDatetring(Date date);
+    String toDateString(Date date);
+    String toDateShortString(Date date);
 
     String toDateNoBon(Date date);
 

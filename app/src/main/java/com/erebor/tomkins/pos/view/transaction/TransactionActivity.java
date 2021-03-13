@@ -121,7 +121,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
 
     private void setupDatePicker() {
         binding.editTransDate.setTag(Calendar.getInstance().getTime());
-        binding.editTransDate.setText(dateConverterHelper.toDatetring(Calendar.getInstance().getTime()));
+        binding.editTransDate.setText(dateConverterHelper.toDateShortString(Calendar.getInstance().getTime()));
         binding.textTransDate.getEditText().setOnClickListener(v -> showDatePicker());
         binding.textTransDate.getEditText().setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) showDatePicker();
@@ -147,7 +147,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             calendar1.set(Calendar.MONTH, monthOfYear);
             calendar1.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             selectedDate = calendar1.getTime();
-            binding.editTransDate.setText(dateConverterHelper.toDatetring(calendar1.getTime()));
+            binding.editTransDate.setText(dateConverterHelper.toDateShortString(calendar1.getTime()));
             binding.editTransDate.setTag(selectedDate);
             transactionViewModel.loadTransaction(selectedDate);
         }, year, month, day);
@@ -266,7 +266,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             binding.setTransaction(transactionViewState.getData());
             binding.setLoading(null);
             binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
-            setTransactionQty(transactionViewState.getData().getListTransaction());
+            setTransactionSummary(transactionViewState.getData().getListTransaction());
             return;
         }
         if (transactionViewState.getCurrentState().equals(TransactionViewState.FOUND_STATE.getCurrentState())) {
@@ -275,7 +275,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             binding.setLoading(null);
             binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
             syncUploadTrxViewModel.startSyncFull();
-            setTransactionQty(transactionViewState.getData().getListTransaction());
+            setTransactionSummary(transactionViewState.getData().getListTransaction());
             return;
         }
 
@@ -290,7 +290,7 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
             binding.setLoading(null);
             binding.setEmpty(transactionAdapter.getList() == null || transactionAdapter.getList().isEmpty());
             Toast.makeText(TransactionActivity.this, transactionViewState.getError().getMessage(), Toast.LENGTH_LONG).show();
-            setTransactionQty(transactionViewState.getData().getListTransaction());
+            setTransactionSummary(transactionViewState.getData().getListTransaction());
             return;
         }
 
@@ -317,22 +317,34 @@ public class TransactionActivity extends BaseActivity<ActivityTransactionBinding
         }
     }
 
-    private void setTransactionQty(List<TransactionDetailUiModel> list) {
+    private void setTransactionSummary(List<TransactionDetailUiModel> list) {
         if (binding.getEmpty()) {
             binding.setSaleQty(0);
             binding.setReturnQty(0);
+            binding.setSaleTotal(0);
+            binding.setReturnTotal(0);
             return;
         }
 
         int saleQty = 0;
         int returnQty = 0;
+        double saleTotal = 0;
+        double returnTotal = 0;
         for (TransactionDetailUiModel transactionDetailUiModel : list) {
-            if (transactionDetailUiModel.getQty() > 0) saleQty++;
-            if (transactionDetailUiModel.getQty() < 0) returnQty++;
+            if (transactionDetailUiModel.getQty() > 0) {
+                saleQty++;
+                saleTotal += transactionDetailUiModel.getSubTotal();
+            }
+            if (transactionDetailUiModel.getQty() < 0) {
+                returnQty++;
+                returnTotal += transactionDetailUiModel.getSubTotal();
+            }
         }
 
         binding.setSaleQty(saleQty);
         binding.setReturnQty(returnQty);
+        binding.setSaleTotal(saleTotal);
+        binding.setReturnTotal(returnTotal);
     }
 
     private void startSearchArticle() {

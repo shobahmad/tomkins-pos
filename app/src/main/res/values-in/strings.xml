@@ -65,7 +65,7 @@
     <string name="logout">Keluar</string>
     <string name="spg_code">Kode SPG</string>
     <string name="sale_scan">Scan</string>
-    <string name="transaction_date">Tanggal Transaksi</string>
+    <string name="transaction_date">Tanggal Trx.</string>
     <string name="transaction_grand_total">Grand Total</string>
     <string name="transaction_note">Catatan</string>
     <string name="transaction_sub_total">Sub Total</string>
