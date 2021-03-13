@@ -11,6 +11,7 @@
         <item name="android:homeAsUpIndicator">@drawable/ic_back_button</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="searchViewStyle">@style/SearchViewStyle</item>
         <item name="autoCompleteTextViewStyle">@style/SearchAutoCompleteTextView</item>
         <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
         <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
@@ -20,6 +21,10 @@
     <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
         <item name="android:textColor">@color/white</item>
         <item name="android:textColorHint">@color/greyLines</item>
+    </style>
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="searchIcon">@android:drawable/ic_menu_search</item>
+        <item name="closeIcon">@android:drawable/ic_menu_close_clear_cancel</item>
     </style>
     <style name="Widget.MaterialComponents.TextInputLayout.NoOutline.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
         <item name="boxStrokeColor">@android:color/transparent</item>

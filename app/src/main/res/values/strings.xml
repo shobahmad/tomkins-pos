@@ -140,5 +140,6 @@
     <string name="filter_size">Size</string>
     <string name="filter_apply">Apply</string>
     <string name="gender">Gender</string>
+    <string name="stock_no_result">Couldn\'t find any articles with current filters</string>
 
 </resources>

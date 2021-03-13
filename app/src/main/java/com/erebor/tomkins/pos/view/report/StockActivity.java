@@ -13,20 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
-import com.erebor.tomkins.pos.data.local.model.MsGenderDBModel;
-import com.erebor.tomkins.pos.data.ui.ReportSummaryUiModel;
-import com.erebor.tomkins.pos.data.ui.StockUiModel;
 import com.erebor.tomkins.pos.databinding.ActivityStockBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
-import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.viewmodel.report.GenderViewModel;
 import com.erebor.tomkins.pos.viewmodel.report.GenderViewState;
 import com.erebor.tomkins.pos.viewmodel.report.StockReportViewModel;
 import com.erebor.tomkins.pos.viewmodel.report.StockReportViewState;
-import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -55,28 +47,15 @@ public class StockActivity extends BaseActivity<ActivityStockBinding> {
     }
 
     @Override
-    protected int getSearchableMenu() {
-        return R.menu.report_stock;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_filter) {
-            binding.setFilterEnable(true);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected int getActionSearchMenuItem() {
-        return R.id.action_search_art;
-    }
-
-    @Override
     protected boolean onQueryTextSubmit(String query) {
         applyFilter();
         return true;
+    }
+
+    @Override
+    protected void onQueryReset() {
+        super.onQueryReset();
+        applyFilter();
     }
 
     @Override
@@ -102,16 +81,17 @@ public class StockActivity extends BaseActivity<ActivityStockBinding> {
         stockReportViewModel.getViewState().observe(this, state -> {
             if (state.getCurrentState().equals(StockReportViewState.FOUND_STATE.getCurrentState())) {
                 stockReportAdapter.addList(state.getData());
+                binding.setErrorMessage(null);
                 return;
             }
             if (state.getCurrentState().equals(StockReportViewState.NOT_FOUND_STATE.getCurrentState())) {
                 stockReportAdapter.clearList();
-                Toast.makeText(StockActivity.this, "Not found!", Toast.LENGTH_LONG).show();
+                binding.setErrorMessage(getString(R.string.stock_no_result));
                 return;
             }
             if (state.getCurrentState().equals(StockReportViewState.ERROR_STATE.getCurrentState())) {
                 stockReportAdapter.clearList();
-                Toast.makeText(StockActivity.this, state.getError().getMessage(), Toast.LENGTH_LONG).show();
+                binding.setErrorMessage(state.getError().getMessage());
                 return;
             }
         });
@@ -169,7 +149,7 @@ public class StockActivity extends BaseActivity<ActivityStockBinding> {
     }
 
     private void applyFilter() {
-        String searchQuery = getSearhQueryText();
+        String searchQuery = getSearchQueryText();
         stockReportViewModel.getStock(searchQuery.trim().isEmpty() ? null : searchQuery.trim() , binding.getSize(), binding.getGender());
     }
 }

@@ -41,6 +41,8 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
     protected boolean onQueryTextSubmit(String query) {
         return false;
     }
+    protected void onQueryReset() {
+    }
     protected boolean onQueryTextChange(String newText) {
         return false;
     }
@@ -78,6 +80,18 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
         searchView = null;
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
+            searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+                @Override
+                public boolean onMenuItemActionExpand(MenuItem item) {
+                    return true;
+                }
+
+                @Override
+                public boolean onMenuItemActionCollapse(MenuItem item) {
+                    BaseActivity.this.onQueryReset();
+                    return true;
+                }
+            });
         }
         if (searchView == null) {
             return super.onCreateOptionsMenu(menu);
@@ -107,7 +121,7 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
         return super.onOptionsItemSelected(item);
     }
 
-    protected String getSearhQueryText() {
+    protected String getSearchQueryText() {
         if (searchView == null) {
             return null;
         }

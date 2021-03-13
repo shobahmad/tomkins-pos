@@ -24,7 +24,6 @@
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintTop_toBottomOf="@id/toolbar"
-           android:visibility="@{filterEnable ? View.VISIBLE : View.GONE}"
            android:padding="4dp"
            android:background="@android:color/white"
            >
@@ -135,6 +134,18 @@
            tools:listitem="@layout/item_stock"
            />
 
+       <androidx.appcompat.widget.AppCompatTextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:visibility="@{errorMessage == null ? View.GONE : View.VISIBLE}"
+           app:layout_constraintTop_toTopOf="@id/recyclerStock"
+           app:layout_constraintBottom_toBottomOf="@id/recyclerStock"
+           app:layout_constraintStart_toStartOf="@id/recyclerStock"
+           app:layout_constraintEnd_toEndOf="@id/recyclerStock"
+           android:text="@{errorMessage}"
+           android:drawableTop="@drawable/ic_no_result"
+           />
+
    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>
@@ -146,7 +157,7 @@
             name="size"
             type="String" />
         <variable
-            name="filterEnable"
-            type="boolean" />
+            name="errorMessage"
+            type="String" />
     </data>
 </layout>
