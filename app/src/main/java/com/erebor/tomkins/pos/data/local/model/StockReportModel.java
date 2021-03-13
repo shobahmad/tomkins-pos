@@ -5,17 +5,18 @@ import androidx.room.DatabaseView;
 import java.util.Date;
 
 @DatabaseView("SELECT  ART.KodeArt kodeArt, ART.NamaArt namaArt, BARCODE.NoBarcode noBarcode, BARCODE.Ukuran ukuran," +
-        " ART.KodeGender kodeGender, ART.Warna warna, ART.Harga harga, STOCK.QtyStok qtyStok, STOCK.last_update lastUpdate " +
-        "FROM MSBARCODE BARCODE, MSART ART, STOKREAL STOCK " +
+        " GENDER.Gender gender, ART.Warna warna, ART.Harga harga, STOCK.QtyStok qtyStok, STOCK.last_update lastUpdate " +
+        "FROM MSBARCODE BARCODE, MSART ART, STOKREAL STOCK, MSGENDER GENDER " +
         "WHERE BARCODE.Ukuran = STOCK.Ukuran AND BARCODE.KodeArt = STOCK.KodeArt " +
-        "  AND STOCK.KodeArt = ART.KodeArt")
+        "  AND STOCK.KodeArt = ART.KodeArt " +
+        "  AND ART.KodeGender = GENDER.KodeGender")
 public class StockReportModel {
 
     private String kodeArt;
     private String namaArt;
     private String noBarcode;
     private String ukuran;
-    private String kodeGender;
+    private String gender;
     private String warna;
     private double harga;
     private Integer qtyStok;
@@ -53,12 +54,12 @@ public class StockReportModel {
         this.ukuran = ukuran;
     }
 
-    public String getKodeGender() {
-        return kodeGender;
+    public String getGender() {
+        return gender;
     }
 
-    public void setKodeGender(String kodeGender) {
-        this.kodeGender = kodeGender;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getWarna() {

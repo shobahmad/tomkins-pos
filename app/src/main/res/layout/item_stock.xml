@@ -187,9 +187,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.AppCompat.Caption"
-                android:hint="@string/last_update"
+                android:hint="@string/gender"
                 android:background="@color/white"
-                android:text="@{formattedLastUpdate, default = `yyy mm ddd`}"
+                android:text="@{stock.gender, default = `L`}"
                 android:enabled="false"
                 android:textColor="@color/colorPrimaryDark"
                 />
@@ -202,8 +202,5 @@
         <variable
             name="stock"
             type="com.erebor.tomkins.pos.data.local.model.StockReportModel" />
-        <variable
-            name="formattedLastUpdate"
-            type="String" />
     </data>
 </layout>

@@ -23,6 +23,7 @@ import com.erebor.tomkins.pos.di.AppComponent;
 public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatActivity {
 
     protected B binding;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
         }
     }
 
-    protected int getSearcahbleMenu() {
+    protected int getSearchableMenu() {
         return R.menu.search;
     }
     protected int getActionSearchMenuItem() {
@@ -68,13 +69,13 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
         }
 
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(getSearcahbleMenu(), menu);
+        menuInflater.inflate(getSearchableMenu(), menu);
 
         MenuItem searchItem = menu.findItem(getActionSearchMenuItem());
 
         SearchManager searchManager = (SearchManager) BaseActivity.this.getSystemService(Context.SEARCH_SERVICE);
 
-        SearchView searchView = null;
+        searchView = null;
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
         }
@@ -104,6 +105,14 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
                 onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected String getSearhQueryText() {
+        if (searchView == null) {
+            return null;
+        }
+
+        return searchView.getQuery().toString();
     }
 
 }

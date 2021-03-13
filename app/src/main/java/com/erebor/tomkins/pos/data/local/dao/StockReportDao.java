@@ -31,19 +31,19 @@ public interface StockReportDao {
     @Query("SELECT * FROM StockReportModel WHERE ukuran = :ukuran")
     List<StockReportModel> getStockParamSize(String ukuran);
 
-    @Query("SELECT * FROM StockReportModel WHERE kodeGender = :kodeGender")
+    @Query("SELECT * FROM StockReportModel WHERE gender = :kodeGender")
     List<StockReportModel> getStockParamGender(String kodeGender);
 
-    @Query("SELECT * FROM StockReportModel WHERE ukuran = :ukuran AND kodeGender = :kodeGender")
+    @Query("SELECT * FROM StockReportModel WHERE ukuran = :ukuran AND gender = :kodeGender")
     List<StockReportModel> getStockParamSizeAndGender(String ukuran, String kodeGender);
 
-    @Query("SELECT * FROM StockReportModel WHERE kodeArt = :kodeArt AND kodeGender = :kodeGender")
+    @Query("SELECT * FROM StockReportModel WHERE kodeArt = :kodeArt AND gender = :kodeGender")
     List<StockReportModel> getStockParamArtAndGender(String kodeArt, String kodeGender);
 
     @Query("SELECT * FROM StockReportModel WHERE kodeArt = :kodeArt AND ukuran = :ukuran")
     List<StockReportModel> getStockParamArtAndSize(String kodeArt, String ukuran);
 
-    @Query("SELECT * FROM StockReportModel WHERE kodeArt = :kodeArt AND ukuran = :ukuran AND kodeGender = :kodeGender")
+    @Query("SELECT * FROM StockReportModel WHERE kodeArt = :kodeArt AND ukuran = :ukuran AND gender = :kodeGender")
     List<StockReportModel> getStockParamAll(String kodeArt, String ukuran, String kodeGender);
 
 

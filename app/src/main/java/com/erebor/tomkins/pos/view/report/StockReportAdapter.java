@@ -11,16 +11,13 @@ import com.erebor.tomkins.pos.helper.DateConverterHelper;
 
 public class StockReportAdapter extends BaseAdapter<ItemStockBinding, StockReportModel> {
 
-    private final DateConverterHelper dateConverterHelper;
-    public StockReportAdapter(Context context, DateConverterHelper dateConverterHelper) {
+    public StockReportAdapter(Context context) {
         super(context);
-        this.dateConverterHelper = dateConverterHelper;
     }
 
     @Override
     public void setDataBinding(ViewHolder viewHolder, StockReportModel data) {
         ItemStockBinding binding = (ItemStockBinding) viewHolder.getBinding();
-        binding.setFormattedLastUpdate(dateConverterHelper.getDifference(data.getLastUpdate().getTime()));
         binding.setStock(data);
     }
 

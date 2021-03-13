@@ -93,7 +93,7 @@
                         app:icon="@android:drawable/ic_input_add"
                         app:layout_constraintTop_toTopOf="@id/buttonEmptyScan"
                         app:layout_constraintStart_toStartOf="parent"
-                        />
+                        android:paddingStart="@dimen/dp_8" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonEmptyScan"

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.erebor.tomkins.pos.di.ViewModelSubComponent;
 import com.erebor.tomkins.pos.viewmodel.article.ArticleViewModel;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
+import com.erebor.tomkins.pos.viewmodel.report.GenderViewModel;
 import com.erebor.tomkins.pos.viewmodel.report.StockReportViewModel;
 import com.erebor.tomkins.pos.viewmodel.splash.SplashViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewModel;
@@ -37,6 +38,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         creators.put(SyncUploadViewModel.class, () -> viewModelSubComponent.syncUploadViewModel());
         creators.put(ArticleViewModel.class, () -> viewModelSubComponent.articleViewModel());
         creators.put(StockReportViewModel.class, () -> viewModelSubComponent.stockReportViewModel());
+        creators.put(GenderViewModel.class, () -> viewModelSubComponent.genderViewModel());
 
     }
 

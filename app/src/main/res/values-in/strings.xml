@@ -112,4 +112,8 @@
     <string name="search_article_hint">Silakan ketik barcode atau kode art</string>
     <string name="transaction_price">Harga</string>
     <string name="last_update">Terakhir Update</string>
+    <string name="filter_gender">Gender</string>
+    <string name="filter_size">Ukuran</string>
+    <string name="filter_apply">Terapkan</string>
+    <string name="gender">Gender</string>
 </resources>

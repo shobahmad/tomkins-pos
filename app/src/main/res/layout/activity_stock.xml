@@ -17,6 +17,104 @@
             app:title="@{@string/stock_report}"
             />
 
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:id="@+id/layoutFilter"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/toolbar"
+           android:visibility="@{filterEnable ? View.VISIBLE : View.GONE}"
+           android:padding="4dp"
+           android:background="@android:color/white"
+           >
+
+           <com.google.android.material.textfield.TextInputLayout
+               android:id="@+id/textFilterGender"
+               style="@style/Widget.MaterialComponents.TextInputLayout.NoOutline.ExposedDropdownMenu"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toStartOf="@id/textFilterSize"
+               android:hint="@string/filter_gender"
+               android:maxHeight="72dp"
+               app:helperTextEnabled="false"
+               >
+
+               <AutoCompleteTextView
+                   android:id="@+id/editFilterGender"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="@{gender}"
+                   android:singleLine="true"
+                   android:inputType="none"
+                   android:textColor="@android:color/black"
+                   />
+
+           </com.google.android.material.textfield.TextInputLayout>
+
+           <com.google.android.material.button.MaterialButton
+               android:id="@+id/buttonClearFilterGender"
+               style="@style/Widget.MaterialComponents.Button.NoOutline.IconOnly"
+               android:layout_width="24dp"
+               android:layout_height="24dp"
+               android:layout_marginRight="8dp"
+               android:layout_marginEnd="8dp"
+               android:layout_marginTop="4dp"
+               app:icon="@drawable/ic_reset"
+               app:iconTint="@color/watermelon"
+               app:layout_constraintTop_toTopOf="@id/textFilterGender"
+               app:layout_constraintBottom_toBottomOf="@id/textFilterGender"
+               app:layout_constraintEnd_toEndOf="@id/textFilterGender"
+               android:visibility="@{gender == null ? View.GONE : View.VISIBLE}"
+               />
+
+           <com.google.android.material.textfield.TextInputLayout
+               android:id="@+id/textFilterSize"
+               style="@style/Widget.MaterialComponents.TextInputLayout.NoOutline.ExposedDropdownMenu"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toEndOf="@id/textFilterGender"
+               app:layout_constraintEnd_toEndOf="parent"
+               android:layout_marginRight="4dp"
+               android:layout_marginEnd="4dp"
+               android:hint="@string/filter_size"
+               android:maxHeight="72dp"
+               app:helperTextEnabled="false"
+               >
+
+               <AutoCompleteTextView
+                   android:id="@+id/editFilterSize"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="@{size}"
+                   android:singleLine="true"
+                   android:inputType="none"
+                   android:textColor="@android:color/black"
+                   />
+
+           </com.google.android.material.textfield.TextInputLayout>
+
+           <com.google.android.material.button.MaterialButton
+               android:id="@+id/buttonClearFilterSize"
+               style="@style/Widget.MaterialComponents.Button.NoOutline.IconOnly"
+               android:layout_width="24dp"
+               android:layout_height="24dp"
+               android:layout_marginRight="8dp"
+               android:layout_marginEnd="8dp"
+               android:layout_marginTop="4dp"
+               app:icon="@drawable/ic_reset"
+               app:iconTint="@color/watermelon"
+               app:layout_constraintTop_toTopOf="@id/textFilterSize"
+               app:layout_constraintBottom_toBottomOf="@id/textFilterSize"
+               app:layout_constraintEnd_toEndOf="@id/textFilterSize"
+               android:visibility="@{size == null ? View.GONE : View.VISIBLE}"
+               />
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
        <View
            android:id="@+id/viewDevider"
            android:layout_width="0dp"
@@ -24,7 +122,7 @@
            android:background="@color/greyLines"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/toolbar"
+           app:layout_constraintTop_toBottomOf="@id/layoutFilter"
            />
 
        <!--STOCK REPORT-->
@@ -38,4 +136,17 @@
            />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="gender"
+            type="String" />
+        <variable
+            name="size"
+            type="String" />
+        <variable
+            name="filterEnable"
+            type="boolean" />
+    </data>
 </layout>

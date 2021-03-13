@@ -21,6 +21,10 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textColorHint">@color/greyLines</item>
     </style>
+    <style name="Widget.MaterialComponents.TextInputLayout.NoOutline.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@android:color/transparent</item>
+        <item name="boxStrokeWidth">0dp</item>
+    </style>
 
     <style name="ToolbarTransparent" parent="AppTheme">
         <item name="android:textColorSecondary">@color/white</item>
@@ -115,6 +119,16 @@
         <item name="android:insetBottom">0dp</item>
         <item name="android:paddingLeft">0dp</item>
         <item name="android:paddingRight">0dp</item>
+    </style>
+    <style name="Widget.MaterialComponents.Button.NoOutline.IconOnly" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="strokeColor">@android:color/transparent</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="backgroundTint">@color/white</item>
     </style>
 
 
