@@ -51,8 +51,8 @@ import com.erebor.tomkins.pos.data.local.model.*;
         TrxOpnameDetDBModel.class,
 //        TrxReturGjbDBModel.class,
 //        TrxReturGjbDetDBModel.class,
-//        TrxTerimaDBModel.class,
-//        TrxTerimaDetDBModel.class,
+        TrxTerimaDBModel.class,
+        TrxTerimaDetDBModel.class,
 
     },
     views = {

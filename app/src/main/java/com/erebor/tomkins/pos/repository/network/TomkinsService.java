@@ -9,6 +9,7 @@ import com.erebor.tomkins.pos.data.local.model.MsGenderDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsUkuranDBModel;
 import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
 import com.erebor.tomkins.pos.data.local.model.TrxJualDBModel;
+import com.erebor.tomkins.pos.data.local.model.TrxTerimaDBModel;
 import com.erebor.tomkins.pos.data.remote.LoginRequest;
 import com.erebor.tomkins.pos.data.remote.LoginResponse;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
@@ -57,7 +58,14 @@ public interface TomkinsService {
 
     @POST("trx")
     Call<RestResponse<Date>> postTransaction(@Body TrxJualDBModel trxJualDBModel);
-    @POST("stock")
-    Call<RestResponse<Date>> postStock(@Body StokRealDBModel stokRealDBModel);
+
+    @POST("stockupdate")
+    Call<RestResponse<Date>> postStock(@Path("counter") String counter, @Body List<StokRealDBModel> stokRealDBModel);
+
+    @GET("trxterima/{counter}")
+    Call<RestResponse<TrxTerimaDBModel>> getTrxTerima(@Path("counter") String counter, @Query("last_update") String lastUpdate);
+
+    @POST("trxterima/{counter}")
+    Call<RestResponse<TrxTerimaDBModel>> postTrxTerima(@Path("counter") String counter, @Body TrxTerimaDBModel trxTerimaDBModel);
 
 }

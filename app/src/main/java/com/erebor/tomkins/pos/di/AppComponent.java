@@ -7,6 +7,7 @@ import com.erebor.tomkins.pos.repository.network.RetrofitModule;
 import com.erebor.tomkins.pos.view.article.ArticleActivity;
 import com.erebor.tomkins.pos.view.dashboard.DashboardActivity;
 import com.erebor.tomkins.pos.view.login.LoginActivity;
+import com.erebor.tomkins.pos.view.receive.ProductReceiveActivity;
 import com.erebor.tomkins.pos.view.report.StockActivity;
 import com.erebor.tomkins.pos.view.sale.SaleActivity;
 import com.erebor.tomkins.pos.view.setting.SettingPrefsFragment;
@@ -52,6 +53,7 @@ public interface AppComponent {
     void doInjection(TransactionActivity activity);
     void doInjection(ArticleActivity activity);
     void doInjection(StockActivity activity);
+    void doInjection(ProductReceiveActivity activity);
 
     void doInjection(SettingPrefsFragment fragment);
 

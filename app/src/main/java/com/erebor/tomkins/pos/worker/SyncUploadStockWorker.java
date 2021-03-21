@@ -16,6 +16,7 @@ import com.erebor.tomkins.pos.repository.network.TomkinsService;
 import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -100,7 +101,11 @@ public class SyncUploadStockWorker extends BaseWorker {
         return new NetworkBoundResult<Date>() {
             @Override
             protected Call<RestResponse<Date>> callApiAction() {
-                return service.postStock(stokRealDBModel);
+                return service.postStock(sharedPrefs.getKodeKonter(), new ArrayList<StokRealDBModel>() {
+                    {
+                        add(stokRealDBModel);
+                    }
+                });
             }
         }.fetchData();
     }

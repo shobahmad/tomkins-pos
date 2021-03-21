@@ -13,11 +13,16 @@ import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.local.model.TrxJualDBModel;
 import com.erebor.tomkins.pos.data.local.model.TrxJualDetDBModel;
+import com.erebor.tomkins.pos.data.local.model.TrxTerimaDBModel;
+import com.erebor.tomkins.pos.data.remote.DownloadResponse;
+import com.erebor.tomkins.pos.data.remote.response.NetworkBoundResult;
+import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.data.ui.TransactionDetailUiModel;
 import com.erebor.tomkins.pos.data.ui.TransactionUiModel;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.helper.ResourceHelper;
 import com.erebor.tomkins.pos.repository.local.StockUpdateLocalRepository;
+import com.erebor.tomkins.pos.repository.network.TomkinsService;
 import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 
@@ -25,13 +30,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
 
 public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
 
@@ -46,12 +54,13 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
     private DateConverterHelper dateConverterHelper;
     private final TomkinsDatabase tomkinsDatabase;
     private final StockUpdateLocalRepository stockUpdateLocalRepository;
+    private final TomkinsService tomkinsService;
 
     @Inject
     public TransactionViewModel(MsBarcodeDao msBarcodeDao, MsArtDao msArtDao, TrxJualDao trxJualDao,
                                 TrxJualDetDao trxJualDetDao, SharedPrefs sharedPrefs, EventDiscountDao eventDiscountDao,
                                 ResourceHelper resourceHelper, Logger logger, DateConverterHelper dateConverterHelper,
-                                TomkinsDatabase tomkinsDatabase, StockUpdateLocalRepository stockUpdateLocalRepository) {
+                                TomkinsDatabase tomkinsDatabase, StockUpdateLocalRepository stockUpdateLocalRepository, TomkinsService tomkinsService) {
         this.msBarcodeDao = msBarcodeDao;
         this.msArtDao = msArtDao;
         this.trxJualDao = trxJualDao;
@@ -63,10 +72,14 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         this.dateConverterHelper = dateConverterHelper;
         this.tomkinsDatabase = tomkinsDatabase;
         this.stockUpdateLocalRepository = stockUpdateLocalRepository;
+        this.tomkinsService = tomkinsService;
     }
 
 
     public void loadTransaction(Date transactionDateParam) {
+        //todo remove
+        testLoadDeliveryOrder(transactionDateParam);
+
         getDisposable().add(Single.fromCallable(() -> {
             Date transactionDate = transactionDateParam == null ? Calendar.getInstance().getTime() : transactionDateParam;
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
@@ -272,4 +285,26 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         return sharedPrefs.getKodeSPG() + Long.toHexString(System.currentTimeMillis()/1000).toUpperCase() + sequence;
     }
 
+    public void testLoadDeliveryOrder(Date transactionDateParam) {
+        Date transactionDate = transactionDateParam == null ? Calendar.getInstance().getTime() : transactionDateParam;
+        getDisposable().add(Single.fromCallable(() -> {
+            TrxTerimaDBModel trxTerimaDBModel =  new NetworkBoundResult<TrxTerimaDBModel>() {
+                @Override
+                protected Call<RestResponse<TrxTerimaDBModel>> callApiAction() {
+                    return tomkinsService.getTrxTerima(sharedPrefs.getKodeKonter(), dateConverterHelper.toDateTimeStringParameter(transactionDate));
+                }
+            }.fetchData();
+
+            logger.debug(getClass().getSimpleName(), trxTerimaDBModel.toString());
+            return true;
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(state -> {
+
+                        },
+                        throwable -> {
+                            logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
+                        }));
+    }
 }

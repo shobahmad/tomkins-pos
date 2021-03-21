@@ -142,5 +142,6 @@
     <string name="gender">Gender</string>
     <string name="stock_no_result">Couldn\'t find any articles with current filters</string>
     <string name="stock">Stock</string>
+    <string name="product_receive">Product Receive</string>
 
 </resources>
