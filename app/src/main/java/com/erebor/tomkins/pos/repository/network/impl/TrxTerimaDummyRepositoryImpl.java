@@ -31,12 +31,13 @@ public class TrxTerimaDummyRepositoryImpl implements TrxTerimaRemoteRepository {
         trxTerimaDBModel.setStatusDO(0);
 
         List<TrxTerimaDetDBModel> trxTerimaDetDBModelList = new ArrayList<>();
-        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "140913A-PAI", "36", 10, 0));
-        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "140913A-PAI", "37", 10, 0));
-        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "140913A-PAI", "38", 10, 0));
-        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "031104B-PAI", "39", 10, 0));
-        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "031104B-PAI", "40", 20, 0));
-        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "031104B-PAI", "41", 20, 0));
+        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "110309A-PAI", "39", 10, 0));
+        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "110309A-PAI", "41", 10, 0));
+        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "110309A-PAI", "43", 10, 0));
+        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "070310C-PAI", "33", 10, 0));
+        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "070310C-PAI", "34", 20, 0));
+        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "070310C-PAI", "36", 20, 0));
+        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "070310C-PAI", "38", 20, 0));
         trxTerimaDBModel.setListDetail(trxTerimaDetDBModelList);
         calendar.setTimeInMillis(System.currentTimeMillis());
         trxTerimaDBModel.setLastUpdate(calendar.getTime());
