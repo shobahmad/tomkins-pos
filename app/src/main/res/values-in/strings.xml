@@ -119,4 +119,6 @@
     <string name="stock_no_result">Tidak dapat menemukan artikel dengan filter saat ini</string>
     <string name="stock">Stok</string>
     <string name="product_receive">Penerimaan Barang</string>
+    <string name="delivery_date">Tanggal Kirim</string>
+    <string name="receive_date">Tanggal Terima</string>
 </resources>

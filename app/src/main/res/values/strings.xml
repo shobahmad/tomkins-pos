@@ -29,7 +29,7 @@
 
     <string name="price_format">IDR %,.0f</string>
     <string name="discount_format" translatable="false">%,.0f%%</string>
-    <string name="stock_format" translatable="false">%,.2f</string>
+    <string name="progress_format" translatable="false">%,.0f</string>
     <string name="sale_confirm">Confirm</string>
     <string name="sale_total">Total</string>
     <string name="report_recents_sale">Recents Sale</string>
@@ -143,5 +143,7 @@
     <string name="stock_no_result">Couldn\'t find any articles with current filters</string>
     <string name="stock">Stock</string>
     <string name="product_receive">Product Receive</string>
+    <string name="delivery_date">Delivery Date</string>
+    <string name="receive_date">Receive Date</string>
 
 </resources>

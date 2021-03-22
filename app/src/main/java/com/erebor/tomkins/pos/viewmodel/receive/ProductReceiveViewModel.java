@@ -53,13 +53,15 @@ public class ProductReceiveViewModel extends BaseViewModel<ProductReceiveViewSta
             TrxTerimaDBModel trxTerimaDBModel = trxTerimaRemoteRepository.getTrxTerima();
             while(trxTerimaDBModel != null) {
                 trxTerimaLocalRepository.saveTrxTerima(trxTerimaDBModel);
-                ProductReceiveViewState.FOUND_STATE.setData(ProductReceiveMapper.toProductReceive(trxTerimaLocalRepository.getAllTrxTerima()));
+                ProductReceiveViewState.FOUND_STATE.setData(ProductReceiveMapper.toProductReceive(
+                        trxTerimaLocalRepository.getAllTrxTerima(), dateConverterHelper));
                 postValue(ProductReceiveViewState.FOUND_STATE);
 
                 trxTerimaDBModel = trxTerimaRemoteRepository.getTrxTerima();
             }
             if (trxTerimaDBModel == null) {
-                ProductReceiveViewState.FOUND_STATE.setData(ProductReceiveMapper.toProductReceive(trxTerimaLocalRepository.getAllTrxTerima()));
+                ProductReceiveViewState.FOUND_STATE.setData(ProductReceiveMapper.toProductReceive(
+                        trxTerimaLocalRepository.getAllTrxTerima(), dateConverterHelper));
                 postValue(ProductReceiveViewState.FOUND_STATE);
                 return true;
             }

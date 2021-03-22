@@ -1,19 +1,17 @@
 package com.erebor.tomkins.pos.data.ui;
 
-import java.util.Date;
-
 public class ProductReceiveUiModel {
 
     private final String noDo;
-    private final Date tglKirimGBJ;
-    private final Date tglTerimaCnt;
+    private final String tglKirimGBJ;
+    private final String tglTerimaCnt;
     private final String catatan;
     private final boolean isComplete;
     private final double qtyTotal;
     private final double qtyReceived;
 
-    public ProductReceiveUiModel(String noDo, Date tglKirimGBJ,
-                                 Date tglTerimaCnt, String catatan,
+    public ProductReceiveUiModel(String noDo, String tglKirimGBJ,
+                                 String tglTerimaCnt, String catatan,
                                  boolean isComplete, double qtyTotal, double qtyReceived) {
         this.noDo = noDo;
         this.tglKirimGBJ = tglKirimGBJ;
@@ -28,11 +26,11 @@ public class ProductReceiveUiModel {
         return noDo;
     }
 
-    public Date getTglKirimGBJ() {
+    public String getTglKirimGBJ() {
         return tglKirimGBJ;
     }
 
-    public Date getTglTerimaCnt() {
+    public String getTglTerimaCnt() {
         return tglTerimaCnt;
     }
 

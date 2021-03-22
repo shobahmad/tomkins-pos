@@ -5,12 +5,14 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
 import com.erebor.tomkins.pos.databinding.ActivityProductReceiveBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.viewmodel.receive.ProductReceiveViewModel;
+import com.erebor.tomkins.pos.viewmodel.receive.ProductReceiveViewState;
 
 import javax.inject.Inject;
 
@@ -19,6 +21,8 @@ public class ProductReceiveActivity extends BaseActivity<ActivityProductReceiveB
     @Inject
     ViewModelProvider.Factory factory;
     ProductReceiveViewModel productReceiveViewModel;
+
+    private ProductReceiveAdapter productReceiveAdapter;
 
     @Override
     public void inject(AppComponent appComponent) {
@@ -41,12 +45,17 @@ public class ProductReceiveActivity extends BaseActivity<ActivityProductReceiveB
     }
 
     private void setupAdapter() {
+        productReceiveAdapter = new ProductReceiveAdapter(this);
 
+        binding.recyclerTrxTerima.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerTrxTerima.setAdapter(productReceiveAdapter);
     }
 
     private void startObserver() {
         productReceiveViewModel.getViewState().observe(this, state -> {
-
+            if (state.getCurrentState().equals(ProductReceiveViewState.FOUND_STATE.getCurrentState())) {
+                productReceiveAdapter.setList(state.getData());
+            }
         });
     }
 }
