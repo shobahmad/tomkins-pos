@@ -8,6 +8,7 @@ import java.util.List;
 public interface TrxTerimaLocalRepository {
 
     List<TrxTerimaDBModel> getAllTrxTerima();
+    int getIncompleteTrxTerima();
     Date getLastUpdate();
     boolean saveTrxTerima(TrxTerimaDBModel trxTerimaDBModel);
 }

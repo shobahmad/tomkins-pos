@@ -18,12 +18,14 @@ import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.helper.ResourceHelper;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.erebor.tomkins.pos.view.login.LoginActivity;
+import com.erebor.tomkins.pos.view.receive.ProductReceiveActivity;
 import com.erebor.tomkins.pos.view.report.StockActivity;
 import com.erebor.tomkins.pos.view.setting.SettingActivity;
 import com.erebor.tomkins.pos.view.sync.DownloadInfoAdapter;
 import com.erebor.tomkins.pos.view.transaction.TransactionActivity;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewState;
+import com.erebor.tomkins.pos.viewmodel.receive.ProductReceiveViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewState;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDownloadViewModel;
@@ -53,6 +55,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     SyncUploadStockViewModel syncUploadStockViewModel;
     DownloadInfoViewModel downloadInfoViewModel;
     LoginViewModel loginViewModel;
+    ProductReceiveViewModel productReceiveViewModel;
 
     private DownloadInfoAdapter downloadInfoAdapter;
 
@@ -65,13 +68,14 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         syncUploadStockViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncUploadStockViewModel.class);
         downloadInfoViewModel = ViewModelProviders.of(this, viewModelFactory).get(DownloadInfoViewModel.class);
         loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel.class);
+        productReceiveViewModel = ViewModelProviders.of(this, viewModelFactory).get(ProductReceiveViewModel.class);
         observeChanges();
 
         binding.layoutReport.setOnClickListener(v -> startReportMenu());
         binding.imageArrowRight.setOnClickListener(v -> startReportMenu());
-        binding.buttonScan.setOnClickListener(v -> {
-            startSaleActivity(null);
-        });
+
+        binding.layoutDo.setOnClickListener(v -> startProductReceiveMenu());
+        binding.buttonScan.setOnClickListener(v -> startSaleActivity(null));
         binding.setSettingClick(item -> startActivity(new Intent(DashboardActivity.this, SettingActivity.class)));
 
         downloadInfoAdapter = new DownloadInfoAdapter(this);
@@ -86,6 +90,10 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         Intent intent = new Intent(DashboardActivity.this, StockActivity.class);
         startActivity(intent);
     }
+    private void startProductReceiveMenu() {
+        Intent intent = new Intent(DashboardActivity.this, ProductReceiveActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onResume() {
@@ -94,6 +102,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         dataSyncViewModel.observeChanged();
         loginViewModel.checkSession();
         downloadInfoViewModel.getInfo();
+        productReceiveViewModel.loadSummary();
     }
 
     private void observeChanges() {
@@ -204,9 +213,9 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
                 binding.textLabelPending.setTextColor(getResources().getColor(R.color.colorPrimary));
             }
         });
-        syncUploadTrxViewModel.getPendingCountLiveData().observe(this, pendingCount -> {
-            binding.setUploadCount(pendingCount);
-        });
+        syncUploadTrxViewModel.getPendingCountLiveData().observe(this, pendingCount -> binding.setUploadCount(pendingCount));
+
+        productReceiveViewModel.getIncompleteProductReceive().observe(this, incompleteQty -> binding.setDoCount(incompleteQty));
     }
 
     private void startSaleActivity(String barcode) {

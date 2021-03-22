@@ -170,6 +170,61 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!--DO MENU-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_do"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_report"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/background_rounded_white"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/image_do"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_dashboard_do"
+                />
+
+
+            <TextView
+                android:id="@+id/text_label_do"
+                style="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintStart_toEndOf="@id/image_do"
+                app:layout_constraintEnd_toStartOf="@id/text_do_qty"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:singleLine="true"
+                android:gravity="start|center_vertical"
+                android:text="@string/product_receive"
+                android:textAlignment="gravity" />
+
+            <TextView
+                android:id="@+id/text_do_qty"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:text="@{String.valueOf(doCount), default=`0`}"
+                android:textAlignment="gravity"
+                android:background="@drawable/shape_rounded_green"
+                android:textColor="@color/white"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <!--SYNC SUMMARY-->
         <include
             android:id="@+id/snippet_sync_summary"
@@ -178,7 +233,7 @@
             layout="@layout/snippet_sync_summary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_report"
+            app:layout_constraintTop_toBottomOf="@id/layout_do"
             app:layout_constraintBottom_toTopOf="@id/layout_download_info"
             app:headerEnabled="@{true}"
             />
@@ -210,5 +265,11 @@
         <variable
             name="uploading"
             type="Boolean" />
+        <variable
+            name="doInfo"
+            type="String" />
+        <variable
+            name="doCount"
+            type="Integer" />
     </data>
 </layout>

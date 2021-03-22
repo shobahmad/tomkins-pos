@@ -37,6 +37,11 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
     }
 
     @Override
+    public int getIncompleteTrxTerima() {
+        return trxTerimaDao.getAllIncomplete().size();
+    }
+
+    @Override
     public Date getLastUpdate() {
         TrxTerimaDBModel trxTerimaDBModel = trxTerimaDao.getLatest();
         if (trxTerimaDBModel == null) {

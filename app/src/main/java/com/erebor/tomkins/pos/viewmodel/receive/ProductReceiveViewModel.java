@@ -1,5 +1,7 @@
 package com.erebor.tomkins.pos.viewmodel.receive;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.erebor.tomkins.pos.base.BaseViewModel;
 import com.erebor.tomkins.pos.data.local.model.TrxTerimaDBModel;
 import com.erebor.tomkins.pos.data.mapper.ProductReceiveMapper;
@@ -10,9 +12,6 @@ import com.erebor.tomkins.pos.repository.local.TrxTerimaLocalRepository;
 import com.erebor.tomkins.pos.repository.network.TomkinsService;
 import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
-
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -28,6 +27,12 @@ public class ProductReceiveViewModel extends BaseViewModel<ProductReceiveViewSta
     private final Logger logger;
     private final TrxTerimaLocalRepository trxTerimaLocalRepository;
 
+    public MutableLiveData<Integer> getIncompleteProductReceive() {
+        return incompleteProductReceive;
+    }
+
+    private final MutableLiveData<Integer> incompleteProductReceive;
+
     @Inject
     public ProductReceiveViewModel(TomkinsService tomkinsService, SharedPrefs sharedPrefs, DateConverterHelper dateConverterHelper, Logger logger, TrxTerimaLocalRepository trxTerimaLocalRepository) {
         this.tomkinsService = tomkinsService;
@@ -35,6 +40,8 @@ public class ProductReceiveViewModel extends BaseViewModel<ProductReceiveViewSta
         this.dateConverterHelper = dateConverterHelper;
         this.logger = logger;
         this.trxTerimaLocalRepository = trxTerimaLocalRepository;
+
+        incompleteProductReceive = new MutableLiveData<>();
     }
 
     public void loadDeliveryOrder() {
@@ -62,6 +69,18 @@ public class ProductReceiveViewModel extends BaseViewModel<ProductReceiveViewSta
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(state -> postValue(state),
+                        throwable -> {
+                            logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
+                            ProductReceiveViewState.ERROR_STATE.setError(throwable);
+                            postValue(ProductReceiveViewState.ERROR_STATE);
+                        }));
+    }
+
+    public void loadSummary() {
+        getDisposable().add(Single.fromCallable(trxTerimaLocalRepository::getIncompleteTrxTerima)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(result -> incompleteProductReceive.postValue(result),
                         throwable -> {
                             logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
                             ProductReceiveViewState.ERROR_STATE.setError(throwable);

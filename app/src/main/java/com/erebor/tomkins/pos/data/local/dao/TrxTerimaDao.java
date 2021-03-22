@@ -14,6 +14,9 @@ public interface TrxTerimaDao extends BaseDao<TrxTerimaDBModel> {
     @Query("SELECT * FROM TRXTERIMA ORDER BY TglKirimGBJ desc")
     List<TrxTerimaDBModel> getAll();
 
+    @Query("SELECT * FROM TRXTERIMA WHERE StatusDO = 0 ORDER BY TglKirimGBJ desc")
+    List<TrxTerimaDBModel> getAllIncomplete();
+
     @Query("SELECT * FROM TRXTERIMA ORDER BY TglKirimGBJ desc limit 1")
     TrxTerimaDBModel getLatest();
 
