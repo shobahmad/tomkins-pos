@@ -27,11 +27,6 @@ public class RetrofitModule {
                 .build();
     }
 
-    @Provides
-    @Singleton
-    LoginRepository provideLoginRepository(Retrofit retrofit) {
-        return new LoginRepository(retrofit.create(TomkinsService.class));
-    }
 
     @Provides
     @Singleton

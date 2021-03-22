@@ -52,6 +52,14 @@ public class TrxTerimaDBModel implements BaseDatabaseModel {
     @SerializedName("TRXTERIMADET")
     private List<TrxTerimaDetDBModel> listDetail;
 
+    @Expose
+    @ColumnInfo(name = "lastUpdate")
+    private Date lastUpdate;
+
+    @NonNull
+    @ColumnInfo(name = "isUploaded", defaultValue = "1")
+    private Boolean isUploaded;
+
 
     @NonNull
     public String getNoDO() {
@@ -109,5 +117,15 @@ public class TrxTerimaDBModel implements BaseDatabaseModel {
     @Override
     public Date getLastUpdate() {
         return tglKirimGBJ;
+    }
+
+
+    @NonNull
+    public Boolean getUploaded() {
+        return isUploaded;
+    }
+
+    public void setUploaded(@NonNull Boolean uploaded) {
+        isUploaded = uploaded;
     }
 }
