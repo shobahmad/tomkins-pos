@@ -285,8 +285,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         return sharedPrefs.getKodeSPG() + Long.toHexString(System.currentTimeMillis()/1000).toUpperCase() + sequence;
     }
 
-    public void testLoadDeliveryOrder(Date transactionDateParam) {
-        Date transactionDate = transactionDateParam == null ? Calendar.getInstance().getTime() : transactionDateParam;
+    public void testLoadDeliveryOrder(Date transactionDate) {
         getDisposable().add(Single.fromCallable(() -> {
             TrxTerimaDBModel trxTerimaDBModel =  new NetworkBoundResult<TrxTerimaDBModel>() {
                 @Override

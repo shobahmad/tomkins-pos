@@ -34,7 +34,9 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    TrxTerimaLocalRepository providesTrxTerimaLocalRepository(TomkinsDatabase tomkinsDatabase, TrxTerimaDao trxTerimaDao, TrxTerimaDetDao trxTerimaDetDao) {
+    TrxTerimaLocalRepository providesTrxTerimaLocalRepository(TomkinsDatabase tomkinsDatabase,
+                                                              TrxTerimaDao trxTerimaDao, TrxTerimaDetDao trxTerimaDetDao,
+                                                              StokRealDao stokRealDao) {
         return new TrxTerimaLocalRepositoryImpl(tomkinsDatabase, trxTerimaDao, trxTerimaDetDao, stokRealDao);
     }
 

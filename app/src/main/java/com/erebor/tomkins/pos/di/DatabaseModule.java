@@ -17,6 +17,8 @@ import com.erebor.tomkins.pos.data.local.dao.StockReportDao;
 import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxJualDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxJualDetDao;
+import com.erebor.tomkins.pos.data.local.dao.TrxTerimaDao;
+import com.erebor.tomkins.pos.data.local.dao.TrxTerimaDetDao;
 import com.erebor.tomkins.pos.data.local.dao.UserDao;
 
 import javax.inject.Singleton;
@@ -109,5 +111,15 @@ public class DatabaseModule {
     @Singleton
     StockReportDao providesStockReportDao(TomkinsDatabase tomkinsDatabase) {
         return tomkinsDatabase.stockReportDao();
+    }
+    @Provides
+    @Singleton
+    TrxTerimaDao providesTrxTerimaDao(TomkinsDatabase tomkinsDatabase) {
+        return tomkinsDatabase.trxTerimaDao();
+    }
+    @Provides
+    @Singleton
+    TrxTerimaDetDao providesTrxTerimaDetDao(TomkinsDatabase tomkinsDatabase) {
+        return tomkinsDatabase.trxTerimaDetDao();
     }
 }

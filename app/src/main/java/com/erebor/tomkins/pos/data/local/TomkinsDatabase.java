@@ -24,6 +24,8 @@ import com.erebor.tomkins.pos.data.local.dao.StockReportDao;
 import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxJualDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxJualDetDao;
+import com.erebor.tomkins.pos.data.local.dao.TrxTerimaDao;
+import com.erebor.tomkins.pos.data.local.dao.TrxTerimaDetDao;
 import com.erebor.tomkins.pos.data.local.dao.UserDao;
 import com.erebor.tomkins.pos.data.local.model.*;
 
@@ -84,6 +86,8 @@ public abstract class TomkinsDatabase extends RoomDatabase {
     public abstract TrxJualDao trxJualDao();
     public abstract TrxJualDetDao trxJualDetDao();
     public abstract StockReportDao stockReportDao();
+    public abstract TrxTerimaDao trxTerimaDao();
+    public abstract TrxTerimaDetDao trxTerimaDetDao();
 
     private static final Object sLock = new Object();
 
