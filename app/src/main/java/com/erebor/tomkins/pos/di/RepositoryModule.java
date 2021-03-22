@@ -14,6 +14,7 @@ import com.erebor.tomkins.pos.repository.local.impl.StockUpdateLocalRepositoryIm
 import com.erebor.tomkins.pos.repository.local.impl.TrxTerimaLocalRepositoryImpl;
 import com.erebor.tomkins.pos.repository.network.TomkinsService;
 import com.erebor.tomkins.pos.repository.network.TrxTerimaRemoteRepository;
+import com.erebor.tomkins.pos.repository.network.impl.TrxTerimaDummyRepositoryImpl;
 import com.erebor.tomkins.pos.repository.network.impl.TrxTerimaRemoteRepositoryImpl;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 
@@ -47,13 +48,18 @@ public class RepositoryModule {
 
 
 
+//    @Provides
+//    @Singleton
+//    TrxTerimaRemoteRepository providesTrxTerimaRemoteRepository(SharedPrefs sharedPrefs,
+//                                                                TrxTerimaLocalRepository trxTerimaLocalRepository,
+//                                                                TomkinsService tomkinsService,
+//                                                                DateConverterHelper dateConverterHelper) {
+//        return new TrxTerimaRemoteRepositoryImpl(sharedPrefs, trxTerimaLocalRepository, tomkinsService, dateConverterHelper);
+//    }
     @Provides
     @Singleton
-    TrxTerimaRemoteRepository providesTrxTerimaRemoteRepository(SharedPrefs sharedPrefs,
-                                                                TrxTerimaLocalRepository trxTerimaLocalRepository,
-                                                                TomkinsService tomkinsService,
-                                                                DateConverterHelper dateConverterHelper) {
-        return new TrxTerimaRemoteRepositoryImpl(sharedPrefs, trxTerimaLocalRepository, tomkinsService, dateConverterHelper);
+    TrxTerimaRemoteRepository providesTrxTerimaRemoteRepository(TrxTerimaLocalRepository trxTerimaLocalRepository) {
+        return new TrxTerimaDummyRepositoryImpl(trxTerimaLocalRepository);
     }
 
 

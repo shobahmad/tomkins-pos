@@ -77,9 +77,6 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
 
 
     public void loadTransaction(Date transactionDateParam) {
-        //todo remove
-        testLoadDeliveryOrder(transactionDateParam);
-
         getDisposable().add(Single.fromCallable(() -> {
             Date transactionDate = transactionDateParam == null ? Calendar.getInstance().getTime() : transactionDateParam;
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
@@ -285,25 +282,4 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         return sharedPrefs.getKodeSPG() + Long.toHexString(System.currentTimeMillis()/1000).toUpperCase() + sequence;
     }
 
-    public void testLoadDeliveryOrder(Date transactionDate) {
-        getDisposable().add(Single.fromCallable(() -> {
-            TrxTerimaDBModel trxTerimaDBModel =  new NetworkBoundResult<TrxTerimaDBModel>() {
-                @Override
-                protected Call<RestResponse<TrxTerimaDBModel>> callApiAction() {
-                    return tomkinsService.getTrxTerima(sharedPrefs.getKodeKonter(), dateConverterHelper.toDateTimeStringParameter(transactionDate));
-                }
-            }.fetchData();
-
-            logger.debug(getClass().getSimpleName(), trxTerimaDBModel.toString());
-            return true;
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(state -> {
-
-                        },
-                        throwable -> {
-                            logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
-                        }));
-    }
 }
