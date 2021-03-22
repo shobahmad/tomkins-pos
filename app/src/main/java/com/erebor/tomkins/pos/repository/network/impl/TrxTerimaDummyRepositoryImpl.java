@@ -31,9 +31,9 @@ public class TrxTerimaDummyRepositoryImpl implements TrxTerimaRemoteRepository {
         trxTerimaDBModel.setStatusDO(0);
 
         List<TrxTerimaDetDBModel> trxTerimaDetDBModelList = new ArrayList<>();
-        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "030510B-PAI", "36", 10, 0));
-        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "030510B-PAI", "37", 10, 0));
-        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "030510B-PAI", "38", 10, 0));
+        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "140913A-PAI", "36", 10, 0));
+        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "140913A-PAI", "37", 10, 0));
+        trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "140913A-PAI", "38", 10, 0));
         trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "031104B-PAI", "39", 10, 0));
         trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "031104B-PAI", "40", 20, 0));
         trxTerimaDetDBModelList.add(new TrxTerimaDetDBModel("D1", "031104B-PAI", "41", 20, 0));
