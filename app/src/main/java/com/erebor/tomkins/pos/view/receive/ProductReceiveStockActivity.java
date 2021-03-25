@@ -52,7 +52,11 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
 
     private void setupAdapter() {
         receiveStockAdapter = new ReceiveStockAdapter(this, (trxTerimaStockModel, qty) -> {
-            Log.d(getClass().getSimpleName(), trxTerimaStockModel +" -> " + qty);
+            productReceiveStockViewModel.updateReceiveQty(
+                    trxTerimaStockModel.getNoDo(),
+                    trxTerimaStockModel.getKodeArt(),
+                    trxTerimaStockModel.getUkuran(),
+                    qty);
         });
         binding.recyclerTrxTerima.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerTrxTerima.setAdapter(receiveStockAdapter);

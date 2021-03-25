@@ -22,4 +22,7 @@ public interface TrxTerimaDao extends BaseDao<TrxTerimaDBModel> {
 
     @Query("DELETE FROM TRXTERIMA")
     void truncate();
+
+    @Query("SELECT * FROM TRXTERIMA WHERE NoDO = :noDo")
+    TrxTerimaDBModel getByNoDo(String noDo);
 }

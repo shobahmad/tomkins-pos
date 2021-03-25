@@ -68,6 +68,7 @@
                 android:hint="@string/received_qty"
                 android:background="@color/white"
                 android:enabled="true"
+                android:inputType="number"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>

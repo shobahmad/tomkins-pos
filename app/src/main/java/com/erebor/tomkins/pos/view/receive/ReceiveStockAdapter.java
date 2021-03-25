@@ -1,14 +1,11 @@
 package com.erebor.tomkins.pos.view.receive;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;

@@ -15,6 +15,9 @@ public interface TrxTerimaDetDao extends BaseDao<TrxTerimaDetDBModel> {
     @Query("SELECT * FROM TRXTERIMADET WHERE NoDO = :noDO")
     List<TrxTerimaDetDBModel> getByNoDO(String noDO);
 
+    @Query("SELECT * FROM TRXTERIMADET WHERE NoDO = :noDO AND KodeArt = :kodeArt AND Ukuran = :ukuran")
+    TrxTerimaDetDBModel getByKodeArtAndUkuran(String noDO, String kodeArt, String ukuran);
+
     @Query("DELETE FROM TRXTERIMA")
     void truncate();
 }

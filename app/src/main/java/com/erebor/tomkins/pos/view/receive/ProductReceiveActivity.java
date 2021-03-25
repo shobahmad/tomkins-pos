@@ -45,6 +45,11 @@ public class ProductReceiveActivity extends BaseActivity<ActivityProductReceiveB
         productReceiveViewModel = ViewModelProviders.of(this, factory).get(ProductReceiveViewModel.class);
         startObserver();
         setupAdapter();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         productReceiveViewModel.loadDeliveryOrder();
     }
 

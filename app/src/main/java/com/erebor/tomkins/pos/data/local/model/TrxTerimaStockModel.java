@@ -2,6 +2,8 @@ package com.erebor.tomkins.pos.data.local.model;
 
 import androidx.room.DatabaseView;
 
+import com.erebor.tomkins.pos.base.BaseDatabaseModel;
+
 import java.util.Date;
 
 @DatabaseView("SELECT STOCK.NoDO noDo, ART.KodeArt kodeArt, ART.NamaArt namaArt, BARCODE.NoBarcode noBarcode, BARCODE.Ukuran ukuran," +
