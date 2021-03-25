@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 
 import com.erebor.tomkins.pos.base.BaseAdapter;
 import com.erebor.tomkins.pos.data.ui.ProductReceiveUiModel;
-import com.erebor.tomkins.pos.databinding.ItemArticleBinding;
 import com.erebor.tomkins.pos.databinding.ItemProductReceiveBinding;
 
 public class ProductReceiveAdapter extends BaseAdapter<ItemProductReceiveBinding, ProductReceiveUiModel> {

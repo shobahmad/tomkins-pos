@@ -43,6 +43,7 @@ dependencies {
     // Material Design
     implementation "com.google.android.material:material:$materialVersion"
     implementation "com.wdullaer:materialdatetimepicker:2.3.0"
+    implementation 'com.balysv:material-ripple:1.0.2'                  // ripple effect
 
     // Spinkit
     implementation "com.github.ybq:Android-SpinKit:$spinKitVersion"

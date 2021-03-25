@@ -46,6 +46,9 @@ public class ProductReceiveActivity extends BaseActivity<ActivityProductReceiveB
 
     private void setupAdapter() {
         productReceiveAdapter = new ProductReceiveAdapter(this);
+        productReceiveAdapter.addListener(item -> {
+
+        });
 
         binding.recyclerTrxTerima.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerTrxTerima.setAdapter(productReceiveAdapter);
