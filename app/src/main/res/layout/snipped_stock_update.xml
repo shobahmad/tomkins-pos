@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/layoutQty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="16dp">
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textArtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/darkSkyBlue"
+            style="@style/TextAppearance.AppCompat.Headline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="6dp"
+            android:layout_marginStart="6dp"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textQtyKirim"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textArtName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textQtyTerima"
+            app:hintEnabled="true"
+            android:textColorHint="@color/warmGrey"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editQtyKirim"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:enabled="false"
+                android:hint="@string/delivery_qty"
+                android:textColor="@color/colorPrimaryDark" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textQtyTerima"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textArtName"
+            app:layout_constraintStart_toEndOf="@id/textQtyKirim"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:hintEnabled="true"
+            android:textColorHint="@color/warmGrey"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editQtyTerima"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="@color/colorPrimary"
+                android:hint="@string/received_qty"
+                android:background="@color/white"
+                android:enabled="true"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/save"
+        android:layout_margin="4dp"
+        app:layout_constraintTop_toBottomOf="@id/textQtyKirim"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

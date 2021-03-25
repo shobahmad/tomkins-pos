@@ -18,6 +18,8 @@
             android:background="@color/colorPrimaryDark"
             app:titleTextColor="@color/white"
             app:title="@{title}"
+            app:subtitle="@{subtitle}"
+            app:subtitleTextColor="@color/white"
             >
 
         </androidx.appcompat.widget.Toolbar>
@@ -26,6 +28,9 @@
     <data>
         <variable
             name="title"
+            type="String" />
+        <variable
+            name="subtitle"
             type="String" />
     </data>
 

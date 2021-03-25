@@ -2,6 +2,7 @@ package com.erebor.tomkins.pos.di;
 
 import com.erebor.tomkins.pos.viewmodel.article.ArticleViewModel;
 import com.erebor.tomkins.pos.viewmodel.login.LoginViewModel;
+import com.erebor.tomkins.pos.viewmodel.receive.ProductReceiveStockViewModel;
 import com.erebor.tomkins.pos.viewmodel.receive.ProductReceiveViewModel;
 import com.erebor.tomkins.pos.viewmodel.report.GenderViewModel;
 import com.erebor.tomkins.pos.viewmodel.report.StockReportViewModel;
@@ -37,5 +38,6 @@ public interface ViewModelSubComponent {
     GenderViewModel genderViewModel();
     SyncUploadStockViewModel syncUploadStockViewModel();
     ProductReceiveViewModel productReceiveViewModel();
+    ProductReceiveStockViewModel productReceiveStockViewModel();
 
 }

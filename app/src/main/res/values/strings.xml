@@ -145,5 +145,10 @@
     <string name="product_receive">Product Receive</string>
     <string name="delivery_date">Delivery Date</string>
     <string name="receive_date">Receive Date</string>
+    <string name="delivery_qty">Delivery Qty.</string>
+    <string name="received_qty">Received Qty.</string>
+    <string name="input_stock_invalid_minus">Invalid quantity. Please input greater than received quantity</string>
+    <string name="input_stock_invalid_max">Invalid quantity. Please input lower or equal than delivered quantity</string>
+    <string name="save">Save</string>
 
 </resources>

@@ -121,4 +121,9 @@
     <string name="product_receive">Penerimaan Barang</string>
     <string name="delivery_date">Tanggal Kirim</string>
     <string name="receive_date">Tanggal Terima</string>
+    <string name="delivery_qty">Delivery Qty.</string>
+    <string name="received_qty">Received Qty.</string>
+    <string name="input_stock_invalid_minus">Jumlah tidak valid. Silakan masukan lebih dari jumlah diterima</string>
+    <string name="input_stock_invalid_max">Jumlah tidak valid. Silakan masukan kurang dari atau sama dengan jumlah dikirim</string>
+    <string name="save">Simpan</string>
 </resources>

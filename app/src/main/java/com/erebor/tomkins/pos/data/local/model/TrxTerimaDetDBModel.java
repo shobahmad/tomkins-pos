@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
 import com.erebor.tomkins.pos.base.BaseDatabaseModel;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
@@ -24,7 +26,8 @@ public class TrxTerimaDetDBModel implements BaseDatabaseModel {
     public TrxTerimaDetDBModel() {
     }
 
-    public TrxTerimaDetDBModel(@NonNull String noDO, @NonNull String kodeArt, @NonNull String ukuran, Integer qtyDO, Integer qtyTerima) {
+    public TrxTerimaDetDBModel(@NonNull String noDO, @NonNull String kodeArt,
+                               @NonNull String ukuran, Integer qtyDO, Integer qtyTerima) {
         this.noDO = noDO;
         this.kodeArt = kodeArt;
         this.ukuran = ukuran;
@@ -49,6 +52,13 @@ public class TrxTerimaDetDBModel implements BaseDatabaseModel {
 
     @ColumnInfo(name = "QtyTerima")
     private Integer qtyTerima;
+
+
+    @NonNull
+    @ColumnInfo(name = "last_update")
+    @SerializedName("last_update")
+    @Expose
+    private Date lastUpdate;
 
     @NonNull
     public String getNoDO() {
@@ -94,12 +104,13 @@ public class TrxTerimaDetDBModel implements BaseDatabaseModel {
     }
 
     @Override
-    public void setLastUpdate(Date lastUpdate) {
-
+    @NonNull
+    public Date getLastUpdate() {
+        return lastUpdate;
     }
 
     @Override
-    public Date getLastUpdate() {
-        return null;
+    public void setLastUpdate(@NonNull Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

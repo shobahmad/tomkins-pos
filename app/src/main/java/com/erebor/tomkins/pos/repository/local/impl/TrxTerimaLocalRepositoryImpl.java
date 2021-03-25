@@ -12,6 +12,7 @@ import com.erebor.tomkins.pos.repository.local.TrxTerimaLocalRepository;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
     private final TomkinsDatabase tomkinsDatabase;
@@ -58,6 +59,9 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
                 return false;
             }
             for (TrxTerimaDetDBModel trxTerimaDetDBModel : trxTerimaDBModel.getListDetail()) {
+                if (trxTerimaDetDBModel.getLastUpdate() == null) {
+                    trxTerimaDetDBModel.setLastUpdate(Calendar.getInstance(Locale.getDefault()).getTime());
+                }
                 Long insertDetail = trxTerimaDetDao.insertReplaceSync(trxTerimaDetDBModel);
                 if (insertDetail < 0) {
                     return false;

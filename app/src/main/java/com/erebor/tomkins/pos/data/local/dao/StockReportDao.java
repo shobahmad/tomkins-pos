@@ -22,28 +22,28 @@ public interface StockReportDao {
      1          1           0           getStockParamArtAndSize
      */
 
-    @Query("SELECT * FROM StockReportModel ORDER BY lastUpdate LIMIT 50")
+    @Query("SELECT * FROM StockReportModel ORDER BY lastUpdate DESC LIMIT 50")
     List<StockReportModel> getLatestStock();
 
-    @Query("SELECT * FROM StockReportModel WHERE kodeArt = :kodeArt")
+    @Query("SELECT * FROM StockReportModel WHERE kodeArt = :kodeArt ORDER BY lastUpdate DESC")
     List<StockReportModel> getStockParamKodeArt(String kodeArt);
 
-    @Query("SELECT * FROM StockReportModel WHERE ukuran = :ukuran")
+    @Query("SELECT * FROM StockReportModel WHERE ukuran = :ukuran ORDER BY lastUpdate DESC")
     List<StockReportModel> getStockParamSize(String ukuran);
 
-    @Query("SELECT * FROM StockReportModel WHERE gender = :kodeGender")
+    @Query("SELECT * FROM StockReportModel WHERE gender = :kodeGender ORDER BY lastUpdate DESC")
     List<StockReportModel> getStockParamGender(String kodeGender);
 
-    @Query("SELECT * FROM StockReportModel WHERE ukuran = :ukuran AND gender = :kodeGender")
+    @Query("SELECT * FROM StockReportModel WHERE ukuran = :ukuran AND gender = :kodeGender ORDER BY lastUpdate DESC")
     List<StockReportModel> getStockParamSizeAndGender(String ukuran, String kodeGender);
 
-    @Query("SELECT * FROM StockReportModel WHERE kodeArt = :kodeArt AND gender = :kodeGender")
+    @Query("SELECT * FROM StockReportModel WHERE kodeArt = :kodeArt AND gender = :kodeGender ORDER BY lastUpdate DESC")
     List<StockReportModel> getStockParamArtAndGender(String kodeArt, String kodeGender);
 
-    @Query("SELECT * FROM StockReportModel WHERE kodeArt = :kodeArt AND ukuran = :ukuran")
+    @Query("SELECT * FROM StockReportModel WHERE kodeArt = :kodeArt AND ukuran = :ukuran ORDER BY lastUpdate DESC")
     List<StockReportModel> getStockParamArtAndSize(String kodeArt, String ukuran);
 
-    @Query("SELECT * FROM StockReportModel WHERE kodeArt = :kodeArt AND ukuran = :ukuran AND gender = :kodeGender")
+    @Query("SELECT * FROM StockReportModel WHERE kodeArt = :kodeArt AND ukuran = :ukuran AND gender = :kodeGender ORDER BY lastUpdate DESC")
     List<StockReportModel> getStockParamAll(String kodeArt, String ukuran, String kodeGender);
 
 
