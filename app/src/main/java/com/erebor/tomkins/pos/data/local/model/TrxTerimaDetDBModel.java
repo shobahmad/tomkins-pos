@@ -23,34 +23,32 @@ public class TrxTerimaDetDBModel implements BaseDatabaseModel {
   PRIMARY KEY([NoDO], [KodeArt], [Ukuran]) ON CONFLICT ROLLBACK)
      */
 
-    public TrxTerimaDetDBModel() {
-    }
-
-    public TrxTerimaDetDBModel(@NonNull String noDO, @NonNull String kodeArt,
-                               @NonNull String ukuran, Integer qtyDO, Integer qtyTerima) {
-        this.noDO = noDO;
-        this.kodeArt = kodeArt;
-        this.ukuran = ukuran;
-        this.qtyDO = qtyDO;
-        this.qtyTerima = qtyTerima;
-    }
-
     @NonNull
     @ColumnInfo(name = "NoDO")
+    @SerializedName("NoDO")
+    @Expose
     private String noDO;
 
     @NonNull
     @ColumnInfo(name = "KodeArt")
+    @SerializedName("KodeArt")
+    @Expose
     private String kodeArt;
 
     @NonNull
     @ColumnInfo(name = "Ukuran")
+    @SerializedName("Ukuran")
+    @Expose
     private String ukuran;
 
     @ColumnInfo(name = "QtyDO")
+    @SerializedName("QtyDO")
+    @Expose
     private Integer qtyDO;
 
     @ColumnInfo(name = "QtyTerima")
+    @SerializedName("QtyTerima")
+    @Expose
     private Integer qtyTerima;
 
 

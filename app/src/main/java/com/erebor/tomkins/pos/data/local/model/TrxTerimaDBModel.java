@@ -8,6 +8,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.erebor.tomkins.pos.base.BaseDatabaseModel;
+import com.erebor.tomkins.pos.data.field.DateDelivery;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -29,22 +30,27 @@ public class TrxTerimaDBModel implements BaseDatabaseModel {
     @PrimaryKey
     @Expose
     @ColumnInfo(name = "NoDO")
+    @SerializedName("NoDO")
     private String noDO;
 
     @Expose
     @ColumnInfo(name = "TglKirimGBJ")
-    private Date tglKirimGBJ;
+    @SerializedName("TglKirimGBJ")
+    private DateDelivery tglKirimGBJ;
 
     @Expose
     @ColumnInfo(name = "TglTerimaCnt")
-    private Date tglTerimaCnt;
+    @SerializedName("TglTerimaCnt")
+    private DateDelivery tglTerimaCnt;
 
     @Expose
     @ColumnInfo(name = "Catatan")
+    @SerializedName("Catatan")
     private String catatan;
 
     @Expose
     @ColumnInfo(name = "StatusDO")
+    @SerializedName("StatusDO")
     private Integer statusDO;
 
     @Ignore
@@ -70,19 +76,19 @@ public class TrxTerimaDBModel implements BaseDatabaseModel {
         this.noDO = noDO;
     }
 
-    public Date getTglKirimGBJ() {
+    public DateDelivery getTglKirimGBJ() {
         return tglKirimGBJ;
     }
 
-    public void setTglKirimGBJ(Date tglKirimGBJ) {
+    public void setTglKirimGBJ(DateDelivery tglKirimGBJ) {
         this.tglKirimGBJ = tglKirimGBJ;
     }
 
-    public Date getTglTerimaCnt() {
+    public DateDelivery getTglTerimaCnt() {
         return tglTerimaCnt;
     }
 
-    public void setTglTerimaCnt(Date tglTerimaCnt) {
+    public void setTglTerimaCnt(DateDelivery tglTerimaCnt) {
         this.tglTerimaCnt = tglTerimaCnt;
     }
 

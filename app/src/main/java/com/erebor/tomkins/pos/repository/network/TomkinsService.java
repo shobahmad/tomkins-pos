@@ -62,10 +62,10 @@ public interface TomkinsService {
     @POST("stockupdate")
     Call<RestResponse<Date>> postStock(@Path("counter") String counter, @Body List<StokRealDBModel> stokRealDBModel);
 
-    @GET("trxterima/{counter}")
-    Call<RestResponse<TrxTerimaDBModel>> getTrxTerima(@Path("counter") String counter, @Query("last_update") String lastUpdate);
+    @GET("sync/trxterima/{counter}")
+    Call<RestResponse<DownloadResponse<TrxTerimaDBModel>>> getTrxTerima(@Path("counter") String counter, @Query("last_update") String lastUpdate);
 
-    @POST("trxterima/{counter}")
+    @POST("sync/trxterima/{counter}")
     Call<RestResponse<TrxTerimaDBModel>> postTrxTerima(@Path("counter") String counter, @Body TrxTerimaDBModel trxTerimaDBModel);
 
 }

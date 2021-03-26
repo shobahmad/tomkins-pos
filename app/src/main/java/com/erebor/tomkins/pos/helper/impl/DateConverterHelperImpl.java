@@ -14,6 +14,7 @@ public class DateConverterHelperImpl implements DateConverterHelper {
 
     private static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static final String DATETIME_PARAM_FORMAT = "yyyyMMddHHmm";
+    private static final String DATE_PARAM_FORMAT = "yyyyMMdd";
     private static final String DATE_FORMAT = "dd MMMM yyyy";
     private static final String DATE_SHORT_FORMAT = "dd-MMM";
     private static final String DATETIME_DISPLAY_FORMAT = "dd-MM-yyyy HH:mm:ss";
@@ -52,6 +53,11 @@ public class DateConverterHelperImpl implements DateConverterHelper {
     @Override
     public String toDateTimeStringParameter(Date date) {
         return toStringFormat(date, DATETIME_PARAM_FORMAT);
+    }
+
+    @Override
+    public String toDateStringParameter(Date date) {
+        return toStringFormat(date, DATE_PARAM_FORMAT);
     }
 
     @Override

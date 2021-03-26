@@ -53,7 +53,9 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
     public Date getLastUpdate() {
         TrxTerimaDBModel trxTerimaDBModel = trxTerimaDao.getLatest();
         if (trxTerimaDBModel == null) {
-            return null;
+            Calendar calendar = Calendar.getInstance(Locale.getDefault());
+            calendar.set(2021, 0, 1);
+            return calendar.getTime();
         }
         return trxTerimaDBModel.getLastUpdate();
     }

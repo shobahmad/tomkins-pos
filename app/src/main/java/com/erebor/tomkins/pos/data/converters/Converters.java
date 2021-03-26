@@ -3,6 +3,7 @@ package com.erebor.tomkins.pos.data.converters;
 import androidx.annotation.NonNull;
 import androidx.room.TypeConverter;
 
+import com.erebor.tomkins.pos.data.field.DateDelivery;
 import com.erebor.tomkins.pos.data.remote.EncryptedAesField;
 import com.erebor.tomkins.pos.data.remote.EncryptedSha1Field;
 
@@ -17,12 +18,23 @@ public class Converters {
     private static final String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     @TypeConverter
-    public static Date fromTimestamp(Long value) {
+    public static Date fromTimestampToDate(Long value) {
         return value == null ? null : new Date(value);
     }
 
     @TypeConverter
     public static Long dateToTimestamp(Date date) {
+        return date == null ? null : date.getTime();
+    }
+
+
+    @TypeConverter
+    public static DateDelivery fromTimestampToDelivery(Long value) {
+        return value == null ? null : new DateDelivery(value);
+    }
+
+    @TypeConverter
+    public static Long deliveryDateToTimestamp(DateDelivery date) {
         return date == null ? null : date.getTime();
     }
 

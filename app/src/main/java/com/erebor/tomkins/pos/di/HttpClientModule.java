@@ -4,8 +4,10 @@ import android.content.Context;
 import android.util.Log;
 
 import com.erebor.tomkins.pos.BuildConfig;
+import com.erebor.tomkins.pos.data.converters.DateDeliverySerializer;
 import com.erebor.tomkins.pos.data.converters.DateDeserializer;
 import com.erebor.tomkins.pos.data.converters.ResponseStatusDeserializer;
+import com.erebor.tomkins.pos.data.field.DateDelivery;
 import com.erebor.tomkins.pos.data.remote.response.ResponseStatusConstant;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.google.gson.FieldNamingPolicy;
@@ -35,6 +37,7 @@ public class HttpClientModule {
                         .setDateFormat("yyyy-MM-dd HH:mm:ss")
                         .excludeFieldsWithoutExposeAnnotation()
                         .registerTypeAdapter(Date.class, new DateDeserializer())
+                        .registerTypeAdapter(DateDelivery.class, new DateDeliverySerializer())
                         .registerTypeAdapter(ResponseStatusConstant.class, new ResponseStatusDeserializer())
                         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
         return builder.setLenient().create();

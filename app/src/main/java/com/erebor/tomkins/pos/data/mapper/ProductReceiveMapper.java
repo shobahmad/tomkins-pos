@@ -24,10 +24,8 @@ public class ProductReceiveMapper {
             }
             ProductReceiveUiModel productReceiveUiModel = new ProductReceiveUiModel(
                     trxTerimaDBModel.getNoDO(),
-                    dateConverterHelper.getDifference(trxTerimaDBModel.getTglKirimGBJ() == null ?
-                            0 : trxTerimaDBModel.getTglKirimGBJ().getTime()),
-                    dateConverterHelper.getDifference(trxTerimaDBModel.getTglTerimaCnt() == null ?
-                            0 : trxTerimaDBModel.getTglTerimaCnt().getTime()),
+                    dateConverterHelper.toDateShortString(trxTerimaDBModel.getTglKirimGBJ()),
+                    dateConverterHelper.toDateShortString(trxTerimaDBModel.getTglTerimaCnt()),
                     trxTerimaDBModel.getCatatan(),
                     trxTerimaDBModel.getStatusDO() == 1,
                     qtyTotal,

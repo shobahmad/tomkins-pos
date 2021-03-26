@@ -14,8 +14,8 @@ public class ProductReceiveUiModel {
                                  String tglTerimaCnt, String catatan,
                                  boolean isComplete, double qtyTotal, double qtyReceived) {
         this.noDo = noDo;
-        this.tglKirimGBJ = tglKirimGBJ;
-        this.tglTerimaCnt = tglTerimaCnt;
+        this.tglKirimGBJ = tglKirimGBJ == null ? "-" : tglKirimGBJ;
+        this.tglTerimaCnt = tglTerimaCnt == null ? "-" : tglTerimaCnt;
         this.catatan = catatan;
         this.isComplete = isComplete;
         this.qtyTotal = qtyTotal;
