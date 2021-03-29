@@ -18,5 +18,7 @@ public interface TrxTerimaLocalRepository {
 
     List<TrxTerimaStockModel> getTrxTerimaStock(String noDo);
 
+    List<TrxTerimaStockModel> searchTrxTerimaStock(String noDo, String query);
+
     void update(String noDo, String kodeArt, String ukuran, int qty);
 }

@@ -50,6 +50,10 @@ public class ProductReceiveViewModel extends BaseViewModel<ProductReceiveViewSta
     public void loadDeliveryOrder() {
         getDisposable().add(Single.fromCallable(() -> {
             postValue(ProductReceiveViewState.LOADING_STATE);
+            ProductReceiveViewState.FOUND_STATE.setData(ProductReceiveMapper.toProductReceive(
+                    trxTerimaLocalRepository.getAllTrxTerima(), dateConverterHelper));
+            postValue(ProductReceiveViewState.FOUND_STATE);
+
             TrxTerimaDBModel trxTerimaDBModel = trxTerimaRemoteRepository.getTrxTerima();
             while(trxTerimaDBModel != null) {
                 trxTerimaLocalRepository.saveTrxTerima(trxTerimaDBModel);

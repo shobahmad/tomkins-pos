@@ -86,6 +86,20 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
     }
 
     @Override
+    public List<TrxTerimaStockModel> searchTrxTerimaStock(String noDo, String query) {
+
+        boolean isBarcode = false;
+        try {
+            double d = Double.parseDouble(query.trim());
+            isBarcode = true;
+        } catch (NumberFormatException nfe) {
+            isBarcode = false;
+        }
+
+        return isBarcode ? trxTerimaStockDao.getTrxTerimaStockBarcode(noDo, query) : trxTerimaStockDao.getTrxTerimaStockArticle(noDo, query);
+    }
+
+    @Override
     public void update(String noDo, String kodeArt, String ukuran, int qty) {
         tomkinsDatabase.runInTransaction(() -> {
             TrxTerimaDetDBModel trxTerimaDetDBModel = trxTerimaDetDao.getByKodeArtAndUkuran(noDo, kodeArt, ukuran);

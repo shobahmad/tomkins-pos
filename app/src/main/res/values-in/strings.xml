@@ -126,4 +126,5 @@
     <string name="input_stock_invalid_minus">Jumlah tidak valid. Silakan masukan lebih dari jumlah diterima</string>
     <string name="input_stock_invalid_max">Jumlah tidak valid. Silakan masukan kurang dari atau sama dengan jumlah dikirim</string>
     <string name="save">Simpan</string>
+    <string name="loading">Sedang memuat.. Silakan menunggu</string>
 </resources>

@@ -13,5 +13,11 @@ public interface TrxTerimaStockDao {
     @Query("SELECT * FROM TrxTerimaStockModel WHERE noDo = :noDo")
     List<TrxTerimaStockModel> getTrxTerimaStock(String noDo);
 
+    @Query("SELECT * FROM TrxTerimaStockModel WHERE noDo = :noDo and kodeArt = :article")
+    List<TrxTerimaStockModel> getTrxTerimaStockArticle(String noDo, String article);
+
+    @Query("SELECT * FROM TrxTerimaStockModel WHERE noDo = :noDo and noBarcode = :barcode")
+    List<TrxTerimaStockModel> getTrxTerimaStockBarcode(String noDo, String barcode);
+
 
 }

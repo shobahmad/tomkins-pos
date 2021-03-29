@@ -47,6 +47,23 @@ public class ProductReceiveStockViewModel extends BaseViewModel<ProductReceiveSt
                             postValue(ProductReceiveStockViewState.ERROR_STATE);
                         }));
     }
+    public void searchData(String noDo, String query) {
+        getDisposable().add(Single.fromCallable(() -> {
+            postValue(ProductReceiveStockViewState.LOADING_STATE);
+            return trxTerimaLocalRepository.searchTrxTerimaStock(noDo, query);
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(data -> {
+                            ProductReceiveStockViewState.FOUND_STATE.setData(data);
+                            postValue(ProductReceiveStockViewState.FOUND_STATE);
+                        },
+                        throwable -> {
+                            logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
+                            ProductReceiveStockViewState.ERROR_STATE.setError(throwable);
+                            postValue(ProductReceiveStockViewState.ERROR_STATE);
+                        }));
+    }
 
 
     public void updateReceiveQty(String noDo, String kodeArt, String ukuran, int qty) {
