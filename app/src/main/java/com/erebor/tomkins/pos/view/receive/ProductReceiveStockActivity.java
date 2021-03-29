@@ -1,11 +1,16 @@
 package com.erebor.tomkins.pos.view.receive;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -15,12 +20,17 @@ import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
 import com.erebor.tomkins.pos.databinding.ActivityReceiveStockBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
+import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.helper.ResourceHelper;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.erebor.tomkins.pos.view.scan.VisionScannerActivity;
 import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
 import com.erebor.tomkins.pos.viewmodel.receive.ProductReceiveStockViewModel;
 import com.erebor.tomkins.pos.viewmodel.receive.ProductReceiveStockViewState;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -32,9 +42,13 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
     SharedPrefs sharedPrefs;
     @Inject
     ResourceHelper resourceHelper;
+    @Inject
+    DateConverterHelper dateConverterHelper;
     ProductReceiveStockViewModel productReceiveStockViewModel;
     private ReceiveStockAdapter receiveStockAdapter;
 
+    private Date selectedDate = null;
+    private DatePickerDialog datePickerDialog;
 
     @Override
     public void inject(AppComponent appComponent) {
@@ -56,14 +70,56 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
         startObserver();
         setupAdapter();
         setupSearchView();
-        setupScanButton();
+        setupButtons();
+        setupDatePicker();
         String noDo = getIntent().getStringExtra("NO_DO");
         productReceiveStockViewModel.loadData(noDo);
         binding.setSubtitle(noDo);
     }
 
-    private void setupScanButton() {
+
+    private void setupDatePicker() {
+        binding.editTransDate.setTag(Calendar.getInstance().getTime());
+        binding.editTransDate.setText(dateConverterHelper.toDateShortString(Calendar.getInstance().getTime()));
+        binding.textTransDate.getEditText().setOnClickListener(v -> showDatePicker());
+        binding.textTransDate.getEditText().setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) showDatePicker();
+        });
+        binding.textTransDate.setStartIconOnClickListener(v -> showDatePicker());
+        binding.textTransDate.setOnClickListener(v -> showDatePicker());
+    }
+
+    private void showDatePicker() {
+        int year, month, day;
+        Calendar calendar = Calendar.getInstance();
+        if (selectedDate != null) {
+            calendar.setTime(selectedDate);
+        }
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+
+
+        datePickerDialog = DatePickerDialog.newInstance((view, year1, monthOfYear, dayOfMonth) -> {
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.set(Calendar.YEAR, year1);
+            calendar1.set(Calendar.MONTH, monthOfYear);
+            calendar1.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            selectedDate = calendar1.getTime();
+            binding.editTransDate.setText(dateConverterHelper.toDateShortString(calendar1.getTime()));
+            binding.editTransDate.setTag(selectedDate);
+        }, year, month, day);
+        datePickerDialog.setThemeDark(true);
+        datePickerDialog.showYearPickerFirst(false);
+        datePickerDialog.setAccentColor(getResources().getColor(R.color.orangeSoft));
+        datePickerDialog.setTitle(resourceHelper.getResourceString(R.string.transaction_date));
+        datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
+    }
+    private void setupButtons() {
         binding.buttonScan.setOnClickListener(v -> startScannerActivity());
+        binding.buttonSave.setOnClickListener(v ->
+                productReceiveStockViewModel.updateDateAndNotes(getIntent().getStringExtra("NO_DO"),
+                        selectedDate, binding.editNote.getText().toString()));
     }
 
 
@@ -105,7 +161,17 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
     }
 
     private void startObserver() {
+        productReceiveStockViewModel.getReceiveSummaryUiModelMutableLiveData().observe(this, productReceiveSummaryUiModel -> {
+            selectedDate = productReceiveSummaryUiModel.getReceiveDate();
+            binding.editTransDate.setText(dateConverterHelper.toDateShortString(productReceiveSummaryUiModel.getReceiveDate()));
+            binding.editNote.setText(productReceiveSummaryUiModel.getNote());
+        });
         productReceiveStockViewModel.getViewState().observe(this, state -> {
+            if (state.getCurrentState().equals(ProductReceiveStockViewState.ERROR_STATE.getCurrentState())) {
+                binding.setLoading(null);
+                binding.setErrorMessage(state.getError().getMessage());
+                return;
+            }
             if (state.getCurrentState().equals(ProductReceiveStockViewState.LOADING_STATE.getCurrentState())) {
                 binding.setLoading(resourceHelper.getResourceString(R.string.loading));
                 binding.setErrorMessage(null);
@@ -115,6 +181,11 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
                 binding.setLoading(null);
                 receiveStockAdapter.addList(state.getData());
                 binding.setErrorMessage(state.getData().isEmpty() ? resourceHelper.getResourceString(R.string.article_not_found) : null);
+            }
+            if (state.getCurrentState().equals(ProductReceiveStockViewState.UPDATED_STATE.getCurrentState())) {
+                transactionResultDialog(true, resourceHelper.getResourceString(R.string.receive_success), (dialog, which) -> {
+                    ProductReceiveStockActivity.this.finish();
+                });
             }
         });
     }
@@ -152,4 +223,34 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
             }
         });
     }
+
+
+    private void transactionResultDialog(boolean success, String message, DialogInterface.OnClickListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);
+        builder.setTitle(success ? R.string.transaction_success : R.string.transaction_failed);
+        builder.setMessage(null);
+        builder.setCancelable(true);
+
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.dialog_transaction_result, null);
+
+        AppCompatTextView textSuccessMessage = promptsView.findViewById(R.id.textSuccessMessage);
+        AppCompatTextView textErrorMessage = promptsView.findViewById(R.id.textErrorMessage);
+        View layoutError = promptsView.findViewById(R.id.layoutError);
+        View layoutSuccess = promptsView.findViewById(R.id.layoutSuccess);
+
+        textSuccessMessage.setText(message);
+        textErrorMessage.setText(message);
+        layoutError.setVisibility(success ? View.GONE : View.VISIBLE);
+        layoutSuccess.setVisibility(success ? View.VISIBLE : View.GONE);
+
+        builder.setView(promptsView);
+        builder.setPositiveButton(getString(R.string.ok), listener);
+
+
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }
+

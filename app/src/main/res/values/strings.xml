@@ -151,5 +151,6 @@
     <string name="input_stock_invalid_max">Invalid quantity. Please input lower or equal than delivered quantity</string>
     <string name="save">Save</string>
     <string name="loading">Loading.. Please wait</string>
+    <string name="receive_success">Product receive success</string>
 
 </resources>

@@ -1,9 +1,15 @@
 package com.erebor.tomkins.pos.viewmodel.receive;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.erebor.tomkins.pos.base.BaseViewModel;
+import com.erebor.tomkins.pos.data.ui.ProductReceiveSummaryUiModel;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.repository.local.TrxTerimaLocalRepository;
 import com.erebor.tomkins.pos.tools.Logger;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -17,12 +23,20 @@ public class ProductReceiveStockViewModel extends BaseViewModel<ProductReceiveSt
     private final TrxTerimaLocalRepository trxTerimaLocalRepository;
 
 
+    private final MutableLiveData<ProductReceiveSummaryUiModel> receiveSummaryUiModelMutableLiveData;
+
+    public MutableLiveData<ProductReceiveSummaryUiModel> getReceiveSummaryUiModelMutableLiveData() {
+        return receiveSummaryUiModelMutableLiveData;
+    }
+
     @Inject
     public ProductReceiveStockViewModel(DateConverterHelper dateConverterHelper, Logger logger,
                                         TrxTerimaLocalRepository trxTerimaLocalRepository) {
         this.dateConverterHelper = dateConverterHelper;
         this.logger = logger;
         this.trxTerimaLocalRepository = trxTerimaLocalRepository;
+
+        receiveSummaryUiModelMutableLiveData = new MutableLiveData<>();
     }
 
 
@@ -30,6 +44,8 @@ public class ProductReceiveStockViewModel extends BaseViewModel<ProductReceiveSt
     public void loadData(String noDo) {
         getDisposable().add(Single.fromCallable(() -> {
             postValue(ProductReceiveStockViewState.LOADING_STATE);
+
+            receiveSummaryUiModelMutableLiveData.postValue(trxTerimaLocalRepository.getTrxTerimaSummary(noDo));
             return trxTerimaLocalRepository.getTrxTerimaStock(noDo);
         })
                 .subscribeOn(Schedulers.io())
@@ -75,6 +91,23 @@ public class ProductReceiveStockViewModel extends BaseViewModel<ProductReceiveSt
                             ProductReceiveStockViewState.FOUND_STATE.setData(data);
                             postValue(ProductReceiveStockViewState.FOUND_STATE);
                         },
+                        throwable -> {
+                            logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
+                            ProductReceiveStockViewState.ERROR_STATE.setError(throwable);
+                            postValue(ProductReceiveStockViewState.ERROR_STATE);
+                        }));
+    }
+    public void updateDateAndNotes(String noDo, Date date, String note) {
+        getDisposable().add(Single.fromCallable(() -> {
+            postValue(ProductReceiveStockViewState.LOADING_STATE);
+            trxTerimaLocalRepository.updateDateAndNote(noDo, date, note);
+            receiveSummaryUiModelMutableLiveData.postValue(
+                    new ProductReceiveSummaryUiModel(date, note));
+            return true;
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(data -> postValue(ProductReceiveStockViewState.UPDATED_STATE),
                         throwable -> {
                             logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
                             ProductReceiveStockViewState.ERROR_STATE.setError(throwable);

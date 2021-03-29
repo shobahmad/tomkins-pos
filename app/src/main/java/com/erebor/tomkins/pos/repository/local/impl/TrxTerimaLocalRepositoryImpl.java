@@ -1,5 +1,6 @@
 package com.erebor.tomkins.pos.repository.local.impl;
 
+import com.erebor.tomkins.pos.data.field.DateDelivery;
 import com.erebor.tomkins.pos.data.local.TomkinsDatabase;
 import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxTerimaDao;
@@ -9,6 +10,7 @@ import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
 import com.erebor.tomkins.pos.data.local.model.TrxTerimaDBModel;
 import com.erebor.tomkins.pos.data.local.model.TrxTerimaDetDBModel;
 import com.erebor.tomkins.pos.data.local.model.TrxTerimaStockModel;
+import com.erebor.tomkins.pos.data.ui.ProductReceiveSummaryUiModel;
 import com.erebor.tomkins.pos.repository.local.TrxTerimaLocalRepository;
 
 import java.util.Calendar;
@@ -86,11 +88,16 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
     }
 
     @Override
-    public List<TrxTerimaStockModel> searchTrxTerimaStock(String noDo, String query) {
+    public ProductReceiveSummaryUiModel getTrxTerimaSummary(String noDo) {
+        TrxTerimaDBModel trxTerimaDBModel = trxTerimaDao.getByNoDo(noDo);
+        return new ProductReceiveSummaryUiModel(trxTerimaDBModel.getTglTerimaCnt(), trxTerimaDBModel.getCatatan());
+    }
 
-        boolean isBarcode = false;
+    @Override
+    public List<TrxTerimaStockModel> searchTrxTerimaStock(String noDo, String query) {
+        boolean isBarcode;
         try {
-            double d = Double.parseDouble(query.trim());
+            Double.parseDouble(query.trim());
             isBarcode = true;
         } catch (NumberFormatException nfe) {
             isBarcode = false;
@@ -138,10 +145,18 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
             trxTerimaDBModel.setUploaded(false);
             trxTerimaDBModel.setLastUpdate(Calendar.getInstance(Locale.getDefault()).getTime());
             trxTerimaDBModel.setStatusDO(complete ? 1 : 0);
-            trxTerimaDao.update(trxTerimaDBModel);
+            trxTerimaDao.update(trxTerimaDBModel).blockingGet();
             return true;
         });
     }
 
-
+    @Override
+    public void updateDateAndNote(String noDo, Date date, String note) {
+        TrxTerimaDBModel trxTerimaDBModel = trxTerimaDao.getByNoDo(noDo);
+        trxTerimaDBModel.setUploaded(false);
+        trxTerimaDBModel.setLastUpdate(Calendar.getInstance().getTime());
+        trxTerimaDBModel.setTglTerimaCnt(new DateDelivery(date));
+        trxTerimaDBModel.setCatatan(note);
+        trxTerimaDao.update(trxTerimaDBModel).blockingGet();
+    }
 }

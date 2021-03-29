@@ -9,7 +9,8 @@ import java.util.List;
 public class ProductReceiveStockViewState extends BaseViewState<List<TrxTerimaStockModel>> {
 
     public enum State {
-        LOADING("loading"), FOUND("found"), ERROR("error"), NOT_FOUND("not_found");
+        LOADING("loading"), FOUND("found"), ERROR("error"),
+        NOT_FOUND("not_found"), UPDATED("updated"), ;
         public String value;
 
         State(String val) {
@@ -25,4 +26,5 @@ public class ProductReceiveStockViewState extends BaseViewState<List<TrxTerimaSt
     public static ProductReceiveStockViewState FOUND_STATE = new ProductReceiveStockViewState(State.FOUND.value);
     public static ProductReceiveStockViewState NOT_FOUND_STATE = new ProductReceiveStockViewState(State.NOT_FOUND.value);
     public static ProductReceiveStockViewState ERROR_STATE = new ProductReceiveStockViewState(State.ERROR.value);
+    public static ProductReceiveStockViewState UPDATED_STATE = new ProductReceiveStockViewState(State.UPDATED.value);
 }

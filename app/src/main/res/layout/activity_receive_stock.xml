@@ -40,14 +40,93 @@
            app:layout_constraintEnd_toEndOf="parent"
            />
 
+<!--       FOOTER-->
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:id="@+id/layoutFooter"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:background="@color/white"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent">
+
+           <View
+               android:id="@+id/viewLine"
+               android:layout_width="0dp"
+               android:layout_height="0.5dp"
+               android:background="@color/greyishBrown"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
+
+
+           <com.google.android.material.textfield.TextInputLayout
+               android:id="@+id/textTransDate"
+               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:padding="@dimen/dp_8"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               app:startIconDrawable="@drawable/ic_date"
+               app:startIconTint="@color/colorPrimary">
+
+               <com.google.android.material.textfield.TextInputEditText
+                   android:id="@+id/editTransDate"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:background="@color/white"
+                   android:hint="@string/receive_date"
+                   android:inputType="datetime"
+                   android:textColor="@android:color/black" />
+
+           </com.google.android.material.textfield.TextInputLayout>
+
+           <com.google.android.material.textfield.TextInputLayout
+               android:id="@+id/textNote"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               app:layout_constraintStart_toEndOf="@id/textTransDate"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="@id/textTransDate"
+               app:layout_constraintBottom_toBottomOf="@id/textTransDate"
+               style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+               android:hint="@string/transaction_note"
+               >
+
+               <com.google.android.material.textfield.TextInputEditText
+                   android:id="@+id/editNote"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:background="@color/white"
+                   />
+
+           </com.google.android.material.textfield.TextInputLayout>
+
+
+           <com.google.android.material.button.MaterialButton
+               android:id="@+id/buttonSave"
+               android:layout_width="0dp"
+               android:layout_height="48dp"
+               android:layout_marginTop="40dp"
+               android:text="@string/sale_confirm"
+               app:layout_constraintTop_toBottomOf="@id/textTransDate"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               android:layout_margin="4dp"/>
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+
        <!--STOCK REPORT-->
        <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/recyclerTrxTerima"
            android:layout_width="match_parent"
            android:layout_height="0dp"
-           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintBottom_toTopOf="@id/layoutFooter"
            app:layout_constraintTop_toBottomOf="@id/buttonScan"
            />
+
        <androidx.constraintlayout.widget.ConstraintLayout
            android:layout_width="0dp"
            android:layout_height="0dp"
