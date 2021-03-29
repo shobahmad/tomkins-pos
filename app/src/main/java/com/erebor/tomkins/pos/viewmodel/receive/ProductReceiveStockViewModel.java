@@ -1,9 +1,6 @@
 package com.erebor.tomkins.pos.viewmodel.receive;
 
 import com.erebor.tomkins.pos.base.BaseViewModel;
-import com.erebor.tomkins.pos.data.local.dao.TrxTerimaDetDao;
-import com.erebor.tomkins.pos.data.local.dao.TrxTerimaStockDao;
-import com.erebor.tomkins.pos.data.local.model.TrxTerimaDetDBModel;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.repository.local.TrxTerimaLocalRepository;
 import com.erebor.tomkins.pos.tools.Logger;
@@ -84,8 +81,5 @@ public class ProductReceiveStockViewModel extends BaseViewModel<ProductReceiveSt
                             postValue(ProductReceiveStockViewState.ERROR_STATE);
                         }));
     }
-
-
-
 
 }
