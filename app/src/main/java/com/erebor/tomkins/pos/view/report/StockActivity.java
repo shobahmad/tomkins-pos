@@ -1,6 +1,7 @@
 package com.erebor.tomkins.pos.view.report;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -108,9 +109,10 @@ public class StockActivity extends BaseActivity<ActivityStockBinding> {
     }
 
     private void setupFilterSizeAutoComplete() {
-        String[] SIZES = new String[18];
-        for (int i = 30; i <= 46; i++) {
-            SIZES[i - 30] = String.valueOf(i);
+        String[] SIZES = new String[19];
+        for (int i = 0; i <= 46; i++) {
+            if (i < 28) continue;
+            SIZES[i - 28] = String.valueOf(i);
         }
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(
@@ -120,8 +122,12 @@ public class StockActivity extends BaseActivity<ActivityStockBinding> {
 
         binding.editFilterSize.setAdapter(adapter);
         binding.editFilterSize.setOnItemClickListener((parent, view, position, id) -> {
-            binding.setSize(((TextView) view).getText().toString());
-            applyFilter();
+            try {
+                binding.setSize(((TextView) view).getText().toString());
+                applyFilter();
+            } catch (Exception e) {
+                Log.e(getClass().getSimpleName(), e.getMessage(), e);
+            }
         });
         binding.buttonClearFilterSize.setOnClickListener(v -> {
             binding.setSize(null);
