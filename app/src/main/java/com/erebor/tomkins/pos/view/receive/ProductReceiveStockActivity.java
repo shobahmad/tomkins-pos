@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -65,6 +67,16 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
     }
 
     @Override
+    protected boolean isMenuSearchEnabled() {
+        return true;
+    }
+
+    @Override
+    protected int getSearchableMenu() {
+        return R.menu.receive_stock;
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -73,7 +85,6 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
         productReceiveStockViewModel = ViewModelProviders.of(this, factory).get(ProductReceiveStockViewModel.class);
         startObserver();
         setupAdapter();
-        setupSearchView();
         setupButtons();
         setupDatePicker();
         String noDo = getIntent().getStringExtra("NO_DO");
@@ -123,7 +134,7 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
         datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
     }
     private void setupButtons() {
-        binding.buttonScan.setOnClickListener(v -> startScannerActivity());
+//        binding.buttonScan.setOnClickListener(v -> startScannerActivity());
         binding.buttonSave.setOnClickListener(v -> {
             if (selectedDate == null) {
                 Toast.makeText(ProductReceiveStockActivity.this, getResources().getString(R.string.invalid_received_date), Toast.LENGTH_LONG).show();
@@ -161,7 +172,8 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            binding.search.setQuery(data.getStringExtra("data"), true);
+            productReceiveStockViewModel.searchData(getIntent().getStringExtra("NO_DO"),
+                    data.getStringExtra("data"));
         }
     }
 
@@ -208,41 +220,35 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
         });
     }
 
-    private void setupSearchView() {
-        EditText searchEditText = binding.search.findViewById(androidx.appcompat.R.id.search_src_text);
-        searchEditText.setTextColor(Color.BLACK);
-        searchEditText.setHintTextColor(Color.BLACK);
-
-        binding.search.setMaxWidth(Integer.MAX_VALUE);
-        binding.search.clearFocus();
-        binding.search.clearChildFocus(searchEditText);
-        binding.search.setIconifiedByDefault(false);
-        binding.search.setIconified(false);
-        binding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                if (query.trim().isEmpty()) {
-                    productReceiveStockViewModel.loadData(getIntent().getStringExtra("NO_DO"));
-                    return false;
-                }
-                if (query.length() < 3) {
-                    return false;
-                }
-                productReceiveStockViewModel.searchData(getIntent().getStringExtra("NO_DO"), query.toLowerCase());
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText.trim().isEmpty()) {
-                    productReceiveStockViewModel.loadData(getIntent().getStringExtra("NO_DO"));
-                    return false;
-                }
-                return false;
-            }
-        });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_scan) {
+            startScannerActivity();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onQueryReset() {
+        super.onQueryReset();
+        String noDo = getIntent().getStringExtra("NO_DO");
+        productReceiveStockViewModel.loadData(noDo);
+    }
+
+    @Override
+    protected boolean onQueryTextSubmit(String query) {
+        if (query.trim().isEmpty()) {
+            productReceiveStockViewModel.loadData(getIntent().getStringExtra("NO_DO"));
+            return false;
+        }
+        if (query.length() < 3) {
+            return false;
+        }
+        productReceiveStockViewModel.searchData(getIntent().getStringExtra("NO_DO"), query.toUpperCase());
+
+        return true;
+    }
 
     private void transactionResultDialog(boolean success, String message, DialogInterface.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog);

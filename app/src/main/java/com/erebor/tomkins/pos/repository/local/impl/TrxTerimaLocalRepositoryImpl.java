@@ -122,7 +122,8 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
             isBarcode = false;
         }
 
-        return isBarcode ? trxTerimaStockDao.getTrxTerimaStockBarcode(noDo, query) : trxTerimaStockDao.getTrxTerimaStockArticle(noDo, query);
+        return isBarcode ? trxTerimaStockDao.getTrxTerimaStockBarcode(noDo, query) :
+                trxTerimaStockDao.getTrxTerimaStockArticle(noDo, query);
     }
 
     @Override
