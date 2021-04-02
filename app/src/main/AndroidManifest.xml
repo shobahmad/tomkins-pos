@@ -37,7 +37,9 @@
         <activity android:name=".view.transaction.TransactionActivity"/>
         <activity android:name=".view.article.ArticleActivity" />
         <activity android:name=".view.receive.ProductReceiveActivity" />
-        <activity android:name=".view.receive.ProductReceiveStockActivity" />
+        <activity android:name=".view.receive.ProductReceiveStockActivity"
+            android:windowSoftInputMode="stateHidden"
+            />
     </application>
 
 </manifest>

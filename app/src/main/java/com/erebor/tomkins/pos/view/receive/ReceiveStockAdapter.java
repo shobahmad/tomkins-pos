@@ -54,66 +54,66 @@ public class ReceiveStockAdapter extends BaseAdapter<ItemReceiveStockBinding, Tr
         super.onBindViewHolder(holder, position);
 
         ItemReceiveStockBinding binding = (ItemReceiveStockBinding) holder.getBinding();
-        binding.textQtyTerima.setEndIconOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        binding.textQtyTerima.setEndIconOnClickListener(v -> showEditQtyDialog(binding));
+    }
 
-            View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.snipped_stock_update, (ViewGroup) binding.getRoot(), false);
-            MaterialTextView textArtName = viewInflated.findViewById(R.id.textArtName);
-            textArtName.setText(binding.getStock().getNamaArt());
+    private void showEditQtyDialog(ItemReceiveStockBinding binding) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-            int minStock = binding.getStock().getQtyTerima();
-            int maxStock = binding.getStock().getQtyKirim();
+        View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.snipped_stock_update, (ViewGroup) binding.getRoot(), false);
+        MaterialTextView textArtName = viewInflated.findViewById(R.id.textArtName);
+        textArtName.setText(binding.getStock().getNamaArt());
 
-            TextInputEditText editQtyKirim = viewInflated.findViewById(R.id.editQtyKirim);
-            editQtyKirim.setText(String.valueOf(binding.getStock().getQtyKirim()));
+        int minStock = binding.getStock().getQtyTerima();
+        int maxStock = binding.getStock().getQtyKirim();
 
-            TextInputEditText editQtyTerima = viewInflated.findViewById(R.id.editQtyTerima);
-            editQtyTerima.setText(String.valueOf(binding.getStock().getQtyTerima()));
-            editQtyTerima.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        TextInputEditText editQtyKirim = viewInflated.findViewById(R.id.editQtyKirim);
+        editQtyKirim.setText(String.valueOf(binding.getStock().getQtyKirim()));
 
-                }
+        TextInputEditText editQtyTerima = viewInflated.findViewById(R.id.editQtyTerima);
+        editQtyTerima.setText(String.valueOf(binding.getStock().getQtyTerima()));
+        editQtyTerima.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
-                }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                @Override
-                public void afterTextChanged(Editable s) {
-                    int inputQty = getInputQty(s);
-                    if (inputQty < minStock) {
-                        editQtyTerima.setError(getContext().getString(R.string.input_stock_invalid_minus));
-                        return;
-                    }
-                    if (inputQty > maxStock) {
-                        editQtyTerima.setError(getContext().getString(R.string.input_stock_invalid_max));
-                        return;
-                    }
+            }
 
-                    editQtyTerima.setError(null);
-                }
-            });
-
-            MaterialButton buttonSave = viewInflated.findViewById(R.id.button_save);
-            buttonSave.setOnClickListener(v1 -> {
-                if (editQtyTerima.getError() != null) {
+            @Override
+            public void afterTextChanged(Editable s) {
+                int inputQty = getInputQty(s);
+                if (inputQty < minStock) {
+                    editQtyTerima.setError(getContext().getString(R.string.input_stock_invalid_minus));
                     return;
                 }
-                if (editStockListener == null) {
+                if (inputQty > maxStock) {
+                    editQtyTerima.setError(getContext().getString(R.string.input_stock_invalid_max));
                     return;
                 }
 
-                editStockListener.onEditStock(binding.getStock(), getInputQty(editQtyTerima.getText()));
-                alertDialog.dismiss();
-            });
-
-            builder.setView(viewInflated);
-            alertDialog = builder.show();
-
+                editQtyTerima.setError(null);
+            }
         });
 
+        MaterialButton buttonSave = viewInflated.findViewById(R.id.button_save);
+        buttonSave.setOnClickListener(v1 -> {
+            if (editQtyTerima.getError() != null) {
+                return;
+            }
+            if (editStockListener == null) {
+                return;
+            }
+
+            editStockListener.onEditStock(binding.getStock(), getInputQty(editQtyTerima.getText()));
+            alertDialog.dismiss();
+        });
+
+        builder.setView(viewInflated);
+        alertDialog = builder.show();
     }
 
     private int getInputQty(Editable text) {

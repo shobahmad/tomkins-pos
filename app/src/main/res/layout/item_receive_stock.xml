@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/textArtName"
-            app:layout_constraintEnd_toStartOf="@id/textQtyTerima"
+            app:layout_constraintEnd_toEndOf="parent"
             app:hintEnabled="true"
             android:layout_marginLeft="48dp"
             android:layout_marginStart="48dp"
@@ -55,7 +55,7 @@
                 android:enabled="false"
                 android:hint="@string/delivery_qty"
                 android:text="@{String.valueOf(stock.qtyKirim), default=`0`}"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimaryDark" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,8 +63,8 @@
             android:id="@+id/textQtyTerima"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textQtyKirim"
+            app:layout_constraintTop_toBottomOf="@id/textQtyKirim"
+            app:layout_constraintStart_toStartOf="@id/textQtyKirim"
             app:layout_constraintEnd_toEndOf="parent"
             app:hintEnabled="true"
             android:textColorHint="@color/warmGrey"
@@ -74,6 +74,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editQtyTerima"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.AppCompat.Headline"
@@ -90,7 +91,7 @@
             android:id="@+id/textArtCode"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/textArtName"
+            app:layout_constraintTop_toBottomOf="@id/textQtyTerima"
             app:layout_constraintStart_toStartOf="@id/textArtName"
             app:layout_constraintEnd_toStartOf="@id/textSize"
             app:hintEnabled="true"
@@ -115,7 +116,7 @@
             android:id="@+id/textSize"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/textArtName"
+            app:layout_constraintTop_toBottomOf="@id/textQtyTerima"
             app:layout_constraintStart_toEndOf="@id/textArtCode"
             app:layout_constraintEnd_toStartOf="@id/textPrice"
             app:hintEnabled="true"
@@ -190,7 +191,7 @@
             android:id="@+id/textPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/textArtName"
+            app:layout_constraintTop_toBottomOf="@id/textQtyTerima"
             app:layout_constraintStart_toEndOf="@id/textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:hintEnabled="true"

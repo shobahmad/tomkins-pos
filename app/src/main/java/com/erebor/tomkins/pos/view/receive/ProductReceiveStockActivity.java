@@ -1,11 +1,14 @@
 package com.erebor.tomkins.pos.view.receive;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -204,12 +207,13 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
     }
 
     private void setupSearchView() {
-        binding.search.requestFocus();
         EditText searchEditText = binding.search.findViewById(androidx.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(Color.BLACK);
         searchEditText.setHintTextColor(Color.BLACK);
 
         binding.search.setMaxWidth(Integer.MAX_VALUE);
+        binding.search.clearFocus();
+        binding.search.clearChildFocus(searchEditText);
         binding.search.setIconifiedByDefault(false);
         binding.search.setIconified(false);
         binding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
