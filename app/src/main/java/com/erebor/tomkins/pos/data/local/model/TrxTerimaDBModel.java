@@ -63,7 +63,7 @@ public class TrxTerimaDBModel implements BaseDatabaseModel {
     private Date lastUpdate;
 
     @NonNull
-    @ColumnInfo(name = "isUploaded", defaultValue = "1")
+    @ColumnInfo(name = "isUploaded", defaultValue = "0")
     private Boolean isUploaded;
 
 
@@ -118,13 +118,13 @@ public class TrxTerimaDBModel implements BaseDatabaseModel {
 
     @Override
     public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 
     @Override
     public Date getLastUpdate() {
-        return tglKirimGBJ;
+        return lastUpdate;
     }
-
 
     @NonNull
     public Boolean getUploaded() {

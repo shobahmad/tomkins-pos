@@ -57,7 +57,7 @@ public class SyncUploadTrxTerimaWorker extends BaseWorker {
                       break
                 */
                int unuploadedCount = trxTerimaLocalRepository.getSyncUnuploadedCount();
-                logger.debug(getClass().getSimpleName(), "Stock queue : " + unuploadedCount);
+                logger.debug(getClass().getSimpleName(), "TrxTerima queue : " + unuploadedCount);
                if (unuploadedCount == 0) {
                    break;
                }
@@ -79,6 +79,7 @@ public class SyncUploadTrxTerimaWorker extends BaseWorker {
                 @update transaction set sync
                  */
                 trxTerimaLocalRepository.uploaded(firstQueue);
+                logger.debug(getClass().getSimpleName(), "TrxTerima uploaded : " + firstQueue.getUploaded());
             } catch (Exception | Error e) {
                 Data data = new Data.Builder()
                         .putString(KEY_EXCEPTION_MESSAGE, e.getMessage())

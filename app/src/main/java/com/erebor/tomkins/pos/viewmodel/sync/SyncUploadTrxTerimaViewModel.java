@@ -13,8 +13,8 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 
 import com.erebor.tomkins.pos.base.BaseViewModel;
-import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.helper.WorkerHelper;
+import com.erebor.tomkins.pos.repository.local.TrxTerimaLocalRepository;
 import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 import com.erebor.tomkins.pos.worker.SyncUploadTrxTerimaWorker;
@@ -31,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
 public class SyncUploadTrxTerimaViewModel extends BaseViewModel<SyncUploadViewState> {
@@ -41,7 +42,7 @@ public class SyncUploadTrxTerimaViewModel extends BaseViewModel<SyncUploadViewSt
     private final Logger logger;
     private final SharedPrefs sharedPrefs;
     private final WorkerHelper workerHelper;
-    private final StokRealDao stokRealDao;
+    private final TrxTerimaLocalRepository trxTerimaLocalRepository;
 
     private final int UPLOAD_INTERVAL_MINUTES = 5;
 
@@ -51,13 +52,12 @@ public class SyncUploadTrxTerimaViewModel extends BaseViewModel<SyncUploadViewSt
 
     @Inject
     public SyncUploadTrxTerimaViewModel(WorkManager workManager, Logger logger, SharedPrefs sharedPrefs,
-                                        WorkerHelper workerHelper, StokRealDao stokRealDao) {
+                                        WorkerHelper workerHelper, TrxTerimaLocalRepository trxTerimaLocalRepository) {
         this.workManager = workManager;
         this.logger = logger;
         this.sharedPrefs = sharedPrefs;
         this.workerHelper = workerHelper;
-        this.stokRealDao = stokRealDao;
-
+        this.trxTerimaLocalRepository = trxTerimaLocalRepository;
         this.pendingCountLiveData = new MutableLiveData<>();
     }
 
@@ -72,11 +72,10 @@ public class SyncUploadTrxTerimaViewModel extends BaseViewModel<SyncUploadViewSt
     }
 
     private void getPendingCount() {
-        getDisposable().add(stokRealDao.getUnuploadedCount()
+        getDisposable().add(Single.fromCallable(() -> trxTerimaLocalRepository.getSyncUnuploadedCount())
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .subscribe(unuploadedCount -> pendingCountLiveData.postValue(unuploadedCount))
-        );
+            .subscribe(unuploadedCount -> pendingCountLiveData.postValue(unuploadedCount)));
     }
 
     private void addObservers() {
@@ -193,7 +192,7 @@ public class SyncUploadTrxTerimaViewModel extends BaseViewModel<SyncUploadViewSt
 
         OneTimeWorkRequest.Builder initRequest = buildWorkerRequest(
                 requestId,
-                workerHelper.getUploadStockWorkerRequest().getWorker())
+                workerHelper.getUploadTrxTerimaWorkerRequest().getWorker())
                 .setInitialDelay(delay, TimeUnit.MINUTES);
 
         WorkContinuation continuation = workManager
@@ -254,7 +253,7 @@ public class SyncUploadTrxTerimaViewModel extends BaseViewModel<SyncUploadViewSt
         if (observerHashMap.isEmpty())
             return;
 
-        WorkerRequest workerRequest = workerHelper.getUploadStockWorkerRequest();
+        WorkerRequest workerRequest = workerHelper.getUploadTrxTerimaWorkerRequest();
         Observer<List<WorkInfo>> observer = observerHashMap.get(
                 workerRequest.getWorker().getSimpleName()
         );

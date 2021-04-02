@@ -29,7 +29,9 @@ public class ProductReceiveMapper {
                     trxTerimaDBModel.getCatatan(),
                     trxTerimaDBModel.getStatusDO() == 1,
                     qtyTotal,
-                    qtyTerima);
+                    qtyTerima, trxTerimaDBModel.getUploaded(),
+                    trxTerimaDBModel.getTglTerimaCnt() == null ? "" :
+                    dateConverterHelper.getDifference(trxTerimaDBModel.getLastUpdate().getTime()));
             result.add(productReceiveUiModel);
         }
         return result;

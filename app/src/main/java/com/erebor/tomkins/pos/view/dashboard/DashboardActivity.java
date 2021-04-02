@@ -189,7 +189,6 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
             }
         });
 
-        syncUploadStockViewModel.observeChanged();
         syncUploadTrxTerimaViewModel.observeChanged();
         syncUploadTrxViewModel.observeChanged();
         syncUploadTrxViewModel.getViewState().observe(this, syncUploadViewState -> {
@@ -220,6 +219,8 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         syncUploadTrxViewModel.getPendingCountLiveData().observe(this, pendingCount -> binding.setUploadCount(pendingCount));
 
         productReceiveViewModel.getIncompleteProductReceive().observe(this, incompleteQty -> binding.setDoCount(incompleteQty));
+
+        syncUploadStockViewModel.observeChanged();
     }
 
     private void startSaleActivity(String barcode) {

@@ -62,7 +62,7 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
     public void uploaded(TrxTerimaDBModel trxTerimaDBModel) {
         trxTerimaDBModel.setUploaded(true);
         trxTerimaDBModel.setLastUpdate(Calendar.getInstance().getTime());
-        trxTerimaDao.update(trxTerimaDBModel);
+        trxTerimaDao.update(trxTerimaDBModel).blockingGet();
     }
 
     @Override
@@ -78,7 +78,7 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
             calendar.set(2021, 0, 1);
             return calendar.getTime();
         }
-        return trxTerimaDBModel.getLastUpdate();
+        return trxTerimaDBModel.getTglKirimGBJ();
     }
 
     @Override
@@ -156,14 +156,16 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
             }
             int qtyAdd = qty - qtyBeforeUpdate;
             stokRealDBModel.setQtyStok(stokRealDBModel.getQtyStok() + qtyAdd);
-            stokRealDBModel.setLastUpdate(Calendar.getInstance().getTime());
+            Date date = Calendar.getInstance().getTime();
+            stokRealDBModel.setLastUpdate(date);
             stokRealDBModel.setUploaded(false);
             stokRealDao.insertReplaceSync(stokRealDBModel);
 
 
 
             trxTerimaDBModel.setUploaded(false);
-            trxTerimaDBModel.setLastUpdate(Calendar.getInstance(Locale.getDefault()).getTime());
+            trxTerimaDBModel.setLastUpdate(date);
+            trxTerimaDBModel.setTglTerimaCnt(new DateDelivery(date));
             trxTerimaDBModel.setStatusDO(complete ? 1 : 0);
             trxTerimaDao.update(trxTerimaDBModel).blockingGet();
             return true;
