@@ -55,9 +55,16 @@ public class ReceiveStockAdapter extends BaseAdapter<ItemReceiveStockBinding, Tr
 
         ItemReceiveStockBinding binding = (ItemReceiveStockBinding) holder.getBinding();
         binding.textQtyTerima.setEndIconOnClickListener(v -> showEditQtyDialog(binding));
+        binding.textQtyTerima.setEndIconDrawable(binding.getStock().getQtyKirim() == binding.getStock().getQtyTerima() ? 0 : R.drawable.ic_stock_add);
+
+        binding.layoutArt.setBackgroundResource(binding.getStock().getQtyKirim() == binding.getStock().getQtyTerima() ?
+                R.drawable.background_rounded_selected : R.drawable.background_rounded_unselected);
     }
 
     private void showEditQtyDialog(ItemReceiveStockBinding binding) {
+        if (binding.getStock().getQtyTerima() == binding.getStock().getQtyKirim()) {
+            return;
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.snipped_stock_update, (ViewGroup) binding.getRoot(), false);
