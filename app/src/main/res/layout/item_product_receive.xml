@@ -91,6 +91,55 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textQtyKirim"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/textTglKirim"
+                app:layout_constraintStart_toStartOf="@id/textNoDo"
+                app:layout_constraintEnd_toStartOf="@id/textQtyTerima"
+                app:hintEnabled="true"
+                android:textColorHint="@color/warmGrey"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:hint="@string/delivery_qty"
+                    android:background="@color/white"
+                    android:text="@{@string/progress_format(receive.qtyTotal), default=`10`}"
+                    android:enabled="false"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textQtyTerima"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/textTglKirim"
+                app:layout_constraintStart_toEndOf="@id/textQtyKirim"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:hintEnabled="true"
+                android:textColorHint="@color/warmGrey"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:hint="@string/received_qty"
+                    android:background="@color/white"
+                    android:text="@{@string/progress_format(receive.qtyReceived), default=`10`}"
+                    android:enabled="false"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <ProgressBar
                 android:id="@+id/progress"
@@ -101,17 +150,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@id/textTglTerima"
                 app:layout_constraintStart_toStartOf="@id/textNoDo"
-                app:layout_constraintTop_toBottomOf="@id/textTglTerima"
-                android:tooltipText="@{String.valueOf(receive.qtyReceived) + `/` + String.valueOf(receive.qtyTotal)}"
-                />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.AppCompat.Body2"
-                app:layout_constraintStart_toStartOf="@id/progress"
-                app:layout_constraintTop_toBottomOf="@id/progress"
-                android:text="@{@string/progress_format(receive.qtyReceived) + `/` + @string/progress_format(receive.qtyTotal)}"
+                app:layout_constraintTop_toBottomOf="@id/textQtyKirim"
+                android:tooltipText="@{@string/progress_format(receive.qtyReceived) + `/` + String.valueOf(receive.qtyTotal)}"
                 />
 
             <androidx.appcompat.widget.AppCompatTextView

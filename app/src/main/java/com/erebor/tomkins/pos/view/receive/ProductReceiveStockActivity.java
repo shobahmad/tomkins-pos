@@ -79,6 +79,8 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
         String noDo = getIntent().getStringExtra("NO_DO");
         productReceiveStockViewModel.loadData(noDo);
         binding.setSubtitle(noDo);
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
 
