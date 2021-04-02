@@ -25,6 +25,7 @@ import com.erebor.tomkins.pos.worker.SyncMsUkuranDownloadWorker;
 import com.erebor.tomkins.pos.worker.SyncStokRealDownloadWorker;
 import com.erebor.tomkins.pos.worker.SyncUploadStockWorker;
 import com.erebor.tomkins.pos.worker.SyncUploadTransactionWorker;
+import com.erebor.tomkins.pos.worker.SyncUploadTrxTerimaWorker;
 
 import javax.inject.Singleton;
 
@@ -70,5 +71,6 @@ public interface AppComponent {
 
     void doInjection(SyncUploadTransactionWorker worker);
     void doInjection(SyncUploadStockWorker worker);
+    void doInjection(SyncUploadTrxTerimaWorker worker);
 
 }

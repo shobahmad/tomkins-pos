@@ -16,6 +16,7 @@ import com.erebor.tomkins.pos.viewmodel.splash.SplashViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDownloadViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadStockViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadTrxTerimaViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadTrxViewModel;
 import com.erebor.tomkins.pos.viewmodel.transaction.TransactionViewModel;
 
@@ -45,6 +46,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         creators.put(SyncUploadStockViewModel.class, () -> viewModelSubComponent.syncUploadStockViewModel());
         creators.put(ProductReceiveViewModel.class, () -> viewModelSubComponent.productReceiveViewModel());
         creators.put(ProductReceiveStockViewModel.class, () -> viewModelSubComponent.productReceiveStockViewModel());
+        creators.put(SyncUploadTrxTerimaViewModel.class, () -> viewModelSubComponent.syncUploadTrxTerimaViewModel());
 
     }
 

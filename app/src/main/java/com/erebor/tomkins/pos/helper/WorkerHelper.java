@@ -8,4 +8,5 @@ public interface WorkerHelper {
     List<WorkerRequest> getDownloadWorkerRequest();
     WorkerRequest getUploadTrxWorkerRequest();
     WorkerRequest getUploadStockWorkerRequest();
+    WorkerRequest getUploadTrxTerimaWorkerRequest();
 }

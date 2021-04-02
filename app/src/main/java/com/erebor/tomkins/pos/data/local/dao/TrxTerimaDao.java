@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Query;
 
 import com.erebor.tomkins.pos.base.BaseDao;
+import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
 import com.erebor.tomkins.pos.data.local.model.TrxTerimaDBModel;
 
 import java.util.List;
@@ -25,4 +26,11 @@ public interface TrxTerimaDao extends BaseDao<TrxTerimaDBModel> {
 
     @Query("SELECT * FROM TRXTERIMA WHERE NoDO = :noDo")
     TrxTerimaDBModel getByNoDo(String noDo);
+
+    @Query("SELECT COUNT(*) FROM TRXTERIMA WHERE isUploaded = 0")
+    Integer getSyncUnuploadedCount();
+
+
+    @Query("SELECT * FROM TRXTERIMA WHERE isUploaded = 0 order by lastUpdate asc limit 1")
+    TrxTerimaDBModel getSyncFirstQueue();
 }

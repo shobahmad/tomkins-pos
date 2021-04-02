@@ -31,9 +31,11 @@ import com.erebor.tomkins.pos.viewmodel.sync.DownloadInfoViewState;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDownloadViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncDownloadViewState;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadStockViewModel;
+import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadTrxTerimaViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadTrxViewModel;
 import com.erebor.tomkins.pos.viewmodel.sync.SyncUploadViewState;
 import com.erebor.tomkins.pos.worker.SyncUploadStockWorker;
+import com.erebor.tomkins.pos.worker.SyncUploadTrxTerimaWorker;
 
 import javax.inject.Inject;
 
@@ -53,6 +55,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
     SyncDownloadViewModel dataSyncViewModel;
     SyncUploadTrxViewModel syncUploadTrxViewModel;
     SyncUploadStockViewModel syncUploadStockViewModel;
+    SyncUploadTrxTerimaViewModel syncUploadTrxTerimaViewModel;
     DownloadInfoViewModel downloadInfoViewModel;
     LoginViewModel loginViewModel;
     ProductReceiveViewModel productReceiveViewModel;
@@ -66,6 +69,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         dataSyncViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncDownloadViewModel.class);
         syncUploadTrxViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncUploadTrxViewModel.class);
         syncUploadStockViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncUploadStockViewModel.class);
+        syncUploadTrxTerimaViewModel = ViewModelProviders.of(this, viewModelFactory).get(SyncUploadTrxTerimaViewModel.class);
         downloadInfoViewModel = ViewModelProviders.of(this, viewModelFactory).get(DownloadInfoViewModel.class);
         loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel.class);
         productReceiveViewModel = ViewModelProviders.of(this, viewModelFactory).get(ProductReceiveViewModel.class);
@@ -186,7 +190,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
         });
 
         syncUploadStockViewModel.observeChanged();
-
+        syncUploadTrxTerimaViewModel.observeChanged();
         syncUploadTrxViewModel.observeChanged();
         syncUploadTrxViewModel.getViewState().observe(this, syncUploadViewState -> {
             if (syncUploadViewState.getCurrentState().equals(SyncUploadViewState.STATE_WAITING)) {

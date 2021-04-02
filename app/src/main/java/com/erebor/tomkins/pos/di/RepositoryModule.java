@@ -15,8 +15,8 @@ import com.erebor.tomkins.pos.repository.local.impl.StockUpdateLocalRepositoryIm
 import com.erebor.tomkins.pos.repository.local.impl.TrxTerimaLocalRepositoryImpl;
 import com.erebor.tomkins.pos.repository.network.TomkinsService;
 import com.erebor.tomkins.pos.repository.network.TrxTerimaRemoteRepository;
-import com.erebor.tomkins.pos.repository.network.impl.TrxTerimaDummyRepositoryImpl;
 import com.erebor.tomkins.pos.repository.network.impl.TrxTerimaRemoteRepositoryImpl;
+import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 
 import javax.inject.Singleton;
@@ -54,8 +54,9 @@ public class RepositoryModule {
     TrxTerimaRemoteRepository providesTrxTerimaRemoteRepository(SharedPrefs sharedPrefs,
                                                                 TrxTerimaLocalRepository trxTerimaLocalRepository,
                                                                 TomkinsService tomkinsService,
-                                                                DateConverterHelper dateConverterHelper) {
-        return new TrxTerimaRemoteRepositoryImpl(sharedPrefs, trxTerimaLocalRepository, tomkinsService, dateConverterHelper);
+                                                                DateConverterHelper dateConverterHelper,
+                                                                Logger logger) {
+        return new TrxTerimaRemoteRepositoryImpl(sharedPrefs, trxTerimaLocalRepository, tomkinsService, dateConverterHelper, logger);
     }
 //    @Provides
 //    @Singleton

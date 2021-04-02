@@ -47,6 +47,25 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
     }
 
     @Override
+    public int getSyncUnuploadedCount() {
+        return trxTerimaDao.getSyncUnuploadedCount();
+    }
+
+    @Override
+    public TrxTerimaDBModel getSyncFirstQueue() {
+        TrxTerimaDBModel trxTerimaDBModel = trxTerimaDao.getSyncFirstQueue();
+        trxTerimaDBModel.setListDetail(trxTerimaDetDao.getByNoDO(trxTerimaDBModel.getNoDO()));
+        return trxTerimaDBModel;
+    }
+
+    @Override
+    public void uploaded(TrxTerimaDBModel trxTerimaDBModel) {
+        trxTerimaDBModel.setUploaded(true);
+        trxTerimaDBModel.setLastUpdate(Calendar.getInstance().getTime());
+        trxTerimaDao.update(trxTerimaDBModel);
+    }
+
+    @Override
     public int getIncompleteTrxTerima() {
         return trxTerimaDao.getAllIncomplete().size();
     }
@@ -159,4 +178,6 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
         trxTerimaDBModel.setCatatan(note);
         trxTerimaDao.update(trxTerimaDBModel).blockingGet();
     }
+
+
 }

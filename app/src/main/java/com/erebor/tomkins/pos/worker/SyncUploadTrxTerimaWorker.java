@@ -7,28 +7,27 @@ import androidx.work.Data;
 import androidx.work.WorkerParameters;
 
 import com.erebor.tomkins.pos.base.BaseWorker;
-import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
-import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
+import com.erebor.tomkins.pos.data.local.model.TrxTerimaDBModel;
 import com.erebor.tomkins.pos.data.remote.response.NetworkBoundResult;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.di.AppComponent;
+import com.erebor.tomkins.pos.repository.local.TrxTerimaLocalRepository;
 import com.erebor.tomkins.pos.repository.network.TomkinsService;
 import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class SyncUploadStockWorker extends BaseWorker {
+public class SyncUploadTrxTerimaWorker extends BaseWorker {
     public static final String KEY_EXCEPTION_MESSAGE = "key_exception";
     public static final String KEY_REQUEST_ID = "key_request_id";
 
     @Inject
-    StokRealDao stokRealDao;
+    TrxTerimaLocalRepository trxTerimaLocalRepository;
     @Inject
     TomkinsService service;
     @Inject
@@ -36,7 +35,7 @@ public class SyncUploadStockWorker extends BaseWorker {
     @Inject
     Logger logger;
 
-    public SyncUploadStockWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public SyncUploadTrxTerimaWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 
@@ -57,7 +56,7 @@ public class SyncUploadStockWorker extends BaseWorker {
                   @if unsync transaction is empty then
                       break
                 */
-               int unuploadedCount = stokRealDao.getSyncUnuploadedCount();
+               int unuploadedCount = trxTerimaLocalRepository.getSyncUnuploadedCount();
                 logger.debug(getClass().getSimpleName(), "Stock queue : " + unuploadedCount);
                if (unuploadedCount == 0) {
                    break;
@@ -66,24 +65,21 @@ public class SyncUploadStockWorker extends BaseWorker {
                 /*
                     @get first queued transaction data
                  */
-                StokRealDBModel stokRealDBModel = stokRealDao.getSyncFirstQueue();
-                if (stokRealDBModel == null) {
+                TrxTerimaDBModel firstQueue = trxTerimaLocalRepository.getSyncFirstQueue();
+                if (firstQueue == null) {
                     break;
                 }
                 /*
                     @post data
                     @read response
                  */
-                Date uploadedDate = postTransaction(stokRealDBModel);
-                logger.debug(getClass().getSimpleName(), uploadedDate.toString());
+                postTransaction(firstQueue);
 
                 /*
                 @update transaction set sync
                  */
-                stokRealDBModel.setUploaded(true);
-                stokRealDao.update(stokRealDBModel).blockingGet();
+                trxTerimaLocalRepository.uploaded(firstQueue);
             } catch (Exception | Error e) {
-                logger.error(getClass().getSimpleName(), e.getMessage(), e);
                 Data data = new Data.Builder()
                         .putString(KEY_EXCEPTION_MESSAGE, e.getMessage())
                         .build();
@@ -99,15 +95,11 @@ public class SyncUploadStockWorker extends BaseWorker {
         return !sharedPrefs.getUsername().isEmpty();
     }
 
-    private Date postTransaction(StokRealDBModel stokRealDBModel) throws Exception {
+    private Date postTransaction(TrxTerimaDBModel stokRealDBModel) throws Exception {
         return new NetworkBoundResult<Date>() {
             @Override
             protected Call<RestResponse<Date>> callApiAction() {
-                return service.postStock(sharedPrefs.getKodeKonter(), new ArrayList<StokRealDBModel>() {
-                    {
-                        add(stokRealDBModel);
-                    }
-                });
+                return service.postTrxTerima(sharedPrefs.getKodeKonter(), stokRealDBModel);
             }
         }.fetchData();
     }

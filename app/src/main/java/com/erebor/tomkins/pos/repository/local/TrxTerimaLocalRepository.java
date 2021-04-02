@@ -11,6 +11,10 @@ public interface TrxTerimaLocalRepository {
 
     List<TrxTerimaDBModel> getAllTrxTerima();
 
+    int getSyncUnuploadedCount();
+    TrxTerimaDBModel getSyncFirstQueue();
+    void uploaded(TrxTerimaDBModel trxTerimaDBModel);
+
     int getIncompleteTrxTerima();
 
     Date getLastUpdate();
