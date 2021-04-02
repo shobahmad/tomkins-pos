@@ -47,9 +47,7 @@ public class StockReportViewModel extends BaseViewModel<StockReportViewState> {
     public void getStock(String kodeArt, String ukuran, String gender) {
         setValue(StockReportViewState.LOADING_STATE);
 
-        getDisposable().add(Single.fromCallable(() -> {
-            return stockReportLocalRepository.getStock(kodeArt, ukuran, gender);
-        })
+        getDisposable().add(Single.fromCallable(() -> stockReportLocalRepository.getStock(kodeArt, ukuran, gender))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(result ->  {

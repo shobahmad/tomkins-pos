@@ -45,16 +45,16 @@ public class StockReportLocalRepositoryImpl implements StockReportLocalRepositor
             return stockReportDao.getStockParamSizeAndGender(ukuran, gender);
         }
         if (kodeArt != null && ukuran == null && gender == null) {
-            return stockReportDao.getStockParamKodeArt(kodeArt);
+            return stockReportDao.getStockParamKodeArt("%"+kodeArt+"%");
         }
         if (kodeArt != null && ukuran == null && gender != null) {
-            return stockReportDao.getStockParamArtAndGender(kodeArt, gender);
+            return stockReportDao.getStockParamArtAndGender("%"+kodeArt+"%", gender);
         }
         if (kodeArt != null && ukuran != null && gender == null) {
-            return stockReportDao.getStockParamArtAndSize(kodeArt, ukuran);
+            return stockReportDao.getStockParamArtAndSize("%"+kodeArt+"%", ukuran);
         }
         if (kodeArt != null && ukuran != null && gender != null) {
-            return stockReportDao.getStockParamAll(kodeArt, ukuran, gender);
+            return stockReportDao.getStockParamAll("%"+kodeArt+"%", ukuran, gender);
         }
 
         return stockReportDao.getLatestStock();
