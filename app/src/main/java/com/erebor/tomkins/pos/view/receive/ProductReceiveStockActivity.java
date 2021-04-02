@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -106,6 +107,7 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
             calendar1.set(Calendar.MONTH, monthOfYear);
             calendar1.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             selectedDate = calendar1.getTime();
+            binding.editTransDate.setError(null);
             binding.editTransDate.setText(dateConverterHelper.toDateShortString(calendar1.getTime()));
             binding.editTransDate.setTag(selectedDate);
         }, year, month, day);
@@ -117,9 +119,20 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
     }
     private void setupButtons() {
         binding.buttonScan.setOnClickListener(v -> startScannerActivity());
-        binding.buttonSave.setOnClickListener(v ->
-                productReceiveStockViewModel.updateDateAndNotes(getIntent().getStringExtra("NO_DO"),
-                        selectedDate, binding.editNote.getText().toString()));
+        binding.buttonSave.setOnClickListener(v -> {
+            if (selectedDate == null) {
+                Toast.makeText(ProductReceiveStockActivity.this, getResources().getString(R.string.invalid_received_date), Toast.LENGTH_LONG).show();
+                binding.editTransDate.setError(getResources().getString(R.string.invalid_received_date));
+                return;
+            }
+            if (binding.editNote.getText() == null) {
+                binding.editTransDate.setError(getResources().getString(R.string.invalid_note));
+                return;
+            }
+            binding.editTransDate.setError(null);
+            productReceiveStockViewModel.updateDateAndNotes(getIntent().getStringExtra("NO_DO"),
+                    selectedDate, binding.editNote.getText().toString());
+        });
     }
 
 

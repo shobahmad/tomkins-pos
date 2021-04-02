@@ -128,4 +128,6 @@
     <string name="save">Simpan</string>
     <string name="loading">Sedang memuat.. Silakan menunggu</string>
     <string name="receive_success">Penerimaan produk berhasil</string>
+    <string name="invalid_received_date">Silakan pilih tanggal diterima</string>
+    <string name="invalid_note">Silakan isi catatan</string>
 </resources>

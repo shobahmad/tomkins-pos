@@ -152,5 +152,7 @@
     <string name="save">Save</string>
     <string name="loading">Loading.. Please wait</string>
     <string name="receive_success">Product receive success</string>
+    <string name="invalid_received_date">Please choose Received Date</string>
+    <string name="invalid_note">Please type note</string>
 
 </resources>
