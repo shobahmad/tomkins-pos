@@ -13,7 +13,7 @@ import io.reactivex.Flowable;
 @Dao
 public interface MsGenderDao extends BaseDao<MsGenderDBModel> {
 
-    @Query("SELECT * FROM MSGENDER GROUP BY KodeGender ORDER BY KodeGender")
+    @Query("SELECT * FROM MSGENDER GROUP BY Gender ORDER BY KodeGender")
     List<MsGenderDBModel> getListAll();
 
     @Query("SELECT * FROM MSGENDER WHERE KodeGender=:value")
