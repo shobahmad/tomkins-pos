@@ -7,8 +7,10 @@ import androidx.work.Data;
 import androidx.work.WorkerParameters;
 
 import com.erebor.tomkins.pos.base.BaseWorker;
+import com.erebor.tomkins.pos.data.local.TomkinsDatabase;
 import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
+import com.erebor.tomkins.pos.data.remote.StockRequest;
 import com.erebor.tomkins.pos.data.remote.response.NetworkBoundResult;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.di.AppComponent;
@@ -18,6 +20,7 @@ import com.erebor.tomkins.pos.tools.SharedPrefs;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -35,6 +38,8 @@ public class SyncUploadStockWorker extends BaseWorker {
     SharedPrefs sharedPrefs;
     @Inject
     Logger logger;
+    @Inject
+    TomkinsDatabase tomkinsDatabase;
 
     public SyncUploadStockWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -58,7 +63,7 @@ public class SyncUploadStockWorker extends BaseWorker {
                       break
                 */
                int unuploadedCount = stokRealDao.getSyncUnuploadedCount();
-                logger.debug(getClass().getSimpleName(), "Stock queue : " + unuploadedCount);
+               logger.debug(getClass().getSimpleName(), "Stock queue : " + unuploadedCount);
                if (unuploadedCount == 0) {
                    break;
                }
@@ -66,22 +71,26 @@ public class SyncUploadStockWorker extends BaseWorker {
                 /*
                     @get first queued transaction data
                  */
-                StokRealDBModel stokRealDBModel = stokRealDao.getSyncFirstQueue();
-                if (stokRealDBModel == null) {
+                List<StokRealDBModel> stokRealDBModel = stokRealDao.getListSyncQueue();
+                if (stokRealDBModel.isEmpty()) {
                     break;
                 }
                 /*
                     @post data
                     @read response
                  */
-                Date uploadedDate = postTransaction(stokRealDBModel);
+                Date uploadedDate = postTransaction(stokRealDBModel.get(0).getLastUpdate(), stokRealDBModel);
                 logger.debug(getClass().getSimpleName(), uploadedDate.toString());
 
                 /*
                 @update transaction set sync
                  */
-                stokRealDBModel.setUploaded(true);
-                stokRealDao.update(stokRealDBModel).blockingGet();
+                tomkinsDatabase.runInTransaction(() -> {
+                    for (StokRealDBModel stokDBModel : stokRealDBModel) {
+                        stokDBModel.setUploaded(true);
+                            stokRealDao.update(stokDBModel).blockingGet();
+                    }
+                });
             } catch (Exception | Error e) {
                 logger.error(getClass().getSimpleName(), e.getMessage(), e);
                 Data data = new Data.Builder()
@@ -99,15 +108,11 @@ public class SyncUploadStockWorker extends BaseWorker {
         return !sharedPrefs.getUsername().isEmpty();
     }
 
-    private Date postTransaction(StokRealDBModel stokRealDBModel) throws Exception {
+    private Date postTransaction(Date lastUpdate, List<StokRealDBModel> stokRealDBModel) throws Exception {
         return new NetworkBoundResult<Date>() {
             @Override
             protected Call<RestResponse<Date>> callApiAction() {
-                return service.postStock(sharedPrefs.getKodeKonter(), new ArrayList<StokRealDBModel>() {
-                    {
-                        add(stokRealDBModel);
-                    }
-                });
+                return service.postStock(sharedPrefs.getKodeKonter(), new StockRequest(lastUpdate, stokRealDBModel));
             }
         }.fetchData();
     }

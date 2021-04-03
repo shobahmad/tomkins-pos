@@ -13,6 +13,7 @@ import com.erebor.tomkins.pos.data.local.model.TrxTerimaDBModel;
 import com.erebor.tomkins.pos.data.remote.LoginRequest;
 import com.erebor.tomkins.pos.data.remote.LoginResponse;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
+import com.erebor.tomkins.pos.data.remote.StockRequest;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 
 import java.util.Date;
@@ -60,7 +61,7 @@ public interface TomkinsService {
     Call<RestResponse<Date>> postTransaction(@Body TrxJualDBModel trxJualDBModel);
 
     @POST("stockupdate/{counter}")
-    Call<RestResponse<Date>> postStock(@Path("counter") String counter, @Body List<StokRealDBModel> stokRealDBModel);
+    Call<RestResponse<Date>> postStock(@Path("counter") String counter, @Body StockRequest stockRequest);
 
     @GET("sync/trxterima/{counter}")
     Call<RestResponse<DownloadResponse<TrxTerimaDBModel>>> getTrxTerima(@Path("counter") String counter, @Query("last_update") String lastUpdate);

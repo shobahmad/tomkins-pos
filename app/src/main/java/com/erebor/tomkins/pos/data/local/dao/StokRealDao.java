@@ -37,4 +37,7 @@ public interface StokRealDao extends BaseDao<StokRealDBModel> {
 
     @Query("SELECT * FROM STOKREAL WHERE isUploaded = 0 order by last_update asc limit 1")
     StokRealDBModel getSyncFirstQueue();
+
+    @Query("SELECT * FROM STOKREAL WHERE isUploaded = 0 order by last_update asc")
+    List<StokRealDBModel> getListSyncQueue();
 }
