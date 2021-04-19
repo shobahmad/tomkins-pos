@@ -27,6 +27,7 @@ android {
     buildTypes.each {
         it.buildConfigField 'String', 'HOSTNAME', HostName
         it.buildConfigField 'String', 'SALTKEY', SaltKey
+        it.buildConfigField 'String', 'Expired', Expired
     }
     dataBinding {
         enabled true

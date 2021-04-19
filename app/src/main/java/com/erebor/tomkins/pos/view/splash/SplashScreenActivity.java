@@ -42,7 +42,7 @@ public class SplashScreenActivity extends BaseActivity<ActivitySplashBinding> {
 
         splashViewModel = ViewModelProviders.of(this, viewModelFactory).get(SplashViewModel.class);
         observeDataChange();
-        splashViewModel.sessionCheck();
+        splashViewModel.sessionCheck(getContentResolver());
     }
 
     private void observeDataChange() {

@@ -4,6 +4,7 @@ import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.helper.ResourceHelper;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -148,4 +149,9 @@ public class DateConverterHelperImpl implements DateConverterHelper {
         return endDate;
     }
 
+    @Override
+    public Date toDateValidApps(String expiredApps) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        return simpleDateFormat.parse(expiredApps);
+    }
 }

@@ -1,5 +1,6 @@
 package com.erebor.tomkins.pos.helper;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,4 +26,6 @@ public interface DateConverterHelper {
     String getDifference(Long time);
 
     Calendar atEndOfDay(Calendar calendar);
+
+    Date toDateValidApps(String expiredApps) throws ParseException;
 }
