@@ -10,7 +10,7 @@ public class ProductReceiveStockViewState extends BaseViewState<List<TrxTerimaSt
 
     public enum State {
         LOADING("loading"), FOUND("found"), ERROR("error"),
-        NOT_FOUND("not_found"), UPDATED("updated"), ;
+        NOT_FOUND("not_found"), UPDATE_FAILED("update_failed"), UPDATED("updated"), FINISH("finish"), ;
         public String value;
 
         State(String val) {
@@ -27,4 +27,6 @@ public class ProductReceiveStockViewState extends BaseViewState<List<TrxTerimaSt
     public static ProductReceiveStockViewState NOT_FOUND_STATE = new ProductReceiveStockViewState(State.NOT_FOUND.value);
     public static ProductReceiveStockViewState ERROR_STATE = new ProductReceiveStockViewState(State.ERROR.value);
     public static ProductReceiveStockViewState UPDATED_STATE = new ProductReceiveStockViewState(State.UPDATED.value);
+    public static ProductReceiveStockViewState UPDATE_FAILED_STATE = new ProductReceiveStockViewState(State.UPDATE_FAILED.value);
+    public static ProductReceiveStockViewState FINISH_STATE = new ProductReceiveStockViewState(State.FINISH.value);
 }

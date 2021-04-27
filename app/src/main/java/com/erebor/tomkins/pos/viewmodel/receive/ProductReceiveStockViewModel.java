@@ -2,14 +2,17 @@ package com.erebor.tomkins.pos.viewmodel.receive;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseViewModel;
+import com.erebor.tomkins.pos.data.local.model.TrxTerimaStockModel;
 import com.erebor.tomkins.pos.data.ui.ProductReceiveSummaryUiModel;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
+import com.erebor.tomkins.pos.helper.ResourceHelper;
 import com.erebor.tomkins.pos.repository.local.TrxTerimaLocalRepository;
 import com.erebor.tomkins.pos.tools.Logger;
 
-import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -21,6 +24,7 @@ public class ProductReceiveStockViewModel extends BaseViewModel<ProductReceiveSt
     private final DateConverterHelper dateConverterHelper;
     private final Logger logger;
     private final TrxTerimaLocalRepository trxTerimaLocalRepository;
+    private final ResourceHelper resourceHelper;
 
 
     private final MutableLiveData<ProductReceiveSummaryUiModel> receiveSummaryUiModelMutableLiveData;
@@ -31,10 +35,11 @@ public class ProductReceiveStockViewModel extends BaseViewModel<ProductReceiveSt
 
     @Inject
     public ProductReceiveStockViewModel(DateConverterHelper dateConverterHelper, Logger logger,
-                                        TrxTerimaLocalRepository trxTerimaLocalRepository) {
+                                        TrxTerimaLocalRepository trxTerimaLocalRepository, ResourceHelper resourceHelper) {
         this.dateConverterHelper = dateConverterHelper;
         this.logger = logger;
         this.trxTerimaLocalRepository = trxTerimaLocalRepository;
+        this.resourceHelper = resourceHelper;
 
         receiveSummaryUiModelMutableLiveData = new MutableLiveData<>();
     }
@@ -97,6 +102,35 @@ public class ProductReceiveStockViewModel extends BaseViewModel<ProductReceiveSt
                             postValue(ProductReceiveStockViewState.ERROR_STATE);
                         }));
     }
+
+    public void receiveBarcode(String noDo, String barcode) {
+        getDisposable().add(Single.fromCallable(() -> {
+            postValue(ProductReceiveStockViewState.LOADING_STATE);
+            List<TrxTerimaStockModel> stockModels = trxTerimaLocalRepository.searchTrxTerimaStock(noDo, barcode);
+            if (stockModels.size() != 1) {
+                ProductReceiveStockViewState.UPDATE_FAILED_STATE.setData(trxTerimaLocalRepository.getTrxTerimaStock(noDo));
+                throw new Exception(resourceHelper.getResourceString(R.string.transaction_barcode_not_found));
+            }
+            TrxTerimaStockModel stockModel = stockModels.get(0);
+            if (stockModel.getQtyTerima().intValue() == stockModel.getQtyKirim().intValue()) {
+                ProductReceiveStockViewState.UPDATE_FAILED_STATE.setData(trxTerimaLocalRepository.getTrxTerimaStock(noDo));
+                throw new Exception(resourceHelper.getResourceString(R.string.transaction_receive_completed));
+            }
+            trxTerimaLocalRepository.update(stockModel.getNoDo(), stockModel.getKodeArt(), stockModel.getUkuran(), stockModel.getQtyTerima() + 1);
+            return trxTerimaLocalRepository.getTrxTerimaStock(noDo);
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(data -> {
+                            ProductReceiveStockViewState.UPDATED_STATE.setData(data);
+                            postValue(ProductReceiveStockViewState.UPDATED_STATE);
+                        },
+                        throwable -> {
+                            logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
+                            ProductReceiveStockViewState.UPDATE_FAILED_STATE.setError(throwable);
+                            postValue(ProductReceiveStockViewState.UPDATE_FAILED_STATE);
+                        }));
+    }
     public void updateDateAndNotes(String noDo, Date date, String note) {
         getDisposable().add(Single.fromCallable(() -> {
             postValue(ProductReceiveStockViewState.LOADING_STATE);
@@ -107,7 +141,7 @@ public class ProductReceiveStockViewModel extends BaseViewModel<ProductReceiveSt
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .subscribe(data -> postValue(ProductReceiveStockViewState.UPDATED_STATE),
+                .subscribe(data -> postValue(ProductReceiveStockViewState.FINISH_STATE),
                         throwable -> {
                             logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
                             ProductReceiveStockViewState.ERROR_STATE.setError(throwable);

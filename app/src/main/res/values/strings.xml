@@ -154,5 +154,6 @@
     <string name="receive_success">Product receive success</string>
     <string name="invalid_received_date">Please choose Received Date</string>
     <string name="invalid_note">Please type note</string>
+    <string name="transaction_receive_completed">Receive already completed before</string>
 
 </resources>

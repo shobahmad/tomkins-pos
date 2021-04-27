@@ -172,7 +172,7 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            productReceiveStockViewModel.searchData(getIntent().getStringExtra("NO_DO"),
+            productReceiveStockViewModel.receiveBarcode(getIntent().getStringExtra("NO_DO"),
                     data.getStringExtra("data"));
         }
     }
@@ -213,6 +213,20 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
                 binding.setErrorMessage(state.getData().isEmpty() ? resourceHelper.getResourceString(R.string.article_not_found) : null);
             }
             if (state.getCurrentState().equals(ProductReceiveStockViewState.UPDATED_STATE.getCurrentState())) {
+                binding.setLoading(null);
+                binding.setErrorMessage(state.getData().isEmpty() ? resourceHelper.getResourceString(R.string.article_not_found) : null);
+                receiveStockAdapter.addList(state.getData());
+                transactionResultDialog(true, resourceHelper.getResourceString(R.string.receive_success), (dialog, which) -> {
+                });
+            }
+            if (state.getCurrentState().equals(ProductReceiveStockViewState.UPDATE_FAILED_STATE.getCurrentState())) {
+                binding.setLoading(null);
+                binding.setErrorMessage(state.getData().isEmpty() ? resourceHelper.getResourceString(R.string.article_not_found) : null);
+                receiveStockAdapter.addList(state.getData());
+                transactionResultDialog(false, state.getError().getMessage(), (dialog, which) -> {
+                });
+            }
+            if (state.getCurrentState().equals(ProductReceiveStockViewState.FINISH_STATE.getCurrentState())) {
                 transactionResultDialog(true, resourceHelper.getResourceString(R.string.receive_success), (dialog, which) -> {
                     ProductReceiveStockActivity.this.finish();
                 });
