@@ -131,4 +131,5 @@
     <string name="invalid_received_date">Silakan pilih tanggal diterima</string>
     <string name="invalid_note">Silakan isi catatan</string>
     <string name="transaction_receive_completed">Penerimaan produk telah selesai sebelumnya</string>
+    <string name="grade_a">Grade A</string>
 </resources>

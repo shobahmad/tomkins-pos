@@ -2,9 +2,11 @@ package com.erebor.tomkins.pos.viewmodel.article;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseViewModel;
+import com.erebor.tomkins.pos.data.local.dao.ArtGradeDao;
 import com.erebor.tomkins.pos.data.local.dao.EventDiscountDao;
 import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
+import com.erebor.tomkins.pos.data.local.model.ArtGradeDBModel;
 import com.erebor.tomkins.pos.data.local.model.EventDiscountModel;
 import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
@@ -26,13 +28,16 @@ public class ArticleViewModel extends BaseViewModel<ArticleViewState> {
     private final MsArtDao msArtDao;
     private final ResourceHelper resourceHelper;
     private final EventDiscountDao eventDiscountDao;
+    private final ArtGradeDao artGradeDao;
 
     @Inject
-    public ArticleViewModel(MsBarcodeDao msBarcodeDao, MsArtDao msArtDao, ResourceHelper resourceHelper, EventDiscountDao eventDiscountDao) {
+    public ArticleViewModel(MsBarcodeDao msBarcodeDao, MsArtDao msArtDao, ResourceHelper resourceHelper,
+                            EventDiscountDao eventDiscountDao, ArtGradeDao artGradeDao) {
         this.msBarcodeDao = msBarcodeDao;
         this.msArtDao = msArtDao;
         this.resourceHelper = resourceHelper;
         this.eventDiscountDao = eventDiscountDao;
+        this.artGradeDao = artGradeDao;
     }
 
     public void searchArticle(String keyword) {
@@ -167,6 +172,8 @@ public class ArticleViewModel extends BaseViewModel<ArticleViewState> {
             }
         }
 
+        ArtGradeDBModel artGradeDBModel = artGradeDao.getByBarcode(barcode);
+
         //@ create detail
         return new ArticleUiModel(
                 msArtDBModel.getNamaArt(),
@@ -180,7 +187,8 @@ public class ArticleViewModel extends BaseViewModel<ArticleViewState> {
                 diskon,
                 hargaKhusus,
                 hargaJual,
-                selected
+                selected,
+                artGradeDBModel == null ? "A" : artGradeDBModel.getGrade()
         );
     }
 }

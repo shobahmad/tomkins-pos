@@ -5,8 +5,8 @@ import androidx.room.DatabaseView;
 import java.util.Date;
 
 @DatabaseView("SELECT  ART.KodeArt kodeArt, ART.NamaArt namaArt, BARCODE.NoBarcode noBarcode, BARCODE.Ukuran ukuran," +
-        " GENDER.Gender gender, ART.Warna warna, ART.Harga harga, STOCK.QtyStok qtyStok, STOCK.last_update lastUpdate " +
-        "FROM MSBARCODE BARCODE, MSART ART, STOKREAL STOCK, MSGENDER GENDER " +
+        " GENDER.Gender gender, ART.Warna warna, ART.Harga harga, STOCK.QtyStok qtyStok, STOCK.last_update lastUpdate, IFNULL(ART_GRADE.Grade, 'A') grade " +
+        "FROM MSBARCODE BARCODE LEFT JOIN ART_GRADE ON BARCODE.NoBarcode = ART_GRADE.Barcode, MSART ART, STOKREAL STOCK, MSGENDER GENDER " +
         "WHERE BARCODE.Ukuran = STOCK.Ukuran AND BARCODE.KodeArt = STOCK.KodeArt " +
         "  AND STOCK.KodeArt = ART.KodeArt " +
         "  AND ART.KodeGender = GENDER.KodeGender")
@@ -21,6 +21,7 @@ public class StockReportModel {
     private double harga;
     private Integer qtyStok;
     private Date lastUpdate;
+    private String grade;
 
     public String getKodeArt() {
         return kodeArt;
@@ -92,5 +93,13 @@ public class StockReportModel {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 }

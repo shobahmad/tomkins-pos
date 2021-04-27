@@ -7,8 +7,9 @@ import com.erebor.tomkins.pos.base.BaseDatabaseModel;
 import java.util.Date;
 
 @DatabaseView("SELECT STOCK.NoDO noDo, ART.KodeArt kodeArt, ART.NamaArt namaArt, BARCODE.NoBarcode noBarcode, BARCODE.Ukuran ukuran," +
-        " GENDER.Gender gender, ART.Warna warna, ART.Harga harga, STOCK.QtyDO qtyKirim, STOCK.QtyTerima qtyTerima, STOCK.last_update lastUpdate " +
-        "FROM MSBARCODE BARCODE, MSART ART, TRXTERIMADET STOCK, MSGENDER GENDER " +
+        " GENDER.Gender gender, ART.Warna warna, ART.Harga harga, STOCK.QtyDO qtyKirim, STOCK.QtyTerima qtyTerima, " +
+        "STOCK.last_update lastUpdate, IFNULL(ART_GRADE.Grade, 'A') grade " +
+        "FROM MSBARCODE BARCODE LEFT JOIN ART_GRADE ON BARCODE.NoBarcode = ART_GRADE.Barcode, MSART ART, TRXTERIMADET STOCK, MSGENDER GENDER " +
         "WHERE BARCODE.Ukuran = STOCK.Ukuran AND BARCODE.KodeArt = STOCK.KodeArt " +
         "  AND STOCK.KodeArt = ART.KodeArt " +
         "  AND ART.KodeGender = GENDER.KodeGender")
@@ -25,6 +26,7 @@ public class TrxTerimaStockModel {
     private Integer qtyKirim;
     private Integer qtyTerima;
     private Date lastUpdate;
+    private String grade;
 
     public String getNoDo() {
         return noDo;
@@ -112,5 +114,13 @@ public class TrxTerimaStockModel {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 }

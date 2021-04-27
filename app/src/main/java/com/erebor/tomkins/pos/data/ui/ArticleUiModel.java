@@ -14,8 +14,11 @@ public class ArticleUiModel {
     private final double hargaKhusus;
     private final double hargaJual;
     private final boolean selected;
+    private final String grade;
 
-    public ArticleUiModel(String artName, String artCode, String barcode, String size, String colour, double hargaNormal, String eventCode, Integer qty, double diskon, double hargaKhusus, double harga, boolean selected) {
+    public ArticleUiModel(String artName, String artCode, String barcode, String size, String colour,
+                          double hargaNormal, String eventCode, Integer qty, double diskon,
+                          double hargaKhusus, double harga, boolean selected, String grade) {
         this.artCode = artCode;
         this.artName = artName;
         this.barcode = barcode;
@@ -28,6 +31,7 @@ public class ArticleUiModel {
         this.hargaKhusus = hargaKhusus;
         this.hargaJual = harga;
         this.selected = selected;
+        this.grade = grade;
     }
 
 
@@ -44,6 +48,7 @@ public class ArticleUiModel {
         this.hargaKhusus = articleUiModel.hargaKhusus;
         this.hargaJual = articleUiModel.hargaJual;
         this.selected = selected;
+        this.grade = articleUiModel.grade;
     }
 
     public ArticleUiModel(ArticleUiModel articleUiModel, double hargaNormal, double diskon) {
@@ -59,6 +64,7 @@ public class ArticleUiModel {
         this.hargaKhusus = articleUiModel.hargaKhusus;
         this.hargaJual = articleUiModel.hargaJual;
         this.selected = articleUiModel.selected;
+        this.grade = articleUiModel.grade;
     }
 
 
@@ -117,5 +123,9 @@ public class ArticleUiModel {
 
     public boolean isSelected() {
         return selected;
+    }
+
+    public String getGrade() {
+        return grade;
     }
 }

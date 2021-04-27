@@ -11,6 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.erebor.tomkins.pos.data.converters.Converters;
 import com.erebor.tomkins.pos.data.local.dao.AccessDao;
+import com.erebor.tomkins.pos.data.local.dao.ArtGradeDao;
 import com.erebor.tomkins.pos.data.local.dao.DownloadLastUpdateDao;
 import com.erebor.tomkins.pos.data.local.dao.EventDiscountDao;
 import com.erebor.tomkins.pos.data.local.dao.EventHargaDao;
@@ -56,6 +57,7 @@ import com.erebor.tomkins.pos.data.local.model.*;
 //        TrxReturGjbDetDBModel.class,
         TrxTerimaDBModel.class,
         TrxTerimaDetDBModel.class,
+        ArtGradeDBModel.class,
 
     },
     views = {
@@ -91,6 +93,7 @@ public abstract class TomkinsDatabase extends RoomDatabase {
     public abstract TrxTerimaDao trxTerimaDao();
     public abstract TrxTerimaDetDao trxTerimaDetDao();
     public abstract TrxTerimaStockDao trxTerimaStockDao();
+    public abstract ArtGradeDao artGradeDao();
 
     private static final Object sLock = new Object();
 

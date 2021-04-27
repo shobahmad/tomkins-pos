@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.erebor.tomkins.pos.data.local.TomkinsDatabase;
 import com.erebor.tomkins.pos.data.local.dao.AccessDao;
+import com.erebor.tomkins.pos.data.local.dao.ArtGradeDao;
 import com.erebor.tomkins.pos.data.local.dao.DownloadLastUpdateDao;
 import com.erebor.tomkins.pos.data.local.dao.EventDiscountDao;
 import com.erebor.tomkins.pos.data.local.dao.EventHargaDao;
@@ -127,5 +128,10 @@ public class DatabaseModule {
     @Singleton
     TrxTerimaStockDao providesTrxTerimaStockDao(TomkinsDatabase tomkinsDatabase) {
         return tomkinsDatabase.trxTerimaStockDao();
+    }
+    @Provides
+    @Singleton
+    ArtGradeDao providesArtGradeDao(TomkinsDatabase tomkinsDatabase) {
+        return tomkinsDatabase.artGradeDao();
     }
 }
