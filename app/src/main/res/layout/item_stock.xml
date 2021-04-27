@@ -196,6 +196,31 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textGrade"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textBarcode"
+            app:layout_constraintStart_toStartOf="@id/textArtName"
+            app:layout_constraintEnd_toStartOf="@id/textColor"
+            app:hintEnabled="true"
+            android:textColorHint="@color/warmGrey"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:hint="@string/grade"
+                android:background="@color/white"
+                android:text="@{stock.grade, default=`A`}"
+                android:enabled="false"
+                android:textColor="@color/colorPrimaryDark"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
     <data>
         <import type="android.view.View"/>

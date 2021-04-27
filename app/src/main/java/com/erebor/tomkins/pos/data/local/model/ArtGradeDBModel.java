@@ -12,8 +12,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Entity(tableName = "ART_GRADE",
-primaryKeys = {"Barcode", "Grade"})
+primaryKeys = {"Barcode"})
 public class ArtGradeDBModel implements BaseDatabaseModel {
+
+    public ArtGradeDBModel(@NonNull String barcode, @NonNull String grade) {
+        this.barcode = barcode;
+        this.grade = grade;
+    }
+
     @NonNull
     @ColumnInfo(name = "Barcode")
     private String barcode;

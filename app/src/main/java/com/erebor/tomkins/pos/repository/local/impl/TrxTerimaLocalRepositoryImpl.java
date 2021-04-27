@@ -1,23 +1,29 @@
 package com.erebor.tomkins.pos.repository.local.impl;
 
+import android.util.Log;
+
 import com.erebor.tomkins.pos.data.field.DateDelivery;
 import com.erebor.tomkins.pos.data.local.TomkinsDatabase;
+import com.erebor.tomkins.pos.data.local.dao.ArtGradeDao;
+import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
 import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxTerimaDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxTerimaDetDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxTerimaStockDao;
+import com.erebor.tomkins.pos.data.local.model.ArtGradeDBModel;
+import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
 import com.erebor.tomkins.pos.data.local.model.TrxTerimaDBModel;
 import com.erebor.tomkins.pos.data.local.model.TrxTerimaDetDBModel;
 import com.erebor.tomkins.pos.data.local.model.TrxTerimaStockModel;
 import com.erebor.tomkins.pos.data.ui.ProductReceiveSummaryUiModel;
 import com.erebor.tomkins.pos.repository.local.TrxTerimaLocalRepository;
+import com.erebor.tomkins.pos.tools.Logger;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.Callable;
 
 public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
     private final TomkinsDatabase tomkinsDatabase;
@@ -25,16 +31,21 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
     private final TrxTerimaDetDao trxTerimaDetDao;
     private final TrxTerimaStockDao trxTerimaStockDao;
     private final StokRealDao stokRealDao;
+    private final ArtGradeDao artGradeDao;
+    private final MsBarcodeDao msBarcodeDao;
 
 
     public TrxTerimaLocalRepositoryImpl(TomkinsDatabase tomkinsDatabase,
                                         TrxTerimaDao trxTerimaDao, TrxTerimaDetDao trxTerimaDetDao,
-                                        TrxTerimaStockDao trxTerimaStockDao, StokRealDao stokRealDao) {
+                                        TrxTerimaStockDao trxTerimaStockDao, StokRealDao stokRealDao,
+                                        ArtGradeDao artGradeDao, MsBarcodeDao msBarcodeDao) {
         this.tomkinsDatabase = tomkinsDatabase;
         this.trxTerimaDao = trxTerimaDao;
         this.trxTerimaDetDao = trxTerimaDetDao;
         this.trxTerimaStockDao = trxTerimaStockDao;
         this.stokRealDao = stokRealDao;
+        this.artGradeDao = artGradeDao;
+        this.msBarcodeDao = msBarcodeDao;
     }
 
     @Override
@@ -168,6 +179,22 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
             trxTerimaDBModel.setTglTerimaCnt(new DateDelivery(date));
             trxTerimaDBModel.setStatusDO(complete ? 1 : 0);
             trxTerimaDao.update(trxTerimaDBModel).blockingGet();
+            return true;
+        });
+    }
+
+    @Override
+    public void updateGrade(String kodeArt, String ukuran, String grade) {
+        tomkinsDatabase.runInTransaction(() -> {
+            MsBarcodeDBModel msBarcodeDBModel = msBarcodeDao.getByArtUkuran(kodeArt, ukuran);
+            if (msBarcodeDBModel == null) {
+                throw new Exception("Barcode not found!");
+            }
+            ArtGradeDBModel artGradeDBModel = new ArtGradeDBModel(msBarcodeDBModel.getNoBarcode(), grade);
+            artGradeDao.insertReplaceSync(artGradeDBModel);
+
+            List<ArtGradeDBModel> artGradeDBModels = artGradeDao.getALl();
+            Log.d(getClass().getSimpleName(), artGradeDBModels.toString());
             return true;
         });
     }

@@ -102,6 +102,24 @@ public class ProductReceiveStockViewModel extends BaseViewModel<ProductReceiveSt
                             postValue(ProductReceiveStockViewState.ERROR_STATE);
                         }));
     }
+    public void updateReceiveGrade(String noDo, String kodeArt, String ukuran, String grade) {
+        getDisposable().add(Single.fromCallable(() -> {
+            postValue(ProductReceiveStockViewState.LOADING_STATE);
+            trxTerimaLocalRepository.updateGrade(kodeArt, ukuran, grade);
+            return trxTerimaLocalRepository.getTrxTerimaStock(noDo);
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(data -> {
+                            ProductReceiveStockViewState.FOUND_STATE.setData(data);
+                            postValue(ProductReceiveStockViewState.FOUND_STATE);
+                        },
+                        throwable -> {
+                            logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
+                            ProductReceiveStockViewState.ERROR_STATE.setError(throwable);
+                            postValue(ProductReceiveStockViewState.ERROR_STATE);
+                        }));
+    }
 
     public void receiveBarcode(String noDo, String barcode) {
         getDisposable().add(Single.fromCallable(() -> {

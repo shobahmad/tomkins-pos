@@ -3,20 +3,18 @@ package com.erebor.tomkins.pos.viewmodel.transaction;
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseViewModel;
 import com.erebor.tomkins.pos.data.local.TomkinsDatabase;
+import com.erebor.tomkins.pos.data.local.dao.ArtGradeDao;
 import com.erebor.tomkins.pos.data.local.dao.EventDiscountDao;
 import com.erebor.tomkins.pos.data.local.dao.MsArtDao;
 import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxJualDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxJualDetDao;
+import com.erebor.tomkins.pos.data.local.model.ArtGradeDBModel;
 import com.erebor.tomkins.pos.data.local.model.EventDiscountModel;
 import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.local.model.TrxJualDBModel;
 import com.erebor.tomkins.pos.data.local.model.TrxJualDetDBModel;
-import com.erebor.tomkins.pos.data.local.model.TrxTerimaDBModel;
-import com.erebor.tomkins.pos.data.remote.DownloadResponse;
-import com.erebor.tomkins.pos.data.remote.response.NetworkBoundResult;
-import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.data.ui.TransactionDetailUiModel;
 import com.erebor.tomkins.pos.data.ui.TransactionUiModel;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
@@ -30,16 +28,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
 
 public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
 
@@ -55,12 +50,16 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
     private final TomkinsDatabase tomkinsDatabase;
     private final StockUpdateLocalRepository stockUpdateLocalRepository;
     private final TomkinsService tomkinsService;
+    private final ArtGradeDao artGradeDao;
 
     @Inject
     public TransactionViewModel(MsBarcodeDao msBarcodeDao, MsArtDao msArtDao, TrxJualDao trxJualDao,
-                                TrxJualDetDao trxJualDetDao, SharedPrefs sharedPrefs, EventDiscountDao eventDiscountDao,
-                                ResourceHelper resourceHelper, Logger logger, DateConverterHelper dateConverterHelper,
-                                TomkinsDatabase tomkinsDatabase, StockUpdateLocalRepository stockUpdateLocalRepository, TomkinsService tomkinsService) {
+                                TrxJualDetDao trxJualDetDao, SharedPrefs sharedPrefs,
+                                EventDiscountDao eventDiscountDao, ResourceHelper resourceHelper,
+                                Logger logger, DateConverterHelper dateConverterHelper,
+                                TomkinsDatabase tomkinsDatabase,
+                                StockUpdateLocalRepository stockUpdateLocalRepository,
+                                TomkinsService tomkinsService, ArtGradeDao artGradeDao) {
         this.msBarcodeDao = msBarcodeDao;
         this.msArtDao = msArtDao;
         this.trxJualDao = trxJualDao;
@@ -73,6 +72,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         this.tomkinsDatabase = tomkinsDatabase;
         this.stockUpdateLocalRepository = stockUpdateLocalRepository;
         this.tomkinsService = tomkinsService;
+        this.artGradeDao = artGradeDao;
     }
 
 
@@ -90,6 +90,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                 for (TrxJualDetDBModel trxJualDetDBModel : trxJualDBModel.getListDetail()) {
                     MsArtDBModel msArtDBModel = msArtDao.getByKodeArt(trxJualDetDBModel.getKodeArt());
                     MsBarcodeDBModel msBarcodeDBModel = msBarcodeDao.getByNoBarcode(trxJualDetDBModel.getNoBarcode());
+                    ArtGradeDBModel artGradeDBModel = artGradeDao.getByBarcode(trxJualDetDBModel.getNoBarcode());
 
                     TransactionDetailUiModel newestDetail = new TransactionDetailUiModel(
                             trxJualDBModel.getNoBon(),
@@ -106,7 +107,8 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                             trxJualDetDBModel.getHargaNormal(),
                             trxJualDetDBModel.getHrgaJual(),
                             trxJualDetDBModel.getCatatan(),
-                            trxJualDBModel.isUploaded());
+                            trxJualDBModel.isUploaded(),
+                            artGradeDBModel == null ? "A" : artGradeDBModel.getGrade());
                     transactionDetailUiModels.add(0, newestDetail);
                 }
             }
@@ -185,6 +187,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                     }
                 }
 
+                ArtGradeDBModel artGradeDBModel = artGradeDao.getByBarcode(msBarcodeDBModel.getNoBarcode());
                 //@ create detail
                 String transidGenerated = generateIndTrx();
                 TransactionDetailUiModel newestDetail = new TransactionDetailUiModel(
@@ -201,7 +204,8 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
                         hargaKhusus,
                         Double.parseDouble(price),
                         note,
-                        false);
+                        false,
+                        artGradeDBModel == null ? "A" : artGradeDBModel.getGrade());
 
                 trxJualDBModel.getListDetail().add(getTrxJualDet(newestDetail, trxJualDBModel.getNoBon(), isSale));
                 tomkinsDatabase.runInTransaction(() -> {

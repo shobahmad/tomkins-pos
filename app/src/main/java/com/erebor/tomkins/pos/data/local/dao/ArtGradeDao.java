@@ -14,6 +14,11 @@ import io.reactivex.Flowable;
 @Dao
 public interface ArtGradeDao extends BaseDao<ArtGradeDBModel> {
 
+
+
+    @Query("SELECT * FROM ART_GRADE")
+    List<ArtGradeDBModel> getALl();
+
     @Query("SELECT * FROM ART_GRADE WHERE Barcode=:barcode")
     ArtGradeDBModel getByBarcode(String barcode);
 }

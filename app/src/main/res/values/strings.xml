@@ -156,5 +156,6 @@
     <string name="invalid_note">Please type note</string>
     <string name="transaction_receive_completed">Receive already completed before</string>
     <string name="grade_a">Grade A</string>
+    <string name="grade">Grade</string>
 
 </resources>

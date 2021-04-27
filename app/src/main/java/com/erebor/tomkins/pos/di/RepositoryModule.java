@@ -1,6 +1,8 @@
 package com.erebor.tomkins.pos.di;
 
 import com.erebor.tomkins.pos.data.local.TomkinsDatabase;
+import com.erebor.tomkins.pos.data.local.dao.ArtGradeDao;
+import com.erebor.tomkins.pos.data.local.dao.MsBarcodeDao;
 import com.erebor.tomkins.pos.data.local.dao.StockReportDao;
 import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.data.local.dao.TrxTerimaDao;
@@ -42,9 +44,14 @@ public class RepositoryModule {
     @Provides
     @Singleton
     TrxTerimaLocalRepository providesTrxTerimaLocalRepository(TomkinsDatabase tomkinsDatabase,
-                                                              TrxTerimaDao trxTerimaDao, TrxTerimaDetDao trxTerimaDetDao,
-                                                              TrxTerimaStockDao trxTerimaStockDao, StokRealDao stokRealDao) {
-        return new TrxTerimaLocalRepositoryImpl(tomkinsDatabase, trxTerimaDao, trxTerimaDetDao, trxTerimaStockDao, stokRealDao);
+                                                              TrxTerimaDao trxTerimaDao,
+                                                              TrxTerimaDetDao trxTerimaDetDao,
+                                                              TrxTerimaStockDao trxTerimaStockDao,
+                                                              StokRealDao stokRealDao,
+                                                              ArtGradeDao artGradeDao,
+                                                              MsBarcodeDao msBarcodeDao) {
+        return new TrxTerimaLocalRepositoryImpl(tomkinsDatabase, trxTerimaDao, trxTerimaDetDao,
+                trxTerimaStockDao, stokRealDao, artGradeDao, msBarcodeDao);
     }
 
 

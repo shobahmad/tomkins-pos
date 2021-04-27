@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseActivity;
+import com.erebor.tomkins.pos.data.local.model.TrxTerimaStockModel;
 import com.erebor.tomkins.pos.databinding.ActivityReceiveStockBinding;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
@@ -178,12 +179,25 @@ public class ProductReceiveStockActivity extends BaseActivity<ActivityReceiveSto
     }
 
     private void setupAdapter() {
-        receiveStockAdapter = new ReceiveStockAdapter(this, (trxTerimaStockModel, qty) -> {
-            productReceiveStockViewModel.updateReceiveQty(
-                    trxTerimaStockModel.getNoDo(),
-                    trxTerimaStockModel.getKodeArt(),
-                    trxTerimaStockModel.getUkuran(),
-                    qty);
+        receiveStockAdapter = new ReceiveStockAdapter(this, new EditStockListener() {
+            @Override
+            public void onEditStock(TrxTerimaStockModel trxTerimaStockModel, int qty) {
+                productReceiveStockViewModel.updateReceiveQty(
+                        trxTerimaStockModel.getNoDo(),
+                        trxTerimaStockModel.getKodeArt(),
+                        trxTerimaStockModel.getUkuran(),
+                        qty);
+            }
+
+            @Override
+            public void onEditGrade(TrxTerimaStockModel trxTerimaStockModel, String grade) {
+                productReceiveStockViewModel.updateReceiveGrade(
+                        trxTerimaStockModel.getNoDo(),
+                        trxTerimaStockModel.getKodeArt(),
+                        trxTerimaStockModel.getUkuran(),
+                        grade);
+
+            }
         });
         binding.recyclerTrxTerima.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerTrxTerima.setAdapter(receiveStockAdapter);

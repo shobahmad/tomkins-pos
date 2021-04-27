@@ -59,6 +59,13 @@ public class ReceiveStockAdapter extends BaseAdapter<ItemReceiveStockBinding, Tr
 
         binding.layoutArt.setBackgroundResource(binding.getStock().getQtyKirim() == binding.getStock().getQtyTerima() ?
                 R.drawable.background_rounded_selected : R.drawable.background_rounded_unselected);
+
+        binding.switchGrade.setOnCheckedChangeListener(null);
+        binding.switchGrade.setChecked(binding.getStock().getGrade().equals("A"));
+        binding.switchGrade.setText(getContext().getString(R.string.grade) + " " +  binding.getStock().getGrade());
+        binding.switchGrade.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            editStockListener.onEditGrade(binding.getStock(), isChecked ? "A" : "B");
+        });
     }
 
     private void showEditQtyDialog(ItemReceiveStockBinding binding) {
