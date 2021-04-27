@@ -192,9 +192,6 @@ public class TrxTerimaLocalRepositoryImpl implements TrxTerimaLocalRepository {
             }
             ArtGradeDBModel artGradeDBModel = new ArtGradeDBModel(msBarcodeDBModel.getNoBarcode(), grade);
             artGradeDao.insertReplaceSync(artGradeDBModel);
-
-            List<ArtGradeDBModel> artGradeDBModels = artGradeDao.getALl();
-            Log.d(getClass().getSimpleName(), artGradeDBModels.toString());
             return true;
         });
     }

@@ -1,4 +1,4 @@
-package com.erebor.tomkins.pos.view.receive;
+package com.erebor.tomkins.pos.view.callback;
 
 import com.erebor.tomkins.pos.data.local.model.TrxTerimaStockModel;
 

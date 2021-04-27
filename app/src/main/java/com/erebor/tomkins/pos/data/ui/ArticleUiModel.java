@@ -51,6 +51,22 @@ public class ArticleUiModel {
         this.grade = articleUiModel.grade;
     }
 
+    public ArticleUiModel(ArticleUiModel articleUiModel, String grade) {
+        this.artCode = articleUiModel.artCode;
+        this.artName = articleUiModel.artName;
+        this.barcode = articleUiModel.barcode;
+        this.size = articleUiModel.size;
+        this.colour = articleUiModel.colour;
+        this.hargaNormal = articleUiModel.hargaNormal;
+        this.eventCode = articleUiModel.eventCode;
+        this.qty = articleUiModel.qty;
+        this.diskon = articleUiModel.diskon;
+        this.hargaKhusus = articleUiModel.hargaKhusus;
+        this.hargaJual = articleUiModel.hargaJual;
+        this.selected = articleUiModel.selected;
+        this.grade = grade;
+    }
+
     public ArticleUiModel(ArticleUiModel articleUiModel, double hargaNormal, double diskon) {
         this.artCode = articleUiModel.artCode;
         this.artName = articleUiModel.artName;

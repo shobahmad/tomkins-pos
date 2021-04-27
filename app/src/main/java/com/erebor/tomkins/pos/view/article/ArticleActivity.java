@@ -29,6 +29,8 @@ import com.erebor.tomkins.pos.viewmodel.article.ArticleViewState;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
@@ -111,7 +113,9 @@ public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
     }
 
     private void setupAdapter() {
-        articleAdapter = new ArticleAdapter(this);
+        articleAdapter = new ArticleAdapter(this, (articleUiModel, grade) -> {
+            articleViewModel.updateGrade(articleUiModel.getBarcode(), grade);
+        });
         articleAdapter.addListener(item -> {
             ArticleUiModel articleUiModel = (ArticleUiModel) item;
             articleViewModel.selectArticle(articleUiModel.getBarcode());
@@ -135,7 +139,7 @@ public class ArticleActivity extends BaseActivity<ActivityArticleBinding> {
                 binding.setLoading(null);
                 binding.setEmpty(false);
                 articleAdapter.clearList();
-                articleAdapter.setList(articleViewState.getData());
+                articleAdapter.setList(new ArrayList<>(articleViewState.getData()));
                 if (articleViewState.getData().size() == 1) {
                     binding.setArticle(articleViewState.getData().get(0));
                     setupInputPrice();

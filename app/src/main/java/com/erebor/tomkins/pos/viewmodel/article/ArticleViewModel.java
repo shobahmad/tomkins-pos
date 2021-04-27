@@ -12,6 +12,8 @@ import com.erebor.tomkins.pos.data.local.model.MsArtDBModel;
 import com.erebor.tomkins.pos.data.local.model.MsBarcodeDBModel;
 import com.erebor.tomkins.pos.data.ui.ArticleUiModel;
 import com.erebor.tomkins.pos.helper.ResourceHelper;
+import com.erebor.tomkins.pos.repository.local.TrxTerimaLocalRepository;
+import com.erebor.tomkins.pos.viewmodel.receive.ProductReceiveStockViewState;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -117,6 +119,39 @@ public class ArticleViewModel extends BaseViewModel<ArticleViewState> {
 
             ArticleViewState.FOUND_STATE.setData(selectResult);
             return ArticleViewState.FOUND_STATE;
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(state -> {
+                            postValue(state);
+                        },
+                        throwable -> {
+                            ArticleViewState.ERROR_STATE.setError(throwable);
+                            postValue(ArticleViewState.ERROR_STATE);
+                        }));
+    }
+
+    public void updateGrade(String barcode, String grade) {
+        getDisposable().add(Single.fromCallable(() -> {
+            postValue(ArticleViewState.LOADING_STATE);
+            ArtGradeDBModel artGradeDBModel = new ArtGradeDBModel(barcode, grade);
+            artGradeDao.insertReplaceSync(artGradeDBModel);
+
+            List<ArticleUiModel> searchResult = ArticleViewState.FOUND_STATE.getData();
+
+            for (int i = 0; i < searchResult.size(); i++) {
+                ArticleUiModel articleUiModel = searchResult.get(i);
+                if (!articleUiModel.getBarcode().equals(barcode)) {
+                    continue;
+                }
+                searchResult.set(i, new ArticleUiModel(articleUiModel, grade));
+                break;
+            }
+
+            ArticleViewState.FOUND_STATE.setData(searchResult);
+            return ArticleViewState.FOUND_STATE;
+
+
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())

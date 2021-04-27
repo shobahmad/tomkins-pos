@@ -10,11 +10,15 @@ import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseAdapter;
 import com.erebor.tomkins.pos.data.ui.ArticleUiModel;
 import com.erebor.tomkins.pos.databinding.ItemArticleBinding;
+import com.erebor.tomkins.pos.view.callback.EditArticleListener;
+import com.erebor.tomkins.pos.view.callback.EditStockListener;
 
 public class ArticleAdapter extends BaseAdapter<ItemArticleBinding, ArticleUiModel> {
 
-    public ArticleAdapter(Context context) {
+    private final EditArticleListener editArticleListener;
+    public ArticleAdapter(Context context, EditArticleListener editArticleListener) {
         super(context);
+        this.editArticleListener = editArticleListener;
     }
     @Override
     public void setDataBinding(ViewHolder viewHolder, ArticleUiModel data) {
@@ -32,6 +36,14 @@ public class ArticleAdapter extends BaseAdapter<ItemArticleBinding, ArticleUiMod
         super.onBindViewHolder(holder, position);
         ItemArticleBinding binding = (ItemArticleBinding) holder.getBinding();
         binding.layoutOuter.setBackgroundResource(binding.getArticle().isSelected() ? R.drawable.background_rounded_selected : R.drawable.background_rounded_unselected);
+
+
+        binding.switchGrade.setOnCheckedChangeListener(null);
+        binding.switchGrade.setChecked(binding.getArticle().getGrade().equals("A"));
+        binding.switchGrade.setText(getContext().getString(R.string.grade) + " " +  binding.getArticle().getGrade());
+        binding.switchGrade.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            editArticleListener.onEditGrade(binding.getArticle(), isChecked ? "A" : "B");
+        });
     }
 
     @Override

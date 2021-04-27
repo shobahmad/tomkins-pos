@@ -1,23 +1,17 @@
 package com.erebor.tomkins.pos.view.receive;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +24,7 @@ import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.helper.ResourceHelper;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
+import com.erebor.tomkins.pos.view.callback.EditStockListener;
 import com.erebor.tomkins.pos.view.scan.VisionScannerActivity;
 import com.erebor.tomkins.pos.view.scan.ZynxScannerActivity;
 import com.erebor.tomkins.pos.viewmodel.receive.ProductReceiveStockViewModel;

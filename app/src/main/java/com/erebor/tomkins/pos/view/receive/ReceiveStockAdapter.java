@@ -14,6 +14,7 @@ import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseAdapter;
 import com.erebor.tomkins.pos.data.local.model.TrxTerimaStockModel;
 import com.erebor.tomkins.pos.databinding.ItemReceiveStockBinding;
+import com.erebor.tomkins.pos.view.callback.EditStockListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
