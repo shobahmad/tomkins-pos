@@ -7,8 +7,8 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         multiDexEnabled true
-        versionCode 7
-        versionName "1.5.1.003"
+        versionCode 8
+        versionName "1.5.2.001"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
