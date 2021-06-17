@@ -54,6 +54,12 @@ public class TrxJualDetDBModel implements BaseDatabaseModel {
     private String noBarcode;
 
     @NonNull
+    @ColumnInfo(name = "Grade", defaultValue = "A")
+    @SerializedName("Grade")
+    @Expose
+    private String grade;
+
+    @NonNull
     @ColumnInfo(name = "Ukuran")
     @SerializedName("Ukuran")
     @Expose
@@ -126,6 +132,16 @@ public class TrxJualDetDBModel implements BaseDatabaseModel {
     public void setNoBarcode(@NonNull String noBarcode) {
         this.noBarcode = noBarcode;
     }
+
+    @NonNull
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(@NonNull String grade) {
+        this.grade = grade;
+    }
+
     @NonNull
     public String getUkuran() {
         return ukuran;

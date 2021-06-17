@@ -65,6 +65,7 @@
     <string name="download_worker_art">Articles</string>
     <string name="download_request_id" translatable="false">download_reqiest_id</string>
     <string name="setting_key_auto_download_interval" translatable="false">key_auto_download_interval</string>
+    <string name="setting_key_primary_spg" translatable="false">setting_key_primary_spg</string>
     <string name="last_download">Last Download</string>
     <string name="download_now">Download Now</string>
     <string name="time_elapsed_just_now">Just now</string>

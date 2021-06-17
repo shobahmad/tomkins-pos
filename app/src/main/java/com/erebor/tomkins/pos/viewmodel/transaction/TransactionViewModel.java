@@ -266,6 +266,7 @@ public class TransactionViewModel extends BaseViewModel<TransactionViewState> {
         trxJualDetDBModel.setNoBon(NoBon);
         trxJualDetDBModel.setIndTrx(transactionDetailUiModel.getIndTrx());
         trxJualDetDBModel.setNoBarcode(transactionDetailUiModel.getBarcode());
+        trxJualDetDBModel.setGrade(transactionDetailUiModel.getGrade());
         trxJualDetDBModel.setKodeArt(transactionDetailUiModel.getArtCode());
         trxJualDetDBModel.setUkuran(transactionDetailUiModel.getSize());
         trxJualDetDBModel.setHargaNormal(transactionDetailUiModel.getHargaNormal());

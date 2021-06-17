@@ -24,6 +24,10 @@ public class LoginResponse {
     @Expose
     private String Token;
 
+    @SerializedName("isPrimary")
+    @Expose
+    private boolean isPrimary;
+
     public String getKodeKonter() {
         return KodeKonter;
     }
@@ -62,5 +66,13 @@ public class LoginResponse {
 
     public void setToken(String token) {
         Token = token;
+    }
+
+    public boolean isPrimary() {
+        return isPrimary;
+    }
+
+    public void setPrimary(boolean primary) {
+        isPrimary = primary;
     }
 }

@@ -226,6 +226,21 @@ public class SharedPrefsModule {
                     return 5;
                 }
             }
+
+            @Override
+            public boolean isPrimarySPG() {
+                return getBoolean(getKey(R.string.setting_key_primary_spg), false);
+            }
+
+            @Override
+            public void setPrimarySPG(boolean primarySPG) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                try {
+                    editor.putBoolean(getKey(R.string.setting_key_primary_spg), primarySPG);
+                } catch (Exception ignored) {
+                }
+                editor.apply();
+            }
         };
     }
 }

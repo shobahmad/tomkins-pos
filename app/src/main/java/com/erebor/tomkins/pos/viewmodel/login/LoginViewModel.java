@@ -43,7 +43,12 @@ public class LoginViewModel extends BaseViewModel<LoginViewState> {
     private final StokRealDao stokRealDao;
 
     @Inject
-    public LoginViewModel(Logger logger, SharedPrefs sharedPrefs, TomkinsService service, ResourceHelper resourceHelper, TrxJualDao trxJualDao, TrxJualDetDao trxJualDetDao, EventHargaDao eventHargaDao, EventHargaDetDao eventHargaDetDao, MsArtDao msArtDao, MsBarcodeDao msBarcodeDao, MsBrandDao msBrandDao, MsUkuranDao msUkuranDao, StokRealDao stokRealDao) {
+    public LoginViewModel(Logger logger, SharedPrefs sharedPrefs, TomkinsService service,
+                          ResourceHelper resourceHelper, TrxJualDao trxJualDao,
+                          TrxJualDetDao trxJualDetDao, EventHargaDao eventHargaDao,
+                          EventHargaDetDao eventHargaDetDao, MsArtDao msArtDao,
+                          MsBarcodeDao msBarcodeDao, MsBrandDao msBrandDao, MsUkuranDao msUkuranDao,
+                          StokRealDao stokRealDao) {
         this.logger = logger;
         this.sharedPrefs = sharedPrefs;
         this.service = service;
@@ -78,13 +83,14 @@ public class LoginViewModel extends BaseViewModel<LoginViewState> {
                             sharedPrefs.setKodeSPG(loginResponse.getResult().getKodeSPG());
                             sharedPrefs.setNamaSPG(loginResponse.getResult().getNamaSPG());
                             sharedPrefs.setToken(loginResponse.getResult().getToken());
+                            sharedPrefs.setPrimarySPG(loginResponse.getResult().isPrimary());
 
                             UserUiModel userUiModel = new UserUiModel(
                                     loginResponse.getResult().getKodeSPG(),
                                     loginResponse.getResult().getNamaSPG(),
                                     loginResponse.getResult().getKodeKonter(),
-                                    loginResponse.getResult().getNamaKonter()
-                            );
+                                    loginResponse.getResult().getNamaKonter(),
+                                    loginResponse.getResult().isPrimary());
 
                             LoginViewState.LOGIN_VALID_STATE.setData(userUiModel);
                             postValue(LoginViewState.LOGIN_VALID_STATE);
@@ -172,6 +178,8 @@ public class LoginViewModel extends BaseViewModel<LoginViewState> {
         if (sharedPrefs.getUsername().isEmpty()) {
             throw new Exception(resourceHelper.getResourceString(R.string.invalid_session));
         }
-        return Flowable.just(new UserUiModel(sharedPrefs.getKodeSPG(), sharedPrefs.getNamaSPG(), sharedPrefs.getKodeKonter(), sharedPrefs.getNamaKonter()));
+        return Flowable.just(new UserUiModel(sharedPrefs.getKodeSPG(),
+                sharedPrefs.getNamaSPG(), sharedPrefs.getKodeKonter(),
+                sharedPrefs.getNamaKonter(), sharedPrefs.isPrimarySPG()));
     }
 }

@@ -29,6 +29,9 @@ public interface SharedPrefs {
     String getNamaSPG();
     void setNamaSPG(String NamaSPG);
 
+    boolean isPrimarySPG();
+    void setPrimarySPG(boolean primarySPG);
+
     String getToken();
     void setToken(String token);
 
