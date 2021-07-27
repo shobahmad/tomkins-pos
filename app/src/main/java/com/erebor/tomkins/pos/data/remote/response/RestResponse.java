@@ -1,13 +1,17 @@
 package com.erebor.tomkins.pos.data.remote.response;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Ignore;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class RestResponse<T> {
     public static final String RESULT_SERIALIZED_NAME = "result";
+    public static final String RESULTS_SERIALIZED_NAME = "results";
 
     @NonNull
     @SerializedName("status")
@@ -27,9 +31,19 @@ public class RestResponse<T> {
     @Ignore
     private T result;
 
+    @NonNull
+    @SerializedName(RESULTS_SERIALIZED_NAME)
+    @Expose
+    @Ignore
+    private List<T> results;
+
     public RestResponse(@NonNull ResponseStatusConstant status, @NonNull T result) {
         this.status = status;
         this.result = result;
+    }
+    public RestResponse(@NonNull ResponseStatusConstant status, @NonNull List<T> results) {
+        this.status = status;
+        this.results = results;
     }
 
     public void setStatus(@NonNull ResponseStatusConstant status) {
@@ -45,9 +59,14 @@ public class RestResponse<T> {
         return status;
     }
 
-    @NonNull
+    @Nullable
     public T getResult() {
         return result;
+    }
+
+    @Nullable
+    public List<T> getResults() {
+        return results;
     }
 
     @NonNull

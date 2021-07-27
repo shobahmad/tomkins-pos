@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.work.Data;
 import androidx.work.WorkerParameters;
 
+import com.erebor.tomkins.pos.BuildConfig;
 import com.erebor.tomkins.pos.base.BaseDao;
 import com.erebor.tomkins.pos.base.BaseDatabaseModel;
 import com.erebor.tomkins.pos.base.BaseWorker;
@@ -16,6 +17,8 @@ import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,17 +42,23 @@ public abstract class BaseSyncDownloadWorker<T extends BaseDatabaseModel, D exte
     abstract D getDao();
     abstract SharedPrefs getSharedPrefs();
 
-    List<T> getDataWithLastUpdate(List<T> data, Date lastUpdate) {
+    List<T> getDataWithLastUpdate(List<T> data) throws ParseException {
         List<T> dataModels = new ArrayList<>();
         dataModels.addAll(data);
 
         for (T item : dataModels) {
-            item.setLastUpdate(lastUpdate);
+            if (item.getLastUpdate() == null)
+                item.setLastUpdate(getAplicationStartDate());
         }
         return dataModels;
     }
 
-    List<Long> doInsert(List<T> data) {
+    List<Long> doInsert(List<T> data) throws ParseException {
+        for (T datum : data) {
+            if (datum.getLastUpdate() == null) {
+                datum.setLastUpdate(getAplicationStartDate());
+            }
+        }
         return dao.insertAllReplaceSync(data);
     }
 
@@ -89,9 +98,9 @@ public abstract class BaseSyncDownloadWorker<T extends BaseDatabaseModel, D exte
             throw new Exception("Insert data not match");
     }
 
-    private List<T> download() throws Exception {
+    protected List<T> download() throws Exception {
         DownloadResponse<List<T>> downloadResponse = callApi(getLastItemUpdate());
-        return getDataWithLastUpdate(downloadResponse.getData(), downloadResponse.getLastUpdate());
+        return getDataWithLastUpdate(downloadResponse.getData());
     }
 
     private Data getSuccessOutputData() {
@@ -112,6 +121,12 @@ public abstract class BaseSyncDownloadWorker<T extends BaseDatabaseModel, D exte
                 return Result.failure(data);
             }
             saveToLocalStorage(download());
+            Date lastUpdate = getLastItemUpdate();
+            Date appStartDate = getAplicationStartDate();
+            if (lastUpdate.equals(appStartDate)) {
+                //retry
+                saveToLocalStorage(download());
+            }
         } catch (Exception e) {
             getLogger().error(getLogTag(), e.getMessage(), e);
             Data data = new Data.Builder()
@@ -125,5 +140,10 @@ public abstract class BaseSyncDownloadWorker<T extends BaseDatabaseModel, D exte
 
     private boolean isValidSession() {
         return !getSharedPrefs().getUsername().isEmpty();
+    }
+
+    private Date getAplicationStartDate() throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        return simpleDateFormat.parse(BuildConfig.StartDate);
     }
 }

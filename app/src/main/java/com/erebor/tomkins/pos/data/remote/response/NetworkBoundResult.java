@@ -33,6 +33,27 @@ public abstract class NetworkBoundResult<ResultType> {
             throw new InvalidResponseException("Invalid Response");
         }
     }
+    @NonNull
+    public RestResponse fetchBody() throws InvalidResponseException {
+        Response<RestResponse<ResultType>> response;
+        try {
+            response = callApiAction().execute();
+        } catch (IOException e) {
+            throw new InvalidResponseException(e.getMessage());
+        }
+        RestResponse<ResultType> body = response.body();
+        if (!response.isSuccessful())
+            throw getUnsuccessfulResponse(response.errorBody());
+
+        if (body != null)
+            return body;
+
+        try {
+            throw new EmptyResponseException();
+        } catch (EmptyResponseException e) {
+            throw new InvalidResponseException("Invalid Response");
+        }
+    }
 
     protected abstract Call<RestResponse<ResultType>> callApiAction();
 

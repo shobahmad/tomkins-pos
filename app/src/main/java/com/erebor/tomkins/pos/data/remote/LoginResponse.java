@@ -24,7 +24,7 @@ public class LoginResponse {
     @Expose
     private String Token;
 
-    @SerializedName("isPrimary")
+    @SerializedName("Primary")
     @Expose
     private boolean isPrimary;
 

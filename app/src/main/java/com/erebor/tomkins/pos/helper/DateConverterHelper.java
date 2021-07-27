@@ -17,6 +17,8 @@ public interface DateConverterHelper {
 
     String toDateTimeStringParameter(Date date);
 
+    String toDateTimeMilisStringParameter(Date date);
+
     String toDateStringParameter(Date date);
 
     String toDateTimeDisplayString(Date date);
@@ -27,5 +29,5 @@ public interface DateConverterHelper {
 
     Calendar atEndOfDay(Calendar calendar);
 
-    Date toDateValidApps(String expiredApps) throws ParseException;
+    Date toDateFromConfig(String dateString) throws ParseException;
 }

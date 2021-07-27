@@ -60,7 +60,7 @@ public interface TomkinsService {
     @POST("trx")
     Call<RestResponse<Date>> postTransaction(@Body TrxJualDBModel trxJualDBModel);
 
-    @POST("stockupdate/{counter}")
+    @POST("stokupdate/{counter}")
     Call<RestResponse<Date>> postStock(@Path("counter") String counter, @Body StockRequest stockRequest);
 
     @GET("sync/trxterima/{counter}")

@@ -112,7 +112,7 @@ public class SplashViewModel extends BaseViewModel<SplashViewState> {
         }
         try {
             Date dateNow = Calendar.getInstance().getTime();
-            Date expiredApps = dateConverterHelper.toDateValidApps(BuildConfig.Expired);
+            Date expiredApps = dateConverterHelper.toDateFromConfig(BuildConfig.Expired);
             return dateNow.before(expiredApps);
         } catch (ParseException e) {
             return false;

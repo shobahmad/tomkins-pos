@@ -28,6 +28,7 @@ android {
         it.buildConfigField 'String', 'HOSTNAME', HostName
         it.buildConfigField 'String', 'SALTKEY', SaltKey
         it.buildConfigField 'String', 'Expired', Expired
+        it.buildConfigField 'String', 'StartDate', StartDate
     }
     dataBinding {
         enabled true

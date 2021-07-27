@@ -9,6 +9,7 @@ import androidx.work.WorkerParameters;
 import com.erebor.tomkins.pos.data.local.dao.StokRealDao;
 import com.erebor.tomkins.pos.data.local.model.StokRealDBModel;
 import com.erebor.tomkins.pos.data.remote.DownloadResponse;
+import com.erebor.tomkins.pos.data.remote.response.NetworkBoundResult;
 import com.erebor.tomkins.pos.data.remote.response.RestResponse;
 import com.erebor.tomkins.pos.di.AppComponent;
 import com.erebor.tomkins.pos.helper.DateConverterHelper;
@@ -16,6 +17,8 @@ import com.erebor.tomkins.pos.repository.network.TomkinsService;
 import com.erebor.tomkins.pos.tools.Logger;
 import com.erebor.tomkins.pos.tools.SharedPrefs;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -64,8 +67,39 @@ public class SyncStokRealDownloadWorker extends BaseSyncDownloadWorker<StokRealD
     }
 
     @Override
+    DownloadResponse<List<StokRealDBModel>> callApi(Date lastUpdate) throws Exception {
+        RestResponse restResponse = new NetworkBoundResult<DownloadResponse<List<StokRealDBModel>>>() {
+            @Override
+            protected Call<RestResponse<DownloadResponse<List<StokRealDBModel>>>> callApiAction() {
+                return getDataFromApi(lastUpdate);
+            }
+        }.fetchBody();
+
+
+
+        DownloadResponse<List<StokRealDBModel>> listDownloadResponse = new DownloadResponse<>(null, new ArrayList<>());
+        if (restResponse.getResult() != null) {
+            DownloadResponse<List<StokRealDBModel>> downloadResponse = (DownloadResponse<List<StokRealDBModel>>) restResponse.getResult();
+            listDownloadResponse.getData().addAll(downloadResponse.getData());
+        }
+
+        if (restResponse.getResults() != null) {
+            for (Object result : restResponse.getResults()) {
+                try {
+                    DownloadResponse<List<StokRealDBModel>> downloadResponse = (DownloadResponse<List<StokRealDBModel>>) result;
+                    listDownloadResponse.getData().addAll(downloadResponse.getData());
+                } catch (Exception e) {
+                }
+            }
+        }
+
+        return listDownloadResponse;
+    }
+
+    @Override
     Call<RestResponse<DownloadResponse<List<StokRealDBModel>>>> getDataFromApi(Date lastUpdate) {
-        return tomkinsService.getStokReal(sharedPrefs.getKodeKonter(), dateConverterHelper.toDateTimeStringParameter(lastUpdate));
+        return tomkinsService.getStokReal(sharedPrefs.getKodeKonter(),
+                dateConverterHelper.toDateTimeStringParameter(lastUpdate));
     }
 
     @Override

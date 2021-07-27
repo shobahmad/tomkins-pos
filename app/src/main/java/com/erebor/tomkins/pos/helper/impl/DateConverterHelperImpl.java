@@ -15,6 +15,7 @@ public class DateConverterHelperImpl implements DateConverterHelper {
 
     private static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static final String DATETIME_PARAM_FORMAT = "yyyyMMddHHmm";
+    private static final String DATETIMEMILIS_PARAM_FORMAT = "yyyyMMddHHmmssSSS";
     private static final String DATE_PARAM_FORMAT = "yyyyMMdd";
     private static final String DATE_FORMAT = "dd MMMM yyyy";
     private static final String DATE_SHORT_FORMAT = "dd-MMM";
@@ -54,6 +55,11 @@ public class DateConverterHelperImpl implements DateConverterHelper {
     @Override
     public String toDateTimeStringParameter(Date date) {
         return toStringFormat(date, DATETIME_PARAM_FORMAT);
+    }
+
+    @Override
+    public String toDateTimeMilisStringParameter(Date date) {
+        return toStringFormat(date, DATETIMEMILIS_PARAM_FORMAT);
     }
 
     @Override
@@ -150,8 +156,8 @@ public class DateConverterHelperImpl implements DateConverterHelper {
     }
 
     @Override
-    public Date toDateValidApps(String expiredApps) throws ParseException {
+    public Date toDateFromConfig(String dateString) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        return simpleDateFormat.parse(expiredApps);
+        return simpleDateFormat.parse(dateString);
     }
 }
