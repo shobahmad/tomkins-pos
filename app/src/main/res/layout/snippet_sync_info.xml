@@ -85,7 +85,7 @@
                     android:textColor="@color/warmGrey"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/last_download_time"
+                    android:text="@string/data_master"
                     android:textSize="10sp"
                     android:gravity="right"
                     app:layout_constraintEnd_toEndOf="parent"

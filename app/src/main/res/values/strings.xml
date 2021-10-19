@@ -158,5 +158,6 @@
     <string name="transaction_receive_completed">Receive already completed before</string>
     <string name="grade_a">Grade A</string>
     <string name="grade">Grade</string>
+    <string name="download_latest">Using initialization data</string>
 
 </resources>

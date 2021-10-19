@@ -1,5 +1,6 @@
 package com.erebor.tomkins.pos.viewmodel.sync;
 
+import com.erebor.tomkins.pos.BuildConfig;
 import com.erebor.tomkins.pos.R;
 import com.erebor.tomkins.pos.base.BaseViewModel;
 import com.erebor.tomkins.pos.data.local.dao.DownloadLastUpdateDao;
@@ -9,6 +10,8 @@ import com.erebor.tomkins.pos.helper.DateConverterHelper;
 import com.erebor.tomkins.pos.helper.ResourceHelper;
 import com.erebor.tomkins.pos.tools.Logger;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,17 +51,6 @@ public class DownloadInfoViewModel extends BaseViewModel<DownloadInfoViewState> 
                     logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
                 })
                 .subscribe());
-//                .subscribe(
-//                        downloadLastUpdateModel -> {
-//                            DownloadInfoViewState.SUCCESS_STATE.setData(getDownloadInfo(downloadLastUpdateModel));
-//                            postValue(DownloadInfoViewState.SUCCESS_STATE);
-//                        },
-//                        throwable -> {
-//                            DownloadInfoViewState.ERROR_STATE.setError(throwable);
-//                            postValue(DownloadInfoViewState.ERROR_STATE);
-//                            logger.error(getClass().getSimpleName(), throwable.getMessage(), throwable);
-//                        }
-//                ))
 //        ;
     }
 
@@ -78,6 +70,20 @@ public class DownloadInfoViewModel extends BaseViewModel<DownloadInfoViewState> 
     }
 
     private String getLastUpdate(Date date) {
-        return date == null ? resourceHelper.getResourceString(R.string.download_not_yet) : dateConverterHelper.getDifference(date.getTime());
+        try {
+            if (date == null) {
+                return resourceHelper.getResourceString(R.string.download_not_yet);
+            }
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date startDate = simpleDateFormat.parse(BuildConfig.StartDate);
+            if (date.getTime() == startDate.getTime()) {
+                return resourceHelper.getResourceString(R.string.download_latest);
+            }
+            return dateConverterHelper.getDifference(date.getTime());
+        } catch(ParseException e) {
+            return "-";
+        }
+
     }
 }
