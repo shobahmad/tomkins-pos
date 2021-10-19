@@ -54,6 +54,9 @@ public abstract class BaseSyncDownloadWorker<T extends BaseDatabaseModel, D exte
     }
 
     List<Long> doInsert(List<T> data) throws ParseException {
+        if (data.isEmpty()) {
+            return new ArrayList<>();
+        }
         for (T datum : data) {
             if (datum.getLastUpdate() == null) {
                 datum.setLastUpdate(getAplicationStartDate());
@@ -123,7 +126,7 @@ public abstract class BaseSyncDownloadWorker<T extends BaseDatabaseModel, D exte
             saveToLocalStorage(download());
             Date lastUpdate = getLastItemUpdate();
             Date appStartDate = getAplicationStartDate();
-            if (lastUpdate.equals(appStartDate)) {
+            if (lastUpdate != null && lastUpdate.equals(appStartDate)) {
                 //retry
                 saveToLocalStorage(download());
             }
