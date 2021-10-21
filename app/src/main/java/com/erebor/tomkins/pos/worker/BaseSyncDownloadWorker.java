@@ -42,13 +42,17 @@ public abstract class BaseSyncDownloadWorker<T extends BaseDatabaseModel, D exte
     abstract D getDao();
     abstract SharedPrefs getSharedPrefs();
 
-    List<T> getDataWithLastUpdate(List<T> data) throws ParseException {
+    List<T> getDataWithLastUpdate(List<T> data, Date lastUpdate) throws ParseException {
         List<T> dataModels = new ArrayList<>();
         dataModels.addAll(data);
 
         for (T item : dataModels) {
-            if (item.getLastUpdate() == null)
+            if (item.getLastUpdate() == null && lastUpdate == null) {
                 item.setLastUpdate(getAplicationStartDate());
+            }
+            if (item.getLastUpdate() == null && lastUpdate != null) {
+                item.setLastUpdate(lastUpdate);
+            }
         }
         return dataModels;
     }
@@ -102,8 +106,9 @@ public abstract class BaseSyncDownloadWorker<T extends BaseDatabaseModel, D exte
     }
 
     protected List<T> download() throws Exception {
-        DownloadResponse<List<T>> downloadResponse = callApi(getLastItemUpdate());
-        return getDataWithLastUpdate(downloadResponse.getData());
+        Date lastItemUpdate = getLastItemUpdate();
+        DownloadResponse<List<T>> downloadResponse = callApi(lastItemUpdate);
+        return getDataWithLastUpdate(downloadResponse.getData(), lastItemUpdate == null ? getAplicationStartDate() : downloadResponse.getLastUpdate());
     }
 
     private Data getSuccessOutputData() {

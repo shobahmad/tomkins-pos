@@ -85,7 +85,7 @@
                     android:textColor="@color/warmGrey"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/data_master"
+                    android:text="@{subtitle == null ? @string/data_master : subtitle}"
                     android:textSize="10sp"
                     android:gravity="right"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -125,5 +125,8 @@
         <variable
             name="arrowClick"
             type="android.view.View.OnClickListener" />
+        <variable
+            name="subtitle"
+            type="String" />
     </data>
 </layout>

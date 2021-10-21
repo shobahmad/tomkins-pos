@@ -108,6 +108,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:download="@{download}"
+            app:subtitle="@string/last_sync_time"
             app:layout_constraintBottom_toTopOf="@id/button_scan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

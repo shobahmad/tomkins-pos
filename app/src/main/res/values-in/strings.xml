@@ -134,4 +134,5 @@
     <string name="grade_a">Grade A</string>
     <string name="grade">Grade</string>
     <string name="download_latest">Menggunakan data inisialisasi</string>
+    <string name="last_sync_time">Sinkronisasi terakhir</string>
 </resources>

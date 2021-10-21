@@ -88,6 +88,7 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding> {
 
         binding.layoutDownloadInfo.setArrowClick(v -> dataSyncViewModel.observeChanged());
         binding.layoutDownloadInfo.setContainerClick(v -> dataSyncViewModel.observeChanged());
+        binding.layoutDownloadInfo.setSubtitle(getString(R.string.last_sync_time));
     }
 
     private void startReportMenu() {
